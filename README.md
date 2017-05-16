@@ -1,2 +1,2 @@
 # usv_sim
-water surface vehicles simulator; no functionality yet.
+water surface vehicles simulator; in the making...
