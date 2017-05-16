@@ -1,0 +1,8 @@
+prefix=/home/lsa/ocean2/devel_isolated/uwsim
+
+Name: uwsim
+Description: Description of uwsim
+Version: 1.4.1
+Cflags: -I/home/lsa/ocean2/src/underwater_simulation/uwsim/include
+Libs: -L/home/lsa/ocean2/devel_isolated/uwsim/lib -luwsim
+Requires: geometry_msgs image_transport interactive_markers kdl_parser nav_msgs pcl_ros pluginlib resource_retriever robot_state_publisher roscpp sensor_msgs tf underwater_sensor_msgs urdf

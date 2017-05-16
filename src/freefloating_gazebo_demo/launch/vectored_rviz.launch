@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+<group ns="vectored_auv">
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="rviz_bridge" pkg="freefloating_gazebo_demo" type="rviz_bridge.py" output="screen" respawn="true"/>
+    <node name="rviz" pkg="rviz" type="rviz"  args="-d $(find freefloating_gazebo_demo)/config/vectored.rviz" />
+</group>
+
+
+
+</launch>

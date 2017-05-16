@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<robot name="girona500">
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="-1.57 0 3.14" xyz="-0.2 0 0.75"/>
+      <geometry>
+        <mesh filename="robot/GIRONA500/g500_March11.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="part0">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part0.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="baselink_to_part0" type="fixed">
+    <parent link="base_link"/>
+    <child link="part0"/>
+    <origin rpy="3.14 0 3.14" xyz="0 0 0.95"/>
+  </joint>
+
+ <link name="part1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part1.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part0_to_part1" type="continuous">
+    <parent link="part0"/>
+    <child link="part1"/>
+    <axis xyz="0 0 -1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+ <link name="part2">
+    <visual>
+      <origin rpy="0 -0.209 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part2.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part1_to_part2" type="continuous">
+    <parent link="part1"/>
+    <child link="part2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0.209 0" xyz="0.077 0 -0.130"/>
+  </joint>
+
+ <link name="part3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part3.stl"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part2_to_part3" type="continuous">
+    <parent link="part2"/>
+    <child link="part3"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy=" 0 0.262 0 " xyz="0.44278 0 0"/>
+  </joint>
+
+  <link name="part4_base">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part4_base.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part3_to_part4_base" type="continuous">
+    <parent link="part3"/>
+    <child link="part4_base"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0.320 0 0.077 "/>
+  </joint>
+
+
+  <link name="part4_jaw1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part4_jaw1.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part4_to_part4_jaw1" type="continuous">
+    <parent link="part4_base"/>
+    <child link="part4_jaw1"/>
+    <axis xyz="0 -1 0"/>
+    <origin rpy="0 0 0" xyz="0.07 0 0.04"/>
+  </joint>
+
+
+  <link name="part4_jaw2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/ARM5E/ARM5E_part4_jaw2.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part4_to_part4_jaw2" type="continuous">
+    <parent link="part4_base"/>
+    <child link="part4_jaw2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.07 0 -0.04"/>
+    <mimic joint="part4_to_part4_jaw1" multiplier="1" offset="0"/>
+  </joint>
+
+</robot>

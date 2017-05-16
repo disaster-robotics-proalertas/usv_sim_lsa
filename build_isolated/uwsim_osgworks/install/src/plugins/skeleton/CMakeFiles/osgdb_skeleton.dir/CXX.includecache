@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lsa/ocean2/src/uwsim_osgworks/include/osgwTools/Export.h
+
+/home/lsa/ocean2/src/uwsim_osgworks/include/osgwTools/RemoveData.h
+osgwTools/Export.h
+/home/lsa/ocean2/src/uwsim_osgworks/include/osgwTools/osgwTools/Export.h
+osg/NodeVisitor
+-
+vector
+-
+string
+-
+
+/home/lsa/ocean2/src/uwsim_osgworks/src/plugins/skeleton/ReaderWriterSkeleton.cpp
+ReaderWriterSkeleton.h
+/home/lsa/ocean2/src/uwsim_osgworks/src/plugins/skeleton/ReaderWriterSkeleton.h
+osgwTools/RemoveData.h
+/home/lsa/ocean2/src/uwsim_osgworks/src/plugins/skeleton/osgwTools/RemoveData.h
+osgDB/Registry
+-
+osgDB/ReaderWriter
+-
+osgDB/FileUtils
+-
+osgDB/FileNameUtils
+-
+string
+-
+
+/home/lsa/ocean2/src/uwsim_osgworks/src/plugins/skeleton/ReaderWriterSkeleton.h
+osgDB/ReaderWriter
+-
+osgDB/FileUtils
+-
+osgDB/FileNameUtils
+-
+

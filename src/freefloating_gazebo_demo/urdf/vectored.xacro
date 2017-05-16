@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
+
+<robot name="vectored_auv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    
+    <!-- Body properties -->
+    <xacro:property name="body_mass" value="25"/>
+    <xacro:property name="body_radius" value="0.13"/>
+    <xacro:property name="body_length" value="1.5" />
+    <xacro:property name="X_cog" value="${-0.5*body_radius}" />
+    
+    <!-- thrusters -->
+    <xacro:property name="tr1" value=".02" />
+    <xacro:property name="tl1" value=".1" />
+    <xacro:property name="tr2" value=".05" />
+    <xacro:property name="tl2" value=".03" />
+    
+    <xacro:property name="eps" value="0.00000001"/>
+    
+    <!-- Thruster link -->
+    <xacro:macro name="thruster_link" params="name xyz rpy">
+        
+        <joint name="${name}" type="revolute">
+            <parent link="base_link"/>
+            <child link="${name}"/>
+            <origin rpy="${rpy}" xyz="${xyz}"/>
+            <dynamics damping="10.0"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="30" velocity="5.0" lower="-${PI/2}" upper="${PI/2}" />
+        </joint>
+        
+        <link name="${name}">      
+            <buoyancy><compensation>1.0</compensation></buoyancy>
+            <visual name="${name}_1">
+                <geometry>
+                    <cylinder length="${tl1}" radius="${tr1}"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="0 0 0 1"/>
+                </material>
+            </visual>  
+            <visual name="${name}_2">
+                <origin xyz="0 0 ${(tl1+tl2)/2}"/>
+                <geometry>
+                    <cylinder length="${tl2}" radius="${tr2}"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="0 0 0 1"/>
+                </material>
+                
+            </visual>  
+            <inertial>
+                <mass value=".1"/>
+                <inertia
+                    ixx=".1"
+                    ixy="0.0"
+                    ixz="0.0"
+                    iyy=".1"
+                    iyz="0.0"
+                    izz=".1"/>
+                </inertial>  
+            </link>                 
+            
+            <gazebo reference="${name}">
+                <material>Gazebo/Black</material>
+            </gazebo>
+        </xacro:macro>                   
+        
+        <!-- Plugin list -->
+        <gazebo>
+            <!-- Gazebo plugin listens to the body-->
+            <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+                <switchService>switch</switchService>
+                <updateRate>100</updateRate>
+                <link>base_link</link>
+
+                <!--    these two thrusters are actually orientable, so the map should not be hard-coded 
+                        the thruster name is the name of the corresponding link --> 
+                <thruster>
+                    <effort>30</effort>
+                    <name>fwd_left</name>
+                </thruster>
+                <thruster>
+                    <effort>30</effort>
+                    <name>fwd_right</name>
+                </thruster>
+                
+                <!-- these thrusters are fixed and the map can be hard-coded 
+                     they will be given a name (thr2 to thr4)  --> 
+                <thruster>
+                    <map>0 1 0 0 0 0</map>
+                    <effort>30</effort>
+                </thruster>
+                <thruster>
+                    <map>0 0 -1 0 ${-0.3*body_length} 0</map>
+                    <effort>30</effort>
+                </thruster>
+                <thruster>
+                    <map>0 0 -1 0 ${0.3*body_length} 0</map>
+                    <effort>30</effort>
+                </thruster>       
+            </plugin>
+        </gazebo>        
+        
+        <link name="base_link">
+            <visual>
+                <origin rpy="0 ${-PI/2} 0"/>
+                <geometry>
+                    <cylinder length="${body_length}" radius="${body_radius}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="0 0 ${X_cog}" rpy="0 ${-PI/2} 0"/>
+                <mass value="${body_mass}"/>
+                <inertia
+                    ixx="${body_mass*(body_radius*body_radius/4+body_length*body_length/12)}"
+                    ixy="0.0"
+                    ixz="0.0"
+                    iyy="${body_mass*(body_radius*body_radius/4+body_length*body_length/12)}"
+                    iyz="0.0"
+                    izz="${body_mass*body_radius*body_radius/2}"/>
+                </inertial>  
+                
+                <buoyancy>
+                    <compensation>1.01</compensation>
+                    <origin xyz= "0 0 0"/>
+                    <limit radius="${body_radius}"/>
+                    <damping xyz="40 100 100" rpy="20 50 50"/>
+                </buoyancy>               
+            </link>
+            
+    <!-- Define two steering thrusters, with assumed force control in Z-direction -->
+    <xacro:thruster_link name="fwd_left" xyz="${-body_length/3} ${body_radius+tr2} 0" rpy="0 ${-PI/2} 0"/>
+    <xacro:thruster_link name="fwd_right" xyz="${-body_length/3} -${body_radius+tr2} 0" rpy="0 ${-PI/2} 0"/>         
+    
+    <xacro:macro name="thruster_dummy_link" params="name xyz rpy">        
+        <joint name="${name}" type="fixed">
+            <parent link="base_link"/>
+            <child link="${name}"/>
+            <origin rpy="${rpy}" xyz="${xyz}"/>
+        </joint>
+        <link name="${name}"/>
+    </xacro:macro>  
+        
+    <!-- Dummy links to display wrench in Rviz, autogenerated -->
+    <xacro:thruster_dummy_link name="thr2" xyz="0.0 0.0 0.0" rpy="1.57079632679 -0.0 0.0"/>
+    <xacro:thruster_dummy_link name="thr3" xyz="-0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    <xacro:thruster_dummy_link name="thr4" xyz="0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+            
+        </robot>

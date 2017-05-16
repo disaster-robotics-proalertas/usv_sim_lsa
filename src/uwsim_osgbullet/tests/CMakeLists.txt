@@ -1,0 +1,11 @@
+SET( CATEGORY Test )
+
+ADD_SUBDIRECTORY( callback )
+ADD_SUBDIRECTORY( com )
+ADD_SUBDIRECTORY( compound )
+# ADD_SUBDIRECTORY( cylinder )
+ADD_SUBDIRECTORY( handsimple )
+ADD_SUBDIRECTORY( robot )
+ADD_SUBDIRECTORY( scale )
+ADD_SUBDIRECTORY( testconstraints )
+ADD_SUBDIRECTORY( triplebuf )

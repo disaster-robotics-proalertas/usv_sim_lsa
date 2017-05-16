@@ -1,0 +1,13 @@
+# - Config file for the osgBullet package
+# It defines the following variables
+#  OSGBULLET_INCLUDE_DIRS - include directories for osgBullet
+#  OSGBULLET_LIBRARIES    - libraries to link against
+#  OSGBULLET_EXECUTABLE   - the bar executable
+
+@PACKAGE_INIT@
+
+set(OSGBULLET_PREFIX "@CMAKE_INSTALL_PREFIX@")
+
+set(OSGBULLET_LIBRARIES "${OSGBULLET_PREFIX}/lib/libosgbCollision.so;${OSGBULLET_PREFIX}/lib/libosgbDynamics.so;${OSGBULLET_PREFIX}/lib/libosgbInteraction.so" )
+
+set_and_check(OSGBULLET_INCLUDE_DIR "${OSGBULLET_PREFIX}/include/@CMAKE_PROJECT_NAME@")

@@ -1,0 +1,4 @@
+visualization_msgs/Marker marker	# Marker to spawn/modify/delete
+---
+bool success				# Returns True if the request was successfull
+string status_message			# Comments on the request

@@ -1,0 +1,13 @@
+<launch>
+	<include file="$(find underwater_vehicle_dynamics)/launch/dynamics.launch">
+	   <arg name="namespace" value="g500" />
+	   <arg name="params" value="$(find underwater_vehicle_dynamics)/config/dynamics_g500.yaml" />
+	</include>
+	<rosparam param="/g500/dynamics/external_force_topic">g500/ForceSensor</rosparam>
+
+	<arg name="scene" default="cirs.xml" />
+	<node name="uwsim" pkg="uwsim" type="uwsim" args="--configfile $(arg scene)" output="screen" respawn="false" />
+	<arg name="thrusters_topic" default="/g500/thrusters_input" />
+	<node name="keyboard_command" pkg="underwater_vehicle_dynamics" type="keyboard.py" args="$(arg thrusters_topic)" output="screen" respawn="false"/>
+</launch>
+

@@ -1,0 +1,155 @@
+<!ELEMENT UWSimScene (oceanState?,simParams?,camera?,vehicle*,object*,rosInterfaces?)>
+
+<!-- elementos oceanScene -->
+<!ELEMENT oceanState (windx?,windy?,windSpeed?,depth?,reflectionDamping?,waveScale?,isNotChoppy?,choppyFactor?,crestFoamHeight?,oceanSurfaceHeight?,fog?,color?,attenuation?)>
+<!ELEMENT simParams (disableShaders?,resw?,resh?,offsetp?,offsetr?,enablePhysics?,gravity?,physicsWater?)>
+<!ELEMENT vehicle (name,file,jointValues?,position?,orientation?,virtualCamera*, rangeSensor*, objectPicker*, imu*, pressureSensor*, gpsSensor*, dvlSensor*, virtualRangeImage*,multibeamSensor*)>
+<!ELEMENT virtualCamera (name,relativeTo,resw?,resh?,position?,orientation?,baseline?,frameId?, parameters?, showpath?)>
+<!ELEMENT virtualRangeImage (name,relativeTo,resw?,resh?,position?,orientation?,parameters?)>
+<!ELEMENT rangeSensor (name,relativeTo,range,visible?,position?,orientation?)>
+<!ELEMENT objectPicker (name,relativeTo,range,position?,orientation?)>
+<!ELEMENT imu (name,relativeTo,position?,orientation?, std?)>
+<!ELEMENT pressureSensor (name,relativeTo,position?,orientation?, std?)>
+<!ELEMENT gpsSensor (name,relativeTo,position?,orientation?, std?)>
+<!ELEMENT dvlSensor (name,relativeTo,position?,orientation?, std?)>
+<!ELEMENT multibeamSensor (name,relativeTo,position?,orientation?, initAngle,finalAngle, angleIncr,range)>
+<!ELEMENT camera (freeMotion?,objectToTrack?,fov?,aspectRatio?,near?,far?,position?,lookAt?) >
+<!ELEMENT object (name,file,position,orientation,offsetp?,offsetr?,physics?)>
+<!ELEMENT rosInterfaces ((ROSOdomToPAT*)?, (PATToROSOdom*)?, (ArmToROSJointState*)?, (ROSJointStateToArm*)?, (VirtualCameraToROSImage*)?, (ROSImageToHUD*)?,(ROSTwistToPAT*)?, (RangeSensorToROSRange*)?, (ROSPoseToPAT*)?, (ImuToROSImu*)?, (PressureSensorToROS*)?, (GPSSensorToROS*)?, (DVLSensorToROS*)?, (RangeImageSensorToROSImage*)?,(multibeamSensorToLaserScan*)?)>
+
+<!-- elementos comunes -->
+<!ELEMENT position (x,y,z)>
+<!ELEMENT orientation (r,p,y)>
+<!ELEMENT offsetp (x,y,z)>
+<!ELEMENT offsetr (x,y,z)>
+<!ELEMENT lookAt (x,y,z)>
+<!ELEMENT color (r,g,b)>
+
+<!ELEMENT x (#PCDATA)>
+<!ELEMENT y (#PCDATA)>
+<!ELEMENT z (#PCDATA)>
+<!ELEMENT r (#PCDATA)>
+<!ELEMENT g (#PCDATA)>
+<!ELEMENT b (#PCDATA)>
+<!ELEMENT p (#PCDATA)>
+<!ELEMENT std (#PCDATA)>
+
+
+<!-- elementos oceanState -->
+<!ELEMENT windx (#PCDATA)>
+<!ELEMENT windy (#PCDATA)>
+<!ELEMENT windSpeed (#PCDATA)>
+<!ELEMENT depth (#PCDATA)>
+<!ELEMENT reflectionDamping (#PCDATA)>
+<!ELEMENT waveScale (#PCDATA)>
+<!ELEMENT isNotChoppy (#PCDATA)>
+<!ELEMENT choppyFactor (#PCDATA)>
+<!ELEMENT crestFoamHeight (#PCDATA)>
+<!ELEMENT oceanSurfaceHeight (#PCDATA)>
+<!ELEMENT fog (density,color)>
+<!ELEMENT attenuation (r,g,b)>
+
+<!ELEMENT density (#PCDATA)>
+
+<!-- elementos simParams -->
+<!ELEMENT disableShaders (#PCDATA)>
+<!ELEMENT eye_in_hand (#PCDATA)>
+<!ELEMENT resw (#PCDATA)>
+<!ELEMENT resh (#PCDATA)>
+<!ELEMENT enablePhysics (#PCDATA)>
+<!ELEMENT gravity (x,y,z)>
+<!ELEMENT physicsWater (size,position,resolution)>
+<!ELEMENT size (minX,maxX,minY,maxY,minZ,maxZ)>
+<!ELEMENT resolution (#PCDATA)>
+<!ELEMENT minX (#PCDATA)>
+<!ELEMENT maxX (#PCDATA)>
+<!ELEMENT minY (#PCDATA)>
+<!ELEMENT maxY (#PCDATA)>
+<!ELEMENT minZ (#PCDATA)>
+<!ELEMENT maxZ (#PCDATA)>
+
+<!--elementos camera -->
+<!ELEMENT freeMotion (#PCDATA)>
+<!ELEMENT fov (#PCDATA)>
+<!ELEMENT aspectRatio (#PCDATA)>
+<!ELEMENT near (#PCDATA)>
+<!ELEMENT far (#PCDATA)>
+
+<!ELEMENT objectToTrack (#PCDATA)>
+
+<!-- elementos virtualCamera -->
+<!ELEMENT relativeTo (#PCDATA)>
+<!ELEMENT parameters (fx,fy,x0,y0,f,n,k)>
+
+<!ELEMENT fx (#PCDATA)>
+<!ELEMENT fy (#PCDATA)>
+<!ELEMENT x0 (#PCDATA)>
+<!ELEMENT y0 (#PCDATA)>
+<!ELEMENT f (#PCDATA)>
+<!ELEMENT n (#PCDATA)>
+<!ELEMENT k (#PCDATA)>
+<!ELEMENT baseline (#PCDATA)>
+<!ELEMENT frameId (#PCDATA)>
+<!ELEMENT showpath (#PCDATA)>
+
+<!--elementos rangeSensor -->
+<!ELEMENT range (#PCDATA)>
+<!ELEMENT visible (#PCDATA)>
+
+<!--elementos multibeamSensor -->
+<!ELEMENT initAngle (#PCDATA)>
+<!ELEMENT finalAngle (#PCDATA)>
+<!ELEMENT angleIncr (#PCDATA)>
+
+<!-- elementos vehicle -->
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT file (#PCDATA)>
+<!ELEMENT jointValues (joint+)>
+
+<!ELEMENT joint (#PCDATA)>
+
+<!-- elementos rosinterfaces -->
+<!ELEMENT ROSOdomToPAT (topic,vehicleName, visualize?)>
+<!ELEMENT PATToROSOdom  (topic, vehicleName, rate?)>
+<!ELEMENT ArmToROSJointState  (topic, vehicleName, rate?)>
+<!ELEMENT ROSJointStateToArm  (topic,vehicleName)>
+<!ELEMENT VirtualCameraToROSImage (cameraName,imageTopic,infoTopic,rate?,depth?)>
+<!ELEMENT RangeImageSensorToROSImage (cameraName,imageTopic,infoTopic,rate?)>
+<!ELEMENT RangeSensorToROSRange (name,topic,rate?)>
+<!ELEMENT ROSImageToHUD (width,height,posx?,posy?,scale?,blackWhite?,imageTopic,infoTopic?)>
+<!ELEMENT ROSTwistToPAT (topic,vehicleName)>
+<!ELEMENT ROSPoseToPAT (topic,vehicleName)>
+<!ELEMENT ImuToROSImu (name, topic, rate?)>
+<!ELEMENT PressureSensorToROS (name, topic, rate?)>
+<!ELEMENT GPSSensorToROS (name, topic, rate?)>
+<!ELEMENT DVLSensorToROS (name, topic, rate?)>
+<!ELEMENT multibeamSensorToLaserScan (name, topic, rate?)>
+
+<!ELEMENT width (#PCDATA)>
+<!ELEMENT height (#PCDATA)>
+<!ELEMENT posx (#PCDATA)>
+<!ELEMENT posy (#PCDATA)>
+<!ELEMENT blackWhite (#PCDATA)>
+<!ELEMENT scale (#PCDATA)>
+<!ELEMENT topic (#PCDATA)>
+<!ELEMENT vehicleName (#PCDATA)>
+<!ELEMENT rate (#PCDATA)>
+<!ELEMENT cameraName (#PCDATA)>
+<!ELEMENT imageTopic (#PCDATA)>
+<!ELEMENT infoTopic (#PCDATA)>
+<!ELEMENT visualize (#PCDATA)>
+
+<!-- elementos vcamtoROSImage -->
+<!ELEMENT cam (#PCDATA)>
+<!ELEMENT info (#PCDATA)>
+
+<!-- elementos physics -->
+<!ELEMENT physics (mass?,inertia?,collisionShapeType?,linearDamping?,angularDamping?,linearFactor?,angularFactor?,isKinematic?)>
+<!ELEMENT mass (#PCDATA)>
+<!ELEMENT inertia (x,y,z)>
+<!ELEMENT collisionShapeType (#PCDATA)>
+<!ELEMENT linearDamping (#PCDATA)>
+<!ELEMENT angularDamping (#PCDATA)>
+<!ELEMENT linearFactor (x,y,z)>
+<!ELEMENT angularFactor (x,y,z)>
+<!ELEMENT isKinematic (#PCDATA)>

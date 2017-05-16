@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC   -shared -Wl,-soname,libosg_utils.so -o /home/lsa/ocean2/devel_isolated/osg_utils/lib/libosg_utils.so CMakeFiles/osg_utils.dir/src/osg_utils.cpp.o CMakeFiles/osg_utils.dir/src/frame_manager.cpp.o 

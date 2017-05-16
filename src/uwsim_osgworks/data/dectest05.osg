@@ -1,0 +1,59 @@
+Group {
+  name "DECTEST05.OSG"
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  num_children 1
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      StateSet {
+        rendering_hint DEFAULT_BIN
+        renderBinMode INHERIT
+        Material {
+          ColorMode OFF
+          ambientColor 1 1 1 1
+          diffuseColor 1 1 1 1
+          specularColor 1 1 1 1
+          emissionColor 0 0 0 1
+          shininess 24
+        }
+      }
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawArrays TRIANGLE_FAN 0 8
+      }
+      VertexArray Vec3Array 8
+      {
+        0 0 3
+        0 0 0
+        1 0 0
+        1 0 1
+        1 0 2
+        1 0 3
+        1 0 4
+        1 0 5
+      }
+      NormalBinding PER_VERTEX
+      NormalArray Vec3Array 8
+      {
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+}

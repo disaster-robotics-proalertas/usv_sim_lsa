@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="parse" default="false"/>
+  <arg name="shaders" default="true"/>
+  <!-- virtual arg for uwsim shaders -->
+  <arg name="disableShaders" default="" if="$(arg shaders)"/>  
+  <arg name="disableShaders" default="--disableShaders" unless="$(arg shaders)"/> 
+  
+  <group if="$(arg parse)">
+      <!-- Parse this launchfile to:
+            - get uwsim scene file and create gazebo spawner launch file
+            - create uwsim urdf from gazebo xacro
+            - create gazebo urdf from uwsim objects (terrain)
+     -->
+    <node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find freefloating_gazebo_demo)/launch/g500arm5e.launch" output="screen"/>
+  </group>
+
+  <group unless="$(arg parse)">
+    <!-- launch uwsim -->
+    <node name="uwsim" pkg="uwsim" type="uwsim" 
+        args="$(arg disableShaders) --dataPath $(find freefloating_gazebo_demo) --configfile scenes/g500arm5e_bbox.xml" respawn="true"/>
+    
+    
+    <!-- launch gazebo without gui -->
+    <include file="$(find freefloating_gazebo_demo)/launch/g500arm5e_gazebo.launch"/>    
+    
+  </group>
+     
+</launch>
+

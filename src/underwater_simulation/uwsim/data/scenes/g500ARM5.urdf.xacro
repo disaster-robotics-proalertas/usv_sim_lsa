@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="girona500" >
+	
+  <xacro:property name="pi" value="3.141592654" />
+  <xacro:property name="robot_parts_path" value="robot/ARM5E/ARM5E" />  
+  <xacro:property name="ext" value="osg" />
+  
+  <xacro:property name="theta1" value="0.139277274" />
+  <xacro:property name="theta2" value="1.972222055" />
+  
+  <xacro:property name="cosTheta1" value="0.990316589" />  
+  <xacro:property name="sinTheta1" value="0.138827424" />
+  
+  <xacro:property name="cos180minusTheta2" value="0.390731128" />  
+  <xacro:property name="sin180minusTheta2" value="0.920504853" />
+  
+  
+
+
+  <link name="base_link">
+    <inertial>
+      <mass value="95" />
+      <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+    </inertial>
+    <visual>
+      <origin rpy="-${pi/2} 0 ${pi}" xyz="-0.2 0 0.75"/>
+      <geometry>
+        <mesh filename="robot/GIRONA500/g500_March11.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="part0">
+    <visual>
+      <origin rpy="${pi} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="${robot_parts_path}_part0.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="baselink_to_part0" type="fixed">
+    <parent link="base_link"/>
+    <child link="part0"/>
+    <origin rpy="0 0 ${pi}" xyz="0 0 0.95"/>
+  </joint>
+  
+  <link name="kinematic_base"> <!-- kinematic base of the robot -->
+  </link>
+  
+  <joint name="part0_to_kinematic_base" type="fixed">
+    <parent link="part0"/>
+    <child link="kinematic_base"/>
+    <origin rpy="0 0 0" xyz="0 0 0.13"/>
+  </joint>
+
+ <link name="part1">
+    <visual>
+      <origin rpy="${pi} 0 0" xyz="0.0 0 -0.13"/>
+      <geometry>
+        <mesh filename="${robot_parts_path}_part1.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="Slew" type="continuous">
+    <parent link="kinematic_base"/>
+    <child link="part1"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/> <!-- La distancia base_link - base cinematica es 1.08. -->    
+    <limit effort="1000.0" lower="-${pi/2}" upper="0.5488" velocity="1.0"/>
+  </joint>
+
+ <link name="part2">
+    <visual>
+      <origin rpy="${pi/2} 0 -${0.22654-theta1}" xyz="0 0 0"/> <!-- rpy="1.57 -0.209 0" xyz="0 0 0" -->
+      <geometry>
+        <mesh filename="${robot_parts_path}_part2.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="Shoulder" type="continuous">
+    <parent link="part1"/>
+    <child link="part2"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="${pi/2} 0 0" xyz="0.08052 0 0"/>
+    <limit effort="1000.0" lower="0" upper="1.58665" velocity="1.0"/>    
+  </joint>
+
+ <link name="part3">
+    <visual>
+      <origin rpy="${pi/2} 0 0.4014" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="${robot_parts_path}_part3.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="Elbow" type="continuous">
+    <parent link="part2"/>
+    <child link="part3"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 ${theta1}" xyz="${cosTheta1*0.44278} ${sinTheta1*0.44278} 0"/>    
+    <limit effort="1000.0" lower="0" upper="2.15294" velocity="1.0"/>
+  </joint>
+
+  <link name="part4_base">
+    <visual>
+      <origin xyz="0 0 -0.028" rpy="0 -${pi/2} 0" /><!-- TEMPORAL: para compensar la pieza que falta -->
+      <geometry>
+        <mesh filename="${robot_parts_path}_part4_base.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="JawRotate" type="continuous">
+    <parent link="part3"/>
+    <child link="part4_base"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="${pi/2} 0 ${theta2}" xyz="${0.083/cos180minusTheta2+sin180minusTheta2*0.1485} ${cos180minusTheta2*0.1485} 0"/>
+  </joint>
+
+  <link name="end_effector"> <!-- From the kinematic base of the robot -->
+  </link>
+  
+  <joint name="part4_base_to_end_effector" type="fixed">
+    <parent link="part4_base"/>
+    <child link="end_effector"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1485"/>
+  </joint>
+
+
+
+  <link name="part4_jaw1">
+    <visual>
+      <origin rpy="0 -${pi/2} 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="${robot_parts_path}_part4_jaw1.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="JawOpening" type="continuous">
+    <parent link="part4_base"/>
+    <child link="part4_jaw1"/>
+    <axis xyz="0 -1 0"/>
+    <origin rpy="0 0 0" xyz="-0.04 0 0.045"/><!-- x era 0.07-->
+    <limit effort="1000.0" lower="-0.05816" upper="1.337696" velocity="1.0"/> 
+  </joint>
+
+
+  <link name="part4_jaw2">
+    <visual>
+      <origin rpy="0 -${pi/2} 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="${robot_parts_path}_part4_jaw2.${ext}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="part4_to_link4_jaw2" type="continuous">
+    <parent link="part4_base"/>
+    <child link="part4_jaw2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.04 0 0.0450"/><!-- x era 0.07-->
+    <mimic joint="JawOpening" multiplier="1" offset="0"/>
+  </joint>
+
+</robot>

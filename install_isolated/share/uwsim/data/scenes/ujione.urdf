@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot name="girona500">
+
+  
+  <link name="ujione_base">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/UJIOne/ujione_base.osg"/>
+      </geometry>
+    </visual>
+  </link>
+
+
+  <link name="ujione_jaw_inner">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/UJIOne/ujione_jaw_inner.osg"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="base_to_jaw_inner" type="continuous">
+    <parent link="ujione_base"/>
+    <child link="ujione_jaw_inner"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="-0.03 0 0.197"/>
+  </joint>
+
+
+  <link name="ujione_jaw_outer">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="robot/UJIOne/ujione_jaw_outer.osg"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="base_to_jaw_outer" type="continuous">
+    <parent link="ujione_base"/>
+    <child link="ujione_jaw_outer"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.03 0 0.197"/>
+    <mimic joint="base_to_jaw_inner" multiplier="-1" offset="0"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> 1.0 </windx>
+    <windy> 1.0 </windy>
+    <windSpeed> 12 </windSpeed>
+    <depth> 10000 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <waveScale> 1e-8 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> -2.5 </choppyFactor>
+    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 0 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+        <r>0.017</r>
+        <g>0.027</g>
+        <b>0.079</b>
+      </color>
+    </fog>
+    <color>
+        <r>0.017</r>
+        <g>0.027</g>
+        <b>0.079</b>
+    </color>
+    <attenuation>
+      <r>0.015</r>
+      <g>0.0075 </g>
+      <b> 0.005 </b>
+    </attenuation>
+  </oceanState>
+  
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 800 </resw>
+    <resh> 600 </resh>
+  </simParams>
+
+  <camera>
+    <freeMotion> 1 </freeMotion>
+    <objectToTrack>g500/base_link</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 1 </near>
+    <far> 10000 </far>
+    <position>
+      <x>-5</x>
+      <y>4 </y>
+      <z>-7 </z>
+    </position> 
+    <lookAt>
+      <x>5</x>
+      <y>7 </y>
+      <z>-10 </z>
+    </lookAt>
+  </camera>
+
+  <vehicle>
+    <name>g500arm5e</name>
+    <file>urdf/g500arm5e_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0.7 </joint>
+      <joint> 1.57 </joint>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 3</x>
+      <y> 6.5 </y>
+      <z> -10 </z>
+    </position>
+    <orientation>
+      <r>3.1415</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  <virtualCamera>
+      <name>eye_in_hand</name>
+    <relativeTo>base_link</relativeTo>
+    <resw> 160 </resw>
+    <resh> 120 </resh>
+    <position>
+      <x>-0.5</x>
+      <y> 1 </y>
+      <z> -0.2 </z>
+    </position>  
+  </virtualCamera>
+  </vehicle>
+
+  <vehicle>
+    <name>blackbox</name>
+    <file>urdf/bbox_uwsim.urdf</file>
+    <position>
+      <x> 5</x>
+      <y> 7 </y>
+      <z> -13.25 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <object>
+    <name>terrain</name>
+    <file>terrain/shipwreck/terrain.ive</file>
+    <position>
+      <x> 0</x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
+
+  <rosInterfaces>      
+    <ROSOdomToPAT>
+      <topic> /g500arm5e/state </topic>
+      <vehicleName> g500arm5e </vehicleName>
+    </ROSOdomToPAT>
+
+    <ROSOdomToPAT>
+      <topic> /blackbox/state </topic>
+      <vehicleName> blackbox </vehicleName>
+    </ROSOdomToPAT>
+    
+    <ROSJointStateToArm> 
+        <topic>/g500arm5e/joint_states</topic>
+        <vehicleName>g500arm5e</vehicleName>
+    </ROSJointStateToArm>
+
+    <VirtualCameraToROSImage> 
+      <cameraName>eye_in_hand</cameraName>
+      <imageTopic> /uwsim/eye_in_hand </imageTopic>
+      <infoTopic> /uwsim/eye_in_hand_info </infoTopic>
+    </VirtualCameraToROSImage>
+    
+
+   
+  </rosInterfaces>
+</UWSimScene>
+

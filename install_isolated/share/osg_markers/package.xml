@@ -1,0 +1,28 @@
+<package>
+  <description>
+    osg_markers can be used to create Markers geometry in OSG.
+  </description>
+  <name>osg_markers</name>
+  <version>1.0.2</version>
+
+  <author email="marioprats@gmail.com">Mario Prats</author>
+
+  <maintainer email="japerez@uji.es">Javier Perez</maintainer>
+
+  <license>BSD</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>libopenscenegraph</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>roslib</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>libopenscenegraph</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>roslib</run_depend>
+</package>
+

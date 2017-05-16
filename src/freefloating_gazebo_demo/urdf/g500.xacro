@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+   <!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
+
+<robot name="g500" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  
+  <!-- Body properties -->
+  <xacro:property name="body_top_mass" value="25"/>
+  <xacro:property name="body_bottom_mass" value="50"/>
+  <xacro:property name="body_radius" value="0.13"/>
+  <xacro:property name="body_height" value="0.7" /> 
+  <xacro:property name="body_width" value="0.7" /> 
+  <xacro:property name="body_length" value="1.5" />
+  <xacro:property name="X_cog" value="-0.55" />
+  
+  <xacro:property name="eps" value="0.00000001"/>
+  
+  <!-- Cylinder inertial matrix -->
+  <xacro:macro name="cyl_inertial" params="mass radius length">
+    <inertial>
+      <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass*(radius*radius/4+length*length/12)}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${mass*(radius*radius/4+length*length/12)}"
+	  iyz="0.0"
+	  izz="${mass*radius*radius/2}"/>
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Sphere inertial matrix -->
+  <xacro:macro name="sph_inertial" params="mass radius">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${2/5*mass*radius*radius}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${2/5*mass*radius*radius}"
+	  iyz="0.0"
+	  izz="${2/5*mass*radius*radius}"/>
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Plugin list -->
+    <gazebo>
+    <!-- Gazebo plugin listens to the body-->
+    <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+        <switchService>switch</switchService>
+        <updateRate>100</updateRate>
+        <link>base_link</link>
+        
+        <!-- for each thruster, give the map to XYZ+RPY and the maximum effort -->
+        <thruster>
+            <map>-1 0 0 0 0 ${-body_width/2}</map>
+            <effort>30</effort>
+        </thruster>
+        <thruster>
+            <map>-1 0 0 0 0 ${body_width/2}</map>
+            <effort>30</effort>
+        </thruster>
+        <thruster>
+            <map>0 1 0 0 0 0</map>
+            <effort>30</effort>
+        </thruster>
+        <thruster>
+            <map>0 0 -1 0 0 0</map>
+            <effort>30</effort>
+        </thruster>
+        <thruster>
+            <map>0 0 -1 0 ${-2*X_cog} 0</map>
+            <effort>30</effort>
+        </thruster>       
+    </plugin>
+    </gazebo>
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="${-PI/2} 0 ${PI}" xyz="-0.2 0 0.75"/>
+      <geometry>
+	<mesh filename="file://$(env HOME)/.uwsim/data/robot/GIRONA500/g500_March11.stl"/>
+      </geometry>
+    </visual>
+     <inertial>
+      <origin xyz="${X_cog} 0 ${body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)}" rpy="0 0 0"/>
+      <mass value="${2*body_top_mass+body_bottom_mass}"/>
+      <inertia
+	  ixx="${2*body_top_mass*(body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)+body_width*body_width/4)+body_bottom_mass*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))+body_top_mass*body_radius*body_radius+(body_bottom_mass*body_radius*body_radius)/2}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${2*body_top_mass*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)+body_bottom_mass*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))+2*body_top_mass*(body_radius*body_radius/4+body_length*body_length/12)+body_bottom_mass*(body_radius*body_radius/4+body_length*body_length/12)}"
+	  iyz="${-body_top_mass*body_width*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)}"
+	  izz="${(body_top_mass*body_width*body_width)/2+2*body_top_mass*(body_radius*body_radius/4+body_length*body_length/12)+body_bottom_mass*(body_radius*body_radius/4+body_length*body_length/12)}"/>
+    </inertial>
+    <!--collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<box size="1 1 1"/>
+      </geometry>
+    </collision-->
+  <buoyancy>
+      <compensation>1.01</compensation>
+      <origin xyz= "${X_cog} 0 ${body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)/2}"/>
+      <limit radius=".5"/>
+      <damping xyz="60 100 100" rpy="20 50 50"/>
+  </buoyancy>
+  </link>
+</robot>

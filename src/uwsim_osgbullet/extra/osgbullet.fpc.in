@@ -1,0 +1,15 @@
+prefix=${fp_file_cwd}/../..
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/include
+
+Name: osgBullet
+Description: osgBullet release pre-compiled for VES
+Provides: osgBullet osgbullet
+Requires: openscenegraph openthreads bullet osgWorks
+Version: @OSGBULLET_VERSION@
+Libs: @OSGBULLET_FPC_LIBRARIES@
+Cflags: @OSGBULLET_FPC_INCLUDES@
+Arch: noarch
+
+

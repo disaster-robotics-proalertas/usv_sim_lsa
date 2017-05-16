@@ -1,0 +1,33 @@
+<package>
+  <description>
+    This package is basically an OpenSceneGraph (OSG) adaptation of the Interactive Markers client writen for rviz/Ogre.
+  </description>
+  <name>osg_interactive_markers</name>
+  <version>1.0.2</version>
+
+  <author email="marioprats@gmail.com">Mario Prats</author>
+
+  <maintainer email="japerez@uji.es">Javier Perez</maintainer>
+
+  <license>BSD</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>libopenscenegraph</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>osg_utils</build_depend>
+  <build_depend>osg_markers</build_depend>
+  <build_depend>interactive_markers</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>libopenscenegraph</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>osg_utils</run_depend>
+  <run_depend>osg_markers</run_depend>
+  <run_depend>interactive_markers</run_depend>
+
+</package>
+

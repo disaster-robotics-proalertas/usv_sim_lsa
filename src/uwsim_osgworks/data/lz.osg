@@ -1,0 +1,6899 @@
+MatrixTransform {
+  DataVariance SATIC
+  name "saved_model.osg"
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  referenceFrame RELATIVE
+  Matrix {
+    50 0 0 0
+    0 50 0 0
+    0 0 50 0
+    0 0 0 1
+  }
+  num_children 3
+  MatrixTransform {
+    DataVariance DYNAMIC
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_children 9
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 15
+      Geometry {
+        DataVariance DYNAMIC
+        StateSet {
+          UniqueID StateSet_0
+          DataVariance STATIC
+          rendering_hint TRANSPARENT_BIN
+          renderBinMode USE
+          binNumber 10
+          binName DepthSortedBin
+          GL_LIGHTING OFF
+          GL_ALPHA_TEST ON
+          GL_BLEND ON
+          AlphaFunc {
+            DataVariance STATIC
+            comparisonFunc GEQUAL
+            referenceValue 0.05
+          }
+          BlendFunc {
+            DataVariance STATIC
+            source SRC_ALPHA
+            destination ONE_MINUS_SRC_ALPHA
+          }
+          textureUnit 0 {
+            GL_TEXTURE_2D ON
+            Texture2D {
+              DataVariance STATIC
+              file "Images/tree0.rgba"
+              wrap_s CLAMP
+              wrap_t CLAMP
+              wrap_r CLAMP
+              min_filter LINEAR_MIPMAP_LINEAR
+              mag_filter LINEAR
+              maxAnisotropy 1
+              borderColor 0 0 0 0
+              borderWidth 0
+              useHardwareMipMapGeneration TRUE
+              unRefImageDataAfterApply TRUE
+              internalFormatMode USE_IMAGE_DATA_FORMAT
+              resizeNonPowerOfTwo TRUE
+            }
+            TexEnv {
+              UniqueID TexEnv_1
+              DataVariance STATIC
+              mode MODULATE
+            }
+          }
+        }
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.175 0 0
+          0.175 0 0
+          0.175 0 0.24
+          -0.175 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.24
+          -0.05 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.184
+          -0.05 0 0.184
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.138
+          -0.05 0 0.138
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.158
+          -0.05 0 0.158
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.24
+          -0.05 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.113
+          -0.05 0 0.113
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.115
+          -0.05 0 0.115
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        -0.7769 -0.8972 1.77821
+        -0.7981 -1.0853 1.7684
+        -0.5543 -0.9117 1.79274
+        -0.8405 -1.259 1.76699
+        -0.3424 -0.8538 1.79718
+        -0.8442 -1.3442 1.76686
+        -0.4967 -1.418 1.77845
+        -0.3131 -1.2704 1.7922
+        -0.141 -0.8827 1.81059
+        -0.8723 -1.5339 1.7648
+        -0.0902 -1.2049 1.8018
+        -0.8639 -1.6885 1.75994
+        0.041 -1.3196 1.80237
+        -0.9252 -1.8667 1.75417
+        0.2705 -1.2704 1.82331
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 15
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.276
+          -0.05 0 0.276
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.316
+          -0.05 0 0.316
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.226
+          -0.05 0 0.226
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.32
+          -0.05 0 0.32
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.368
+          -0.05 0 0.368
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.138
+          -0.05 0 0.138
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.23
+          -0.05 0 0.23
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.286
+          -0.05 0 0.286
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.25
+          -0.05 0 0.25
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.158
+          -0.05 0 0.158
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.302
+          -0.05 0 0.302
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        -0.904 -2.0259 1.75487
+        -0.8617 -2.1851 1.75628
+        -0.7345 -2.3443 1.76052
+        -0.8087 -2.4166 1.75853
+        -0.5426 -2.3442 1.76692
+        -0.477 -2.4179 1.76963
+        -0.3852 -2.5327 1.77656
+        -0.4967 -2.6474 1.7767
+        -0.6082 -2.7212 1.78092
+        -0.0836 -2.1311 1.77098
+        -0.3131 -2.6065 1.78144
+        -0.6344 -2.8359 1.7868
+        -0.418 -2.7458 1.78465
+        -0.0115 -2.213 1.7737
+        -0.2213 -2.6638 1.78643
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 15
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.378
+          -0.05 0 0.378
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.113
+          -0.05 0 0.113
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.254
+          -0.05 0 0.254
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.332
+          -0.05 0 0.332
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.115
+          -0.05 0 0.115
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.366
+          -0.05 0 0.366
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.22
+          -0.05 0 0.22
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.151
+          -0.05 0 0.151
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.274
+          -0.05 0 0.274
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.238
+          -0.05 0 0.238
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.127
+          -0.05 0 0.127
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.151
+          -0.05 0 0.151
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.224
+          -0.05 0 0.224
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.11
+          -0.05 0 0.11
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.119
+          -0.05 0 0.119
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        -0.5492 -2.8933 1.7963
+        0.0606 -2.2786 1.77589
+        -0.1951 -2.7622 1.78628
+        -0.5295 -3.0409 1.81478
+        0.1328 -2.3442 1.77807
+        -0.4246 -3.0491 1.8149
+        -0.123 -2.8687 1.80037
+        0.2246 -2.4343 1.78108
+        -0.3 -3.0818 1.81816
+        0.0213 -2.9507 1.80101
+        0.336 -2.5245 1.78411
+        0.336 -1.4344 1.81678
+        0.1065 -3.0163 1.79452
+        0.4541 -2.4261 1.78985
+        0.4934 -2.2786 1.79
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 13
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.372
+          -0.05 0 0.372
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.298
+          -0.05 0 0.298
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.334
+          -0.05 0 0.334
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.186
+          -0.05 0 0.186
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.149
+          -0.05 0 0.149
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.167
+          -0.05 0 0.167
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.112
+          -0.05 0 0.112
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.189
+          -0.05 0 0.189
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.143
+          -0.05 0 0.143
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.183
+          -0.05 0 0.183
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.127
+          -0.05 0 0.127
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.167
+          -0.05 0 0.167
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.186
+          -0.05 0 0.186
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        0.0738 -3.1802 1.81305
+        0.2508 -3.2048 1.80352
+        0.2836 -3.3031 1.80239
+        0.5459 -2.6474 1.7868
+        0.7426 -2.6884 1.78025
+        0.8475 -2.7458 1.7831
+        0.7295 -2.2868 1.79
+        1.418 -2.8933 1.80581
+        1.4835 -2.5327 1.82006
+        1.6343 -3.0409 1.8
+        0.6246 -1.418 1.8371
+        1.6343 -2.1065 1.83932
+        1.1819 -1.5983 1.85786
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 14
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.184
+          -0.05 0 0.184
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.11
+          -0.05 0 0.11
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.112
+          -0.05 0 0.112
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.119
+          -0.05 0 0.119
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.166
+          -0.05 0 0.166
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.16
+          -0.05 0 0.16
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.137
+          -0.05 0 0.137
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.166
+          -0.05 0 0.166
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.149
+          -0.05 0 0.149
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.194
+          -0.05 0 0.194
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.2
+          -0.05 0 0.2
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.125
+          -0.05 0 0.125
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.105
+          -0.05 0 0.105
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.124
+          -0.05 0 0.124
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        1.8245 -2.3196 1.8444
+        0.7623 -1.336 1.85173
+        1.0639 -1.4753 1.86258
+        0.9393 -1.3934 1.85972
+        2.0343 -2.6228 1.83797
+        1.9556 -2.3032 1.85349
+        2.1524 -3.4671 1.8
+        2.1786 -2.8851 1.82382
+        1.4835 -1.5819 1.87628
+        1.7196 -1.7868 1.86604
+        0.4082 -1.0409 1.84256
+        2.1196 -2.3688 1.85677
+        1.8573 -1.877 1.86877
+        2.0147 -1.9753 1.87272
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 3
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.102
+          -0.05 0 0.102
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.115 0 0
+          0.115 0 0
+          0.115 0 0.24
+          -0.115 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.151
+          -0.05 0 0.151
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        2.4802 -3.3031 1.8
+        1.9425 -1.5491 1.90462
+        2.5589 -3.172 1.80856
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 18
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.311
+          -0.1 0 0.311
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.136
+          -0.05 0 0.136
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.131
+          -0.05 0 0.131
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.195
+          -0.05 0 0.195
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.167
+          -0.05 0 0.167
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.178
+          -0.05 0 0.178
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.167
+          -0.05 0 0.167
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.182
+          -0.05 0 0.182
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.145
+          -0.05 0 0.145
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.154
+          -0.05 0 0.154
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.188
+          -0.05 0 0.188
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.154
+          -0.05 0 0.154
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.153
+          -0.05 0 0.153
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.161
+          -0.05 0 0.161
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.196
+          -0.05 0 0.196
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.05 0 0
+          0.05 0 0
+          0.05 0 0.128
+          -0.05 0 0.128
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.06 0 0
+          0.06 0 0
+          0.06 0 0.16
+          -0.06 0 0.16
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.2
+          -0.125 0 0.2
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        2.0958 -1.713 1.89557
+        2.3622 -2.0983 1.8877
+        2.4802 -2.3933 1.87596
+        2.336 -1.8278 1.90394
+        2.7163 -2.8114 1.82772
+        2.513 -2.0737 1.8994
+        1.9688 -1.2868 1.91481
+        2.631 -2.254 1.89257
+        2.7163 -2.4179 1.88397
+        2.1196 -1.1147 1.93135
+        3.0441 -2.4671 1.8964
+        3.2081 -2.4179 1.91231
+        3.2277 -2.3196 1.92604
+        3.3654 -2.5819 1.90623
+        3.4179 -2.7622 1.89844
+        3.4769 -2.4671 1.93399
+        0.6639 3.2048 2.72344
+        0.6246 3.4835 2.70044
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 3
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.1 0 0
+          0.1 0 0
+          0.1 0 0.24
+          -0.1 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        -3.2355 -1.8378 1.67592
+        -3.3202 -1.6497 1.67935
+        -3.3308 -1.5484 1.68237
+      }
+    }
+    Billboard {
+      DataVariance DYNAMIC
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_drawables 9
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.025 0 0
+          0.025 0 0
+          0.025 0 0.1
+          -0.025 0 0.1
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Geometry {
+        DataVariance DYNAMIC
+        Use StateSet_0
+        useDisplayList TRUE
+        useVertexBufferObjects FALSE
+        PrimitiveSets 1
+        {
+          DrawArrays QUADS 0 4
+        }
+        VertexArray Vec3Array 4
+        {
+          -0.125 0 0
+          0.125 0 0
+          0.125 0 0.24
+          -0.125 0 0.24
+        }
+        ColorBinding OVERALL
+        ColorArray Vec4Array 1
+        {
+          1 1 1 1
+        }
+        TexCoordArray 0 Vec2Array 4
+        {
+          0 0
+          1 0
+          1 1
+          0 1
+        }
+      }
+      Mode AXIAL_ROT
+      Axis 0 0 1
+      Normal 0 -1 0
+      Positions {
+        -0.0967 3.6228 2.44297
+        -0.0115 3.713 2.48307
+        -0.241 3.7294 2.40146
+        -1.6245 2.6638 2.25496
+        -0.5557 3.6064 2.30947
+        -0.2213 3.8687 2.41662
+        -0.6738 3.7376 2.29456
+        -0.5098 3.9015 2.33858
+        -0.7721 3.8851 2.26853
+      }
+    }
+  }
+  Geode {
+    DataVariance DYNAMIC
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      DataVariance DYNAMIC
+      StateSet {
+        DataVariance STATIC
+        rendering_hint DEFAULT_BIN
+        renderBinMode INHERIT
+        GL_LIGHTING OFF
+        textureUnit 0 {
+          GL_TEXTURE_2D ON
+          Texture2D {
+            DataVariance STATIC
+            file "Images/lz.rgb"
+            wrap_s CLAMP
+            wrap_t CLAMP
+            wrap_r CLAMP
+            min_filter LINEAR_MIPMAP_LINEAR
+            mag_filter LINEAR
+            maxAnisotropy 1
+            borderColor 0 0 0 0
+            borderWidth 0
+            useHardwareMipMapGeneration TRUE
+            unRefImageDataAfterApply TRUE
+            internalFormatMode USE_IMAGE_DATA_FORMAT
+            resizeNonPowerOfTwo TRUE
+          }
+          Use TexEnv_1
+        }
+      }
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 36
+      {
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          0 39 1 40 2 41 3 42 4 43
+          5 44 6 45 7 46 8 47 9 48
+          10 49 11 50 12 51 13 52 14 53
+          15 54 16 55 17 56 18 57 19 58
+          20 59 21 60 22 61 23 62 24 63
+          25 64 26 65 27 66 28 67 29 68
+          30 69 31 70 32 71 33 72 34 73
+          35 74 36 75 37 76 38 77 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          39 78 40 79 41 80 42 81 43 82
+          44 83 45 84 46 85 47 86 48 87
+          49 88 50 89 51 90 52 91 53 92
+          54 93 55 94 56 95 57 96 58 97
+          59 98 60 99 61 100 62 101 63 102
+          64 103 65 104 66 105 67 106 68 107
+          69 108 70 109 71 110 72 111 73 112
+          74 113 75 114 76 115 77 116 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          78 117 79 118 80 119 81 120 82 121
+          83 122 84 123 85 124 86 125 87 126
+          88 127 89 128 90 129 91 130 92 131
+          93 132 94 133 95 134 96 135 97 136
+          98 137 99 138 100 139 101 140 102 141
+          103 142 104 143 105 144 106 145 107 146
+          108 147 109 148 110 149 111 150 112 151
+          113 152 114 153 115 154 116 155 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          117 156 118 157 119 158 120 159 121 160
+          122 161 123 162 124 163 125 164 126 165
+          127 166 128 167 129 168 130 169 131 170
+          132 171 133 172 134 173 135 174 136 175
+          137 176 138 177 139 178 140 179 141 180
+          142 181 143 182 144 183 145 184 146 185
+          147 186 148 187 149 188 150 189 151 190
+          152 191 153 192 154 193 155 194 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          156 195 157 196 158 197 159 198 160 199
+          161 200 162 201 163 202 164 203 165 204
+          166 205 167 206 168 207 169 208 170 209
+          171 210 172 211 173 212 174 213 175 214
+          176 215 177 216 178 217 179 218 180 219
+          181 220 182 221 183 222 184 223 185 224
+          186 225 187 226 188 227 189 228 190 229
+          191 230 192 231 193 232 194 233 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          195 234 196 235 197 236 198 237 199 238
+          200 239 201 240 202 241 203 242 204 243
+          205 244 206 245 207 246 208 247 209 248
+          210 249 211 250 212 251 213 252 214 253
+          215 254 216 255 217 256 218 257 219 258
+          220 259 221 260 222 261 223 262 224 263
+          225 264 226 265 227 266 228 267 229 268
+          230 269 231 270 232 271 233 272 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          234 273 235 274 236 275 237 276 238 277
+          239 278 240 279 241 280 242 281 243 282
+          244 283 245 284 246 285 247 286 248 287
+          249 288 250 289 251 290 252 291 253 292
+          254 293 255 294 256 295 257 296 258 297
+          259 298 260 299 261 300 262 301 263 302
+          264 303 265 304 266 305 267 306 268 307
+          269 308 270 309 271 310 272 311 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          273 312 274 313 275 314 276 315 277 316
+          278 317 279 318 280 319 281 320 282 321
+          283 322 284 323 285 324 286 325 287 326
+          288 327 289 328 290 329 291 330 292 331
+          293 332 294 333 295 334 296 335 297 336
+          298 337 299 338 300 339 301 340 302 341
+          303 342 304 343 305 344 306 345 307 346
+          308 347 309 348 310 349 311 350 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          312 351 313 352 314 353 315 354 316 355
+          317 356 318 357 319 358 320 359 321 360
+          322 361 323 362 324 363 325 364 326 365
+          327 366 328 367 329 368 330 369 331 370
+          332 371 333 372 334 373 335 374 336 375
+          337 376 338 377 339 378 340 379 341 380
+          342 381 343 382 344 383 345 384 346 385
+          347 386 348 387 349 388 350 389 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          351 390 352 391 353 392 354 393 355 394
+          356 395 357 396 358 397 359 398 360 399
+          361 400 362 401 363 402 364 403 365 404
+          366 405 367 406 368 407 369 408 370 409
+          371 410 372 411 373 412 374 413 375 414
+          376 415 377 416 378 417 379 418 380 419
+          381 420 382 421 383 422 384 423 385 424
+          386 425 387 426 388 427 389 428 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          390 429 391 430 392 431 393 432 394 433
+          395 434 396 435 397 436 398 437 399 438
+          400 439 401 440 402 441 403 442 404 443
+          405 444 406 445 407 446 408 447 409 448
+          410 449 411 450 412 451 413 452 414 453
+          415 454 416 455 417 456 418 457 419 458
+          420 459 421 460 422 461 423 462 424 463
+          425 464 426 465 427 466 428 467 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          429 468 430 469 431 470 432 471 433 472
+          434 473 435 474 436 475 437 476 438 477
+          439 478 440 479 441 480 442 481 443 482
+          444 483 445 484 446 485 447 486 448 487
+          449 488 450 489 451 490 452 491 453 492
+          454 493 455 494 456 495 457 496 458 497
+          459 498 460 499 461 500 462 501 463 502
+          464 503 465 504 466 505 467 506 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          468 507 469 508 470 509 471 510 472 511
+          473 512 474 513 475 514 476 515 477 516
+          478 517 479 518 480 519 481 520 482 521
+          483 522 484 523 485 524 486 525 487 526
+          488 527 489 528 490 529 491 530 492 531
+          493 532 494 533 495 534 496 535 497 536
+          498 537 499 538 500 539 501 540 502 541
+          503 542 504 543 505 544 506 545 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          507 546 508 547 509 548 510 549 511 550
+          512 551 513 552 514 553 515 554 516 555
+          517 556 518 557 519 558 520 559 521 560
+          522 561 523 562 524 563 525 564 526 565
+          527 566 528 567 529 568 530 569 531 570
+          532 571 533 572 534 573 535 574 536 575
+          537 576 538 577 539 578 540 579 541 580
+          542 581 543 582 544 583 545 584 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          546 585 547 586 548 587 549 588 550 589
+          551 590 552 591 553 592 554 593 555 594
+          556 595 557 596 558 597 559 598 560 599
+          561 600 562 601 563 602 564 603 565 604
+          566 605 567 606 568 607 569 608 570 609
+          571 610 572 611 573 612 574 613 575 614
+          576 615 577 616 578 617 579 618 580 619
+          581 620 582 621 583 622 584 623 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          585 624 586 625 587 626 588 627 589 628
+          590 629 591 630 592 631 593 632 594 633
+          595 634 596 635 597 636 598 637 599 638
+          600 639 601 640 602 641 603 642 604 643
+          605 644 606 645 607 646 608 647 609 648
+          610 649 611 650 612 651 613 652 614 653
+          615 654 616 655 617 656 618 657 619 658
+          620 659 621 660 622 661 623 662 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          624 663 625 664 626 665 627 666 628 667
+          629 668 630 669 631 670 632 671 633 672
+          634 673 635 674 636 675 637 676 638 677
+          639 678 640 679 641 680 642 681 643 682
+          644 683 645 684 646 685 647 686 648 687
+          649 688 650 689 651 690 652 691 653 692
+          654 693 655 694 656 695 657 696 658 697
+          659 698 660 699 661 700 662 701 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          663 702 664 703 665 704 666 705 667 706
+          668 707 669 708 670 709 671 710 672 711
+          673 712 674 713 675 714 676 715 677 716
+          678 717 679 718 680 719 681 720 682 721
+          683 722 684 723 685 724 686 725 687 726
+          688 727 689 728 690 729 691 730 692 731
+          693 732 694 733 695 734 696 735 697 736
+          698 737 699 738 700 739 701 740 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          702 741 703 742 704 743 705 744 706 745
+          707 746 708 747 709 748 710 749 711 750
+          712 751 713 752 714 753 715 754 716 755
+          717 756 718 757 719 758 720 759 721 760
+          722 761 723 762 724 763 725 764 726 765
+          727 766 728 767 729 768 730 769 731 770
+          732 771 733 772 734 773 735 774 736 775
+          737 776 738 777 739 778 740 779 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          741 780 742 781 743 782 744 783 745 784
+          746 785 747 786 748 787 749 788 750 789
+          751 790 752 791 753 792 754 793 755 794
+          756 795 757 796 758 797 759 798 760 799
+          761 800 762 801 763 802 764 803 765 804
+          766 805 767 806 768 807 769 808 770 809
+          771 810 772 811 773 812 774 813 775 814
+          776 815 777 816 778 817 779 818 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          780 819 781 820 782 821 783 822 784 823
+          785 824 786 825 787 826 788 827 789 828
+          790 829 791 830 792 831 793 832 794 833
+          795 834 796 835 797 836 798 837 799 838
+          800 839 801 840 802 841 803 842 804 843
+          805 844 806 845 807 846 808 847 809 848
+          810 849 811 850 812 851 813 852 814 853
+          815 854 816 855 817 856 818 857 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          819 858 820 859 821 860 822 861 823 862
+          824 863 825 864 826 865 827 866 828 867
+          829 868 830 869 831 870 832 871 833 872
+          834 873 835 874 836 875 837 876 838 877
+          839 878 840 879 841 880 842 881 843 882
+          844 883 845 884 846 885 847 886 848 887
+          849 888 850 889 851 890 852 891 853 892
+          854 893 855 894 856 895 857 896 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          858 897 859 898 860 899 861 900 862 901
+          863 902 864 903 865 904 866 905 867 906
+          868 907 869 908 870 909 871 910 872 911
+          873 912 874 913 875 914 876 915 877 916
+          878 917 879 918 880 919 881 920 882 921
+          883 922 884 923 885 924 886 925 887 926
+          888 927 889 928 890 929 891 930 892 931
+          893 932 894 933 895 934 896 935 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          897 936 898 937 899 938 900 939 901 940
+          902 941 903 942 904 943 905 944 906 945
+          907 946 908 947 909 948 910 949 911 950
+          912 951 913 952 914 953 915 954 916 955
+          917 956 918 957 919 958 920 959 921 960
+          922 961 923 962 924 963 925 964 926 965
+          927 966 928 967 929 968 930 969 931 970
+          932 971 933 972 934 973 935 974 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          936 975 937 976 938 977 939 978 940 979
+          941 980 942 981 943 982 944 983 945 984
+          946 985 947 986 948 987 949 988 950 989
+          951 990 952 991 953 992 954 993 955 994
+          956 995 957 996 958 997 959 998 960 999
+          961 1000 962 1001 963 1002 964 1003 965 1004
+          966 1005 967 1006 968 1007 969 1008 970 1009
+          971 1010 972 1011 973 1012 974 1013 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          975 1014 976 1015 977 1016 978 1017 979 1018
+          980 1019 981 1020 982 1021 983 1022 984 1023
+          985 1024 986 1025 987 1026 988 1027 989 1028
+          990 1029 991 1030 992 1031 993 1032 994 1033
+          995 1034 996 1035 997 1036 998 1037 999 1038
+          1000 1039 1001 1040 1002 1041 1003 1042 1004 1043
+          1005 1044 1006 1045 1007 1046 1008 1047 1009 1048
+          1010 1049 1011 1050 1012 1051 1013 1052 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1014 1053 1015 1054 1016 1055 1017 1056 1018 1057
+          1019 1058 1020 1059 1021 1060 1022 1061 1023 1062
+          1024 1063 1025 1064 1026 1065 1027 1066 1028 1067
+          1029 1068 1030 1069 1031 1070 1032 1071 1033 1072
+          1034 1073 1035 1074 1036 1075 1037 1076 1038 1077
+          1039 1078 1040 1079 1041 1080 1042 1081 1043 1082
+          1044 1083 1045 1084 1046 1085 1047 1086 1048 1087
+          1049 1088 1050 1089 1051 1090 1052 1091 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1053 1092 1054 1093 1055 1094 1056 1095 1057 1096
+          1058 1097 1059 1098 1060 1099 1061 1100 1062 1101
+          1063 1102 1064 1103 1065 1104 1066 1105 1067 1106
+          1068 1107 1069 1108 1070 1109 1071 1110 1072 1111
+          1073 1112 1074 1113 1075 1114 1076 1115 1077 1116
+          1078 1117 1079 1118 1080 1119 1081 1120 1082 1121
+          1083 1122 1084 1123 1085 1124 1086 1125 1087 1126
+          1088 1127 1089 1128 1090 1129 1091 1130 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1092 1131 1093 1132 1094 1133 1095 1134 1096 1135
+          1097 1136 1098 1137 1099 1138 1100 1139 1101 1140
+          1102 1141 1103 1142 1104 1143 1105 1144 1106 1145
+          1107 1146 1108 1147 1109 1148 1110 1149 1111 1150
+          1112 1151 1113 1152 1114 1153 1115 1154 1116 1155
+          1117 1156 1118 1157 1119 1158 1120 1159 1121 1160
+          1122 1161 1123 1162 1124 1163 1125 1164 1126 1165
+          1127 1166 1128 1167 1129 1168 1130 1169 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1131 1170 1132 1171 1133 1172 1134 1173 1135 1174
+          1136 1175 1137 1176 1138 1177 1139 1178 1140 1179
+          1141 1180 1142 1181 1143 1182 1144 1183 1145 1184
+          1146 1185 1147 1186 1148 1187 1149 1188 1150 1189
+          1151 1190 1152 1191 1153 1192 1154 1193 1155 1194
+          1156 1195 1157 1196 1158 1197 1159 1198 1160 1199
+          1161 1200 1162 1201 1163 1202 1164 1203 1165 1204
+          1166 1205 1167 1206 1168 1207 1169 1208 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1170 1209 1171 1210 1172 1211 1173 1212 1174 1213
+          1175 1214 1176 1215 1177 1216 1178 1217 1179 1218
+          1180 1219 1181 1220 1182 1221 1183 1222 1184 1223
+          1185 1224 1186 1225 1187 1226 1188 1227 1189 1228
+          1190 1229 1191 1230 1192 1231 1193 1232 1194 1233
+          1195 1234 1196 1235 1197 1236 1198 1237 1199 1238
+          1200 1239 1201 1240 1202 1241 1203 1242 1204 1243
+          1205 1244 1206 1245 1207 1246 1208 1247 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1209 1248 1210 1249 1211 1250 1212 1251 1213 1252
+          1214 1253 1215 1254 1216 1255 1217 1256 1218 1257
+          1219 1258 1220 1259 1221 1260 1222 1261 1223 1262
+          1224 1263 1225 1264 1226 1265 1227 1266 1228 1267
+          1229 1268 1230 1269 1231 1270 1232 1271 1233 1272
+          1234 1273 1235 1274 1236 1275 1237 1276 1238 1277
+          1239 1278 1240 1279 1241 1280 1242 1281 1243 1282
+          1244 1283 1245 1284 1246 1285 1247 1286 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1248 1287 1249 1288 1250 1289 1251 1290 1252 1291
+          1253 1292 1254 1293 1255 1294 1256 1295 1257 1296
+          1258 1297 1259 1298 1260 1299 1261 1300 1262 1301
+          1263 1302 1264 1303 1265 1304 1266 1305 1267 1306
+          1268 1307 1269 1308 1270 1309 1271 1310 1272 1311
+          1273 1312 1274 1313 1275 1314 1276 1315 1277 1316
+          1278 1317 1279 1318 1280 1319 1281 1320 1282 1321
+          1283 1322 1284 1323 1285 1324 1286 1325 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1287 1326 1288 1327 1289 1328 1290 1329 1291 1330
+          1292 1331 1293 1332 1294 1333 1295 1334 1296 1335
+          1297 1336 1298 1337 1299 1338 1300 1339 1301 1340
+          1302 1341 1303 1342 1304 1343 1305 1344 1306 1345
+          1307 1346 1308 1347 1309 1348 1310 1349 1311 1350
+          1312 1351 1313 1352 1314 1353 1315 1354 1316 1355
+          1317 1356 1318 1357 1319 1358 1320 1359 1321 1360
+          1322 1361 1323 1362 1324 1363 1325 1364 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1326 1365 1327 1366 1328 1367 1329 1368 1330 1369
+          1331 1370 1332 1371 1333 1372 1334 1373 1335 1374
+          1336 1375 1337 1376 1338 1377 1339 1378 1340 1379
+          1341 1380 1342 1381 1343 1382 1344 1383 1345 1384
+          1346 1385 1347 1386 1348 1387 1349 1388 1350 1389
+          1351 1390 1352 1391 1353 1392 1354 1393 1355 1394
+          1356 1395 1357 1396 1358 1397 1359 1398 1360 1399
+          1361 1400 1362 1401 1363 1402 1364 1403 
+        }
+        DrawElementsUShort TRIANGLE_STRIP 78
+        {
+          1365 1404 1366 1405 1367 1406 1368 1407 1369 1408
+          1370 1409 1371 1410 1372 1411 1373 1412 1374 1413
+          1375 1414 1376 1415 1377 1416 1378 1417 1379 1418
+          1380 1419 1381 1420 1382 1421 1383 1422 1384 1423
+          1385 1424 1386 1425 1387 1426 1388 1427 1389 1428
+          1390 1429 1391 1430 1392 1431 1393 1432 1394 1433
+          1395 1434 1396 1435 1397 1436 1398 1437 1399 1438
+          1400 1439 1401 1440 1402 1441 1403 1442 
+        }
+      }
+      VertexArray Vec3Array 1482
+      {
+        -5.55029 -5.69922 1.78
+        -5.55029 -5.40234 1.82
+        -5.55029 -5.10156 1.86
+        -5.55029 -4.80078 1.88
+        -5.55029 -4.5 1.9
+        -5.55029 -4.19922 1.9
+        -5.55029 -3.90234 1.89
+        -5.55029 -3.60156 1.88
+        -5.55029 -3.30078 1.86
+        -5.55029 -3 1.85
+        -5.55029 -2.69922 1.83
+        -5.55029 -2.40234 1.81
+        -5.55029 -2.10156 1.78
+        -5.55029 -1.80078 1.75
+        -5.55029 -1.5 1.73
+        -5.55029 -1.19922 1.71
+        -5.55029 -0.902344 1.7
+        -5.55029 -0.601562 1.69
+        -5.55029 -0.300781 1.7
+        -5.55029 0 1.74
+        -5.55029 0.300781 1.79
+        -5.55029 0.597656 1.86
+        -5.55029 0.898438 1.94
+        -5.55029 1.19922 1.99
+        -5.55029 1.5 2.02
+        -5.55029 1.80078 2.03
+        -5.55029 2.09766 2.03
+        -5.55029 2.39844 2.02
+        -5.55029 2.69922 2.01
+        -5.55029 3 1.99
+        -5.55029 3.30078 1.97
+        -5.55029 3.59766 1.96
+        -5.55029 3.89844 1.95
+        -5.55029 4.19922 1.95
+        -5.55029 4.5 1.95
+        -5.55029 4.80078 1.95
+        -5.55029 5.09766 1.94
+        -5.55029 5.39844 1.93
+        -5.55029 5.69922 1.92
+        -5.25 -5.69922 1.86
+        -5.25 -5.40234 1.91
+        -5.25 -5.10156 1.96
+        -5.25 -4.80078 1.99
+        -5.25 -4.5 2.01
+        -5.25 -4.19922 2
+        -5.25 -3.90234 1.97
+        -5.25 -3.60156 1.94
+        -5.25 -3.30078 1.91
+        -5.25 -3 1.87
+        -5.25 -2.69922 1.84
+        -5.25 -2.40234 1.8
+        -5.25 -2.10156 1.77
+        -5.25 -1.80078 1.74
+        -5.25 -1.5 1.73
+        -5.25 -1.19922 1.72
+        -5.25 -0.902344 1.72
+        -5.25 -0.601562 1.73
+        -5.25 -0.300781 1.76
+        -5.25 0 1.79
+        -5.25 0.300781 1.83
+        -5.25 0.597656 1.87
+        -5.25 0.898438 1.91
+        -5.25 1.19922 1.94
+        -5.25 1.5 1.97
+        -5.25 1.80078 1.99
+        -5.25 2.09766 2.01
+        -5.25 2.39844 2.02
+        -5.25 2.69922 2.01
+        -5.25 3 1.99
+        -5.25 3.30078 1.97
+        -5.25 3.59766 1.96
+        -5.25 3.89844 1.96
+        -5.25 4.19922 1.96
+        -5.25 4.5 1.96
+        -5.25 4.80078 1.96
+        -5.25 5.09766 1.96
+        -5.25 5.39844 1.96
+        -5.25 5.69922 1.96
+        -4.9502 -5.69922 1.92
+        -4.9502 -5.40234 1.98
+        -4.9502 -5.10156 2.03
+        -4.9502 -4.80078 2.06
+        -4.9502 -4.5 2.07
+        -4.9502 -4.19922 2.05
+        -4.9502 -3.90234 2.01
+        -4.9502 -3.60156 1.97
+        -4.9502 -3.30078 1.92
+        -4.9502 -3 1.87
+        -4.9502 -2.69922 1.83
+        -4.9502 -2.40234 1.79
+        -4.9502 -2.10156 1.75
+        -4.9502 -1.80078 1.73
+        -4.9502 -1.5 1.72
+        -4.9502 -1.19922 1.72
+        -4.9502 -0.902344 1.74
+        -4.9502 -0.601562 1.77
+        -4.9502 -0.300781 1.81
+        -4.9502 0 1.84
+        -4.9502 0.300781 1.87
+        -4.9502 0.597656 1.89
+        -4.9502 0.898438 1.91
+        -4.9502 1.19922 1.92
+        -4.9502 1.5 1.94
+        -4.9502 1.80078 1.97
+        -4.9502 2.09766 2
+        -4.9502 2.39844 2.01
+        -4.9502 2.69922 2.01
+        -4.9502 3 2
+        -4.9502 3.30078 1.98
+        -4.9502 3.59766 1.97
+        -4.9502 3.89844 1.97
+        -4.9502 4.19922 1.97
+        -4.9502 4.5 1.98
+        -4.9502 4.80078 1.98
+        -4.9502 5.09766 1.99
+        -4.9502 5.39844 1.99
+        -4.9502 5.69922 2.01
+        -4.6499 -5.69922 1.98
+        -4.6499 -5.40234 2.03
+        -4.6499 -5.10156 2.07
+        -4.6499 -4.80078 2.09
+        -4.6499 -4.5 2.08
+        -4.6499 -4.19922 2.05
+        -4.6499 -3.90234 2
+        -4.6499 -3.60156 1.95
+        -4.6499 -3.30078 1.9
+        -4.6499 -3 1.84
+        -4.6499 -2.69922 1.8
+        -4.6499 -2.40234 1.76
+        -4.6499 -2.10156 1.72
+        -4.6499 -1.80078 1.71
+        -4.6499 -1.5 1.71
+        -4.6499 -1.19922 1.72
+        -4.6499 -0.902344 1.75
+        -4.6499 -0.601562 1.8
+        -4.6499 -0.300781 1.86
+        -4.6499 0 1.9
+        -4.6499 0.300781 1.93
+        -4.6499 0.597656 1.94
+        -4.6499 0.898438 1.94
+        -4.6499 1.19922 1.95
+        -4.6499 1.5 1.96
+        -4.6499 1.80078 1.98
+        -4.6499 2.09766 2
+        -4.6499 2.39844 2.01
+        -4.6499 2.69922 2.01
+        -4.6499 3 2
+        -4.6499 3.30078 1.99
+        -4.6499 3.59766 1.98
+        -4.6499 3.89844 1.98
+        -4.6499 4.19922 1.99
+        -4.6499 4.5 2
+        -4.6499 4.80078 2.01
+        -4.6499 5.09766 2.02
+        -4.6499 5.39844 2.04
+        -4.6499 5.69922 2.06
+        -4.3501 -5.69922 2.02
+        -4.3501 -5.40234 2.04
+        -4.3501 -5.10156 2.06
+        -4.3501 -4.80078 2.06
+        -4.3501 -4.5 2.04
+        -4.3501 -4.19922 2
+        -4.3501 -3.90234 1.95
+        -4.3501 -3.60156 1.9
+        -4.3501 -3.30078 1.84
+        -4.3501 -3 1.79
+        -4.3501 -2.69922 1.75
+        -4.3501 -2.40234 1.71
+        -4.3501 -2.10156 1.69
+        -4.3501 -1.80078 1.68
+        -4.3501 -1.5 1.69
+        -4.3501 -1.19922 1.72
+        -4.3501 -0.902344 1.76
+        -4.3501 -0.601562 1.82
+        -4.3501 -0.300781 1.88
+        -4.3501 0 1.93
+        -4.3501 0.300781 1.96
+        -4.3501 0.597656 1.96
+        -4.3501 0.898438 1.96
+        -4.3501 1.19922 1.96
+        -4.3501 1.5 1.97
+        -4.3501 1.80078 1.99
+        -4.3501 2.09766 2.01
+        -4.3501 2.39844 2.02
+        -4.3501 2.69922 2.02
+        -4.3501 3 2.01
+        -4.3501 3.30078 1.99
+        -4.3501 3.59766 1.99
+        -4.3501 3.89844 1.99
+        -4.3501 4.19922 2
+        -4.3501 4.5 2.02
+        -4.3501 4.80078 2.04
+        -4.3501 5.09766 2.06
+        -4.3501 5.39844 2.08
+        -4.3501 5.69922 2.1
+        -4.05029 -5.69922 2.06
+        -4.05029 -5.40234 2.07
+        -4.05029 -5.10156 2.07
+        -4.05029 -4.80078 2.05
+        -4.05029 -4.5 2.02
+        -4.05029 -4.19922 1.97
+        -4.05029 -3.90234 1.9
+        -4.05029 -3.60156 1.84
+        -4.05029 -3.30078 1.78
+        -4.05029 -3 1.74
+        -4.05029 -2.69922 1.7
+        -4.05029 -2.40234 1.68
+        -4.05029 -2.10156 1.67
+        -4.05029 -1.80078 1.67
+        -4.05029 -1.5 1.68
+        -4.05029 -1.19922 1.71
+        -4.05029 -0.902344 1.74
+        -4.05029 -0.601562 1.78
+        -4.05029 -0.300781 1.83
+        -4.05029 0 1.87
+        -4.05029 0.300781 1.89
+        -4.05029 0.597656 1.9
+        -4.05029 0.898438 1.9
+        -4.05029 1.19922 1.91
+        -4.05029 1.5 1.93
+        -4.05029 1.80078 1.95
+        -4.05029 2.09766 1.98
+        -4.05029 2.39844 2
+        -4.05029 2.69922 2.01
+        -4.05029 3 2.01
+        -4.05029 3.30078 2
+        -4.05029 3.59766 2
+        -4.05029 3.89844 2
+        -4.05029 4.19922 2.02
+        -4.05029 4.5 2.04
+        -4.05029 4.80078 2.06
+        -4.05029 5.09766 2.08
+        -4.05029 5.39844 2.11
+        -4.05029 5.69922 2.13
+        -3.75 -5.69922 2.1
+        -3.75 -5.40234 2.11
+        -3.75 -5.10156 2.1
+        -3.75 -4.80078 2.07
+        -3.75 -4.5 2.02
+        -3.75 -4.19922 1.95
+        -3.75 -3.90234 1.87
+        -3.75 -3.60156 1.8
+        -3.75 -3.30078 1.74
+        -3.75 -3 1.7
+        -3.75 -2.69922 1.68
+        -3.75 -2.40234 1.66
+        -3.75 -2.10156 1.66
+        -3.75 -1.80078 1.67
+        -3.75 -1.5 1.68
+        -3.75 -1.19922 1.7
+        -3.75 -0.902344 1.72
+        -3.75 -0.601562 1.74
+        -3.75 -0.300781 1.77
+        -3.75 0 1.79
+        -3.75 0.300781 1.81
+        -3.75 0.597656 1.82
+        -3.75 0.898438 1.82
+        -3.75 1.19922 1.84
+        -3.75 1.5 1.86
+        -3.75 1.80078 1.9
+        -3.75 2.09766 1.94
+        -3.75 2.39844 1.96
+        -3.75 2.69922 1.98
+        -3.75 3 1.99
+        -3.75 3.30078 2
+        -3.75 3.59766 2.01
+        -3.75 3.89844 2.02
+        -3.75 4.19922 2.04
+        -3.75 4.5 2.06
+        -3.75 4.80078 2.09
+        -3.75 5.09766 2.11
+        -3.75 5.39844 2.13
+        -3.75 5.69922 2.16
+        -3.4502 -5.69922 2.1
+        -3.4502 -5.40234 2.1
+        -3.4502 -5.10156 2.08
+        -3.4502 -4.80078 2.05
+        -3.4502 -4.5 2
+        -3.4502 -4.19922 1.92
+        -3.4502 -3.90234 1.84
+        -3.4502 -3.60156 1.78
+        -3.4502 -3.30078 1.72
+        -3.4502 -3 1.69
+        -3.4502 -2.69922 1.67
+        -3.4502 -2.40234 1.66
+        -3.4502 -2.10156 1.66
+        -3.4502 -1.80078 1.67
+        -3.4502 -1.5 1.68
+        -3.4502 -1.19922 1.69
+        -3.4502 -0.902344 1.71
+        -3.4502 -0.601562 1.72
+        -3.4502 -0.300781 1.73
+        -3.4502 0 1.74
+        -3.4502 0.300781 1.75
+        -3.4502 0.597656 1.76
+        -3.4502 0.898438 1.77
+        -3.4502 1.19922 1.79
+        -3.4502 1.5 1.82
+        -3.4502 1.80078 1.86
+        -3.4502 2.09766 1.9
+        -3.4502 2.39844 1.94
+        -3.4502 2.69922 1.97
+        -3.4502 3 1.99
+        -3.4502 3.30078 2.01
+        -3.4502 3.59766 2.03
+        -3.4502 3.89844 2.05
+        -3.4502 4.19922 2.07
+        -3.4502 4.5 2.09
+        -3.4502 4.80078 2.12
+        -3.4502 5.09766 2.14
+        -3.4502 5.39844 2.16
+        -3.4502 5.69922 2.18
+        -3.1499 -5.69922 2.06
+        -3.1499 -5.40234 2.04
+        -3.1499 -5.10156 2.02
+        -3.1499 -4.80078 1.98
+        -3.1499 -4.5 1.94
+        -3.1499 -4.19922 1.88
+        -3.1499 -3.90234 1.81
+        -3.1499 -3.60156 1.76
+        -3.1499 -3.30078 1.72
+        -3.1499 -3 1.7
+        -3.1499 -2.69922 1.68
+        -3.1499 -2.40234 1.67
+        -3.1499 -2.10156 1.67
+        -3.1499 -1.80078 1.68
+        -3.1499 -1.5 1.69
+        -3.1499 -1.19922 1.7
+        -3.1499 -0.902344 1.71
+        -3.1499 -0.601562 1.71
+        -3.1499 -0.300781 1.72
+        -3.1499 0 1.72
+        -3.1499 0.300781 1.73
+        -3.1499 0.597656 1.74
+        -3.1499 0.898438 1.75
+        -3.1499 1.19922 1.77
+        -3.1499 1.5 1.81
+        -3.1499 1.80078 1.87
+        -3.1499 2.09766 1.93
+        -3.1499 2.39844 1.98
+        -3.1499 2.69922 2.02
+        -3.1499 3 2.04
+        -3.1499 3.30078 2.05
+        -3.1499 3.59766 2.06
+        -3.1499 3.89844 2.08
+        -3.1499 4.19922 2.1
+        -3.1499 4.5 2.12
+        -3.1499 4.80078 2.15
+        -3.1499 5.09766 2.17
+        -3.1499 5.39844 2.19
+        -3.1499 5.69922 2.22
+        -2.8501 -5.69922 2
+        -2.8501 -5.40234 1.97
+        -2.8501 -5.10156 1.94
+        -2.8501 -4.80078 1.9
+        -2.8501 -4.5 1.86
+        -2.8501 -4.19922 1.82
+        -2.8501 -3.90234 1.78
+        -2.8501 -3.60156 1.75
+        -2.8501 -3.30078 1.72
+        -2.8501 -3 1.71
+        -2.8501 -2.69922 1.7
+        -2.8501 -2.40234 1.69
+        -2.8501 -2.10156 1.69
+        -2.8501 -1.80078 1.7
+        -2.8501 -1.5 1.71
+        -2.8501 -1.19922 1.71
+        -2.8501 -0.902344 1.72
+        -2.8501 -0.601562 1.72
+        -2.8501 -0.300781 1.72
+        -2.8501 0 1.72
+        -2.8501 0.300781 1.72
+        -2.8501 0.597656 1.73
+        -2.8501 0.898438 1.75
+        -2.8501 1.19922 1.78
+        -2.8501 1.5 1.82
+        -2.8501 1.80078 1.89
+        -2.8501 2.09766 1.97
+        -2.8501 2.39844 2.03
+        -2.8501 2.69922 2.08
+        -2.8501 3 2.09
+        -2.8501 3.30078 2.09
+        -2.8501 3.59766 2.09
+        -2.8501 3.89844 2.1
+        -2.8501 4.19922 2.12
+        -2.8501 4.5 2.15
+        -2.8501 4.80078 2.17
+        -2.8501 5.09766 2.2
+        -2.8501 5.39844 2.22
+        -2.8501 5.69922 2.26
+        -2.55029 -5.69922 1.94
+        -2.55029 -5.40234 1.91
+        -2.55029 -5.10156 1.87
+        -2.55029 -4.80078 1.84
+        -2.55029 -4.5 1.81
+        -2.55029 -4.19922 1.79
+        -2.55029 -3.90234 1.77
+        -2.55029 -3.60156 1.75
+        -2.55029 -3.30078 1.73
+        -2.55029 -3 1.72
+        -2.55029 -2.69922 1.71
+        -2.55029 -2.40234 1.71
+        -2.55029 -2.10156 1.71
+        -2.55029 -1.80078 1.71
+        -2.55029 -1.5 1.72
+        -2.55029 -1.19922 1.72
+        -2.55029 -0.902344 1.73
+        -2.55029 -0.601562 1.73
+        -2.55029 -0.300781 1.72
+        -2.55029 0 1.72
+        -2.55029 0.300781 1.72
+        -2.55029 0.597656 1.73
+        -2.55029 0.898438 1.76
+        -2.55029 1.19922 1.79
+        -2.55029 1.5 1.84
+        -2.55029 1.80078 1.92
+        -2.55029 2.09766 2.01
+        -2.55029 2.39844 2.08
+        -2.55029 2.69922 2.12
+        -2.55029 3 2.13
+        -2.55029 3.30078 2.12
+        -2.55029 3.59766 2.11
+        -2.55029 3.89844 2.12
+        -2.55029 4.19922 2.13
+        -2.55029 4.5 2.16
+        -2.55029 4.80078 2.18
+        -2.55029 5.09766 2.21
+        -2.55029 5.39844 2.24
+        -2.55029 5.69922 2.28
+        -2.25 -5.69922 1.89
+        -2.25 -5.40234 1.85
+        -2.25 -5.10156 1.82
+        -2.25 -4.80078 1.8
+        -2.25 -4.5 1.78
+        -2.25 -4.19922 1.76
+        -2.25 -3.90234 1.75
+        -2.25 -3.60156 1.74
+        -2.25 -3.30078 1.74
+        -2.25 -3 1.73
+        -2.25 -2.69922 1.73
+        -2.25 -2.40234 1.72
+        -2.25 -2.10156 1.72
+        -2.25 -1.80078 1.72
+        -2.25 -1.5 1.73
+        -2.25 -1.19922 1.73
+        -2.25 -0.902344 1.74
+        -2.25 -0.601562 1.73
+        -2.25 -0.300781 1.72
+        -2.25 0 1.72
+        -2.25 0.300781 1.73
+        -2.25 0.597656 1.75
+        -2.25 0.898438 1.78
+        -2.25 1.19922 1.82
+        -2.25 1.5 1.88
+        -2.25 1.80078 1.96
+        -2.25 2.09766 2.06
+        -2.25 2.39844 2.13
+        -2.25 2.69922 2.17
+        -2.25 3 2.17
+        -2.25 3.30078 2.15
+        -2.25 3.59766 2.14
+        -2.25 3.89844 2.13
+        -2.25 4.19922 2.14
+        -2.25 4.5 2.16
+        -2.25 4.80078 2.18
+        -2.25 5.09766 2.21
+        -2.25 5.39844 2.24
+        -2.25 5.69922 2.29
+        -1.9502 -5.69922 1.83
+        -1.9502 -5.40234 1.8
+        -1.9502 -5.10156 1.78
+        -1.9502 -4.80078 1.76
+        -1.9502 -4.5 1.74
+        -1.9502 -4.19922 1.74
+        -1.9502 -3.90234 1.74
+        -1.9502 -3.60156 1.74
+        -1.9502 -3.30078 1.74
+        -1.9502 -3 1.74
+        -1.9502 -2.69922 1.73
+        -1.9502 -2.40234 1.73
+        -1.9502 -2.10156 1.73
+        -1.9502 -1.80078 1.73
+        -1.9502 -1.5 1.74
+        -1.9502 -1.19922 1.74
+        -1.9502 -0.902344 1.74
+        -1.9502 -0.601562 1.74
+        -1.9502 -0.300781 1.73
+        -1.9502 0 1.73
+        -1.9502 0.300781 1.74
+        -1.9502 0.597656 1.77
+        -1.9502 0.898438 1.8
+        -1.9502 1.19922 1.85
+        -1.9502 1.5 1.92
+        -1.9502 1.80078 2.01
+        -1.9502 2.09766 2.11
+        -1.9502 2.39844 2.18
+        -1.9502 2.69922 2.22
+        -1.9502 3 2.22
+        -1.9502 3.30078 2.19
+        -1.9502 3.59766 2.17
+        -1.9502 3.89844 2.15
+        -1.9502 4.19922 2.16
+        -1.9502 4.5 2.17
+        -1.9502 4.80078 2.19
+        -1.9502 5.09766 2.21
+        -1.9502 5.39844 2.24
+        -1.9502 5.69922 2.29
+        -1.6499 -5.69922 1.81
+        -1.6499 -5.40234 1.79
+        -1.6499 -5.10156 1.78
+        -1.6499 -4.80078 1.76
+        -1.6499 -4.5 1.75
+        -1.6499 -4.19922 1.75
+        -1.6499 -3.90234 1.75
+        -1.6499 -3.60156 1.75
+        -1.6499 -3.30078 1.75
+        -1.6499 -3 1.75
+        -1.6499 -2.69922 1.74
+        -1.6499 -2.40234 1.73
+        -1.6499 -2.10156 1.73
+        -1.6499 -1.80078 1.73
+        -1.6499 -1.5 1.74
+        -1.6499 -1.19922 1.74
+        -1.6499 -0.902344 1.75
+        -1.6499 -0.601562 1.74
+        -1.6499 -0.300781 1.74
+        -1.6499 0 1.74
+        -1.6499 0.300781 1.75
+        -1.6499 0.597656 1.79
+        -1.6499 0.898438 1.83
+        -1.6499 1.19922 1.88
+        -1.6499 1.5 1.95
+        -1.6499 1.80078 2.04
+        -1.6499 2.09766 2.14
+        -1.6499 2.39844 2.21
+        -1.6499 2.69922 2.26
+        -1.6499 3 2.25
+        -1.6499 3.30078 2.22
+        -1.6499 3.59766 2.2
+        -1.6499 3.89844 2.19
+        -1.6499 4.19922 2.19
+        -1.6499 4.5 2.21
+        -1.6499 4.80078 2.22
+        -1.6499 5.09766 2.24
+        -1.6499 5.39844 2.27
+        -1.6499 5.69922 2.31
+        -1.3501 -5.69922 1.84
+        -1.3501 -5.40234 1.83
+        -1.3501 -5.10156 1.82
+        -1.3501 -4.80078 1.81
+        -1.3501 -4.5 1.8
+        -1.3501 -4.19922 1.79
+        -1.3501 -3.90234 1.78
+        -1.3501 -3.60156 1.77
+        -1.3501 -3.30078 1.76
+        -1.3501 -3 1.76
+        -1.3501 -2.69922 1.75
+        -1.3501 -2.40234 1.74
+        -1.3501 -2.10156 1.74
+        -1.3501 -1.80078 1.74
+        -1.3501 -1.5 1.75
+        -1.3501 -1.19922 1.75
+        -1.3501 -0.902344 1.75
+        -1.3501 -0.601562 1.75
+        -1.3501 -0.300781 1.75
+        -1.3501 0 1.75
+        -1.3501 0.300781 1.77
+        -1.3501 0.597656 1.8
+        -1.3501 0.898438 1.85
+        -1.3501 1.19922 1.91
+        -1.3501 1.5 1.98
+        -1.3501 1.80078 2.06
+        -1.3501 2.09766 2.15
+        -1.3501 2.39844 2.22
+        -1.3501 2.69922 2.27
+        -1.3501 3 2.27
+        -1.3501 3.30078 2.24
+        -1.3501 3.59766 2.23
+        -1.3501 3.89844 2.22
+        -1.3501 4.19922 2.23
+        -1.3501 4.5 2.26
+        -1.3501 4.80078 2.28
+        -1.3501 5.09766 2.3
+        -1.3501 5.39844 2.33
+        -1.3501 5.69922 2.37
+        -1.05029 -5.69922 1.85
+        -1.05029 -5.40234 1.86
+        -1.05029 -5.10156 1.87
+        -1.05029 -4.80078 1.87
+        -1.05029 -4.5 1.86
+        -1.05029 -4.19922 1.85
+        -1.05029 -3.90234 1.82
+        -1.05029 -3.60156 1.8
+        -1.05029 -3.30078 1.78
+        -1.05029 -3 1.77
+        -1.05029 -2.69922 1.76
+        -1.05029 -2.40234 1.75
+        -1.05029 -2.10156 1.75
+        -1.05029 -1.80078 1.75
+        -1.05029 -1.5 1.76
+        -1.05029 -1.19922 1.76
+        -1.05029 -0.902344 1.76
+        -1.05029 -0.601562 1.76
+        -1.05029 -0.300781 1.76
+        -1.05029 0 1.77
+        -1.05029 0.300781 1.78
+        -1.05029 0.597656 1.82
+        -1.05029 0.898438 1.87
+        -1.05029 1.19922 1.93
+        -1.05029 1.5 1.99
+        -1.05029 1.80078 2.07
+        -1.05029 2.09766 2.15
+        -1.05029 2.39844 2.21
+        -1.05029 2.69922 2.26
+        -1.05029 3 2.26
+        -1.05029 3.30078 2.25
+        -1.05029 3.59766 2.25
+        -1.05029 3.89844 2.25
+        -1.05029 4.19922 2.28
+        -1.05029 4.5 2.32
+        -1.05029 4.80078 2.35
+        -1.05029 5.09766 2.38
+        -1.05029 5.39844 2.41
+        -1.05029 5.69922 2.44
+        -0.75 -5.69922 1.86
+        -0.75 -5.40234 1.88
+        -0.75 -5.10156 1.9
+        -0.75 -4.80078 1.92
+        -0.75 -4.5 1.92
+        -0.75 -4.19922 1.9
+        -0.75 -3.90234 1.87
+        -0.75 -3.60156 1.84
+        -0.75 -3.30078 1.81
+        -0.75 -3 1.79
+        -0.75 -2.69922 1.77
+        -0.75 -2.40234 1.76
+        -0.75 -2.10156 1.76
+        -0.75 -1.80078 1.76
+        -0.75 -1.5 1.77
+        -0.75 -1.19922 1.77
+        -0.75 -0.902344 1.78
+        -0.75 -0.601562 1.77
+        -0.75 -0.300781 1.77
+        -0.75 0 1.78
+        -0.75 0.300781 1.8
+        -0.75 0.597656 1.84
+        -0.75 0.898438 1.9
+        -0.75 1.19922 1.95
+        -0.75 1.5 2.02
+        -0.75 1.80078 2.09
+        -0.75 2.09766 2.16
+        -0.75 2.39844 2.22
+        -0.75 2.69922 2.26
+        -0.75 3 2.27
+        -0.75 3.30078 2.27
+        -0.75 3.59766 2.27
+        -0.75 3.89844 2.29
+        -0.75 4.19922 2.34
+        -0.75 4.5 2.4
+        -0.75 4.80078 2.45
+        -0.75 5.09766 2.49
+        -0.75 5.39844 2.51
+        -0.75 5.69922 2.52
+        -0.450195 -5.69922 1.88
+        -0.450195 -5.40234 1.9
+        -0.450195 -5.10156 1.93
+        -0.450195 -4.80078 1.96
+        -0.450195 -4.5 1.96
+        -0.450195 -4.19922 1.94
+        -0.450195 -3.90234 1.9
+        -0.450195 -3.60156 1.87
+        -0.450195 -3.30078 1.84
+        -0.450195 -3 1.81
+        -0.450195 -2.69922 1.78
+        -0.450195 -2.40234 1.77
+        -0.450195 -2.10156 1.76
+        -0.450195 -1.80078 1.77
+        -0.450195 -1.5 1.78
+        -0.450195 -1.19922 1.79
+        -0.450195 -0.902344 1.79
+        -0.450195 -0.601562 1.79
+        -0.450195 -0.300781 1.79
+        -0.450195 0 1.8
+        -0.450195 0.300781 1.82
+        -0.450195 0.597656 1.87
+        -0.450195 0.898438 1.93
+        -0.450195 1.19922 2
+        -0.450195 1.5 2.06
+        -0.450195 1.80078 2.14
+        -0.450195 2.09766 2.21
+        -0.450195 2.39844 2.28
+        -0.450195 2.69922 2.32
+        -0.450195 3 2.32
+        -0.450195 3.30078 2.32
+        -0.450195 3.59766 2.33
+        -0.450195 3.89844 2.35
+        -0.450195 4.19922 2.41
+        -0.450195 4.5 2.49
+        -0.450195 4.80078 2.55
+        -0.450195 5.09766 2.59
+        -0.450195 5.39844 2.6
+        -0.450195 5.69922 2.6
+        -0.149902 -5.69922 1.91
+        -0.149902 -5.40234 1.92
+        -0.149902 -5.10156 1.96
+        -0.149902 -4.80078 1.98
+        -0.149902 -4.5 1.98
+        -0.149902 -4.19922 1.95
+        -0.149902 -3.90234 1.91
+        -0.149902 -3.60156 1.87
+        -0.149902 -3.30078 1.84
+        -0.149902 -3 1.81
+        -0.149902 -2.69922 1.79
+        -0.149902 -2.40234 1.78
+        -0.149902 -2.10156 1.77
+        -0.149902 -1.80078 1.78
+        -0.149902 -1.5 1.79
+        -0.149902 -1.19922 1.8
+        -0.149902 -0.902344 1.81
+        -0.149902 -0.601562 1.81
+        -0.149902 -0.300781 1.8
+        -0.149902 0 1.81
+        -0.149902 0.300781 1.84
+        -0.149902 0.597656 1.9
+        -0.149902 0.898438 1.97
+        -0.149902 1.19922 2.05
+        -0.149902 1.5 2.14
+        -0.149902 1.80078 2.22
+        -0.149902 2.09766 2.31
+        -0.149902 2.39844 2.38
+        -0.149902 2.69922 2.43
+        -0.149902 3 2.44
+        -0.149902 3.30078 2.42
+        -0.149902 3.59766 2.42
+        -0.149902 3.89844 2.44
+        -0.149902 4.19922 2.51
+        -0.149902 4.5 2.58
+        -0.149902 4.80078 2.65
+        -0.149902 5.09766 2.69
+        -0.149902 5.39844 2.69
+        -0.149902 5.69922 2.68
+        0.149902 -5.69922 1.95
+        0.149902 -5.40234 1.95
+        0.149902 -5.10156 1.96
+        0.149902 -4.80078 1.97
+        0.149902 -4.5 1.96
+        0.149902 -4.19922 1.93
+        0.149902 -3.90234 1.89
+        0.149902 -3.60156 1.85
+        0.149902 -3.30078 1.82
+        0.149902 -3 1.8
+        0.149902 -2.69922 1.79
+        0.149902 -2.40234 1.78
+        0.149902 -2.10156 1.78
+        0.149902 -1.80078 1.79
+        0.149902 -1.5 1.8
+        0.149902 -1.19922 1.82
+        0.149902 -0.902344 1.83
+        0.149902 -0.601562 1.83
+        0.149902 -0.300781 1.83
+        0.149902 0 1.84
+        0.149902 0.300781 1.87
+        0.149902 0.597656 1.94
+        0.149902 0.898438 2.02
+        0.149902 1.19922 2.12
+        0.149902 1.5 2.21
+        0.149902 1.80078 2.32
+        0.149902 2.09766 2.42
+        0.149902 2.39844 2.5
+        0.149902 2.69922 2.56
+        0.149902 3 2.56
+        0.149902 3.30078 2.54
+        0.149902 3.59766 2.54
+        0.149902 3.89844 2.55
+        0.149902 4.19922 2.61
+        0.149902 4.5 2.68
+        0.149902 4.80078 2.74
+        0.149902 5.09766 2.78
+        0.149902 5.39844 2.78
+        0.149902 5.69922 2.76
+        0.449707 -5.69922 1.98
+        0.449707 -5.40234 1.96
+        0.449707 -5.10156 1.94
+        0.449707 -4.80078 1.91
+        0.449707 -4.5 1.89
+        0.449707 -4.19922 1.86
+        0.449707 -3.90234 1.83
+        0.449707 -3.60156 1.81
+        0.449707 -3.30078 1.79
+        0.449707 -3 1.79
+        0.449707 -2.69922 1.79
+        0.449707 -2.40234 1.79
+        0.449707 -2.10156 1.79
+        0.449707 -1.80078 1.8
+        0.449707 -1.5 1.82
+        0.449707 -1.19922 1.84
+        0.449707 -0.902344 1.85
+        0.449707 -0.601562 1.86
+        0.449707 -0.300781 1.87
+        0.449707 0 1.89
+        0.449707 0.300781 1.92
+        0.449707 0.597656 1.99
+        0.449707 0.898438 2.08
+        0.449707 1.19922 2.17
+        0.449707 1.5 2.27
+        0.449707 1.80078 2.39
+        0.449707 2.09766 2.51
+        0.449707 2.39844 2.61
+        0.449707 2.69922 2.67
+        0.449707 3 2.68
+        0.449707 3.30078 2.66
+        0.449707 3.59766 2.65
+        0.449707 3.89844 2.66
+        0.449707 4.19922 2.71
+        0.449707 4.5 2.77
+        0.449707 4.80078 2.83
+        0.449707 5.09766 2.87
+        0.449707 5.39844 2.87
+        0.449707 5.69922 2.85
+        0.75 -5.69922 2.03
+        0.75 -5.40234 1.98
+        0.75 -5.10156 1.93
+        0.75 -4.80078 1.89
+        0.75 -4.5 1.84
+        0.75 -4.19922 1.82
+        0.75 -3.90234 1.8
+        0.75 -3.60156 1.8
+        0.75 -3.30078 1.8
+        0.75 -3 1.8
+        0.75 -2.69922 1.78
+        0.75 -2.40234 1.79
+        0.75 -2.10156 1.8
+        0.75 -1.80078 1.82
+        0.75 -1.5 1.84
+        0.75 -1.19922 1.86
+        0.75 -0.902344 1.88
+        0.75 -0.601562 1.9
+        0.75 -0.300781 1.92
+        0.75 0 1.94
+        0.75 0.300781 1.98
+        0.75 0.597656 2.05
+        0.75 0.898438 2.13
+        0.75 1.19922 2.21
+        0.75 1.5 2.31
+        0.75 1.80078 2.43
+        0.75 2.09766 2.56
+        0.75 2.39844 2.66
+        0.75 2.69922 2.74
+        0.75 3 2.76
+        0.75 3.30078 2.74
+        0.75 3.59766 2.74
+        0.75 3.89844 2.75
+        0.75 4.19922 2.79
+        0.75 4.5 2.86
+        0.75 4.80078 2.91
+        0.75 5.09766 2.94
+        0.75 5.39844 2.95
+        0.75 5.69922 2.93
+        1.0498 -5.69922 2.07
+        1.0498 -5.40234 2.02
+        1.0498 -5.10156 1.95
+        1.0498 -4.80078 1.89
+        1.0498 -4.5 1.84
+        1.0498 -4.19922 1.81
+        1.0498 -3.90234 1.8
+        1.0498 -3.60156 1.8
+        1.0498 -3.30078 1.8
+        1.0498 -3 1.8
+        1.0498 -2.69922 1.79
+        1.0498 -2.40234 1.8
+        1.0498 -2.10156 1.82
+        1.0498 -1.80078 1.84
+        1.0498 -1.5 1.86
+        1.0498 -1.19922 1.88
+        1.0498 -0.902344 1.91
+        1.0498 -0.601562 1.93
+        1.0498 -0.300781 1.96
+        1.0498 0 1.99
+        1.0498 0.300781 2.03
+        1.0498 0.597656 2.09
+        1.0498 0.898438 2.17
+        1.0498 1.19922 2.25
+        1.0498 1.5 2.34
+        1.0498 1.80078 2.45
+        1.0498 2.09766 2.56
+        1.0498 2.39844 2.66
+        1.0498 2.69922 2.74
+        1.0498 3 2.77
+        1.0498 3.30078 2.78
+        1.0498 3.59766 2.8
+        1.0498 3.89844 2.83
+        1.0498 4.19922 2.88
+        1.0498 4.5 2.94
+        1.0498 4.80078 2.98
+        1.0498 5.09766 3.02
+        1.0498 5.39844 3.03
+        1.0498 5.69922 3.02
+        1.3501 -5.69922 2.09
+        1.3501 -5.40234 2.03
+        1.3501 -5.10156 1.96
+        1.3501 -4.80078 1.89
+        1.3501 -4.5 1.83
+        1.3501 -4.19922 1.8
+        1.3501 -3.90234 1.8
+        1.3501 -3.60156 1.8
+        1.3501 -3.30078 1.8
+        1.3501 -3 1.8
+        1.3501 -2.69922 1.81
+        1.3501 -2.40234 1.82
+        1.3501 -2.10156 1.83
+        1.3501 -1.80078 1.85
+        1.3501 -1.5 1.88
+        1.3501 -1.19922 1.9
+        1.3501 -0.902344 1.92
+        1.3501 -0.601562 1.95
+        1.3501 -0.300781 1.98
+        1.3501 0 2.02
+        1.3501 0.300781 2.06
+        1.3501 0.597656 2.12
+        1.3501 0.898438 2.2
+        1.3501 1.19922 2.28
+        1.3501 1.5 2.37
+        1.3501 1.80078 2.46
+        1.3501 2.09766 2.55
+        1.3501 2.39844 2.64
+        1.3501 2.69922 2.72
+        1.3501 3 2.77
+        1.3501 3.30078 2.81
+        1.3501 3.59766 2.86
+        1.3501 3.89844 2.91
+        1.3501 4.19922 2.96
+        1.3501 4.5 3.01
+        1.3501 4.80078 3.05
+        1.3501 5.09766 3.09
+        1.3501 5.39844 3.1
+        1.3501 5.69922 3.1
+        1.6499 -5.69922 2.07
+        1.6499 -5.40234 2.01
+        1.6499 -5.10156 1.94
+        1.6499 -4.80078 1.87
+        1.6499 -4.5 1.8
+        1.6499 -4.19922 1.8
+        1.6499 -3.90234 1.8
+        1.6499 -3.60156 1.8
+        1.6499 -3.30078 1.8
+        1.6499 -3 1.81
+        1.6499 -2.69922 1.82
+        1.6499 -2.40234 1.83
+        1.6499 -2.10156 1.84
+        1.6499 -1.80078 1.86
+        1.6499 -1.5 1.89
+        1.6499 -1.19922 1.91
+        1.6499 -0.902344 1.93
+        1.6499 -0.601562 1.96
+        1.6499 -0.300781 1.99
+        1.6499 0 2.03
+        1.6499 0.300781 2.08
+        1.6499 0.597656 2.15
+        1.6499 0.898438 2.24
+        1.6499 1.19922 2.32
+        1.6499 1.5 2.41
+        1.6499 1.80078 2.5
+        1.6499 2.09766 2.6
+        1.6499 2.39844 2.69
+        1.6499 2.69922 2.78
+        1.6499 3 2.83
+        1.6499 3.30078 2.88
+        1.6499 3.59766 2.92
+        1.6499 3.89844 2.97
+        1.6499 4.19922 3.02
+        1.6499 4.5 3.07
+        1.6499 4.80078 3.12
+        1.6499 5.09766 3.15
+        1.6499 5.39844 3.17
+        1.6499 5.69922 3.17
+        1.94971 -5.69922 2.03
+        1.94971 -5.40234 1.97
+        1.94971 -5.10156 1.9
+        1.94971 -4.80078 1.83
+        1.94971 -4.5 1.8
+        1.94971 -4.19922 1.8
+        1.94971 -3.90234 1.8
+        1.94971 -3.60156 1.8
+        1.94971 -3.30078 1.8
+        1.94971 -3 1.82
+        1.94971 -2.69922 1.83
+        1.94971 -2.40234 1.85
+        1.94971 -2.10156 1.86
+        1.94971 -1.80078 1.88
+        1.94971 -1.5 1.9
+        1.94971 -1.19922 1.92
+        1.94971 -0.902344 1.94
+        1.94971 -0.601562 1.97
+        1.94971 -0.300781 2.01
+        1.94971 0 2.05
+        1.94971 0.300781 2.1
+        1.94971 0.597656 2.18
+        1.94971 0.898438 2.27
+        1.94971 1.19922 2.36
+        1.94971 1.5 2.45
+        1.94971 1.80078 2.56
+        1.94971 2.09766 2.67
+        1.94971 2.39844 2.77
+        1.94971 2.69922 2.86
+        1.94971 3 2.91
+        1.94971 3.30078 2.94
+        1.94971 3.59766 2.97
+        1.94971 3.89844 3.01
+        1.94971 4.19922 3.06
+        1.94971 4.5 3.12
+        1.94971 4.80078 3.18
+        1.94971 5.09766 3.22
+        1.94971 5.39844 3.24
+        1.94971 5.69922 3.24
+        2.25 -5.69922 1.96
+        2.25 -5.40234 1.91
+        2.25 -5.10156 1.85
+        2.25 -4.80078 1.8
+        2.25 -4.5 1.8
+        2.25 -4.19922 1.8
+        2.25 -3.90234 1.8
+        2.25 -3.60156 1.8
+        2.25 -3.30078 1.8
+        2.25 -3 1.82
+        2.25 -2.69922 1.84
+        2.25 -2.40234 1.86
+        2.25 -2.10156 1.88
+        2.25 -1.80078 1.9
+        2.25 -1.5 1.91
+        2.25 -1.19922 1.93
+        2.25 -0.902344 1.95
+        2.25 -0.601562 1.98
+        2.25 -0.300781 2.02
+        2.25 0 2.07
+        2.25 0.300781 2.12
+        2.25 0.597656 2.2
+        2.25 0.898438 2.3
+        2.25 1.19922 2.39
+        2.25 1.5 2.49
+        2.25 1.80078 2.61
+        2.25 2.09766 2.73
+        2.25 2.39844 2.84
+        2.25 2.69922 2.93
+        2.25 3 2.97
+        2.25 3.30078 2.98
+        2.25 3.59766 3
+        2.25 3.89844 3.03
+        2.25 4.19922 3.09
+        2.25 4.5 3.17
+        2.25 4.80078 3.24
+        2.25 5.09766 3.3
+        2.25 5.39844 3.32
+        2.25 5.69922 3.32
+        2.5498 -5.69922 1.88
+        2.5498 -5.40234 1.85
+        2.5498 -5.10156 1.8
+        2.5498 -4.80078 1.8
+        2.5498 -4.5 1.8
+        2.5498 -4.19922 1.8
+        2.5498 -3.90234 1.8
+        2.5498 -3.60156 1.8
+        2.5498 -3.30078 1.8
+        2.5498 -3 1.82
+        2.5498 -2.69922 1.85
+        2.5498 -2.40234 1.88
+        2.5498 -2.10156 1.9
+        2.5498 -1.80078 1.92
+        2.5498 -1.5 1.93
+        2.5498 -1.19922 1.94
+        2.5498 -0.902344 1.96
+        2.5498 -0.601562 1.99
+        2.5498 -0.300781 2.04
+        2.5498 0 2.08
+        2.5498 0.300781 2.14
+        2.5498 0.597656 2.23
+        2.5498 0.898438 2.33
+        2.5498 1.19922 2.43
+        2.5498 1.5 2.54
+        2.5498 1.80078 2.67
+        2.5498 2.09766 2.79
+        2.5498 2.39844 2.91
+        2.5498 2.69922 3
+        2.5498 3 3.04
+        2.5498 3.30078 3.04
+        2.5498 3.59766 3.05
+        2.5498 3.89844 3.08
+        2.5498 4.19922 3.15
+        2.5498 4.5 3.24
+        2.5498 4.80078 3.32
+        2.5498 5.09766 3.38
+        2.5498 5.39844 3.4
+        2.5498 5.69922 3.4
+        2.8501 -5.69922 1.83
+        2.8501 -5.40234 1.8
+        2.8501 -5.10156 1.8
+        2.8501 -4.80078 1.8
+        2.8501 -4.5 1.8
+        2.8501 -4.19922 1.8
+        2.8501 -3.90234 1.8
+        2.8501 -3.60156 1.8
+        2.8501 -3.30078 1.8
+        2.8501 -3 1.8
+        2.8501 -2.69922 1.86
+        2.8501 -2.40234 1.89
+        2.8501 -2.10156 1.92
+        2.8501 -1.80078 1.94
+        2.8501 -1.5 1.95
+        2.8501 -1.19922 1.96
+        2.8501 -0.902344 1.98
+        2.8501 -0.601562 2.01
+        2.8501 -0.300781 2.06
+        2.8501 0 2.11
+        2.8501 0.300781 2.17
+        2.8501 0.597656 2.26
+        2.8501 0.898438 2.37
+        2.8501 1.19922 2.48
+        2.8501 1.5 2.6
+        2.8501 1.80078 2.73
+        2.8501 2.09766 2.86
+        2.8501 2.39844 2.97
+        2.8501 2.69922 3.06
+        2.8501 3 3.09
+        2.8501 3.30078 3.09
+        2.8501 3.59766 3.1
+        2.8501 3.89844 3.13
+        2.8501 4.19922 3.21
+        2.8501 4.5 3.31
+        2.8501 4.80078 3.41
+        2.8501 5.09766 3.48
+        2.8501 5.39844 3.5
+        2.8501 5.69922 3.48
+        3.1499 -5.69922 1.8
+        3.1499 -5.40234 1.78
+        3.1499 -5.10156 1.8
+        3.1499 -4.80078 1.8
+        3.1499 -4.5 1.8
+        3.1499 -4.19922 1.8
+        3.1499 -3.90234 1.8
+        3.1499 -3.60156 1.8
+        3.1499 -3.30078 1.8
+        3.1499 -3 1.84
+        3.1499 -2.69922 1.88
+        3.1499 -2.40234 1.91
+        3.1499 -2.10156 1.94
+        3.1499 -1.80078 1.96
+        3.1499 -1.5 1.97
+        3.1499 -1.19922 1.99
+        3.1499 -0.902344 2.01
+        3.1499 -0.601562 2.05
+        3.1499 -0.300781 2.1
+        3.1499 0 2.16
+        3.1499 0.300781 2.23
+        3.1499 0.597656 2.32
+        3.1499 0.898438 2.44
+        3.1499 1.19922 2.56
+        3.1499 1.5 2.68
+        3.1499 1.80078 2.8
+        3.1499 2.09766 2.92
+        3.1499 2.39844 3.02
+        3.1499 2.69922 3.11
+        3.1499 3 3.13
+        3.1499 3.30078 3.12
+        3.1499 3.59766 3.12
+        3.1499 3.89844 3.15
+        3.1499 4.19922 3.24
+        3.1499 4.5 3.37
+        3.1499 4.80078 3.48
+        3.1499 5.09766 3.57
+        3.1499 5.39844 3.58
+        3.1499 5.69922 3.56
+        3.44971 -5.69922 1.81
+        3.44971 -5.40234 1.78
+        3.44971 -5.10156 1.8
+        3.44971 -4.80078 1.8
+        3.44971 -4.5 1.8
+        3.44971 -4.19922 1.8
+        3.44971 -3.90234 1.8
+        3.44971 -3.60156 1.8
+        3.44971 -3.30078 1.8
+        3.44971 -3 1.87
+        3.44971 -2.69922 1.9
+        3.44971 -2.40234 1.94
+        3.44971 -2.10156 1.97
+        3.44971 -1.80078 1.99
+        3.44971 -1.5 2
+        3.44971 -1.19922 2.02
+        3.44971 -0.902344 2.05
+        3.44971 -0.601562 2.1
+        3.44971 -0.300781 2.16
+        3.44971 0 2.23
+        3.44971 0.300781 2.31
+        3.44971 0.597656 2.41
+        3.44971 0.898438 2.54
+        3.44971 1.19922 2.66
+        3.44971 1.5 2.78
+        3.44971 1.80078 2.89
+        3.44971 2.09766 2.99
+        3.44971 2.39844 3.08
+        3.44971 2.69922 3.16
+        3.44971 3 3.18
+        3.44971 3.30078 3.17
+        3.44971 3.59766 3.18
+        3.44971 3.89844 3.21
+        3.44971 4.19922 3.3
+        3.44971 4.5 3.43
+        3.44971 4.80078 3.54
+        3.44971 5.09766 3.63
+        3.44971 5.39844 3.64
+        3.44971 5.69922 3.6
+        3.75 -5.69922 1.82
+        3.75 -5.40234 1.79
+        3.75 -5.10156 1.8
+        3.75 -4.80078 1.8
+        3.75 -4.5 1.8
+        3.75 -4.19922 1.8
+        3.75 -3.90234 1.8
+        3.75 -3.60156 1.8
+        3.75 -3.30078 1.87
+        3.75 -3 1.9
+        3.75 -2.69922 1.93
+        3.75 -2.40234 1.96
+        3.75 -2.10156 2
+        3.75 -1.80078 2.02
+        3.75 -1.5 2.04
+        3.75 -1.19922 2.07
+        3.75 -0.902344 2.1
+        3.75 -0.601562 2.16
+        3.75 -0.300781 2.23
+        3.75 0 2.31
+        3.75 0.300781 2.39
+        3.75 0.597656 2.5
+        3.75 0.898438 2.63
+        3.75 1.19922 2.75
+        3.75 1.5 2.87
+        3.75 1.80078 2.98
+        3.75 2.09766 3.08
+        3.75 2.39844 3.16
+        3.75 2.69922 3.23
+        3.75 3 3.26
+        3.75 3.30078 3.25
+        3.75 3.59766 3.26
+        3.75 3.89844 3.29
+        3.75 4.19922 3.38
+        3.75 4.5 3.49
+        3.75 4.80078 3.59
+        3.75 5.09766 3.67
+        3.75 5.39844 3.67
+        3.75 5.69922 3.64
+        4.0498 -5.69922 1.81
+        4.0498 -5.40234 1.8
+        4.0498 -5.10156 1.8
+        4.0498 -4.80078 1.8
+        4.0498 -4.5 1.8
+        4.0498 -4.19922 1.8
+        4.0498 -3.90234 1.8
+        4.0498 -3.60156 1.8
+        4.0498 -3.30078 1.91
+        4.0498 -3 1.94
+        4.0498 -2.69922 1.96
+        4.0498 -2.40234 1.99
+        4.0498 -2.10156 2.02
+        4.0498 -1.80078 2.05
+        4.0498 -1.5 2.08
+        4.0498 -1.19922 2.12
+        4.0498 -0.902344 2.16
+        4.0498 -0.601562 2.22
+        4.0498 -0.300781 2.29
+        4.0498 0 2.36
+        4.0498 0.300781 2.44
+        4.0498 0.597656 2.56
+        4.0498 0.898438 2.69
+        4.0498 1.19922 2.81
+        4.0498 1.5 2.94
+        4.0498 1.80078 3.06
+        4.0498 2.09766 3.17
+        4.0498 2.39844 3.27
+        4.0498 2.69922 3.35
+        4.0498 3 3.37
+        4.0498 3.30078 3.36
+        4.0498 3.59766 3.36
+        4.0498 3.89844 3.38
+        4.0498 4.19922 3.45
+        4.0498 4.5 3.55
+        4.0498 4.80078 3.64
+        4.0498 5.09766 3.71
+        4.0498 5.39844 3.71
+        4.0498 5.69922 3.69
+        4.3501 -5.69922 1.78
+        4.3501 -5.40234 1.78
+        4.3501 -5.10156 1.8
+        4.3501 -4.80078 1.8
+        4.3501 -4.5 1.8
+        4.3501 -4.19922 1.8
+        4.3501 -3.90234 1.8
+        4.3501 -3.60156 1.9
+        4.3501 -3.30078 1.94
+        4.3501 -3 1.98
+        4.3501 -2.69922 2.01
+        4.3501 -2.40234 2.04
+        4.3501 -2.10156 2.08
+        4.3501 -1.80078 2.11
+        4.3501 -1.5 2.15
+        4.3501 -1.19922 2.18
+        4.3501 -0.902344 2.23
+        4.3501 -0.601562 2.28
+        4.3501 -0.300781 2.33
+        4.3501 0 2.38
+        4.3501 0.300781 2.46
+        4.3501 0.597656 2.57
+        4.3501 0.898438 2.7
+        4.3501 1.19922 2.83
+        4.3501 1.5 2.97
+        4.3501 1.80078 3.1
+        4.3501 2.09766 3.23
+        4.3501 2.39844 3.36
+        4.3501 2.69922 3.45
+        4.3501 3 3.48
+        4.3501 3.30078 3.46
+        4.3501 3.59766 3.46
+        4.3501 3.89844 3.47
+        4.3501 4.19922 3.53
+        4.3501 4.5 3.62
+        4.3501 4.80078 3.7
+        4.3501 5.09766 3.76
+        4.3501 5.39844 3.77
+        4.3501 5.69922 3.75
+        4.6499 -5.69922 1.73
+        4.6499 -5.40234 1.75
+        4.6499 -5.10156 1.75
+        4.6499 -4.80078 1.8
+        4.6499 -4.5 1.8
+        4.6499 -4.19922 1.8
+        4.6499 -3.90234 1.86
+        4.6499 -3.60156 1.9
+        4.6499 -3.30078 1.95
+        4.6499 -3 2
+        4.6499 -2.69922 2.06
+        4.6499 -2.40234 2.11
+        4.6499 -2.10156 2.17
+        4.6499 -1.80078 2.21
+        4.6499 -1.5 2.24
+        4.6499 -1.19922 2.28
+        4.6499 -0.902344 2.32
+        4.6499 -0.601562 2.34
+        4.6499 -0.300781 2.37
+        4.6499 0 2.4
+        4.6499 0.300781 2.45
+        4.6499 0.597656 2.55
+        4.6499 0.898438 2.68
+        4.6499 1.19922 2.81
+        4.6499 1.5 2.94
+        4.6499 1.80078 3.09
+        4.6499 2.09766 3.23
+        4.6499 2.39844 3.37
+        4.6499 2.69922 3.49
+        4.6499 3 3.52
+        4.6499 3.30078 3.52
+        4.6499 3.59766 3.52
+        4.6499 3.89844 3.54
+        4.6499 4.19922 3.6
+        4.6499 4.5 3.69
+        4.6499 4.80078 3.76
+        4.6499 5.09766 3.83
+        4.6499 5.39844 3.84
+        4.6499 5.69922 3.83
+        4.94971 -5.69922 1.7
+        4.94971 -5.40234 1.71
+        4.94971 -5.10156 1.72
+        4.94971 -4.80078 1.74
+        4.94971 -4.5 1.76
+        4.94971 -4.19922 1.79
+        4.94971 -3.90234 1.84
+        4.94971 -3.60156 1.89
+        4.94971 -3.30078 1.94
+        4.94971 -3 2
+        4.94971 -2.69922 2.08
+        4.94971 -2.40234 2.15
+        4.94971 -2.10156 2.23
+        4.94971 -1.80078 2.28
+        4.94971 -1.5 2.33
+        4.94971 -1.19922 2.38
+        4.94971 -0.902344 2.42
+        4.94971 -0.601562 2.43
+        4.94971 -0.300781 2.43
+        4.94971 0 2.43
+        4.94971 0.300781 2.45
+        4.94971 0.597656 2.54
+        4.94971 0.898438 2.65
+        4.94971 1.19922 2.77
+        4.94971 1.5 2.89
+        4.94971 1.80078 3.03
+        4.94971 2.09766 3.18
+        4.94971 2.39844 3.32
+        4.94971 2.69922 3.45
+        4.94971 3 3.5
+        4.94971 3.30078 3.52
+        4.94971 3.59766 3.54
+        4.94971 3.89844 3.58
+        4.94971 4.19922 3.65
+        4.94971 4.5 3.75
+        4.94971 4.80078 3.84
+        4.94971 5.09766 3.91
+        4.94971 5.39844 3.94
+        4.94971 5.69922 3.93
+        5.25 -5.40234 1.69
+        5.25 -5.10156 1.7
+        5.25 -4.80078 1.71
+        5.25 -4.5 1.73
+        5.25 -4.19922 1.76
+        5.25 -3.90234 1.8
+        5.25 -3.60156 1.85
+        5.25 -3.30078 1.9
+        5.25 -3 1.97
+        5.25 -2.69922 2.05
+        5.25 -2.40234 2.14
+        5.25 -2.10156 2.22
+        5.25 -1.80078 2.31
+        5.25 -1.5 2.38
+        5.25 -1.19922 2.46
+        5.25 -0.902344 2.52
+        5.25 -0.601562 2.54
+        5.25 -0.300781 2.52
+        5.25 0 2.52
+        5.25 0.300781 2.53
+        5.25 0.597656 2.59
+        5.25 0.898438 2.69
+        5.25 1.19922 2.79
+        5.25 1.5 2.89
+        5.25 1.80078 3.01
+        5.25 2.09766 3.14
+        5.25 2.39844 3.26
+        5.25 2.69922 3.37
+        5.25 3 3.44
+        5.25 3.30078 3.49
+        5.25 3.59766 3.55
+        5.25 3.89844 3.61
+        5.25 4.19922 3.7
+        5.25 4.5 3.81
+        5.25 4.80078 3.92
+        5.25 5.09766 4
+        5.25 5.39844 4.04
+        5.25 5.69922 4.04
+        5.25 6 4.05
+        5.5498 -5.40234 1.69
+        5.5498 -5.10156 1.7
+        5.5498 -4.80078 1.71
+        5.5498 -4.5 1.72
+        5.5498 -4.19922 1.74
+        5.5498 -3.90234 1.76
+        5.5498 -3.60156 1.79
+        5.5498 -3.30078 1.82
+        5.5498 -3 1.9
+        5.5498 -2.69922 2
+        5.5498 -2.40234 2.1
+        5.5498 -2.10156 2.2
+        5.5498 -1.80078 2.31
+        5.5498 -1.5 2.42
+        5.5498 -1.19922 2.52
+        5.5498 -0.902344 2.62
+        5.5498 -0.601562 2.65
+        5.5498 -0.300781 2.66
+        5.5498 0 2.67
+        5.5498 0.300781 2.69
+        5.5498 0.597656 2.74
+        5.5498 0.898438 2.82
+        5.5498 1.19922 2.9
+        5.5498 1.5 2.99
+        5.5498 1.80078 3.07
+        5.5498 2.09766 3.16
+        5.5498 2.39844 3.24
+        5.5498 2.69922 3.31
+        5.5498 3 3.4
+        5.5498 3.30078 3.48
+        5.5498 3.59766 3.57
+        5.5498 3.89844 3.66
+        5.5498 4.19922 3.77
+        5.5498 4.5 3.88
+        5.5498 4.80078 3.99
+        5.5498 5.09766 4.09
+        5.5498 5.39844 4.13
+        5.5498 5.69922 4.14
+        5.5498 6 4.16
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+      TexCoordArray 0 Vec2Array 1482
+      {
+        0.1121 0.0171
+        0.1094 0.0411
+        0.1066 0.0654
+        0.1038 0.0898
+        0.101 0.1141
+        0.0982 0.1384
+        0.0954 0.1624
+        0.0926 0.1868
+        0.0898 0.2111
+        0.087 0.2354
+        0.0842 0.2598
+        0.0815 0.2838
+        0.0787 0.3081
+        0.0759 0.3325
+        0.0731 0.3568
+        0.0703 0.3811
+        0.0675 0.4052
+        0.0647 0.4295
+        0.0619 0.4538
+        0.0591 0.4782
+        0.0564 0.5025
+        0.0536 0.5265
+        0.0508 0.5508
+        0.048 0.5752
+        0.0452 0.5995
+        0.0424 0.6239
+        0.0397 0.6479
+        0.0369 0.6722
+        0.0341 0.6965
+        0.0313 0.7209
+        0.0285 0.7452
+        0.0257 0.7692
+        0.0229 0.7936
+        0.0201 0.8179
+        0.0173 0.8422
+        0.0145 0.8666
+        0.0118 0.8906
+        0.009 0.9149
+        0.0062 0.9393
+        0.1364 0.0199
+        0.1336 0.0439
+        0.1309 0.0682
+        0.1281 0.0925
+        0.1253 0.1169
+        0.1225 0.1412
+        0.1197 0.1652
+        0.1169 0.1896
+        0.1141 0.2139
+        0.1113 0.2382
+        0.1085 0.2626
+        0.1058 0.2866
+        0.103 0.3109
+        0.1002 0.3353
+        0.0974 0.3596
+        0.0946 0.3839
+        0.0918 0.4079
+        0.089 0.4323
+        0.0862 0.4566
+        0.0834 0.481
+        0.0806 0.5053
+        0.0779 0.5293
+        0.0751 0.5536
+        0.0723 0.578
+        0.0695 0.6023
+        0.0667 0.6266
+        0.064 0.6507
+        0.0612 0.675
+        0.0584 0.6993
+        0.0556 0.7237
+        0.0528 0.748
+        0.05 0.772
+        0.0472 0.7964
+        0.0444 0.8207
+        0.0416 0.845
+        0.0388 0.8694
+        0.0361 0.8934
+        0.0333 0.9177
+        0.0305 0.942
+        0.1607 0.0226
+        0.1579 0.0467
+        0.1551 0.071
+        0.1523 0.0953
+        0.1495 0.1197
+        0.1467 0.144
+        0.144 0.168
+        0.1412 0.1924
+        0.1384 0.2167
+        0.1356 0.241
+        0.1328 0.2654
+        0.13 0.2894
+        0.1272 0.3137
+        0.1244 0.338
+        0.1216 0.3624
+        0.1188 0.3867
+        0.1161 0.4107
+        0.1133 0.4351
+        0.1105 0.4594
+        0.1077 0.4837
+        0.1049 0.5081
+        0.1021 0.5321
+        0.0994 0.5564
+        0.0966 0.5808
+        0.0938 0.6051
+        0.091 0.6294
+        0.0882 0.6534
+        0.0854 0.6778
+        0.0826 0.7021
+        0.0798 0.7265
+        0.077 0.7508
+        0.0743 0.7748
+        0.0715 0.7991
+        0.0687 0.8235
+        0.0659 0.8478
+        0.0631 0.8721
+        0.0603 0.8962
+        0.0575 0.9205
+        0.0547 0.9448
+        0.185 0.0254
+        0.1822 0.0495
+        0.1794 0.0738
+        0.1766 0.0981
+        0.1738 0.1225
+        0.171 0.1468
+        0.1683 0.1708
+        0.1655 0.1951
+        0.1627 0.2195
+        0.1599 0.2438
+        0.1571 0.2681
+        0.1543 0.2922
+        0.1515 0.3165
+        0.1487 0.3408
+        0.1459 0.3652
+        0.1431 0.3895
+        0.1404 0.4135
+        0.1376 0.4379
+        0.1348 0.4622
+        0.132 0.4865
+        0.1292 0.5109
+        0.1264 0.5349
+        0.1236 0.5592
+        0.1209 0.5835
+        0.1181 0.6079
+        0.1153 0.6322
+        0.1125 0.6562
+        0.1097 0.6806
+        0.1069 0.7049
+        0.1041 0.7292
+        0.1013 0.7536
+        0.0986 0.7776
+        0.0958 0.8019
+        0.093 0.8263
+        0.0902 0.8506
+        0.0874 0.8749
+        0.0846 0.899
+        0.0818 0.9233
+        0.079 0.9476
+        0.2092 0.0282
+        0.2065 0.0522
+        0.2037 0.0766
+        0.2009 0.1009
+        0.1981 0.1252
+        0.1953 0.1496
+        0.1925 0.1736
+        0.1897 0.1979
+        0.1869 0.2223
+        0.1841 0.2466
+        0.1813 0.2709
+        0.1786 0.295
+        0.1758 0.3193
+        0.173 0.3436
+        0.1702 0.368
+        0.1674 0.3923
+        0.1646 0.4163
+        0.1618 0.4406
+        0.159 0.465
+        0.1563 0.4893
+        0.1535 0.5136
+        0.1507 0.5377
+        0.1479 0.562
+        0.1451 0.5863
+        0.1423 0.6107
+        0.1395 0.635
+        0.1368 0.659
+        0.134 0.6834
+        0.1312 0.7077
+        0.1284 0.732
+        0.1256 0.7564
+        0.1228 0.7804
+        0.12 0.8047
+        0.1172 0.829
+        0.1144 0.8534
+        0.1116 0.8777
+        0.1089 0.9017
+        0.1061 0.9261
+        0.1033 0.9504
+        0.2335 0.031
+        0.2307 0.055
+        0.2279 0.0794
+        0.2251 0.1037
+        0.2223 0.128
+        0.2195 0.1524
+        0.2168 0.1764
+        0.214 0.2007
+        0.2112 0.2251
+        0.2084 0.2494
+        0.2056 0.2737
+        0.2028 0.2977
+        0.2 0.3221
+        0.1972 0.3464
+        0.1944 0.3707
+        0.1916 0.3951
+        0.1889 0.4191
+        0.1861 0.4434
+        0.1833 0.4678
+        0.1805 0.4921
+        0.1777 0.5164
+        0.175 0.5405
+        0.1722 0.5648
+        0.1694 0.5891
+        0.1666 0.6135
+        0.1638 0.6378
+        0.161 0.6618
+        0.1582 0.6861
+        0.1554 0.7105
+        0.1526 0.7348
+        0.1498 0.7591
+        0.1471 0.7832
+        0.1443 0.8075
+        0.1415 0.8318
+        0.1387 0.8562
+        0.1359 0.8805
+        0.1331 0.9045
+        0.1303 0.9289
+        0.1275 0.9532
+        0.2578 0.0338
+        0.255 0.0578
+        0.2522 0.0822
+        0.2494 0.1065
+        0.2466 0.1308
+        0.2438 0.1552
+        0.2411 0.1792
+        0.2383 0.2035
+        0.2355 0.2278
+        0.2327 0.2522
+        0.2299 0.2765
+        0.2271 0.3005
+        0.2243 0.3249
+        0.2215 0.3492
+        0.2187 0.3735
+        0.2159 0.3979
+        0.2132 0.4219
+        0.2104 0.4462
+        0.2076 0.4706
+        0.2048 0.4949
+        0.202 0.5192
+        0.1992 0.5432
+        0.1965 0.5676
+        0.1937 0.5919
+        0.1909 0.6162
+        0.1881 0.6406
+        0.1853 0.6646
+        0.1825 0.6889
+        0.1797 0.7133
+        0.1769 0.7376
+        0.1741 0.7619
+        0.1714 0.786
+        0.1686 0.8103
+        0.1658 0.8346
+        0.163 0.859
+        0.1602 0.8833
+        0.1574 0.9073
+        0.1546 0.9316
+        0.1518 0.956
+        0.282 0.0366
+        0.2793 0.0606
+        0.2765 0.0849
+        0.2737 0.1093
+        0.2709 0.1336
+        0.2681 0.1579
+        0.2653 0.182
+        0.2625 0.2063
+        0.2597 0.2306
+        0.2569 0.255
+        0.2541 0.2793
+        0.2514 0.3033
+        0.2486 0.3277
+        0.2458 0.352
+        0.243 0.3763
+        0.2402 0.4007
+        0.2374 0.4247
+        0.2346 0.449
+        0.2319 0.4733
+        0.2291 0.4977
+        0.2263 0.522
+        0.2235 0.546
+        0.2207 0.5704
+        0.2179 0.5947
+        0.2151 0.619
+        0.2123 0.6434
+        0.2096 0.6674
+        0.2068 0.6917
+        0.204 0.7161
+        0.2012 0.7404
+        0.1984 0.7647
+        0.1956 0.7887
+        0.1928 0.8131
+        0.19 0.8374
+        0.1872 0.8617
+        0.1844 0.8861
+        0.1817 0.9101
+        0.1789 0.9344
+        0.1761 0.9588
+        0.3063 0.0394
+        0.3036 0.0634
+        0.3008 0.0877
+        0.298 0.1121
+        0.2952 0.1364
+        0.2924 0.1607
+        0.2896 0.1848
+        0.2868 0.2091
+        0.284 0.2334
+        0.2812 0.2578
+        0.2784 0.2821
+        0.2757 0.3061
+        0.2729 0.3304
+        0.2701 0.3548
+        0.2673 0.3791
+        0.2645 0.4034
+        0.2617 0.4275
+        0.2589 0.4518
+        0.2561 0.4761
+        0.2534 0.5005
+        0.2506 0.5248
+        0.2478 0.5488
+        0.245 0.5732
+        0.2422 0.5975
+        0.2394 0.6218
+        0.2366 0.6462
+        0.2339 0.6702
+        0.2311 0.6945
+        0.2283 0.7188
+        0.2255 0.7432
+        0.2227 0.7675
+        0.2199 0.7915
+        0.2171 0.8159
+        0.2143 0.8402
+        0.2115 0.8645
+        0.2087 0.8889
+        0.206 0.9129
+        0.2032 0.9372
+        0.2004 0.9616
+        0.3306 0.0422
+        0.3278 0.0662
+        0.325 0.0905
+        0.3222 0.1148
+        0.3194 0.1392
+        0.3166 0.1635
+        0.3139 0.1875
+        0.3111 0.2119
+        0.3083 0.2362
+        0.3055 0.2605
+        0.3027 0.2849
+        0.2999 0.3089
+        0.2971 0.3332
+        0.2943 0.3576
+        0.2915 0.3819
+        0.2888 0.4062
+        0.286 0.4302
+        0.2832 0.4546
+        0.2804 0.4789
+        0.2776 0.5033
+        0.2748 0.5276
+        0.2721 0.5516
+        0.2693 0.5759
+        0.2665 0.6003
+        0.2637 0.6246
+        0.2609 0.6489
+        0.2581 0.673
+        0.2553 0.6973
+        0.2525 0.7216
+        0.2497 0.746
+        0.2469 0.7703
+        0.2442 0.7943
+        0.2414 0.8187
+        0.2386 0.843
+        0.2358 0.8673
+        0.233 0.8917
+        0.2302 0.9157
+        0.2274 0.94
+        0.2246 0.9643
+        0.3548 0.0449
+        0.3521 0.069
+        0.3493 0.0933
+        0.3465 0.1176
+        0.3437 0.142
+        0.3409 0.1663
+        0.3381 0.1903
+        0.3353 0.2147
+        0.3325 0.239
+        0.3297 0.2633
+        0.3269 0.2877
+        0.3242 0.3117
+        0.3214 0.336
+        0.3186 0.3603
+        0.3158 0.3847
+        0.313 0.409
+        0.3102 0.433
+        0.3075 0.4574
+        0.3047 0.4817
+        0.3019 0.506
+        0.2991 0.5304
+        0.2963 0.5544
+        0.2935 0.5787
+        0.2907 0.6031
+        0.2879 0.6274
+        0.2851 0.6517
+        0.2824 0.6757
+        0.2796 0.7001
+        0.2768 0.7244
+        0.274 0.7488
+        0.2712 0.7731
+        0.2684 0.7971
+        0.2656 0.8214
+        0.2628 0.8458
+        0.26 0.8701
+        0.2573 0.8944
+        0.2545 0.9185
+        0.2517 0.9428
+        0.2489 0.9671
+        0.3791 0.0477
+        0.3764 0.0718
+        0.3736 0.0961
+        0.3708 0.1204
+        0.368 0.1448
+        0.3652 0.1691
+        0.3624 0.1931
+        0.3596 0.2174
+        0.3568 0.2418
+        0.354 0.2661
+        0.3512 0.2905
+        0.3485 0.3145
+        0.3457 0.3388
+        0.3429 0.3631
+        0.3401 0.3875
+        0.3373 0.4118
+        0.3345 0.4358
+        0.3317 0.4602
+        0.329 0.4845
+        0.3262 0.5088
+        0.3234 0.5332
+        0.3206 0.5572
+        0.3178 0.5815
+        0.315 0.6059
+        0.3122 0.6302
+        0.3094 0.6545
+        0.3067 0.6785
+        0.3039 0.7029
+        0.3011 0.7272
+        0.2983 0.7515
+        0.2955 0.7759
+        0.2927 0.7999
+        0.2899 0.8242
+        0.2871 0.8486
+        0.2843 0.8729
+        0.2815 0.8972
+        0.2788 0.9213
+        0.276 0.9456
+        0.2732 0.9699
+        0.4034 0.0505
+        0.4006 0.0745
+        0.3978 0.0989
+        0.395 0.1232
+        0.3922 0.1475
+        0.3894 0.1719
+        0.3867 0.1959
+        0.3839 0.2202
+        0.3811 0.2446
+        0.3783 0.2689
+        0.3755 0.2932
+        0.3727 0.3173
+        0.3699 0.3416
+        0.3671 0.3659
+        0.3644 0.3903
+        0.3616 0.4146
+        0.3588 0.4386
+        0.356 0.4629
+        0.3532 0.4873
+        0.3504 0.5116
+        0.3476 0.5359
+        0.3449 0.56
+        0.3421 0.5843
+        0.3393 0.6086
+        0.3365 0.633
+        0.3337 0.6573
+        0.3309 0.6813
+        0.3281 0.7057
+        0.3253 0.73
+        0.3225 0.7543
+        0.3197 0.7787
+        0.317 0.8027
+        0.3142 0.827
+        0.3114 0.8513
+        0.3086 0.8757
+        0.3058 0.9
+        0.303 0.924
+        0.3002 0.9484
+        0.2975 0.9727
+        0.4277 0.0533
+        0.4249 0.0773
+        0.4221 0.1017
+        0.4193 0.126
+        0.4165 0.1503
+        0.4137 0.1747
+        0.411 0.1987
+        0.4082 0.223
+        0.4054 0.2474
+        0.4026 0.2717
+        0.3998 0.296
+        0.397 0.32
+        0.3942 0.3444
+        0.3914 0.3687
+        0.3886 0.393
+        0.3859 0.4174
+        0.3831 0.4414
+        0.3803 0.4657
+        0.3775 0.4901
+        0.3747 0.5144
+        0.3719 0.5387
+        0.3692 0.5628
+        0.3664 0.5871
+        0.3636 0.6114
+        0.3608 0.6358
+        0.358 0.6601
+        0.3552 0.6841
+        0.3524 0.7084
+        0.3496 0.7328
+        0.3468 0.7571
+        0.344 0.7815
+        0.3413 0.8055
+        0.3385 0.8298
+        0.3357 0.8541
+        0.3329 0.8785
+        0.3301 0.9028
+        0.3273 0.9268
+        0.3245 0.9512
+        0.3217 0.9755
+        0.4519 0.0561
+        0.4492 0.0801
+        0.4464 0.1045
+        0.4436 0.1288
+        0.4408 0.1531
+        0.438 0.1775
+        0.4352 0.2015
+        0.4324 0.2258
+        0.4296 0.2501
+        0.4268 0.2745
+        0.424 0.2988
+        0.4213 0.3228
+        0.4185 0.3472
+        0.4157 0.3715
+        0.4129 0.3958
+        0.4101 0.4202
+        0.4073 0.4442
+        0.4046 0.4685
+        0.4018 0.4929
+        0.399 0.5172
+        0.3962 0.5415
+        0.3934 0.5655
+        0.3906 0.5899
+        0.3878 0.6142
+        0.385 0.6385
+        0.3822 0.6629
+        0.3795 0.6869
+        0.3767 0.7112
+        0.3739 0.7356
+        0.3711 0.7599
+        0.3683 0.7842
+        0.3655 0.8083
+        0.3627 0.8326
+        0.3599 0.8569
+        0.3571 0.8813
+        0.3544 0.9056
+        0.3516 0.9296
+        0.3488 0.9539
+        0.346 0.9783
+        0.4762 0.0589
+        0.4734 0.0829
+        0.4706 0.1072
+        0.4678 0.1316
+        0.465 0.1559
+        0.4622 0.1802
+        0.4595 0.2043
+        0.4567 0.2286
+        0.4539 0.2529
+        0.4511 0.2773
+        0.4483 0.3016
+        0.4455 0.3256
+        0.4427 0.35
+        0.44 0.3743
+        0.4372 0.3986
+        0.4344 0.423
+        0.4316 0.447
+        0.4288 0.4713
+        0.426 0.4956
+        0.4232 0.52
+        0.4204 0.5443
+        0.4177 0.5683
+        0.4149 0.5927
+        0.4121 0.617
+        0.4093 0.6413
+        0.4065 0.6657
+        0.4037 0.6897
+        0.4009 0.714
+        0.3981 0.7384
+        0.3953 0.7627
+        0.3925 0.787
+        0.3898 0.811
+        0.387 0.8354
+        0.3842 0.8597
+        0.3814 0.884
+        0.3786 0.9084
+        0.3758 0.9324
+        0.3731 0.9567
+        0.3703 0.9811
+        0.5005 0.0617
+        0.4977 0.0857
+        0.4949 0.11
+        0.4921 0.1344
+        0.4893 0.1587
+        0.4865 0.183
+        0.4838 0.2071
+        0.481 0.2314
+        0.4782 0.2557
+        0.4754 0.2801
+        0.4726 0.3044
+        0.4698 0.3284
+        0.467 0.3527
+        0.4642 0.3771
+        0.4615 0.4014
+        0.4587 0.4257
+        0.4559 0.4498
+        0.4531 0.4741
+        0.4503 0.4984
+        0.4475 0.5228
+        0.4447 0.5471
+        0.442 0.5711
+        0.4392 0.5955
+        0.4364 0.6198
+        0.4336 0.6441
+        0.4308 0.6685
+        0.428 0.6925
+        0.4252 0.7168
+        0.4224 0.7411
+        0.4196 0.7655
+        0.4168 0.7898
+        0.4141 0.8138
+        0.4113 0.8382
+        0.4085 0.8625
+        0.4057 0.8868
+        0.4029 0.9112
+        0.4001 0.9352
+        0.3973 0.9595
+        0.3946 0.9839
+        0.5247 0.0645
+        0.522 0.0885
+        0.5192 0.1128
+        0.5164 0.1371
+        0.5136 0.1615
+        0.5108 0.1858
+        0.508 0.2098
+        0.5052 0.2342
+        0.5024 0.2585
+        0.4996 0.2828
+        0.4969 0.3072
+        0.4941 0.3312
+        0.4913 0.3555
+        0.4885 0.3799
+        0.4857 0.4042
+        0.4829 0.4285
+        0.4802 0.4526
+        0.4774 0.4769
+        0.4746 0.5012
+        0.4718 0.5256
+        0.469 0.5499
+        0.4662 0.5739
+        0.4634 0.5982
+        0.4606 0.6226
+        0.4578 0.6469
+        0.455 0.6712
+        0.4523 0.6953
+        0.4495 0.7196
+        0.4467 0.7439
+        0.4439 0.7683
+        0.4411 0.7926
+        0.4383 0.8166
+        0.4355 0.841
+        0.4327 0.8653
+        0.43 0.8896
+        0.4272 0.914
+        0.4244 0.938
+        0.4216 0.9623
+        0.4188 0.9866
+        0.549 0.0673
+        0.5463 0.0913
+        0.5435 0.1156
+        0.5407 0.1399
+        0.5379 0.1643
+        0.5351 0.1886
+        0.5323 0.2126
+        0.5295 0.237
+        0.5267 0.2613
+        0.5239 0.2856
+        0.5211 0.31
+        0.5184 0.334
+        0.5156 0.3583
+        0.5128 0.3827
+        0.51 0.407
+        0.5072 0.4313
+        0.5044 0.4553
+        0.5017 0.4797
+        0.4989 0.504
+        0.4961 0.5283
+        0.4933 0.5527
+        0.4905 0.5767
+        0.4877 0.601
+        0.4849 0.6254
+        0.4821 0.6497
+        0.4793 0.674
+        0.4766 0.6981
+        0.4738 0.7224
+        0.471 0.7467
+        0.4682 0.7711
+        0.4654 0.7954
+        0.4626 0.8194
+        0.4598 0.8437
+        0.457 0.8681
+        0.4542 0.8924
+        0.4515 0.9167
+        0.4487 0.9408
+        0.4459 0.9651
+        0.4431 0.9894
+        0.5733 0.07
+        0.5705 0.0941
+        0.5677 0.1184
+        0.5649 0.1427
+        0.5621 0.1671
+        0.5593 0.1914
+        0.5566 0.2154
+        0.5538 0.2397
+        0.551 0.2641
+        0.5482 0.2884
+        0.5454 0.3128
+        0.5426 0.3368
+        0.5398 0.3611
+        0.5371 0.3854
+        0.5343 0.4098
+        0.5315 0.4341
+        0.5287 0.4581
+        0.5259 0.4825
+        0.5231 0.5068
+        0.5203 0.5311
+        0.5175 0.5555
+        0.5148 0.5795
+        0.512 0.6038
+        0.5092 0.6282
+        0.5064 0.6525
+        0.5036 0.6768
+        0.5008 0.7008
+        0.498 0.7252
+        0.4952 0.7495
+        0.4924 0.7738
+        0.4896 0.7982
+        0.4869 0.8222
+        0.4841 0.8465
+        0.4813 0.8709
+        0.4785 0.8952
+        0.4757 0.9195
+        0.4729 0.9436
+        0.4702 0.9679
+        0.4674 0.9922
+        0.5975 0.0728
+        0.5948 0.0968
+        0.592 0.1212
+        0.5892 0.1455
+        0.5864 0.1698
+        0.5836 0.1942
+        0.5808 0.2182
+        0.578 0.2425
+        0.5752 0.2669
+        0.5725 0.2912
+        0.5697 0.3155
+        0.5669 0.3396
+        0.5641 0.3639
+        0.5613 0.3882
+        0.5585 0.4126
+        0.5557 0.4369
+        0.553 0.4609
+        0.5502 0.4852
+        0.5474 0.5096
+        0.5446 0.5339
+        0.5418 0.5583
+        0.539 0.5823
+        0.5362 0.6066
+        0.5334 0.6309
+        0.5306 0.6553
+        0.5278 0.6796
+        0.5251 0.7036
+        0.5223 0.728
+        0.5195 0.7523
+        0.5167 0.7766
+        0.5139 0.801
+        0.5111 0.825
+        0.5083 0.8493
+        0.5056 0.8737
+        0.5028 0.898
+        0.5 0.9223
+        0.4972 0.9463
+        0.4944 0.9707
+        0.4916 0.995
+        0.6218 0.0756
+        0.6191 0.0996
+        0.6163 0.124
+        0.6135 0.1483
+        0.6107 0.1726
+        0.6079 0.197
+        0.6051 0.221
+        0.6023 0.2453
+        0.5995 0.2697
+        0.5967 0.294
+        0.594 0.3183
+        0.5912 0.3423
+        0.5884 0.3667
+        0.5856 0.391
+        0.5828 0.4153
+        0.58 0.4397
+        0.5773 0.4637
+        0.5745 0.488
+        0.5717 0.5124
+        0.5689 0.5367
+        0.5661 0.561
+        0.5633 0.5851
+        0.5605 0.6094
+        0.5577 0.6337
+        0.5549 0.6581
+        0.5521 0.6824
+        0.5494 0.7064
+        0.5466 0.7308
+        0.5438 0.7551
+        0.541 0.7794
+        0.5382 0.8038
+        0.5354 0.8278
+        0.5326 0.8521
+        0.5298 0.8764
+        0.5271 0.9008
+        0.5243 0.9251
+        0.5215 0.9491
+        0.5187 0.9735
+        0.5159 0.9978
+        0.6461 0.0784
+        0.6433 0.1024
+        0.6405 0.1268
+        0.6377 0.1511
+        0.6349 0.1754
+        0.6321 0.1998
+        0.6294 0.2238
+        0.6266 0.2481
+        0.6238 0.2724
+        0.621 0.2968
+        0.6182 0.3211
+        0.6154 0.3451
+        0.6127 0.3695
+        0.6099 0.3938
+        0.6071 0.4181
+        0.6043 0.4425
+        0.6015 0.4665
+        0.5987 0.4908
+        0.5959 0.5152
+        0.5931 0.5395
+        0.5903 0.5638
+        0.5876 0.5878
+        0.5848 0.6122
+        0.582 0.6365
+        0.5792 0.6608
+        0.5764 0.6852
+        0.5736 0.7092
+        0.5708 0.7335
+        0.568 0.7579
+        0.5652 0.7822
+        0.5625 0.8065
+        0.5597 0.8306
+        0.5569 0.8549
+        0.5541 0.8792
+        0.5513 0.9036
+        0.5485 0.9279
+        0.5458 0.9519
+        0.543 0.9762
+        0.5402 1.0006
+        0.6704 0.0812
+        0.6676 0.1052
+        0.6648 0.1295
+        0.662 0.1539
+        0.6592 0.1782
+        0.6564 0.2025
+        0.6537 0.2266
+        0.6509 0.2509
+        0.6481 0.2752
+        0.6453 0.2996
+        0.6425 0.3239
+        0.6397 0.3479
+        0.6369 0.3723
+        0.6342 0.3966
+        0.6314 0.4209
+        0.6286 0.4453
+        0.6258 0.4693
+        0.623 0.4936
+        0.6202 0.5179
+        0.6174 0.5423
+        0.6146 0.5666
+        0.6119 0.5906
+        0.6091 0.615
+        0.6063 0.6393
+        0.6035 0.6636
+        0.6007 0.688
+        0.5979 0.712
+        0.5951 0.7363
+        0.5923 0.7607
+        0.5895 0.785
+        0.5867 0.8093
+        0.584 0.8333
+        0.5812 0.8577
+        0.5784 0.882
+        0.5756 0.9064
+        0.5728 0.9307
+        0.5701 0.9547
+        0.5673 0.979
+        0.5645 1.0034
+        0.6946 0.084
+        0.6919 0.108
+        0.6891 0.1323
+        0.6863 0.1567
+        0.6835 0.181
+        0.6807 0.2053
+        0.6779 0.2294
+        0.6751 0.2537
+        0.6723 0.278
+        0.6696 0.3024
+        0.6668 0.3267
+        0.664 0.3507
+        0.6612 0.375
+        0.6584 0.3994
+        0.6556 0.4237
+        0.6528 0.448
+        0.6501 0.4721
+        0.6473 0.4964
+        0.6445 0.5207
+        0.6417 0.5451
+        0.6389 0.5694
+        0.6361 0.5934
+        0.6333 0.6178
+        0.6305 0.6421
+        0.6277 0.6664
+        0.6249 0.6908
+        0.6222 0.7148
+        0.6194 0.7391
+        0.6166 0.7634
+        0.6138 0.7878
+        0.611 0.8121
+        0.6082 0.8361
+        0.6055 0.8605
+        0.6027 0.8848
+        0.5999 0.9091
+        0.5971 0.9335
+        0.5943 0.9575
+        0.5915 0.9818
+        0.5887 1.0062
+        0.7189 0.0868
+        0.7161 0.1108
+        0.7133 0.1351
+        0.7105 0.1595
+        0.7077 0.1838
+        0.705 0.2081
+        0.7022 0.2321
+        0.6994 0.2565
+        0.6966 0.2808
+        0.6938 0.3051
+        0.691 0.3295
+        0.6883 0.3535
+        0.6855 0.3778
+        0.6827 0.4022
+        0.6799 0.4265
+        0.6771 0.4508
+        0.6743 0.4749
+        0.6715 0.4992
+        0.6687 0.5235
+        0.6659 0.5479
+        0.6631 0.5722
+        0.6604 0.5962
+        0.6576 0.6205
+        0.6548 0.6449
+        0.652 0.6692
+        0.6492 0.6935
+        0.6464 0.7176
+        0.6436 0.7419
+        0.6408 0.7662
+        0.6381 0.7906
+        0.6353 0.8149
+        0.6325 0.8389
+        0.6297 0.8633
+        0.6269 0.8876
+        0.6241 0.9119
+        0.6213 0.9363
+        0.6186 0.9603
+        0.6158 0.9846
+        0.613 1.0089
+        0.7432 0.0896
+        0.7404 0.1136
+        0.7376 0.1379
+        0.7348 0.1622
+        0.732 0.1866
+        0.7292 0.2109
+        0.7265 0.2349
+        0.7237 0.2593
+        0.7209 0.2836
+        0.7181 0.3079
+        0.7153 0.3323
+        0.7126 0.3563
+        0.7098 0.3806
+        0.707 0.405
+        0.7042 0.4293
+        0.7014 0.4536
+        0.6986 0.4776
+        0.6958 0.502
+        0.693 0.5263
+        0.6902 0.5506
+        0.6874 0.575
+        0.6847 0.599
+        0.6819 0.6233
+        0.6791 0.6477
+        0.6763 0.672
+        0.6735 0.6963
+        0.6707 0.7204
+        0.6679 0.7447
+        0.6651 0.769
+        0.6623 0.7934
+        0.6596 0.8177
+        0.6568 0.8417
+        0.654 0.866
+        0.6512 0.8904
+        0.6484 0.9147
+        0.6456 0.939
+        0.6429 0.9631
+        0.6401 0.9874
+        0.6373 1.0117
+        0.7674 0.0923
+        0.7647 0.1164
+        0.7619 0.1407
+        0.7591 0.165
+        0.7563 0.1894
+        0.7535 0.2137
+        0.7507 0.2377
+        0.7479 0.262
+        0.7452 0.2864
+        0.7424 0.3107
+        0.7396 0.3351
+        0.7368 0.3591
+        0.734 0.3834
+        0.7312 0.4077
+        0.7284 0.4321
+        0.7256 0.4564
+        0.7229 0.4804
+        0.7201 0.5048
+        0.7173 0.5291
+        0.7145 0.5534
+        0.7117 0.5778
+        0.7089 0.6018
+        0.7061 0.6261
+        0.7033 0.6505
+        0.7005 0.6748
+        0.6977 0.6991
+        0.695 0.7231
+        0.6922 0.7475
+        0.6894 0.7718
+        0.6866 0.7961
+        0.6838 0.8205
+        0.6811 0.8445
+        0.6783 0.8688
+        0.6755 0.8932
+        0.6727 0.9175
+        0.6699 0.9418
+        0.6671 0.9659
+        0.6643 0.9902
+        0.6615 1.0145
+        0.7917 0.0951
+        0.789 0.1191
+        0.7862 0.1435
+        0.7834 0.1678
+        0.7806 0.1922
+        0.7778 0.2165
+        0.775 0.2405
+        0.7722 0.2648
+        0.7694 0.2892
+        0.7667 0.3135
+        0.7639 0.3378
+        0.7611 0.3619
+        0.7583 0.3862
+        0.7555 0.4105
+        0.7527 0.4349
+        0.7499 0.4592
+        0.7472 0.4832
+        0.7444 0.5076
+        0.7416 0.5319
+        0.7388 0.5562
+        0.736 0.5806
+        0.7332 0.6046
+        0.7304 0.6289
+        0.7276 0.6532
+        0.7248 0.6776
+        0.722 0.7019
+        0.7193 0.7259
+        0.7165 0.7503
+        0.7137 0.7746
+        0.7109 0.7989
+        0.7081 0.8233
+        0.7053 0.8473
+        0.7026 0.8716
+        0.6998 0.896
+        0.697 0.9203
+        0.6942 0.9446
+        0.6914 0.9686
+        0.6886 0.993
+        0.6858 1.0173
+        0.816 0.0979
+        0.8132 0.1219
+        0.8104 0.1463
+        0.8076 0.1706
+        0.8048 0.1949
+        0.8021 0.2193
+        0.7993 0.2433
+        0.7965 0.2676
+        0.7937 0.292
+        0.7909 0.3163
+        0.7881 0.3406
+        0.7854 0.3646
+        0.7826 0.389
+        0.7798 0.4133
+        0.777 0.4377
+        0.7742 0.462
+        0.7714 0.486
+        0.7686 0.5103
+        0.7658 0.5347
+        0.763 0.559
+        0.7602 0.5833
+        0.7575 0.6074
+        0.7547 0.6317
+        0.7519 0.656
+        0.7491 0.6804
+        0.7463 0.7047
+        0.7435 0.7287
+        0.7407 0.7531
+        0.738 0.7774
+        0.7352 0.8017
+        0.7324 0.8261
+        0.7296 0.8501
+        0.7268 0.8744
+        0.724 0.8987
+        0.7212 0.9231
+        0.7184 0.9474
+        0.7157 0.9714
+        0.7129 0.9958
+        0.7101 1.0201
+        0.8402 0.1007
+        0.8375 0.1247
+        0.8347 0.1491
+        0.8319 0.1734
+        0.8291 0.1977
+        0.8263 0.2221
+        0.8236 0.2461
+        0.8208 0.2704
+        0.818 0.2947
+        0.8152 0.3191
+        0.8124 0.3434
+        0.8096 0.3674
+        0.8068 0.3918
+        0.804 0.4161
+        0.8012 0.4404
+        0.7984 0.4648
+        0.7957 0.4888
+        0.7929 0.5131
+        0.7901 0.5375
+        0.7873 0.5618
+        0.7845 0.5861
+        0.7817 0.6101
+        0.7789 0.6345
+        0.7761 0.6588
+        0.7733 0.6831
+        0.7706 0.7075
+        0.7678 0.7315
+        0.765 0.7558
+        0.7622 0.7802
+        0.7594 0.8045
+        0.7566 0.8288
+        0.7539 0.8529
+        0.7511 0.8772
+        0.7483 0.9015
+        0.7455 0.9259
+        0.7427 0.9502
+        0.7399 0.9742
+        0.7371 0.9986
+        0.7343 1.0229
+        0.8645 0.1035
+        0.8618 0.1275
+        0.859 0.1518
+        0.8562 0.1762
+        0.8534 0.2005
+        0.8506 0.2248
+        0.8478 0.2489
+        0.8451 0.2732
+        0.8423 0.2975
+        0.8395 0.3219
+        0.8367 0.3462
+        0.8339 0.3702
+        0.8311 0.3946
+        0.8283 0.4189
+        0.8255 0.4432
+        0.8227 0.4676
+        0.82 0.4916
+        0.8172 0.5159
+        0.8144 0.5402
+        0.8116 0.5646
+        0.8088 0.5889
+        0.806 0.6129
+        0.8032 0.6373
+        0.8004 0.6616
+        0.7976 0.6859
+        0.7948 0.7103
+        0.7921 0.7343
+        0.7893 0.7586
+        0.7865 0.783
+        0.7837 0.8073
+        0.7809 0.8316
+        0.7782 0.8556
+        0.7754 0.88
+        0.7726 0.9043
+        0.7698 0.9287
+        0.767 0.953
+        0.7642 0.977
+        0.7614 1.0013
+        0.7586 1.0257
+        0.8888 0.1063
+        0.886 0.1303
+        0.8832 0.1546
+        0.8805 0.179
+        0.8777 0.2033
+        0.8749 0.2276
+        0.8721 0.2517
+        0.8693 0.276
+        0.8665 0.3003
+        0.8637 0.3247
+        0.8609 0.349
+        0.8582 0.373
+        0.8554 0.3973
+        0.8526 0.4217
+        0.8498 0.446
+        0.847 0.4703
+        0.8442 0.4944
+        0.8414 0.5187
+        0.8386 0.543
+        0.8358 0.5674
+        0.833 0.5917
+        0.8303 0.6157
+        0.8275 0.6401
+        0.8247 0.6644
+        0.8219 0.6887
+        0.8191 0.7131
+        0.8163 0.7371
+        0.8136 0.7614
+        0.8108 0.7857
+        0.808 0.8101
+        0.8052 0.8344
+        0.8024 0.8584
+        0.7996 0.8828
+        0.7968 0.9071
+        0.794 0.9314
+        0.7912 0.9558
+        0.7885 0.9798
+        0.7857 1.0041
+        0.7829 1.0285
+        0.9131 0.1091
+        0.9103 0.1331
+        0.9075 0.1574
+        0.9047 0.1818
+        0.902 0.2061
+        0.8992 0.2304
+        0.8964 0.2544
+        0.8936 0.2788
+        0.8908 0.3031
+        0.888 0.3274
+        0.8852 0.3518
+        0.8825 0.3758
+        0.8797 0.4001
+        0.8769 0.4245
+        0.8741 0.4488
+        0.8713 0.4731
+        0.8685 0.4972
+        0.8657 0.5215
+        0.8629 0.5458
+        0.8601 0.5702
+        0.8573 0.5945
+        0.8546 0.6185
+        0.8518 0.6428
+        0.849 0.6672
+        0.8462 0.6915
+        0.8434 0.7159
+        0.8406 0.7399
+        0.8378 0.7642
+        0.8351 0.7885
+        0.8323 0.8129
+        0.8295 0.8372
+        0.8267 0.8612
+        0.8239 0.8856
+        0.8211 0.9099
+        0.8183 0.9342
+        0.8155 0.9586
+        0.8128 0.9826
+        0.81 1.0069
+        0.8072 1.0313
+        0.9373 0.1119
+        0.9346 0.1359
+        0.9318 0.1602
+        0.929 0.1845
+        0.9262 0.2089
+        0.9234 0.2332
+        0.9207 0.2572
+        0.9179 0.2816
+        0.9151 0.3059
+        0.9123 0.3302
+        0.9095 0.3546
+        0.9067 0.3786
+        0.9039 0.4029
+        0.9011 0.4273
+        0.8983 0.4516
+        0.8955 0.4759
+        0.8928 0.4999
+        0.89 0.5243
+        0.8872 0.5486
+        0.8844 0.5729
+        0.8816 0.5973
+        0.8788 0.6213
+        0.876 0.6456
+        0.8732 0.67
+        0.8705 0.6943
+        0.8677 0.7186
+        0.8649 0.7427
+        0.8621 0.767
+        0.8593 0.7913
+        0.8565 0.8157
+        0.8537 0.84
+        0.851 0.864
+        0.8482 0.8883
+        0.8454 0.9127
+        0.8426 0.937
+        0.8398 0.9614
+        0.837 0.9854
+        0.8342 1.0097
+        0.8314 1.034
+        0.9616 0.1146
+        0.9588 0.1387
+        0.9561 0.163
+        0.9533 0.1873
+        0.9505 0.2117
+        0.9477 0.236
+        0.9449 0.26
+        0.9421 0.2844
+        0.9393 0.3087
+        0.9365 0.333
+        0.9337 0.3574
+        0.931 0.3814
+        0.9282 0.4057
+        0.9254 0.43
+        0.9226 0.4544
+        0.9198 0.4787
+        0.917 0.5027
+        0.9142 0.5271
+        0.9114 0.5514
+        0.9086 0.5757
+        0.9058 0.6001
+        0.9031 0.6241
+        0.9003 0.6484
+        0.8975 0.6728
+        0.8947 0.6971
+        0.8919 0.7214
+        0.8892 0.7454
+        0.8864 0.7698
+        0.8836 0.7941
+        0.8808 0.8184
+        0.878 0.8428
+        0.8752 0.8668
+        0.8724 0.8911
+        0.8696 0.9155
+        0.8668 0.9398
+        0.864 0.9641
+        0.8613 0.9882
+        0.8585 1.0125
+        0.8557 1.0368
+        0.9831 0.1414
+        0.9803 0.1658
+        0.9776 0.1901
+        0.9748 0.2145
+        0.972 0.2388
+        0.9692 0.2628
+        0.9664 0.2871
+        0.9636 0.3115
+        0.9608 0.3358
+        0.958 0.3601
+        0.9553 0.3842
+        0.9525 0.4085
+        0.9497 0.4328
+        0.9469 0.4572
+        0.9441 0.4815
+        0.9413 0.5055
+        0.9385 0.5299
+        0.9357 0.5542
+        0.9329 0.5785
+        0.9301 0.6029
+        0.9274 0.6269
+        0.9246 0.6512
+        0.9218 0.6755
+        0.919 0.6999
+        0.9162 0.7242
+        0.9134 0.7482
+        0.9107 0.7726
+        0.9079 0.7969
+        0.9051 0.8212
+        0.9023 0.8456
+        0.8995 0.8696
+        0.8967 0.8939
+        0.8939 0.9183
+        0.8911 0.9426
+        0.8883 0.9669
+        0.8856 0.9909
+        0.8828 1.0153
+        0.88 1.0396
+        0.8772 1.0639
+        0.025 0
+        5998.82 41456.1
+        1.805 5998.8
+        41456.4 1.82
+        5998.82 41456.7
+        1.885 5998.8
+        41457 1.88
+        5998.82 41457.3
+        1.925 5998.8
+        41457.6 1.9
+        5998.82 41457.9
+        1.915 5998.8
+        41458.2 1.88
+        5998.82 41458.5
+        1.885 5998.8
+        41458.8 1.85
+        5998.82 41459.1
+        1.855 5998.8
+        41459.4 1.81
+        5998.82 41459.7
+        1.805 5998.8
+        41460 1.75
+        5998.82 41460.3
+        1.755 5998.8
+        41460.6 1.71
+        5998.82 41460.9
+        1.725 5998.8
+        41461.2 1.69
+        5998.82 41461.5
+        1.725 5998.8
+        41461.8 1.74
+        5998.82 41462.1
+        1.815 5998.8
+        41462.4 1.86
+        5998.82 41462.7
+        1.965 5998.8
+        41463 1.99
+        5998.82 41463.3
+        2.045 5998.8
+      }
+    }
+  }
+  Geode {
+    DataVariance DYNAMIC
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      DataVariance DYNAMIC
+      StateSet {
+        DataVariance STATIC
+        rendering_hint DEFAULT_BIN
+        renderBinMode INHERIT
+        textureUnit 0 {
+          GL_TEXTURE_2D ON
+          Texture2D {
+            DataVariance STATIC
+            file "Images/tank.rgb"
+            wrap_s REPEAT
+            wrap_t REPEAT
+            wrap_r CLAMP
+            min_filter LINEAR_MIPMAP_LINEAR
+            mag_filter LINEAR
+            maxAnisotropy 1
+            borderColor 0 0 0 0
+            borderWidth 0
+            useHardwareMipMapGeneration TRUE
+            unRefImageDataAfterApply TRUE
+            internalFormatMode USE_IMAGE_DATA_FORMAT
+            resizeNonPowerOfTwo TRUE
+          }
+          Use TexEnv_1
+        }
+      }
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 2
+      {
+        DrawArrays TRIANGLE_STRIP 0 42
+        DrawArrays TRIANGLE_FAN 42 22
+      }
+      VertexArray Vec3Array 64
+      {
+        1.3999 3.1474 2.8042
+        1.3999 3.1474 2.7542
+        1.39501 3.1783 2.8042
+        1.39501 3.1783 2.7542
+        1.3808 3.20618 2.8042
+        1.3808 3.20618 2.7542
+        1.35868 3.2283 2.8042
+        1.35868 3.2283 2.7542
+        1.3308 3.24251 2.8042
+        1.3308 3.24251 2.7542
+        1.2999 3.2474 2.8042
+        1.2999 3.2474 2.7542
+        1.269 3.24251 2.8042
+        1.269 3.24251 2.7542
+        1.24112 3.2283 2.8042
+        1.24112 3.2283 2.7542
+        1.219 3.20618 2.8042
+        1.219 3.20618 2.7542
+        1.20479 3.1783 2.8042
+        1.20479 3.1783 2.7542
+        1.1999 3.1474 2.8042
+        1.1999 3.1474 2.7542
+        1.20479 3.1165 2.8042
+        1.20479 3.1165 2.7542
+        1.219 3.08862 2.8042
+        1.219 3.08862 2.7542
+        1.24112 3.0665 2.8042
+        1.24112 3.0665 2.7542
+        1.269 3.05229 2.8042
+        1.269 3.05229 2.7542
+        1.2999 3.0474 2.8042
+        1.2999 3.0474 2.7542
+        1.3308 3.05229 2.8042
+        1.3308 3.05229 2.7542
+        1.35868 3.0665 2.8042
+        1.35868 3.0665 2.7542
+        1.3808 3.08862 2.8042
+        1.3808 3.08862 2.7542
+        1.39501 3.1165 2.8042
+        1.39501 3.1165 2.7542
+        1.3999 3.1474 2.8042
+        1.3999 3.1474 2.7542
+        1.2999 3.1474 2.8042
+        1.3999 3.1474 2.8042
+        1.39501 3.1783 2.8042
+        1.3808 3.20618 2.8042
+        1.35868 3.2283 2.8042
+        1.3308 3.24251 2.8042
+        1.2999 3.2474 2.8042
+        1.269 3.24251 2.8042
+        1.24112 3.2283 2.8042
+        1.219 3.20618 2.8042
+        1.20479 3.1783 2.8042
+        1.1999 3.1474 2.8042
+        1.20479 3.1165 2.8042
+        1.219 3.08862 2.8042
+        1.24112 3.0665 2.8042
+        1.269 3.05229 2.8042
+        1.2999 3.0474 2.8042
+        1.3308 3.05229 2.8042
+        1.35868 3.0665 2.8042
+        1.3808 3.08862 2.8042
+        1.39501 3.1165 2.8042
+        1.3999 3.1474 2.8042
+      }
+      TexCoordArray 0 Vec2Array 64
+      {
+        0 1
+        0 0
+        0.2 1
+        0.2 0
+        0.4 1
+        0.4 0
+        0.6 1
+        0.6 0
+        0.8 1
+        0.8 0
+        1 1
+        1 0
+        1.2 1
+        1.2 0
+        1.4 1
+        1.4 0
+        1.6 1
+        1.6 0
+        1.8 1
+        1.8 0
+        2 1
+        2 0
+        2.2 1
+        2.2 0
+        2.4 1
+        2.4 0
+        2.6 1
+        2.6 0
+        2.8 1
+        2.8 0
+        3 1
+        3 0
+        3.2 1
+        3.2 0
+        3.4 1
+        3.4 0
+        3.6 1
+        3.6 0
+        3.8 1
+        3.8 0
+        4 1
+        4 0
+        0 0
+        1 0
+        0.951057 0.309017
+        0.809017 0.587785
+        0.587785 0.809017
+        0.309017 0.951057
+        -4.37114e-08 1
+        -0.309017 0.951056
+        -0.587785 0.809017
+        -0.809017 0.587785
+        -0.951056 0.309017
+        -1 -8.74228e-08
+        -0.951057 -0.309017
+        -0.809017 -0.587785
+        -0.587785 -0.809017
+        -0.309017 -0.951057
+        1.19249e-08 -1
+        0.309017 -0.951056
+        0.587785 -0.809017
+        0.809017 -0.587785
+        0.951057 -0.309017
+        1 1.74846e-07
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<library xmlns:xacro="http://www.ros.org/wiki/xacro" name="deviceLibrary">
+
+  <xacro:include filename="common.xacro" />
+  
+  <xacro:macro name="bowtech1" params="relativeTo x y z roll pitch yaw">
+    <xacro:simple_Vcam name="bowtech1" relativeTo="${relativeTo}" resw="320" resh="240" x="${x}" y="${y}" z="${z}" roll="${roll}" pitch="${pitch}" yaw="${yaw}" />
+  </xacro:macro>
+
+  <xacro:macro name="bowtech_iface">
+    <xacro:_VirtualCameraToROSImage cameraName="bowtech1" imageTopic="/uwsim/camera1" infoTopic="/uwsim/camera1_info" />
+  </xacro:macro>
+
+  <xacro:macro name="example_multibeam" params="relativeTo x y z roll pitch yaw">
+    <xacro:_multibeamSensor name="multibeam" relativeTo="${relativeTo}" visible="0" x="${x}" y="${y}" z="${z}" roll="${roll}" pitch="${pitch}" yaw="${yaw}" initAngle="-60" finalAngle="60" angleIncr="0.1" range="10"/>
+  </xacro:macro>
+
+  <xacro:macro name="example_multibeam_iface" >
+    <xacro:_multibeamSensorToLaserScan name="multibeam" topic="g500/multibeam"/>
+  </xacro:macro>
+
+</library>
+

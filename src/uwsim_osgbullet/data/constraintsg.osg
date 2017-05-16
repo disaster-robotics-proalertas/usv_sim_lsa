@@ -1,0 +1,57 @@
+Group {
+  name "ConcaveDemoRoot"
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  StateSet {
+    GL_NORMALIZE ON
+  }
+  num_children 2
+  MatrixTransform {
+    DataVariance DYNAMIC
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      3.28 0 0 0
+      0 3.28 0 0
+      0 0 3.28 0
+      -1 0 0 1
+    }
+    num_children 1
+    ProxyNode {
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      Center 0 0 0
+      ExtRefMode       LOAD_IMMEDIATELY
+      Radius -1
+      FileNameList 1 {
+        NightStand.flt
+      }
+      num_children 0
+    }
+  }
+  MatrixTransform {
+    DataVariance DYNAMIC
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      0.66 0 0 0
+      0 0.66 0 0
+      0 0 0.66 0
+      4 0 0.75 1
+    }
+    num_children 1
+    ProxyNode {
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      Center 0 0 0
+      ExtRefMode       LOAD_IMMEDIATELY
+      Radius -1
+      FileNameList 1 {
+        teapot.osg
+      }
+      num_children 0
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot name="g500arm5e" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="g500.xacro"/>
+    <xacro:include filename="arm5e.xacro"/>
+
+</robot>

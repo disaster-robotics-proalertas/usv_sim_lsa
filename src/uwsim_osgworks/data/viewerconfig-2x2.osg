@@ -1,0 +1,64 @@
+osgwTools::CameraConfigObject {
+  Version 1
+  SlaveCameraCount 4
+  osgwTools::CameraConfigInfo {
+    Version 1
+    ViewOffset {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 0 0 1
+    }
+    ProjectionOffset {
+      0.78125 0 0 0
+      0 1 0 0
+      0 0 1 0
+      1 -1 0 1
+    }
+  }
+  osgwTools::CameraConfigInfo {
+    Version 1
+    ViewOffset {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 0 0 1
+    }
+    ProjectionOffset {
+      0.78125 0 0 0
+      0 1 0 0
+      0 0 1 0
+      1 1 0 1
+    }
+  }
+  osgwTools::CameraConfigInfo {
+    Version 1
+    ViewOffset {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 0 0 1
+    }
+    ProjectionOffset {
+      0.78125 0 0 0
+      0 1 0 0
+      0 0 1 0
+      -1 1 0 1
+    }
+  }
+  osgwTools::CameraConfigInfo {
+    Version 1
+    ViewOffset {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 0 0 1
+    }
+    ProjectionOffset {
+      0.78125 0 0 0
+      0 1 0 0
+      0 0 1 0
+      -1 -1 0 1
+    }
+  }
+}

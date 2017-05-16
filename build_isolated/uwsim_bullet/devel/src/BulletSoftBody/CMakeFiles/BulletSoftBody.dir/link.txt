@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBulletSoftBody.a  CMakeFiles/BulletSoftBody.dir/btSoftBody.o CMakeFiles/BulletSoftBody.dir/btSoftBodyConcaveCollisionAlgorithm.o CMakeFiles/BulletSoftBody.dir/btSoftBodyHelpers.o CMakeFiles/BulletSoftBody.dir/btSoftBodyRigidBodyCollisionConfiguration.o CMakeFiles/BulletSoftBody.dir/btSoftRigidCollisionAlgorithm.o CMakeFiles/BulletSoftBody.dir/btSoftRigidDynamicsWorld.o CMakeFiles/BulletSoftBody.dir/btSoftSoftCollisionAlgorithm.o CMakeFiles/BulletSoftBody.dir/btDefaultSoftBodySolver.o
+/usr/bin/ranlib libBulletSoftBody.a

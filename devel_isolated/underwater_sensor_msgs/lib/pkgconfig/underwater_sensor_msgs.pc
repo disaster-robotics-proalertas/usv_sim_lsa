@@ -1,0 +1,8 @@
+prefix=/home/lsa/ocean2/devel_isolated/underwater_sensor_msgs
+
+Name: underwater_sensor_msgs
+Description: Description of underwater_sensor_msgs
+Version: 1.4.1
+Cflags: -I/home/lsa/ocean2/devel_isolated/underwater_sensor_msgs/include
+Libs: -L/home/lsa/ocean2/devel_isolated/underwater_sensor_msgs/lib 
+Requires: message_runtime roscpp

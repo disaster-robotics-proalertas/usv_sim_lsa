@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+
+   <!-- STL-version of the URDF, used with rviz for basic rendering or gazebo for dynamic simulation  -->
+
+
+<robot name="girona500" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  
+  <!-- Body properties -->
+  <xacro:property name="body_top_mass" value="20"/>
+  <xacro:property name="body_bottom_mass" value="25"/>
+  <xacro:property name="body_radius" value="0.13"/>
+  <xacro:property name="body_height" value="0.7" /> 
+  <xacro:property name="body_width" value="0.7" /> 
+  <xacro:property name="body_length" value="1.5" />
+  <xacro:property name="X_cog" value="-0.55" />
+  
+  <!-- Arm properties -->
+  <xacro:property name="arm_mass" value="1"/>
+  <xacro:property name="arm_radius" value="0.10"/>
+  <xacro:property name="arm_01" value="0.213"/>
+  <xacro:property name="arm_23" value="0.427"/>
+  <xacro:property name="arm_45" value="0.42"/>
+  <xacro:property name="arm_67" value="0.153"/>
+  
+  
+  <!-- Cylinder inertial matrix -->
+  <xacro:macro name="cyl_inertial" params="mass radius length">
+    <inertial>
+      <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass*(radius*radius/4+length*length/12)}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${mass*(radius*radius/4+length*length/12)}"
+	  iyz="0.0"
+	  izz="${mass*radius*radius/2}"/>
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Sphere inertial matrix -->
+  <xacro:macro name="sph_inertial" params="mass radius">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${2/5*mass*radius*radius}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${2/5*mass*radius*radius}"
+	  iyz="0.0"
+	  izz="${2/5*mass*radius*radius}"/>
+    </inertial>
+  </xacro:macro>    
+  
+  <!-- not possible to define Z_cog as it is already a computed value -->
+  <!--<xacro:macro name="def_Z_cog" params="v">
+     <xacro:property name="Z_cog" value="${v}"/>
+  </xacro:macro> 
+  <xacro:def_Z_cog v="${body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)}"/> -->
+  
+    <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/g500GT</robotNamespace>
+    </plugin>
+  </gazebo>
+
+    <link name="world"/>
+
+    <link name="link1"/>
+
+  <joint name="jointx" type="prismatic">
+    <parent link="world"/>
+    <child link="link1"/>
+    <axis xyz="1 0 0"/>
+       <!--origin rpy="${roll_ini pitch_ini yaw_ini}" xyz="${x_ini y_ini z_ini}"/-->
+       <!--origin rpy="${roll_ini} ${pitch_ini} ${yaw_ini}" xyz="${x_ini} ${y_ini} ${z_ini}"/-->
+	<origin rpy="3.14 0 0" xyz="-5 0 2"/>
+       <limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+  
+    <link name="link2"/>
+    
+  <joint name="jointy" type="prismatic">
+    <parent link="link1"/>
+    <child link="link2"/>
+	<axis xyz="0 1 0"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+	<limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+  
+      <link name="link3"/>
+
+  <joint name="jointz" type="prismatic">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <axis xyz="0 0 1"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+	<limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+  
+      <link name="link4"/>
+  
+  <joint name="jointroll" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <axis xyz="1 0 0"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+	<limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+  
+      <link name="link5"/>
+  
+  <joint name="jointpitch" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <axis xyz="0 1 0"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+	<limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+  
+      <link name="link6"/>
+  
+  <joint name="jointyaw" type="revolute">
+    <parent link="link5"/>
+    <child link="link6"/>
+    <axis xyz="0 0 1"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+	<limit lower="-100" upper="100" velocity="3" effort="20"/>
+  </joint>
+
+  <joint name="joint_to_robot" type="fixed">
+    <parent link="link1"/>
+    <child link="base_link"/>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  
+  <link name="base_link">
+    <visual>
+      <origin rpy="-1.57 0 3.14" xyz="-0.2 0 0.75"/>
+      <geometry>
+		<mesh filename="package://auv_description/robot/GIRONA500/g500_March11.stl"/>
+      </geometry>
+    </visual>
+     <inertial>
+      <origin xyz="${X_cog} 0 ${body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)}" rpy="0 0 0"/>
+      <mass value="${2*body_top_mass+body_bottom_mass}"/>
+      <inertia
+	  ixx="${2*body_top_mass*(body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)+body_width*body_width/4)+body_bottom_mass*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))+body_top_mass*body_radius*body_radius+(body_bottom_mass*body_radius*body_radius)/2}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${2*body_top_mass*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)+body_bottom_mass*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))*(body_height-body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass))+2*body_top_mass*(body_radius*body_radius/4+body_length*body_length/12)+body_bottom_mass*(body_radius*body_radius/4+body_length*body_length/12)}"
+	  iyz="${-body_top_mass*body_width*body_height*body_bottom_mass/(2*body_top_mass+body_bottom_mass)}"
+	  izz="${(body_top_mass*body_width*body_width)/2+2*body_top_mass*(body_radius*body_radius/4+body_length*body_length/12)+body_bottom_mass*(body_radius*body_radius/4+body_length*body_length/12)}"/>
+    </inertial>
+    
+  </link>
+  
+  
+  <link name="part0">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link0.stl"/>
+      </geometry>
+    </visual>
+    <xacro:cyl_inertial mass="${arm_mass}" radius="${arm_radius}" length="${arm_01}" />
+  </link>
+
+  
+  <joint name="baselink_joint0" type="fixed">
+    <parent link="base_link"/>
+    <child link="part0"/>
+    <origin rpy="0 0 1.57" xyz="0 0 0.85"/>
+  </joint>
+  
+  <link name="part1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link1.stl"/>
+      </geometry>
+    </visual>
+    <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+  </link>
+  
+  <joint name="joint1" type="revolute">
+    <parent link="part0"/>
+    <child link="part1"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 ${arm_01}"/>
+    <limit lower="-2.96697222222" upper="2.96697222222" velocity="3" effort="20"/>
+  </joint>
+  
+  <link name="part2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link2.stl"/>
+      </geometry>
+    </visual>
+    <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+ </link>
+  
+  <joint name="joint2" type="revolute">
+    <parent link="part1"/>
+    <child link="part2"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+     <limit lower="-1.5707963267948966" upper="1.5707963267948966" velocity="3" effort="20"/>
+  </joint>
+  
+  <link name="part3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link3.stl"/>
+      </geometry>
+    </visual>
+      <xacro:cyl_inertial mass="${arm_mass}" radius="${arm_radius}" length="-${arm_23}" />  
+ </link>
+  
+  <joint name="joint3" type="revolute">
+    <parent link="part2"/>
+    <child link="part3"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy=" 0 0 0 " xyz="0 0 ${arm_23}"/>
+    <limit lower="-2.53065277778" upper="2.53065277778" velocity="3" effort="20"/>
+  </joint>
+  
+  <link name="part4">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link4.stl"/>
+      </geometry>
+    </visual>
+     <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+  </link>
+  
+  <joint name="joint4" type="revolute">
+    <parent link="part3"/>
+    <child link="part4"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0 "/>
+     <limit lower="-1.5707963267948966" upper="1.5707963267948966" velocity="3" effort="20" />
+  </joint>
+  
+  <link name="part5">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link5.stl"/>
+      </geometry>
+    </visual>
+      <xacro:cyl_inertial mass="${arm_mass}" radius="${arm_radius}" length="-${arm_45}" />     
+  </link>
+  
+  <joint name="joint5" type="revolute">
+    <parent link="part4"/>
+    <child link="part5"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 ${arm_45}"/>
+   <limit lower="-2.61791666667" upper="2.61791666667" velocity="3" effort="20"/>
+  </joint>
+  
+  <link name="part6">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link6.stl"/>
+      </geometry>
+    </visual>
+      <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+  </link>
+  
+  <joint name="joint6" type="revolute">
+    <parent link="part5"/>
+    <child link="part6"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" velocity="3" effort="20"/>
+  </joint>
+  
+  <link name="part7">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://auv_description/robot/GT/GT_link7.stl"/>
+      </geometry>
+    </visual>
+      <xacro:cyl_inertial mass="${arm_mass}" radius="${arm_radius}" length="-${arm_67}" /> 
+   </link>
+  
+  <joint name="joint7" type="revolute">
+    <parent link="part6"/>
+    <child link="part7"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 ${arm_67}"/>
+    <limit lower="-3.31602777778" upper="3.31602777778" velocity="3" effort="20"/>
+  </joint>
+
+  
+ <!-- Define controller interfaces -->
+  <xacro:macro name="def_controller" params="n">
+   <transmission name="tran${n}">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint${n}"/>
+    <actuator name="motor${n}">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</xacro:macro>
+
+ <xacro:def_controller n="1" />
+ <xacro:def_controller n="2" />
+ <xacro:def_controller n="3" />
+ <xacro:def_controller n="4" />
+ <xacro:def_controller n="5" />
+ <xacro:def_controller n="6" />
+ <xacro:def_controller n="7" />
+ <xacro:def_controller n="x" />
+  
+</robot>
+

@@ -1,0 +1,8 @@
+prefix=/home/lsa/ocean2/install_isolated
+
+Name: osg_interactive_markers
+Description: Description of osg_interactive_markers
+Version: 1.0.2
+Cflags: -I/home/lsa/ocean2/install_isolated/include
+Libs: -L/home/lsa/ocean2/install_isolated/lib -losg_interactive_markers
+Requires: roscpp tf interactive_markers

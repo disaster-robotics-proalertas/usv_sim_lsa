@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+
+<robot name="arm5e" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  
+  <!-- Arm properties -->
+  <xacro:property name="arm_mass" value="1"/>
+  <xacro:property name="arm_radius" value="0.10"/>
+  <xacro:property name="jaw_mass" value="0.1"/>
+  <xacro:property name="jaw_radius" value="0.05"/>  
+  <xacro:property name="eps" value="0.00000001"/>
+  
+  
+  <!-- Cylinder inertial matrix -->
+  <xacro:macro name="cyl_inertial" params="mass radius length">
+    <inertial>
+      <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass*(radius*radius/4+length*length/12)}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${mass*(radius*radius/4+length*length/12)}"
+	  iyz="0.0"
+	  izz="${mass*radius*radius/2}"/>
+    </inertial>
+  </xacro:macro>
+  
+  <!-- Sphere inertial matrix -->
+  <xacro:macro name="sph_inertial" params="mass radius">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${2/5*mass*radius*radius}"
+	  ixy="0.0"
+	  ixz="0.0"
+	  iyy="${2/5*mass*radius*radius}"
+	  iyz="0.0"
+	  izz="${2/5*mass*radius*radius}"/>
+    </inertial>
+  </xacro:macro>
+  
+  
+  <!-- Begin arm joints and links -->
+  
+
+  <link name="part0">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part0.dae"/>
+      </geometry>
+    </visual>
+    <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <joint name="baselink_to_part0" type="fixed">
+    <parent link="base_link"/>
+    <child link="part0"/>
+    <origin rpy="3.14 0 3.14" xyz="0 0 0.95"/>
+  </joint>
+
+ <link name="part1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part1.dae"/>
+      </geometry>
+    </visual>
+     <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <joint name="Slew" type="revolute">
+    <parent link="part0"/>
+    <child link="part1"/>
+    <axis xyz="0 0 -1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <dynamics damping="0.8"/>
+    <limit lower="${-PI/2}" upper="${PI/2}" velocity="1" effort="500"/>
+  </joint>
+
+ <link name="part2">
+    <visual>
+      <origin rpy="0 -0.209 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part2.dae"/>
+      </geometry>
+    </visual>
+     <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <joint name="Shoulder" type="revolute">
+    <parent link="part1"/>
+    <child link="part2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0.209 0" xyz="0.077 0 -0.130"/>
+    <dynamics damping="0.8"/>
+    <limit lower="0" upper="${PI/2}" velocity="1" effort="500"/>
+  </joint>
+
+ <link name="part3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part3.dae"/>
+      </geometry>
+    </visual>
+    <xacro:sph_inertial mass="${arm_mass}" radius="${arm_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <joint name="Elbow" type="revolute">
+    <parent link="part2"/>
+    <child link="part3"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy=" 0 0.262 0 " xyz="0.44278 0 0"/>
+    <dynamics damping="0.8"/>
+    <limit lower="${PI/10}" upper="${PI/2}" velocity="1" effort="500"/>
+    </joint>
+
+  <link name="part4_base">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part4_base.dae"/>
+      </geometry>
+    </visual>
+    <xacro:sph_inertial mass="${jaw_mass}" radius="${jaw_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <!--<joint name="JawRotate" type="revolute">
+    <parent link="part3"/>
+    <child link="part4_base"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0.320 0 0.077 "/>
+    <dynamics damping="0.8"/>
+    <limit lower="${-PI/2}" upper="${PI/2}" velocity="1" effort="200"/>
+    </joint>-->
+    
+    <joint name="JawRotate" type="fixed">
+    <parent link="part3"/>
+    <child link="part4_base"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0.320 0 0.077 "/>
+    </joint>
+    
+    <link name="part5">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+        <cylinder length="0.08" radius="0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+       <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <geometry>
+        <cylinder length="0.08" radius="0.01"/>
+      </geometry>
+    </collision>
+    <xacro:cyl_inertial mass=".05" radius=".01" length=".06" />
+    </link>
+    
+    <joint name="part4_to_5" type="fixed">
+    <parent link="part4_base"/>
+    <child link="part5"/>
+    <origin rpy="0 1.57079632679 0" xyz=".12 0 0 "/>
+    </joint>
+    
+    
+    <link name="part6">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 .03"/>
+       <geometry>
+        <cylinder length="0.06" radius="0.008"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 .03"/>
+       <geometry>
+        <cylinder length="0.06" radius="0.008"/>
+      </geometry>
+    </collision>
+    <xacro:cyl_inertial mass=".05" radius=".01" length=".06" />
+    </link>
+    
+    <joint name="part5_to_6" type="fixed">
+    <parent link="part5"/>
+    <child link="part6"/>
+    <origin xyz="0 .0 .035 " rpy="0 .6 0"/>
+    </joint>
+    
+    <link name="part7">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 .03"/>
+       <geometry>
+        <cylinder length="0.06" radius="0.006"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 .03"/>
+       <geometry>
+        <cylinder length="0.06" radius="0.006"/>
+      </geometry>
+    </collision>
+    <xacro:cyl_inertial mass=".05" radius=".01" length=".06" />
+    </link>
+    
+    <joint name="part6_to_7" type="fixed">
+    <parent link="part6"/>
+    <child link="part7"/>
+    <origin xyz="0 .0 .06 " rpy="0 .6 0"/>
+    </joint>
+        
+    
+<!--
+  <link name="part4_jaw1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part4_jaw1.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part4_jaw1.dae"/>
+      </geometry>
+    </collision>
+    <xacro:sph_inertial mass="${jaw_mass}" radius="${jaw_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+  </link>
+
+  <joint name="JawOpening" type="revolute">
+    <parent link="part4_base"/>
+    <child link="part4_jaw1"/>
+    <axis xyz="0 -1 0"/>
+    <origin rpy="0 0 0" xyz="0.07 0 0.04"/>
+    <dynamics damping="0.8"/>
+    <limit lower="-.01" upper="${PI/2}" velocity=".1" effort="100"/>
+    </joint>
+
+<link name="part4_jaw2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part4_jaw2.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(env HOME)/.uwsim/data/robot/ARM5E/ARM5E_part4_jaw2.dae"/>
+      </geometry>
+    </collision>
+    <xacro:sph_inertial mass="${jaw_mass}" radius="${jaw_radius}" />
+    <buoyancy><compensation>1.0</compensation></buoyancy>
+    </link>
+
+  <joint name="JawOpening2" type="revolute">
+    <parent link="part4_base"/>
+    <child link="part4_jaw2"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.07 0 -0.04"/>
+    <dynamics damping="0.8"/>
+    <limit lower="-.01" upper="${PI/2}" velocity=".1" effort="100"/>
+    </joint>-->
+
+</robot>
+

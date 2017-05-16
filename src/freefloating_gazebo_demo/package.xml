@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>freefloating_gazebo_demo</name>
+  <version>1.1.0</version>
+  <description>This package contains an example of underwater robot using the freefloating_gazebo plugin.</description>
+  <maintainer email="olivier_kermorgant@yahoo.fr">Olivier Kermorgant</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://github.com/freefloating-gazebo/freefloating_gazebo_demo</url>
+
+  <author>Olivier Kermorgant</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  
+  <build_depend>freefloating_gazebo</build_depend>
+
+</package>

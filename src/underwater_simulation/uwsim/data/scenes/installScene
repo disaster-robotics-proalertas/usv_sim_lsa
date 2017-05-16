@@ -1,0 +1,75 @@
+#!/bin/bash
+
+scriptDir=`dirname $0`
+server="http://www.irs.uji.es/uwsim/files"
+force="-k"
+metaScene=false
+clean=false
+
+while [[ $# > 0	 ]]
+do
+  key="$1"
+
+  case $key in
+    -f|--force)
+    force="--overwrite"
+    ;;
+
+    -s|--scene)
+    metaScene=true
+    ;;
+
+    -c|--clean)
+    clean=true
+    ;;
+
+    *)
+    filename=$1        # unknown option
+    ;;
+  esac
+shift # past argument or value
+done
+
+if [ "$metaScene" = true ]
+then
+  wget $server/scenes/metaScenes/$filename -O ./scene.uws
+  filename="./scene.uws"
+else
+  if [ ! -f $filename ]
+  then
+    echo "Can't find $filename file"
+    exit
+  fi
+fi
+	
+if [ ! -f $scriptDir/UWSimScene.dtd ]
+then
+  echo "Directory where installScene is doesn't seem a UWSim scenes folder (UWSimScene.dtd does not exist)."
+  exit
+fi
+
+if [ -d $HOME/.uwsim/data ]
+then
+  echo "Installing..."	
+  while read -r line
+  do
+    words=( $line )
+    location="${words[1]/#\~/$HOME}"  #This expands "~" safely.
+    if [[ "$location" = /* ]]  ##Checks if it is an absolute path (we consider relative paths to be in the scriptDir)
+    then
+      wget $server/scenes/${words[0]} -O ~/.uwsim/downloaded_scene_data.tgz && tar -zxf ~/.uwsim/downloaded_scene_data.tgz $force -C $location
+    else
+      wget $server/scenes/${words[0]} -O ~/.uwsim/downloaded_scene_data.tgz && tar -zxf ~/.uwsim/downloaded_scene_data.tgz $force -C $scriptDir/$location
+    fi
+    rm ~/.uwsim/downloaded_scene_data.tgz
+  done < "$filename"
+
+else
+  echo "Data directory doesn't exist. Run UWSim for the first time to download basic scene data."
+  exit 
+fi
+
+if [ "$metaScene" = true ] || [ "$clean" = true ]
+then
+  rm "$filename"
+fi

@@ -1,0 +1,154 @@
+Group {
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  StateSet {
+    rendering_hint DEFAULT_BIN
+    renderBinMode INHERIT
+    GL_NORMALIZE ON
+  }
+  num_children 4
+  MatrixTransform {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      -12 18 6 1
+    }
+    num_children 1
+    ProxyNode {
+      name "dumptruck-body"
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      Center 0 0 0
+      ExtRefMode       LOAD_IMMEDIATELY
+      Radius -1
+      FileNameList 1 {
+        dumptruck.osg
+      }
+      num_children 0
+    }
+  }
+  MatrixTransform {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      8 5 3.5 1
+    }
+    num_children 1
+    MatrixTransform {
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      referenceFrame RELATIVE
+      Matrix {
+        3 0 0 0
+        0 3 0 0
+        0 0 3 0
+        0 0 0 1
+      }
+      num_children 1
+      ProxyNode {
+        name "tetra-body"
+        nodeMask 0xffffffff
+        cullingActive TRUE
+        Center 0 0 0
+        ExtRefMode         LOAD_IMMEDIATELY
+        Radius -1
+        FileNameList 1 {
+          tetra.osg
+        }
+        num_children 0
+      }
+    }
+  }
+  MatrixTransform {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      2 -6 5 1
+    }
+    num_children 1
+    MatrixTransform {
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      referenceFrame RELATIVE
+      Matrix {
+        4 0 0 0
+        0 4 0 0
+        0 0 4 0
+        0 0 0 1
+      }
+      num_children 1
+      MatrixTransform {
+        nodeMask 0xffffffff
+        cullingActive TRUE
+        referenceFrame RELATIVE
+        Matrix {
+          0.921061 -0.389418 0 0
+          0.389418 0.921061 0 0
+          0 0 1 0
+          0 0 0 1
+        }
+        num_children 1
+        ProxyNode {
+          name "dice-body"
+          nodeMask 0xffffffff
+          cullingActive TRUE
+          Center 0 0 0
+          ExtRefMode           LOAD_IMMEDIATELY
+          Radius -1
+          FileNameList 1 {
+            dice.osg
+          }
+          num_children 0
+        }
+      }
+    }
+  }
+  MatrixTransform {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      -20 8 5 1
+    }
+    num_children 1
+    MatrixTransform {
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      referenceFrame RELATIVE
+      Matrix {
+        -0.924302 0.381661 0 0
+        -0.381661 -0.924302 0 0
+        0 0 1 0
+        0 0 0 1
+      }
+      num_children 1
+      ProxyNode {
+        name "cow-body"
+        nodeMask 0xffffffff
+        cullingActive TRUE
+        Center 0 0 0
+        ExtRefMode         LOAD_IMMEDIATELY
+        Radius -1
+        FileNameList 1 {
+          cow.osg
+        }
+        num_children 0
+      }
+    }
+  }
+}

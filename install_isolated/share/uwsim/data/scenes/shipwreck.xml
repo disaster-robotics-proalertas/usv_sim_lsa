@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> 1.0 </windx>
+    <windy> 1.0 </windy>
+    <windSpeed> 12 </windSpeed>
+    <depth> 10000 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <waveScale> 1e-8 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> -2.5 </choppyFactor>
+    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 0 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+	<r>0.017</r>
+	<g>0.027</g>
+	<b>0.079</b>
+      </color>
+    </fog>
+    <color>
+	<r>0.017</r>
+	<g>0.027</g>
+	<b>0.079</b>
+    </color>
+    <attenuation>
+      <r>0.015</r>
+      <g>0.0075 </g>
+      <b> 0.005 </b>
+    </attenuation>
+  </oceanState>
+
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 800 </resw>
+    <resh> 600 </resh>
+  </simParams>
+
+  <camera>
+    <freeMotion> 1 </freeMotion>
+    <objectToTrack>girona500_RAUVI/base_link</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 1 </near>
+    <far> 10000 </far>
+    <position>
+      <x>16</x>
+      <y>9 </y>
+      <z>-7 </z>
+    </position> 
+    <lookAt>
+      <x>5</x>
+      <y>7 </y>
+      <z>-10 </z>
+    </lookAt>
+  </camera>
+
+ <vehicle>
+    <name>girona500_RAUVI</name>
+    <file>data/scenes/g500ARM5.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> M_PI_4</joint>
+      <joint> M_PI_4 </joint>
+      <joint> 0 </joint>
+      <joint>-0.3 </joint>
+    </jointValues>
+    <position>
+      <x> 5</x>
+      <y> 7 </y>
+      <z> -10 </z>
+    </position>
+    <orientation>
+      <r>3.1415</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </vehicle>
+
+  <vehicle>
+    <name>girona500_TRIDENT</name>
+    <file>data/scenes/g500ARM5.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> M_PI_4</joint>
+      <joint> M_PI_4 </joint>
+      <joint> 0 </joint>
+      <joint>-0.3 </joint>
+    </jointValues>
+    <position>
+      <x> 7</x>
+      <y> 5 </y>
+      <z> -11 </z>
+    </position>
+    <orientation>
+      <r>3.1415</r>
+      <p>0 </p>
+      <y>1.57 </y>
+    </orientation>
+  </vehicle>
+
+  <object>
+    <name>terrain</name>
+    <file>terrain/shipwreck/terrain.ive</file>
+    <position>
+      <x> 0</x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+    <physics>
+      <mass> 0 </mass>
+      <collisionShapeType> trimesh </collisionShapeType>
+    </physics>
+  </object>
+
+  <rosInterfaces>
+    <ROSOdomToPAT>
+      <topic> /dataNavigator_G500RAUVI </topic>
+      <vehicleName> girona500_RAUVI </vehicleName>
+    </ROSOdomToPAT>
+    <ROSOdomToPAT>
+      <topic> /dataNavigator_G500TRIDENT </topic>
+      <vehicleName> girona500_TRIDENT </vehicleName>
+    </ROSOdomToPAT>
+    <PATToROSOdom>
+      <topic> /uwsim/girona500_odom_RAUVI </topic>
+      <vehicleName> girona500_RAUVI </vehicleName>
+    </PATToROSOdom>
+    <PATToROSOdom>
+      <topic> /uwsim/girona500_odom_TRIDENT </topic>
+      <vehicleName> girona500_TRIDENT </vehicleName>
+    </PATToROSOdom>
+    <WorldToROSTF>
+      <rootName> world </rootName>
+      <enableObjects> 0 </enableObjects>
+      <rate>10</rate>
+    </WorldToROSTF>
+  </rosInterfaces>
+
+</UWSimScene>
+

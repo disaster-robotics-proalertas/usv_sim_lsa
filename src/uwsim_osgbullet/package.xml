@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>uwsim_osgbullet</name>
+  <version>3.0.1</version>
+  <description>The OSG Bullet library adapted to UWSim. See https://code.google.com/p/osgbullet</description>
+
+  <maintainer email="marioprats@gmail.com">Mario Prats</maintainer>
+  <license>LGPL</license>
+
+  <buildtool_depend>cmake</buildtool_depend>
+  <build_depend>boost</build_depend>
+  <build_depend>libopenscenegraph</build_depend>
+  <build_depend>uwsim_bullet</build_depend>
+  <build_depend>uwsim_osgworks</build_depend>
+  
+  <run_depend>catkin</run_depend>
+  <run_depend>boost</run_depend>
+  <run_depend>libopenscenegraph</run_depend>
+  <run_depend>uwsim_bullet</run_depend>
+  <run_depend>uwsim_osgworks</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

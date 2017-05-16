@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> 0.04 </windx>
+    <windy> 0.04 </windy>
+    <windSpeed> 12 </windSpeed>
+    <depth> 1000 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <waveScale> 1e-7 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> 2.5 </choppyFactor>
+    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 0 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+	<r>0</r>
+	<g>0.05</g>
+	<b>0.3</b>
+      </color>
+    </fog>
+  </oceanState>
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 640 </resw>
+    <resh> 480 </resh>
+  </simParams>
+
+  <camera>
+    <freeMotion> 0 </freeMotion>
+    <objectToTrack>ujione/ujione_jaw_inner</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 0.05 </near>
+    <far> 10000 </far>
+    <position>
+      <x>0</x>
+      <y>1.5 </y>
+      <z>0 </z>
+    </position> 
+    <lookAt>
+      <x>0</x>
+      <y>0 </y>
+      <z>0 </z>
+    </lookAt>
+  </camera>
+
+  <vehicle>
+    <name>ujione</name>
+    <file>data/scenes/ujione.urdf</file>
+    <jointValues>
+      <joint> -0.4 </joint>
+    </jointValues>
+    <position>
+      <x> 0</x>
+      <y> 0 </y>
+      <z> -3.5 </z>
+    </position>
+    <orientation>
+      <r>0 </r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </vehicle>
+
+</UWSimScene>
+

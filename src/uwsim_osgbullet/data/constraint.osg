@@ -1,0 +1,16 @@
+osgbDynamics::SliderConstraint {
+  rbAXform {
+    1 0 0 0
+    0 1 0 0
+    0 0 1 0
+    0 0 0 1
+  }
+  rbBXform {
+    1 0 0 0
+    0 1 0 0
+    0 0 1 0
+    0 0 0 1
+  }
+  Axis 0 1 0
+  Limit -1.5416 0
+}

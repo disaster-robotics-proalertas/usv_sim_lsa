@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>underwater_sensor_msgs</name>
+  <version>1.4.1</version>
+  <description>Common messages for underwater robotics</description>
+
+  <author email="marioprats@gmail.com">Mario Prats</author>
+  <maintainer email="marioprats@gmail.com">Mario Prats</maintainer>
+  <maintainer email="perezsolerj@gmail.com">Javier Perez</maintainer>
+
+  <license>BSD</license>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
+
