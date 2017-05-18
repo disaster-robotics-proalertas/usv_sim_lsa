@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/first_control
-
-Name: first_control
-Description: Description of first_control
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/lsa/ocean2/devel_isolated/first_control/lib 
-Requires: 

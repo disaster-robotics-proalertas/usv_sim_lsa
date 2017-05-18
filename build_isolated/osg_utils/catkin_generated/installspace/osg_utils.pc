@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/install_isolated
-
-Name: osg_utils
-Description: Description of osg_utils
-Version: 1.0.2
-Cflags: -I/home/lsa/ocean2/install_isolated/include
-Libs: -L/home/lsa/ocean2/install_isolated/lib -losg_utils
-Requires: roscpp tf

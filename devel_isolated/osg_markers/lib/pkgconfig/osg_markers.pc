@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/osg_markers
-
-Name: osg_markers
-Description: Description of osg_markers
-Version: 1.0.2
-Cflags: -I/home/lsa/ocean2/src/visualization_osg/osg_markers/include
-Libs: -L/home/lsa/ocean2/devel_isolated/osg_markers/lib -losg_markers
-Requires: roscpp tf roslib

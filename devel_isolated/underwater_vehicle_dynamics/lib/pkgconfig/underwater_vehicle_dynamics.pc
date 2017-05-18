@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/underwater_vehicle_dynamics
-
-Name: underwater_vehicle_dynamics
-Description: Description of underwater_vehicle_dynamics
-Version: 1.4.1
-Cflags: 
-Libs: -L/home/lsa/ocean2/devel_isolated/underwater_vehicle_dynamics/lib 
-Requires: rospy std_msgs nav_msgs geometry_msgs sensor_msgs tf tf_conversions

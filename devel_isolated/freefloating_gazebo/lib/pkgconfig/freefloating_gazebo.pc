@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/freefloating_gazebo
-
-Name: freefloating_gazebo
-Description: Description of freefloating_gazebo
-Version: 1.1.0
-Cflags: -I/home/lsa/ocean2/src/freefloating_gazebo/include
-Libs: -L/home/lsa/ocean2/devel_isolated/freefloating_gazebo/lib -lfreefloating_gazebo
-Requires: roscpp std_msgs std_srvs gazebo_ros gazebo_msgs geometry_msgs sensor_msgs control_toolbox rostime nav_msgs

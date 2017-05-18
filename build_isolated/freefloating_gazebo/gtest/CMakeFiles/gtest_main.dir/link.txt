@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -std=c++0x   -shared -Wl,-soname,libgtest_main.so -o libgtest_main.so CMakeFiles/gtest_main.dir/src/gtest_main.cc.o  -L/home/lsa/ocean2/build_isolated/freefloating_gazebo/gtest/src -lpthread libgtest.so -lpthread -Wl,-rpath,/home/lsa/ocean2/build_isolated/freefloating_gazebo/gtest/src:/home/lsa/ocean2/build_isolated/freefloating_gazebo/gtest 

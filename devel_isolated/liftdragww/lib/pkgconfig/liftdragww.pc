@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/liftdragww
-
-Name: liftdragww
-Description: Description of liftdragww
-Version: 0.0.0
-Cflags: -I/home/lsa/ocean2/src/liftdragww/include
-Libs: -L/home/lsa/ocean2/devel_isolated/liftdragww/lib -lliftdragww
-Requires: roscpp std_msgs

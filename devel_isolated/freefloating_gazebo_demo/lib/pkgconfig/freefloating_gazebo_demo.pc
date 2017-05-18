@@ -1,8 +1,0 @@
-prefix=/home/lsa/ocean2/devel_isolated/freefloating_gazebo_demo
-
-Name: freefloating_gazebo_demo
-Description: Description of freefloating_gazebo_demo
-Version: 1.1.0
-Cflags: 
-Libs: -L/home/lsa/ocean2/devel_isolated/freefloating_gazebo_demo/lib -lfreefloating_gazebo_demo
-Requires: roscpp sensor_msgs nav_msgs
