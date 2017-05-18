@@ -7,7 +7,7 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
     
     <!-- Body properties -->
-    <xacro:property name="body_mass" value="5"/>
+    <xacro:property name="body_mass" value="10"/>
     <xacro:property name="body_radius" value="0.13"/>
     <xacro:property name="body_length" value="1.5" />
     <xacro:property name="X_cog" value="${-0.5*body_radius}" />
@@ -53,14 +53,14 @@
                 
             </visual>  
             <inertial>
-                <mass value=".1"/>
+                <mass value="0.1"/>
                 <inertia
-                    ixx=".1"
+                    ixx="0.01"
                     ixy="0.0"
                     ixz="0.0"
-                    iyy=".1"
+                    iyy="0.01"
                     iyz="0.0"
-                    izz=".1"/>
+                    izz="0.01"/>
                 </inertial>  
             </link>                 
             
@@ -94,16 +94,16 @@
                 </inertial>  
                 
                 <buoyancy>
-                    <compensation>1.05</compensation>
+                    <compensation>1.2</compensation>
                     <origin xyz= "0 0 0"/>
                     <limit radius="${body_radius}"/>
-                    <damping xyz="40 100 100" rpy="20 50 50"/>
+                    <damping xyz="20 50 50" rpy="20 50 50"/>
                 </buoyancy>               
             </link>
 
 	<link name="rudder">
 		<inertial>
-			<mass value="0.1" />
+			<mass value="0.05" />
 
 			<inertia
 			  ixx="0.4708"
@@ -173,7 +173,7 @@
                         the thruster name is the name of the corresponding link --> 
                 <thruster>
                     <effort>30</effort>
-                    <name>fwd_left</name>
+                    <name>fwd</name>
                 </thruster>
                 
                 <!-- these thrusters are fixed and the map can be hard-coded 
@@ -184,7 +184,7 @@
         </gazebo>  
             
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd_left" xyz="-0.52 0 0" rpy="0 ${-PI/2} 0"/>
+    <xacro:thruster_link name="fwd" xyz="-0.52 0 -0.03" rpy="0 ${-PI/2} 0"/>
     
     <xacro:macro name="thruster_dummy_link" params="name xyz rpy">        
         <joint name="${name}" type="fixed">
@@ -200,4 +200,4 @@
     <xacro:thruster_dummy_link name="thr3" xyz="-0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>
     <xacro:thruster_dummy_link name="thr4" xyz="0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>-->
             
-        </robot>
+</robot>

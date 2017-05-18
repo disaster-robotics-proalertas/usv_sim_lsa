@@ -17,6 +17,7 @@ public:
     FreeFloatingFluidPlugin() {}
     ~FreeFloatingFluidPlugin()
     {
+	ROS_INFO("Closing FreeFloatingFluidPlugin");
         rosnode_->shutdown();
         delete rosnode_;
     }
