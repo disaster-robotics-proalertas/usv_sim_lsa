@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # license removed for brevity
-
 import rospy
 import math
 import tf
@@ -13,11 +12,6 @@ initial_pose = Odometry()
 target_pose = Odometry()
 target_distance = 0
 actuator_vel = 15
-Ianterior = 0
-rate_value = 10
-Kp = 10
-Ki = 2
-
 
 def get_pose(initial_pose_tmp):
     global initial_pose 
@@ -45,12 +39,11 @@ def angle_saturation(sensor):
     return sensor
 
 def talker_ctrl():
-    global rate_value
     # publishes to thruster and rudder topics
     pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
     pub_rudder = rospy.Publisher('/barco_auv/joint_setpoint', JointState, queue_size=10)
     rospy.init_node('usv_simple_ctrl', anonymous=True)
-    rate = rospy.Rate(rate_value) # 10h
+    rate = rospy.Rate(10) # 10h
     
     # subscribe to state and targer point topics
     rospy.Subscriber("/barco_auv/state", Odometry, get_pose)  # get usv position (add 'gps' position latter)
@@ -61,20 +54,6 @@ def talker_ctrl():
         pub_rudder.publish(rudder_ctrl_msg())
         rate.sleep()
 
-def P(erro):
-    global Kp
-    return Kp * erro
-
-def I(erro):
-    global Ki
-    global Ianterior
-    global rate_value
-    if (Ianterior > 0 and erro < 0) or (Ianterior < 0 and erro > 0):
-        Ianterior = Ianterior + Ki * erro * 50 * (1./rate_value)
-    else:
-        Ianterior = Ianterior + Ki * erro * (1./rate_value)
-    return Ianterior
-
 def rudder_ctrl():
     # erro = sp - atual
     # ver qual gira no horario ou anti-horario
@@ -83,8 +62,6 @@ def rudder_ctrl():
     global target_pose
     global target_distance
     global actuator_vel
-    global Ianterior
-    global rate_value
 
     x1 = initial_pose.pose.pose.position.x
     y1 = initial_pose.pose.pose.position.y
@@ -112,8 +89,6 @@ def rudder_ctrl():
     target_angle = angle_saturation(target_angle)
     
     err = sp_angle - target_angle
-    err = P(err) + I(err)
-
     teste = 5
     if target_distance < 1 and x2 != 0 and y2 != 0:
         actuator_vel = 0

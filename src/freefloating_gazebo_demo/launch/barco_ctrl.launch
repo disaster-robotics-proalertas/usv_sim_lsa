@@ -24,6 +24,8 @@
         
         <node name="control_tst1" pkg="freefloating_gazebo_demo" type="control_tst_tmp.py">
         </node>             
+        <node name="navigation_node" pkg="freefloating_gazebo_demo" type="navigation_pub.py">
+        </node>             
     </group>
         
     <!-- spawn terrain -->
