@@ -11,8 +11,8 @@ def navigation():
     rospy.init_node('navigation_publisher')
     rate = rospy.Rate(60) # 10h
 
-    x = -10.0
-    y = 10.0
+    x = -20.0
+    y = -20.0
 
     msg = Odometry()
    # msg.header = Header()
@@ -22,7 +22,7 @@ def navigation():
  
     while not rospy.is_shutdown():
             pub.publish(msg)
-        rate.sleep()
+            rate.sleep()
    
 
 if __name__ == '__main__':

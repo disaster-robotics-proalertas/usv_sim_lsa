@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="gui" default="true"/>
+    <arg name="gui" default="false"/>
     <arg name="gz" default="true"/>
 
     <!-- Launch Gazebo with underwater world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="gui" value="$(arg gz)" />
-        <arg name="paused" value="true"/>
+        <arg name="paused" value="false"/>
         <arg name="world_name" value="$(find freefloating_gazebo)/world/underwater.world"/>
     </include>
   
@@ -22,10 +22,8 @@
              body control will not activate as we expect direct thruster control -->
         <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
         
-        <node name="control_tst1" pkg="freefloating_gazebo_demo" type="control_tst_tmp.py">
-        </node>             
-        <node name="navigation_node" pkg="freefloating_gazebo_demo" type="navigation_pub.py">
-        </node>             
+        <node name="control_tst1" pkg="freefloating_gazebo_demo" type="control_velocity_tmp.py">
+        </node>
     </group>
         
     <!-- spawn terrain -->

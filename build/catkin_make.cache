@@ -1,0 +1,2 @@
+first_control:freefloating_gazebo:freefloating_gazebo_demo:liftdragww:underwater_simulation/underwater_sensor_msgs:underwater_simulation/underwater_vehicle_dynamics:underwater_simulation/uwsim:uwsim_bullet:uwsim_osgbullet:uwsim_osgocean:uwsim_osgworks:visualization_osg/osg_interactive_markers:visualization_osg/osg_markers:visualization_osg/osg_utils:visualization_osg/visualization_osg
+-DCATKIN_DEVEL_PREFIX=/home/lsa/usv_sim_lsa/devel -DCMAKE_INSTALL_PREFIX=/home/lsa/usv_sim_lsa/install -G Unix Makefiles
