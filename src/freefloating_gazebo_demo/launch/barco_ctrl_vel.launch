@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="gui" default="false"/>
+    <arg name="gui" default="true"/>
     <arg name="gz" default="true"/>
 
     <!-- Launch Gazebo with underwater world -->
@@ -22,7 +22,7 @@
              body control will not activate as we expect direct thruster control -->
         <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
         
-        <node name="control_tst1" pkg="freefloating_gazebo_demo" type="control_velocity_tmp.py">
+        <node name="control_vel" pkg="freefloating_gazebo_demo" type="control_velocity_tmp.py">
         </node>
     </group>
         

@@ -45,14 +45,15 @@ class VelocityCtrl():
         self.rudder_msg.header = Header()
         self.kp_lin = 80
         self.ki_lin = 200
-        thruster_name = 'fwd_left'
+        thruster_name = 'fwd'
         rudder_name = 'rudder_joint'
         self.I_ant_lin = 0
         self.I_ant_ang = 0
         self.lin_vel = 0
+        self.lin_vel_ang = 0
         self.ang_vel = 0
-        self.kp_ang = 1 
-        self.ki_ang = 0
+        self.kp_ang = 2 
+        self.ki_ang = 4
 
         self.pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
         self.pub_rudder = rospy.Publisher('/barco_auv/joint_setpoint', JointState, queue_size=10)
@@ -62,22 +63,28 @@ class VelocityCtrl():
 
         while not rospy.is_shutdown():
             self.pub_rudder.publish(self.rudder_ctrl_msg(self.ang_vel_ctrl(), rudder_name))
-            self.pub_motor.publish(self.thruster_ctrl_msg(self.lin_vel_ctrl()+self.ang_vel_ctrl(), thruster_name))
+            self.pub_motor.publish(self.thruster_ctrl_msg(self.lin_vel_ctrl(), thruster_name))
             r.sleep()
 
     def lin_vel_ctrl(self):
-        self.lin_vel = self.target_vel.linear.x - self.usv_vel.twist.twist.linear.x
+        if self.target_vel.linear.x > self.target_vel.angular.z*2:
+            self.lin_vel = self.target_vel.linear.x - self.usv_vel.twist.twist.linear.x
+        else:
+            self.lin_vel = self.target_vel.angular.z*2 - self.usv_vel.twist.twist.linear.x
+
         self.lin_vel = self.lin_vel * self.kp_lin + self.I_lin(self.lin_vel)
-        # msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3};" .format(self.usv_vel.twist.twist.linear.x, self.target_vel.linear.x, self.lin_vel, self.I_ant_lin)
-        # rospy.loginfo(msg)
+        #msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3};" .format(self.usv_vel.twist.twist.linear.x, self.target_vel.linear.x, self.lin_vel, self.I_ant_lin)
+        #rospy.loginfo(msg)
+        self.sat_thruster()
         return self.lin_vel
 
     def ang_vel_ctrl(self):
         self.ang_vel = self.target_vel.angular.z - self.usv_vel.twist.twist.angular.z
         self.ang_vel = self.ang_vel * self.kp_ang + self.I_ang(self.ang_vel)
-        msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3};" .format(self.usv_vel.twist.twist.angular.x, self.target_vel.angular.x, self.ang_vel, self.I_ant_ang)
+        self.sat_rudder()
+        msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3}; Comand motor: {4}; erro cominado: {5}; i_lin: {6}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.I_ant_ang, self.lin_vel, self.lin_vel + self.I_ant_ang, self.I_ant_lin)
         rospy.loginfo(msg)
-        return self.ang_vel
+        return -self.ang_vel
 
     def I_lin(self, erro):
         self.I_ant_lin = self.I_ant_lin + erro * self.ki_lin * 1/self.rate
@@ -87,9 +94,17 @@ class VelocityCtrl():
         self.I_ant_ang = self.I_ant_ang + erro * self.ki_ang * 1/self.rate
         return self.I_ant_ang
 
-    def quat_to_angle(quarternion):
-        return math.degrees(tf.transformations.euler_from_quaternion(quaternion))
+    def sat_thruster(self):
+        if self.lin_vel > 30:
+            self.lin_vel = 30
+        if self.lin_vel < -30:
+            self.lin_vel = -30
 
+    def sat_rudder(self):
+        if self.ang_vel > 60:
+            self.ang_vel = 60
+        if self.ang_vel < -60:
+            self.ang_vel = -60
 
 if __name__ == '__main__':
     try:

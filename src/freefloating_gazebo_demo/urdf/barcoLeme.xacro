@@ -141,10 +141,6 @@
 <!-- Plugin list -->
         <gazebo>
             <!-- Gazebo plugin listens to the body-->
-            
-
-
-		
 		 <plugin name="LiftDrag" filename="libLiftDragPlugin.so"> 
 		<!--<plugin name="LiftDrag" filename="libliftdragww.so">-->
 
