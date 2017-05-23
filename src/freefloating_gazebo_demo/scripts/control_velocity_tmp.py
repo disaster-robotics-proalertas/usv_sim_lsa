@@ -54,6 +54,8 @@ class VelocityCtrl():
         self.ang_vel = 0
         self.kp_ang = 2 
         self.ki_ang = 4
+        self.rudder_max = 60
+        self.thruster_max = 15
 
         self.pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
         self.pub_rudder = rospy.Publisher('/barco_auv/joint_setpoint', JointState, queue_size=10)
@@ -95,16 +97,22 @@ class VelocityCtrl():
         return self.I_ant_ang
 
     def sat_thruster(self):
-        if self.lin_vel > 30:
-            self.lin_vel = 30
-        if self.lin_vel < -30:
-            self.lin_vel = -30
+        if self.lin_vel > self.thruster_max:
+            self.lin_vel = self.thruster_max
+        if self.lin_vel < -self.thruster_max:
+            self.lin_vel = -self.thruster_max
 
     def sat_rudder(self):
-        if self.ang_vel > 60:
-            self.ang_vel = 60
-        if self.ang_vel < -60:
-            self.ang_vel = -60
+        if self.ang_vel > self.rudder_max:
+            self.ang_vel = self.rudder_max
+        if self.ang_vel < -self.rudder_max:
+            self.ang_vel = -self.rudder_max
+    
+    def sat_thruster(self):
+        if self.I_ant_lin > 2*self.thruster_max:
+            self.I_ant_lin = 2*self.thruster_max
+        if self.I_ant_lin < -2*self.thruster_max:
+            self.I_ant_lin = -2*self.thruster_max
 
 if __name__ == '__main__':
     try:
