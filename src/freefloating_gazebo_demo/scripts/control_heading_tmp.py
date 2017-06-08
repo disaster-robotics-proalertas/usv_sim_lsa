@@ -31,7 +31,7 @@ def thruster_ctrl_msg():
     global actuator_vel
     msg = JointState()
     msg.header = Header()
-    msg.name = ['fwd_left']
+    msg.name = ['fwd']
     msg.position = [actuator_vel]
     msg.velocity = []
     msg.effort = []
@@ -115,8 +115,10 @@ def rudder_ctrl():
     err = P(err) + I(err)
 
     teste = 5
-    if target_distance < 1 and x2 != 0 and y2 != 0:
+    if target_distance < 5 and x2 != 0 and y2 != 0:
         actuator_vel = 0
+    else:
+        actuator_vel = 15
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance)
 
