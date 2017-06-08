@@ -140,4 +140,3 @@ if __name__ == '__main__':
         talker_ctrl()
     except rospy.ROSInterruptException:
         pass
-
