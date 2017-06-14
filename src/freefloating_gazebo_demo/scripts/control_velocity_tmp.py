@@ -27,10 +27,15 @@ class VelocityCtrl():
         return self.rudder_msg
 
     def get_usv_vel(self, usv_vel_tmp):
-        self.usv_vel = usv_vel_tmp 
+        if usv_vel_tmp != self.usv_vel_ant:
+            self.usv_vel_ant = self.usv_vel
+            self.usv_vel = usv_vel_tmp 
+
 
     def get_target_vel(self, target_vel_tmp):
-        self.target_vel = target_vel_tmp
+        if target_vel_tmp != self.target_vel_ant:
+            self.target_vel_ant = self.target_vel
+            self.target_vel = target_vel_tmp
 
     def __init__(self):
         rospy.init_node('usv_vel_ctrl', anonymous=False)
@@ -38,7 +43,9 @@ class VelocityCtrl():
         r = rospy.Rate(self.rate) # 10hertz
 
         self.usv_vel = Odometry()
+        self.usv_vel_ant = Odometry()
         self.target_vel = Twist()
+        self.target_vel_ant = Twist()
         self.thruster_msg = JointState()
         self.rudder_msg = JointState()
         self.thruster_msg.header = Header()
@@ -54,8 +61,8 @@ class VelocityCtrl():
         self.ang_vel = 0
         self.kp_ang = 2 
         self.ki_ang = 4
-        self.rudder_max = 60
-        self.thruster_max = 15
+        self.rudder_max = 70
+        self.thruster_max = 30
 
         self.pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
         self.pub_rudder = rospy.Publisher('/barco_auv/joint_setpoint', JointState, queue_size=10)
@@ -108,7 +115,7 @@ class VelocityCtrl():
         if self.ang_vel < -self.rudder_max:
             self.ang_vel = -self.rudder_max
     
-    def sat_thruster(self):
+    def sat_thruster_I(self):
         if self.I_ant_lin > 2*self.thruster_max:
             self.I_ant_lin = 2*self.thruster_max
         if self.I_ant_lin < -2*self.thruster_max:

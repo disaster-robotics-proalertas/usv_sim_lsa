@@ -12,11 +12,11 @@
   
     <!-- spawn in Gazebo with GUI -->
     <group ns="barco_auv">
-        <param name="robot_description" command="$(find xacro)/xacro $(find freefloating_gazebo_demo)/urdf/outroTeste.urdf"/>
+        <param name="robot_description" command="$(find xacro)/xacro $(find usv_sim)/urdf/outroTeste.urdf"/>
         <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_auv -param robot_description -x 0 -y 0 -z -0 -R 0 -P 0 -Y 0"/>
 
         <!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
-        <rosparam file="$(find freefloating_gazebo_demo)/config/barcoLeme.yaml" command="load"/>
+        <rosparam file="$(find usv_sim)/config/barcoLeme.yaml" command="load"/>
 
         <!-- Launch low-level PID control for arm 
              body control will not activate as we expect direct thruster control -->
@@ -27,14 +27,20 @@
         	<param name="use_gui" value="True"/>
         	<remap from="joint_states" to="joint_setpoint" />        
         </node>
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>                 
         
         <!-- Manual control of thruster efforts -->
-        <node name="control_tst1" pkg="freefloating_gazebo_demo" type="control_tst.py">
-        </node>             
+        <group ns="thrusters">
+             <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/barcoLeme_dummy.urdf"/>                         
+             <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+             <param name="use_gui" value="True"/>
+             <remap from="joint_states" to="/barco_auv/thruster_command" />
+             </node>             
+        </group>
     </group>
         
     <!-- spawn terrain -->
-    <param name="terrain_description" command="$(find xacro)/xacro $(find freefloating_gazebo_demo)/terrain/shipwreck/terrain.sdf"/>
+    <param name="terrain_description" command="$(find xacro)/xacro $(find usv_sim)/terrain/shipwreck/terrain.sdf"/>
     <node name="terrain_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-sdf -model terrain -param terrain_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
    
 </launch>
