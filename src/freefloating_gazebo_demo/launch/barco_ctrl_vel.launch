@@ -22,7 +22,7 @@
              body control will not activate as we expect direct thruster control -->
         <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
         
-        <node name="control_vel" pkg="freefloating_gazebo_demo" type="control_velocity_tmp.py">
+        <node name="control_vel" pkg="freefloating_gazebo_demo" type="control_vel_rudder.py">
         </node>
 
         <node name="odom_relay" type="relay" pkg="topic_tools" args="/barco_auv/state /odom" />

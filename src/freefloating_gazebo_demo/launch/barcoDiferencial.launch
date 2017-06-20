@@ -21,22 +21,10 @@
         <!-- Launch low-level PID control for arm 
              body control will not activate as we expect direct thruster control -->
         <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
-        
-        <!-- Manual control of joints -->
-        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-        	<param name="use_gui" value="True"/>
-        	<remap from="joint_states" to="joint_setpoint" />        
-        </node>
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>                 
-        
-        <!-- Manual control of thruster efforts -->
-        <group ns="thrusters">
-             <param name="robot_description" command="$(find xacro)/xacro --inorder $(find freefloating_gazebo_demo)/urdf/barcoDiferencial_dummy.urdf"/>                         
-             <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-             <param name="use_gui" value="True"/>
-             <remap from="joint_states" to="/barco_auv/thruster_command" />
-             </node>             
-        </group>
+        <node name="control_vel" pkg="freefloating_gazebo_demo" type="control_vel_dif.py"/>
+
+        <node name="odom_relay" type="relay" pkg="topic_tools" args="/barco_auv/state /odom" />
+        <node name="vel_relay" type="relay" pkg="topic_tools" args="/cmd_vel /barco_auv/cmd_vel" />
     </group>
         
     <!-- spawn terrain -->
