@@ -45,12 +45,13 @@ class VelocityCtrl():
         self.lin_vel = 0
         self.lin_vel_ang = 0
         self.ang_vel = 0
-        self.kp_ang = 100 
-        self.ki_ang = 200
+        self.kp_ang = 80 
+        self.ki_ang = 100
         self.thruster_max = 30
         self.vel_left = 0
         self.vel_right = 0
         self.thruster_command = numpy.array([0, 0])
+        self.erro = 0
 
         self.pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
 
@@ -65,27 +66,23 @@ class VelocityCtrl():
         self.lin_vel = self.target_vel.linear.x - self.usv_vel.twist.twist.linear.x
         self.lin_vel = self.lin_vel * self.kp_lin + self.I_lin(self.lin_vel)
 
-        if self.target_vel.angular.z != self.target_vel_ant.angular.z:
-            self.I_ant_ang = 0
+        #if self.target_vel.angular.z != self.target_vel_ant.angular.z:
+        #    self.I_ant_ang = 0
 
         if self.target_vel.angular.z == 0:
             self.vel_left = self.lin_vel
             self.vel_right = self.lin_vel
         else: 
             self.ang_vel = self.target_vel.angular.z - self.usv_vel.twist.twist.angular.z
-            erro = self.ang_vel
-        self.ang_vel = self.ang_vel * self.kp_ang + self.I_ang(self.ang_vel)
-        if self.ang_vel < 0:
-            self.vel_left = self.lin_vel + self.ang_vel
-            self.vel_right = self.lin_vel - self.ang_vel
-        if self.ang_vel > 0:
-            self.vel_right = self.lin_vel + self.ang_vel
+            self.erro = self.ang_vel
+            self.ang_vel = self.ang_vel * self.kp_ang + self.I_ang(self.ang_vel)
             self.vel_left = self.lin_vel - self.ang_vel
-            msg = "atual: {0}; desejada: {1}; erro: {2}; vel_left: {3}; vel_right: {4}; erro_bruto: {5}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.vel_left, self.vel_right, erro)
-            rospy.loginfo(msg)
-        
+            self.vel_right = self.lin_vel + self.ang_vel
+                   
         self.vel_left = self.sat_thruster(self.vel_left)
         self.vel_right = self.sat_thruster(self.vel_right)
+        msg = "atual: {0}; desejada: {1}; erro: {2}; vel_left: {3}; vel_right: {4}; erro_bruto: {5}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.vel_left, self.vel_right, self.erro)
+        rospy.loginfo(msg)
 
         return [self.vel_left, self.vel_right]
 

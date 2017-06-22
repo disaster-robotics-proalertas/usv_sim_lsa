@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>rrbot_description</name>
+  <version>0.0.0</version>
+  <description>The rrbot_description package</description>
+
+  <maintainer email="davetcoleman@gmail.com">Dave Coleman</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://http://gazebosim.org/w/index.php?title=Tutorials/1.9/Using_A_URDF_In_Gazebo</url>
+  <url type="bugtracker">https://github.com/osrf/gazebo_ros_demos/issues</url>
+  <url type="repository">https://github.com/osrf/gazebo_ros_demos</url>
+
+  <author email="davetcoleman@gmail.com">Dave Coleman</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+
+  <export>
+  </export>
+</package>

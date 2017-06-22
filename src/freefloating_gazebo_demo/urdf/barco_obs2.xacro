@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
+
+<robot name="barco_obs2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="obs_x" value="5"/>
+    <xacro:property name="obs_y" value="1"/>
+    <xacro:property name="obs_z" value="5"/>
+    <xacro:property name="side_x" value="60"/>
+    <xacro:property name="side_y" value="0.5"/>
+    <xacro:property name="side_z" value="0.5"/>
+    <xacro:property name="side_dist" value="9"/>
+    <xacro:property name="PI" value="3.1415926535897931"/>
+
+    <link name="side_link2">
+        <collision>
+          <origin rpy="1.57079632679 0 0"/>
+          <geometry>
+              <box size="${side_x} ${side_y} ${side_z}"/>
+          </geometry>
+        </collision>
+        <visual>
+            <origin rpy="1.57079632679 0 0" xyz="0 ${side_dist} 0"/>
+          <geometry>
+              <box size="${side_x} ${side_y} ${side_z}"/>
+          </geometry>
+          <material name="blue"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 ${side_dist} 0"/>
+          <mass value="10"/>
+          <inertia ixx="0.5" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="0.5"/>
+        </inertial>
+        <buoyancy>
+            <compensation>1.2</compensation>
+            <origin xyz= "0 0 0"/>
+            <limit radius="0.1"/>
+            <damping xyz="20 50 50" rpy="20 50 50"/>
+        </buoyancy>
+    </link>
+    
+</robot>

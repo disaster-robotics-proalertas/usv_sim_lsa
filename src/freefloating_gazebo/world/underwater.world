@@ -12,7 +12,7 @@
       <link name="link">
         <wind>true</wind>
       </link>
-    </model>
+  </model>
 
     <!-- buoyancy plugin -->
     <plugin name="freefloating_gazebo_fluid" filename="libfreefloating_gazebo_fluid.so">
