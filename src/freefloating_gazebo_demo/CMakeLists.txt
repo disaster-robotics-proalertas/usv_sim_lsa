@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     sensor_msgs
     nav_msgs
+    move_base
 )
 
 catkin_package(
@@ -13,6 +14,7 @@ catkin_package(
     roscpp
     sensor_msgs
     nav_msgs
+    move_base
 )
 
 include_directories(${catkin_INCLUDE_DIRS})

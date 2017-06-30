@@ -1,9 +1,9 @@
 obstacle_range: 5.5
 raytrace_range: 6.0
-footprint: [[x0, y0], [x1, y1], ... [xn, yn]]
+footprint: [[0.6, -0.25], [0.6, 0.25], [-0.6, -0.25], [-0.6, 0.25]]
 #robot_radius: ir_of_robot
 inflation_radius: 0.55
 
 observation_sources: laser_scan_sensor 
 
-laser_scan_sensor: {sensor_frame: base_laser, data_type: LaserScan, topic: laserScan, marking: true, clearing: true}
+laser_scan_sensor: {sensor_frame: barco_auv/hokuyo_link, data_type: LaserScan, topic: laserScan, marking: true, clearing: true}

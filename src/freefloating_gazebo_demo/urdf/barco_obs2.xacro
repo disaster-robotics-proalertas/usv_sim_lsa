@@ -32,12 +32,13 @@
           <mass value="10"/>
           <inertia ixx="0.5" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="0.5"/>
         </inertial>
-        <buoyancy>
-            <compensation>1.2</compensation>
-            <origin xyz= "0 0 0"/>
-            <limit radius="0.1"/>
-            <damping xyz="20 50 50" rpy="20 50 50"/>
-        </buoyancy>
+        <static>true</static>
     </link>
+
+    <joint name="obs2_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="underwater"/>
+        <child link="side_link2"/>
+    </joint>
     
 </robot>

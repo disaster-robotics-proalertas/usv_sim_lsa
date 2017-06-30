@@ -120,9 +120,11 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+add_executable(world_tf_broadcaster src/world_tf_broadcaster.cpp)
+add_executable(laser_tf_broadcaster src/laser_tf_broadcaster.cpp)
 add_executable(tf_listener src/tf_listener.cpp)
-target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+target_link_libraries(world_tf_broadcaster ${catkin_LIBRARIES})
+target_link_libraries(laser_tf_broadcaster ${catkin_LIBRARIES})
 target_link_libraries(tf_listener ${catkin_LIBRARIES})
 
 ## Declare a C++ library

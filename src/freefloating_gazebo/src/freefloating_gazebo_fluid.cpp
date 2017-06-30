@@ -167,7 +167,7 @@ void FreeFloatingFluidPlugin::Update()
 
         // publish states as odometry message
         nav_msgs::Odometry state;
-        state.header.frame_id = "world";
+        state.header.frame_id = "odom";
         state.header.stamp = ros::Time::now();
         math::Vector3 vec;
         math::Pose pose;

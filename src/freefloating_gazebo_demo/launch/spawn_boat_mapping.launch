@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+<!-- spawn in Gazebo with GUI -->
+    <group ns="barco_auv">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find freefloating_gazebo_demo)/urdf/barcoDiferencial.xacro"/>
+        <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_auv -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+
+       <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+          <remap from="/joint_states" to="/robot1/joint_states" />
+       </node>
+
+        <!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
+        <rosparam file="$(find freefloating_gazebo_demo)/config/barcoDiferencial.yaml" command="load"/>
+
+        <!-- Launch low-level PID control for arm 
+             body control will not activate as we expect direct thruster control -->
+        <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
+        <node name="control_vel" pkg="freefloating_gazebo_demo" type="control_vel_dif.py"/>
+        <node name="world_tf" pkg="robot_setup_tf" type="world_tf_broadcaster.py"/> 
+        <!-- <node name="map_tf" pkg="robot_setup_tf" type="map_tf_broadcaster.py"/> -->
+        <!-- <node name="world_tf" pkg="robot_setup_tf" type="world_tf_broadcaster"/> -->
+        <node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 map world 10" />
+        <node pkg="tf" type="static_transform_publisher" name="world_odom_tf" args="0 0 0 0 0 0 1 map world 10" />
+        <node pkg="tf" type="static_transform_publisher" name="world_odom_tf" args="0 0 0 0 0 0 1 map world 10" />
+
+        <node name="odom_relay" type="relay" pkg="topic_tools" args="/barco_auv/state /odom" />
+        <node name="vel_relay" type="relay" pkg="topic_tools" args="/cmd_vel /barco_auv/cmd_vel" />
+        <node name="laser_relay" type="relay" pkg="topic_tools" args="/rrbot/laser/scan /laserScan" />
+    </group>
+</launch>
