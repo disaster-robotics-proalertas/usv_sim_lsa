@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>usv_navigation</name>
+  <name>usv_sim</name>
   <version>1.1.0</version>
   <description>This package contains an example of underwater robot using the freefloating_gazebo plugin.</description>
   <maintainer email="olivier_kermorgant@yahoo.fr">Olivier Kermorgant</maintainer>
@@ -18,4 +18,6 @@
   <depend>nav_msgs</depend>
   <depend>move_base</depend>
   
+  <build_depend>freefloating_gazebo</build_depend>
+
 </package>

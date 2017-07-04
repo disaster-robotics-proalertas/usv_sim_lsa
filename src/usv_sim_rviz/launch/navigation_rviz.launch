@@ -1,0 +1,3 @@
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find usv_sim_rviz)/rviz/navigation.rviz"/>
+</launch>

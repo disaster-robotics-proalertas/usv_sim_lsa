@@ -11,5 +11,3 @@ water surface vehicles simulator;
     4.2 for velocity control:
         roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch
         publish the desired location on topic /barco_auv/cmd_vel
-        
-
