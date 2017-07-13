@@ -8,7 +8,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="objects/blackbox_uib_trimesh.osg"/>
+        <mesh filename="/objects/blackbox_uib_trimesh.osg"/>
       </geometry>
     </visual>
     </link>

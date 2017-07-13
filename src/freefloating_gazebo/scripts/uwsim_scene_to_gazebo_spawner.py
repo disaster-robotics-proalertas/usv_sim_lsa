@@ -8,6 +8,7 @@ from lxml import etree
 import xacro
 import resource_retriever
 import subprocess
+from pathlib import Path
 
 def uwsim_to_abspath(filename, datapath):
     '''
@@ -24,7 +25,10 @@ def abspath_to_uwsim(filename, datapath):
     '''
     for p in datapath:
         if p in filename:
-            return filename[len(p)+1:], p
+	    if ("file://" in filename) and not ("file://" in p):
+		return filename[len(p)+1+len("file://"):], p
+	    else:
+            	return filename[len(p)+1:], p
     return filename, ''
     
 def abspath_to_roslaunch(filename):
@@ -146,7 +150,7 @@ def create_spawner(node, gazebo_model_file):
         param_node = etree.SubElement(group_node, 'param', name = '%s_description' % name)
         spawn_args.append('%s -param %s_description' % (name, name))
     
-    param_node.set('command', '$(find xacro)/xacro %s' % abspath_to_roslaunch(gazebo_model_file))
+    param_node.set('command', '$(find xacro)/xacro --inorder %s' % abspath_to_roslaunch(gazebo_model_file))
 
     # spawner node
     spawn_node = etree.SubElement(group_node, 'node')
@@ -211,9 +215,22 @@ def process_vehicles(vehicles, datapath):
         if len(meshes) != 0:
             # create uwsim urdf only if mesh in gazebo urdf, otherwise trust the user 
             for mesh in meshes:
-                mesh_file = resource_retriever.get(substitution_args.resolve_args(mesh.get('filename'))).url[7:]
+		print "------\n"
+		print mesh.get('filename')
+		print "------\n"
+		print substitution_args.resolve_args(mesh.get('filename'))
+		print "------\n"
+                #mesh_file = resource_retriever.get(substitution_args.resolve_args(mesh.get('filename'))).url[7:]
+		mesh_file = substitution_args.resolve_args(mesh.get('filename'))
+		#print mesh_file
+		print datapath;
+
+		#mesh_file = substitution_args.resolve_args(mesh.get('filename'))
                 # get uwsim relative path for mesh
                 mesh_file, datadir = abspath_to_uwsim(mesh_file, datapath)
+                #mesh_file, datadir = uwsim_to_abspath(mesh_file, datapath)
+		print "======= novo"
+		print mesh_file
                 # if mesh in dae, try to find corresponding osg
                 if '.dae' in mesh_file:
                     mesh_osg, datadir_osg = uwsim_to_abspath(mesh_file.replace('.dae','.osg'), datapath)

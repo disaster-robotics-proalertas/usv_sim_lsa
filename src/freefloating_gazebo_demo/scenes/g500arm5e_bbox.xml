@@ -132,6 +132,12 @@
       <topic> /blackbox/state </topic>
       <vehicleName> blackbox </vehicleName>
     </ROSOdomToPAT>
+
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/g500arm5e/Surface</topic>
+	<vehicleName>g500arm5e</vehicleName>
+    </OceanSurfaceToROSOceanVehicle>
     
     <ROSJointStateToArm> 
         <topic>/g500arm5e/joint_states</topic>

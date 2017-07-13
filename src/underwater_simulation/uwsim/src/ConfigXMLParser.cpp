@@ -1302,6 +1302,11 @@ void ConfigFile::processROSInterfaces(const xmlpp::Node* node)
     {
       rosInterface.type = ROSInterfaceInfo::ROSOdomToPAT;
     }
+    else if (child->get_name() == "OceanSurfaceToROSOceanVehicle")
+    {
+	std::cerr<<"\n found OceanSurfaceToROSOceanVehicle";
+      rosInterface.type = ROSInterfaceInfo::OceanSurfaceToROSOceanVehicle;
+    }
     else if (child->get_name() == "PATToROSOdom")
     {
       rosInterface.type = ROSInterfaceInfo::PATToROSOdom;

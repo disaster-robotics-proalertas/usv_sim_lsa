@@ -67,11 +67,12 @@ ROSOdomToPAT::ROSOdomToPAT(osg::Group *rootNode, std::string topic, std::string 
 
 void ROSOdomToPAT::createSubscriber(ros::NodeHandle &nh)
 {
-  ROS_INFO("ROSOdomToPAT subscriber on topic %s", topic.c_str());
+std::cerr<<"######ROSOdomToPAT subscriber on topic "<< topic.c_str();
+  ROS_INFO("######ROSOdomToPAT subscriber on topic %s", topic.c_str());
   sub_ = nh.subscribe < nav_msgs::Odometry > (topic, 10, &ROSOdomToPAT::processData, this);
   if (sub_ == ros::Subscriber())
   {
-    ROS_ERROR("ROSOdomToPAT::createSubscriber cannot subscribe to topic %s", topic.c_str());
+    ROS_ERROR("######ROSOdomToPAT::createSubscriber cannot subscribe to topic %s", topic.c_str());
   }
 }
 
@@ -488,6 +489,7 @@ ROSPublisherInterface::ROSPublisherInterface(std::string topic, int publish_rate
 /* Thread code */
 void ROSPublisherInterface::run()
 {
+std::cerr<<"\n++++++++++++++++++++++++++ called run into ROSPublisherInterface!";
   ros::Duration(2).sleep();
   createPublisher (nh_);
 
@@ -567,6 +569,54 @@ void PATToROSOdom::publish()
 PATToROSOdom::~PATToROSOdom()
 {
 }
+
+
+OceanSurfaceToROSOceanVehicle::OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean):
+ROSPublisherInterface(topic, rate)
+{
+	std::cerr<<"\n --------------- new OceanSurfaceToROSOceanVehicle. vehicle: " << vehicleName;
+	_oceanTechnique = ptrOcean;
+	findNodeVisitor findNode(vehicleName);
+	rootNode->accept(findNode);
+	osg::Node *first = findNode.getFirst();
+	if(first == NULL)
+	{
+		std::cerr<<"\n cannt find vehicle";
+	}
+	else
+	{
+		osg::Vec3f normal(0,0,1);
+		center = osg::Vec3f(center.x(), center.y(), _oceanTechnique->getSurfaceHeightAt(center.x(), center.y(), &normal));
+	}
+	publish_rate =10;
+}
+
+void OceanSurfaceToROSOceanVehicle::createPublisher(ros::NodeHandle &nh)
+{
+	std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHER on topic"<<topic.c_str();
+	ROS_INFO("======== OceanSurfaceToROSOceanVehicle PUBLISHER on topic %s", topic.c_str());
+	pub_ = nh.advertise < geometry_msgs::Point > (topic, 1);
+}
+
+void OceanSurfaceToROSOceanVehicle::publish()
+{
+//std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHING "<<topic;
+	osg::Vec3f normal(0,0,1);
+	center = osg::Vec3f(center.x(), center.y(), _oceanTechnique->getSurfaceHeightAt(center.x(), center.y(), &normal));
+	geometry_msgs::Point surface;
+	surface.x = center.x();
+	surface.y = center.y();
+	surface.z = center.z();
+
+	pub_.publish(surface);
+}
+
+OceanSurfaceToROSOceanVehicle::~OceanSurfaceToROSOceanVehicle()
+{
+
+}
+
+
 
 ImuToROSImu::ImuToROSImu(InertialMeasurementUnit *imu, std::string topic, int rate) :
     ROSPublisherInterface(topic, rate), imu_(imu)

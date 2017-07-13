@@ -6,7 +6,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-          <mesh filename="package://freefloating_gazebo_demo/objects/blackbox_uib_trimesh.dae"/>
+          <mesh filename="/objects/blackbox_uib_trimesh.dae"/>
       </geometry>
     </visual>
     <inertial>
@@ -17,7 +17,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
      <geometry>
-          <mesh filename="package://freefloating_gazebo_demo/objects/blackbox_uib_trimesh.dae"/>
+          <mesh filename="/objects/blackbox_uib_trimesh.dae"/>
       </geometry>
     </collision>
     <buoyancy>

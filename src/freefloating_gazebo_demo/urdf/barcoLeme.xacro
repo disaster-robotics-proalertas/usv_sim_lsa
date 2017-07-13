@@ -106,12 +106,12 @@
 			<mass value="0.05" />
 
 			<inertia
-			  ixx="0.4708"
+			  ixx="0.05"
 			  ixy="0.0"
-			  iyy="0.5208"
+			  iyy="0.05"
 			  ixz="0.0"
 			  iyz="0.0"
-			  izz="0.0508"/>
+			  izz="0.005"/>
 		</inertial>
 
 	      <collision name="collision">
@@ -149,13 +149,16 @@
 		<!--<plugin name="LiftDrag" filename="libliftdragww.so">-->
 
 			<a0>0</a0>
-			<cla>4.752798721</cla>
-			<cda>0.6417112299</cda>
-			<cma>-1.8</cma>
-			<alpha_stall>0.785</alpha_stall>
-			<cla_stall>-3.85</cla_stall>
-			<cda_stall>-0.9233984055</cda_stall>
+			<cla>0.752798721</cla>
+			<cda>0.3417112299</cda>
+			<!--
+			<cma>-1.8</cma> momentum
 			<cma_stall>0</cma_stall>
+			-->
+			<alpha_stall>0.785</alpha_stall>
+			<cla_stall>-0.85</cla_stall>
+			<cda_stall>-0.3233984055</cda_stall>
+			
 			<cp>-0.5 0 0</cp>
 			<area>0.03</area>
 			<air_density>1000</air_density>

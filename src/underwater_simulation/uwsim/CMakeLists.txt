@@ -118,8 +118,10 @@ src/DredgeTool.cpp
 )
 target_link_libraries(uwsim_plugins_simdev ${catkin_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES})
 
+
 target_link_libraries(uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} -lGLU)
 add_dependencies(uwsim underwater_sensor_msgs_gencpp)
+
 
 add_executable(uwsim_binary  src/main.cpp)
 target_link_libraries(uwsim_binary uwsim ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OSGOCEAN_LIBRARIES} ${OSGWORKS_LIBRARIES} ${OSGBULLET_LIBRARIES} ${BULLET_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${LIBXML++_LIBRARIES} ${OSGUTILS_LIBRARIES} ${OSGINTERACTIVEMARKERS_LIBRARIES} ${osg_interactive_markers_LIBRARIES} ${OSGMARKERS_LIBRARIES} -lGLU )
@@ -163,6 +165,7 @@ target_link_libraries(followMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
 add_executable(spawnMarker interface_examples/spawnMarker.cpp)
 target_link_libraries(spawnMarker ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
 add_dependencies(spawnMarker underwater_sensor_msgs_gencpp)
+
 
 install(
   TARGETS

@@ -1,0 +1,2 @@
+source /opt/ros/kinetic/setup.bash
+rosrun freefloating_gazebo_demo freefloating_gazebo_demo
