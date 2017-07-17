@@ -1,3 +1,3 @@
 source /opt/ros/kinetic/setup.bash
-source devel_isolated/setup.bash
+source install_isolated/setup.bash
 roslaunch freefloating_gazebo_demo g500arm5e.launch

@@ -24,7 +24,7 @@
     
     
     <!-- launch gazebo without gui -->
-    <include file="$(find freefloating_gazebo_demo)/launch/g500arm5e_gazebo.launch"/>    
+    <!-- <include file="$(find freefloating_gazebo_demo)/launch/g500arm5e_gazebo.launch"/>    -->
     
   </group>
      

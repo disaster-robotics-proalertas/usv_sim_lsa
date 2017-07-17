@@ -75,8 +75,7 @@
             <visual>
                 <origin rpy="0 0 0"/>
                 <geometry>
-<!--		    <mesh filename="file://$(env HOME)/.uwsim/data/robot/barco/pt90.stl"/>-->
-	 		<box size="1.0 0.4 0.2" />
+		    <mesh filename="file://$(env HOME)/.uwsim/data/robot/barco/pt90.stl"/>
                 </geometry>
 		  <material name="blue">
 		    <color rgba="0 0 .8 1"/>

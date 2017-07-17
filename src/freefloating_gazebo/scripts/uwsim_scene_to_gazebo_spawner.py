@@ -116,6 +116,7 @@ def extract_xml_value(node, tree):
         parent = child[0].cloneNode
         
 def insert_header_and_write(xml_data, from_file, filename):
+    print "calling insert_header_and_write for file "+filename
     '''
     Insert warning at the beginning of the xml structure and write to filename
     '''
@@ -181,6 +182,7 @@ def process_vehicles(vehicles, datapath):
     for vehicle in vehicles:
         name = vehicle.findtext('name')
         uwsim_urdf_file = vehicle.findtext('file')
+	print "---> vehicle: " + name + " file: " + uwsim_urdf_file
         # get to Gazebo xacro/urdf file
         gazebo_model_file, datadir = uwsim_to_abspath(uwsim_urdf_file.replace('_uwsim.urdf','.xacro'), datapath)
         if datadir == '':
@@ -190,15 +192,18 @@ def process_vehicles(vehicles, datapath):
             sys.exit(1)
         uwsim_urdf_file = gazebo_model_file.replace('.urdf', '_uwsim.urdf').replace('.xacro', '_uwsim.urdf')
             
+        print "gazebo_model_file: "+gazebo_model_file
         # parse Gazebo file (urdf or xacro)
         if 'xacro' in gazebo_model_file:
-            uwsim_urdf_xml = subprocess.Popen(['rosrun', 'xacro', 'xacro', gazebo_model_file], stdout=subprocess.PIPE)
+	    print "running xacro"
+            uwsim_urdf_xml = subprocess.Popen(['rosrun', 'xacro', 'xacro', '--inorder', gazebo_model_file], stdout=subprocess.PIPE)
             uwsim_urdf_xml = etree.fromstring(uwsim_urdf_xml.stdout.read())
          #   uwsim_urdf_xml = xacro.parse(gazebo_model_file)
          #   xacro.eval_self_contained(uwsim_urdf_xml)
          #   uwsim_urdf_xml = etree.fromstring(uwsim_urdf_xml.toxml())
         else:
             uwsim_urdf_xml = etree.parse(gazebo_model_file).getroot()
+	    print "parsing model file"
 
         # clean up URDF: keep only joints and links
         for child in uwsim_urdf_xml.getchildren():
@@ -215,11 +220,8 @@ def process_vehicles(vehicles, datapath):
         if len(meshes) != 0:
             # create uwsim urdf only if mesh in gazebo urdf, otherwise trust the user 
             for mesh in meshes:
-		print "------\n"
-		print mesh.get('filename')
-		print "------\n"
-		print substitution_args.resolve_args(mesh.get('filename'))
-		print "------\n"
+		print "------ mesh: "+ mesh.get('filename')
+		print "------ " + substitution_args.resolve_args(mesh.get('filename'))
                 #mesh_file = resource_retriever.get(substitution_args.resolve_args(mesh.get('filename'))).url[7:]
 		mesh_file = substitution_args.resolve_args(mesh.get('filename'))
 		#print mesh_file
@@ -229,7 +231,7 @@ def process_vehicles(vehicles, datapath):
                 # get uwsim relative path for mesh
                 mesh_file, datadir = abspath_to_uwsim(mesh_file, datapath)
                 #mesh_file, datadir = uwsim_to_abspath(mesh_file, datapath)
-		print "======= novo"
+		print "======= novooo: "
 		print mesh_file
                 # if mesh in dae, try to find corresponding osg
                 if '.dae' in mesh_file:
@@ -306,6 +308,13 @@ if __name__ == '__main__':
     # parse launch file to get uwsim info
     launch_file = sys.argv[1]
     datapath, scene_file = parse_launch_file(launch_file)
+    print "----------------- Scene file"
+    print "----------------- Scene file"
+    print "----------------- Scene file"
+    print "----------------- Scene file"
+    print "----------------- Scene file"
+    print "----------------- Scene file"
+    print scene_file
     
     # parse scene file 
     scene_xml = etree.parse(scene_file)

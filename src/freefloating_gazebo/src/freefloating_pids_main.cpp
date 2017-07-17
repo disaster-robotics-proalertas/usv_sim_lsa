@@ -6,7 +6,7 @@ using std::endl;
 
 int main(int argc, char ** argv)
 {
-
+    std::cerr<<"\n FREEFLOATING_PIDS_MAIN::STARTING";
     // init ROS node
     ros::init(argc, argv, "freefloating_pid_control");
     ros::NodeHandle rosnode;

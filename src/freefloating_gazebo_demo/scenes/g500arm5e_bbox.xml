@@ -93,6 +93,28 @@
   </vehicle>
 
   <vehicle>
+    <name>barcoDiferencial</name>
+    <file>urdf/barcoDiferencial_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0.7 </joint>
+      <joint> 1.57 </joint>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 0</x>
+      <y> 0 </y>
+      <z> -1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </vehicle>
+
+  <vehicle>
     <name>blackbox</name>
     <file>urdf/bbox_uwsim.urdf</file>
     <position>
@@ -133,10 +155,20 @@
       <vehicleName> blackbox </vehicleName>
     </ROSOdomToPAT>
 
+    <ROSOdomToPAT>
+      <topic> /barcoDiferencial/state </topic>
+      <vehicleName> barcoDiferencial </vehicleName>
+    </ROSOdomToPAT>
+
 
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/g500arm5e/Surface</topic>
 	<vehicleName>g500arm5e</vehicleName>
+    </OceanSurfaceToROSOceanVehicle>
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/barcoDiferencial/Surface</topic>
+	<vehicleName>barcoDiferencial</vehicleName>
     </OceanSurfaceToROSOceanVehicle>
     
     <ROSJointStateToArm> 
