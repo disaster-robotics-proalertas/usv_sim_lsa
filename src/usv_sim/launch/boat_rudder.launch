@@ -11,9 +11,15 @@
     </include>
   
     <!-- spawn in Gazebo with GUI -->
+<<<<<<< HEAD:src/usv_sim/launch/boat_rudder.launch
     <group ns="boat_rudder_usv">
         <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder.xacro"/>
         <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_rudder_usv -param robot_description -x 0 -y 0 -z -0 -R 0 -P 0 -Y 0"/>
+=======
+    <group ns="barco_auv">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder.xacro"/>
+        <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_auv -param robot_description -x 0 -y 0 -z -0 -R 0 -P 0 -Y 0"/>
+>>>>>>> 716fd0f607e6c96de1be39f1ba366a8d46061f47:src/usv_sim/launch/boat_rudder.launch
 
         <!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
         <rosparam file="$(find usv_sim)/config/boat_rudder.yaml" command="load"/>
@@ -31,7 +37,11 @@
         
         <!-- Manual control of thruster efforts -->
         <group ns="thrusters">
+<<<<<<< HEAD:src/usv_sim/launch/boat_rudder.launch
              <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder_dummy.urdf"/>                         
+=======
+             <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/barcoLeme_dummy.urdf"/>                         
+>>>>>>> 716fd0f607e6c96de1be39f1ba366a8d46061f47:src/usv_sim/launch/boat_rudder.launch
              <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
              <param name="use_gui" value="True"/>
              <remap from="joint_states" to="/boat_rudder_usv/thruster_command" />
