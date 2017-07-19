@@ -27,6 +27,8 @@ namespace gazebo
 		waterSurface.x = pt->x;
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;
+
+		std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
 	}
 
 	void createSubscriber(ros::NodeHandle *nh, std::string topic)
@@ -37,7 +39,7 @@ namespace gazebo
 
     class link_st
     {
-	public: link_st() { std::cerr<<"\n Init link_st()";};
+	public: link_st() { std::cerr<<"\n Init link_st()"; waterSurface.Set(0,0,0);};
         std::string model_name;
         physics::LinkPtr link;
         math::Vector3 buoyant_force;
@@ -52,9 +54,11 @@ namespace gazebo
 
 	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
 	{
+
 		waterSurface.x = pt->x;
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;
+		std::cerr<<"\n "<<model_name<<" L estah com z: "<<waterSurface.z;
 	}
 
 	void createSubscriber(ros::NodeHandle *nh, std::string topic)

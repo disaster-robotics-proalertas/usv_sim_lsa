@@ -6,11 +6,13 @@ using std::endl;
 
 int main(int argc, char ** argv)
 {
-    std::cerr<<"\n FREEFLOATING_PIDS_MAIN::STARTING";
     // init ROS node
     ros::init(argc, argv, "freefloating_pid_control");
     ros::NodeHandle rosnode;
     ros::NodeHandle control_node(rosnode, "controllers");
+
+
+    std::cerr<<"___ FREEFLOATING_PIDS_MAIN::STARTING " <<rosnode.getNamespace()<<" namespace: "<<rosnode.getNamespace()<<endl;
 
     // wait for body or joint param
     bool control_body = false;
@@ -39,6 +41,7 @@ int main(int argc, char ** argv)
 
     if(control_body)
     {
+	std::cerr<<"___ FREEFLOATING_PIDS_MAIN:: have control body"<<rosnode.getNamespace()<<endl;
         control_node.param("config/body/position_setpoint", body_position_sp_topic, std::string("body_position_setpoint"));
         control_node.param("config/body/velocity_setpoint", body_velocity_sp_topic, std::string("body_velocity_setpoint"));
         control_node.param("config/body/state", body_state_topic, std::string("state"));
@@ -51,6 +54,7 @@ int main(int argc, char ** argv)
     std::string joint_setpoint_topic, joint_state_topic, joint_command_topic;
     if(control_joints)
     {
+	std::cerr<<"____ FREEFLOATING_PIDS_MAIN:: have control joints"<<rosnode.getNamespace()<<endl;
         control_joints = true;
         // joint setpoint and state topics
         control_node.param("config/joints/setpoint", joint_setpoint_topic, std::string("joint_setpoint"));
@@ -113,7 +117,7 @@ int main(int argc, char ** argv)
     if(control_joints)
         control_node.getParam("config/joints/name", joint_names);
 
-    ROS_INFO("Init PID control for %s: %i body axes, %i joints", rosnode.getNamespace().c_str(), (int) controlled_axes.size(), (int) joint_names.size());
+    ROS_INFO("___Init PID control for %s: %i body axes, %i joints", rosnode.getNamespace().c_str(), (int) controlled_axes.size(), (int) joint_names.size());
 
     while(ros::ok())
     {

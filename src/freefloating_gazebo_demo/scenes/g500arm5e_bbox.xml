@@ -6,7 +6,7 @@
   <oceanState>
     <windx> 1.0 </windx>
     <windy> 1.0 </windy>
-    <windSpeed> 12 </windSpeed>
+    <windSpeed> 5 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
     <waveScale> 1e-8 </waveScale>
@@ -97,9 +97,6 @@
     <file>urdf/barcoDiferencial_uwsim.urdf</file>
     <jointValues>
       <joint> 0 </joint>
-      <joint> 0.7 </joint>
-      <joint> 1.57 </joint>
-      <joint> 0 </joint>
       <joint> 0 </joint>
     </jointValues>
      <position>
@@ -113,6 +110,7 @@
       <y>0 </y>
     </orientation>
   </vehicle>
+
 
   <vehicle>
     <name>blackbox</name>
@@ -151,26 +149,21 @@
     </ROSOdomToPAT>
 
     <ROSOdomToPAT>
-      <topic> /blackbox/state </topic>
-      <vehicleName> blackbox </vehicleName>
-    </ROSOdomToPAT>
-
-    <ROSOdomToPAT>
       <topic> /barcoDiferencial/state </topic>
       <vehicleName> barcoDiferencial </vehicleName>
     </ROSOdomToPAT>
 
+    <ROSOdomToPAT>
+      <topic> /blackbox/state </topic>
+      <vehicleName> blackbox </vehicleName>
+    </ROSOdomToPAT>
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/g500arm5e/Surface</topic>
-	<vehicleName>g500arm5e</vehicleName>
-    </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/barcoDiferencial/Surface</topic>
 	<vehicleName>barcoDiferencial</vehicleName>
     </OceanSurfaceToROSOceanVehicle>
-    
+
     <ROSJointStateToArm> 
         <topic>/g500arm5e/joint_states</topic>
         <vehicleName>g500arm5e</vehicleName>

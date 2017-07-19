@@ -35,7 +35,8 @@ void FreeFloatingFluidPlugin::ReadVector3(const std::string &_string, math::Vect
 
 void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 {
-    ROS_INFO("Loading freefloating_fluid plugin");
+std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
+    ROS_INFO("############### Loading freefloating_fluid plugin");
     this->world_ = _world;
 
     // register ROS node
@@ -79,7 +80,7 @@ void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sd
     buoyant_links_.clear();
     parsed_models_.clear();
 
-    ROS_INFO("Loaded freefloating_fluid plugin.");
+    ROS_INFO("############### Loaded freefloating_fluid plugin.");
 }
 
 void FreeFloatingFluidPlugin::Update()
@@ -122,6 +123,8 @@ void FreeFloatingFluidPlugin::Update()
     // here buoy_links is up-to-date with the links that are subject to buoyancy, let's apply it
     math::Vector3 actual_force, cob_position, velocity_difference, torque;
     double signed_distance_to_surface;
+
+            const math::Vector3 WORLD_GRAVITY = world_->GetPhysicsEngine()->GetGravity().Normalize();
     for( std::vector<link_st*>::iterator link_it = buoyant_links_.begin(); link_it!=buoyant_links_.end();++link_it)
     {
         // get world position of the center of buoyancy
@@ -130,13 +133,22 @@ void FreeFloatingFluidPlugin::Update()
         actual_force = (*link_it)->buoyant_force;
         if(has_surface_)
         {
+            //surface_plane_.Set(0, 0, 1, (*link_it)->waterSurface.z);
+            //surface_plane_.Set(0, 0, 1, 0);
+
+
+            // water surface is orthogonal to gravity
+	    surface_plane_.Set(WORLD_GRAVITY.x, WORLD_GRAVITY.y, WORLD_GRAVITY.z, WORLD_GRAVITY.Dot((*link_it)->waterSurface));
+
             // adjust force depending on distance to surface (very simple model)
             signed_distance_to_surface = surface_plane_.w
                     - surface_plane_.x * cob_position.x
                     - surface_plane_.y * cob_position.y
                     - surface_plane_.z * cob_position.z;
+  	    
 
-	    signed_distance_to_surface = cob_position.z - (*link_it)->waterSurface.z;
+	    std::cerr<<"\n "<<(*link_it)->model_name<<" delta: "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
+	    //std::cerr<<"\n "<<(*link_it)->model_name<<" estah com z: "<<(*link_it)->waterSurface.z;
             if(signed_distance_to_surface > -(*link_it)->limit)
             {
                 if(signed_distance_to_surface > (*link_it)->limit)
@@ -210,6 +222,8 @@ void FreeFloatingFluidPlugin::Update()
 
 void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
 {
+
+std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
     // define new model structure: name / pointer / publisher to odometry
     model_st* new_model = new model_st();
     new_model->name = _model->GetName();
@@ -221,7 +235,7 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
 		topic, 1,
 		boost::bind(&model_st::processSurfaceData, new_model, _1),
 		ros::VoidPtr(), &callback_queue_);*/
-	new_model->createSubscriber(rosnode_, topic);
+	//new_model->createSubscriber(rosnode_, topic);
     // tells this model has been parsed
     parsed_models_.push_back(new_model);
 
@@ -274,6 +288,8 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
                         new_buoy_link->model_name = _model->GetName();            // in case this model is deleted
                         new_buoy_link->link =  sdf_link;    // to apply forces
                         new_buoy_link->limit = .1;
+			std::string topic = "/" + _model->GetName() + "/Surface";
+			new_buoy_link->createSubscriber(rosnode_, topic);
 
                         // get data from urdf
                         // default values
@@ -322,6 +338,7 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
         ROS_INFO_NAMED("Buoyancy plugin", "No links subject to buoyancy inside %s", _model->GetName().c_str());
     else
         ROS_INFO_NAMED("Buoyancy plugin", "Added %i buoy links from %s", (int) buoyant_links_.size()-previous_link_number, _model->GetName().c_str());
+    std::cerr<<"\n ### FINISHED FreeFloatingFluidPlugin::ParseNewModel";
 }
 
 void FreeFloatingFluidPlugin::RemoveDeletedModel(std::vector<model_st*>::iterator &_model_it)
