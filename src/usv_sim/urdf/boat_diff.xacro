@@ -109,7 +109,7 @@
     <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-    <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/>
+    <mesh filename="package://usv_sim/meshes/hokuyo.dae"/>
     </geometry>
     </visual>
 
