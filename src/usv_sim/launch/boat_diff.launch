@@ -7,7 +7,7 @@
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="gui" value="$(arg gz)" />
         <arg name="paused" value="false"/>
-        <arg name="world_name" value="$(find freefloating_gazebo)/world/underwater.world"/>
+        <arg name="world_name" value="$(find usv_sim)/world/underwater.world"/>
     </include>
 
     <!-- spawn robot -->
