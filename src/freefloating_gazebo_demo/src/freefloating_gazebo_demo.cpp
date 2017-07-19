@@ -112,8 +112,8 @@ int main(int argc, char ** argv)
 
     // water current
     geometry_msgs::Vector3 current;
-    current.y = .1;
-    ros::Publisher current_publisher = ros_node.advertise<geometry_msgs::Vector3>("/gazebo/current", 0);
+    current.y = 0;
+    ros::Publisher current_publisher = ros_node.advertise<geometry_msgs::Vector3>("/gazebo/current", 1);
 
     // Robot class
     Robot robot(ros_node);

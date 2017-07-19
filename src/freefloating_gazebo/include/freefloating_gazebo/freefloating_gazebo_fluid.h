@@ -28,7 +28,7 @@ namespace gazebo
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;
 
-		std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
+		//std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
 	}
 
 	void createSubscriber(ros::NodeHandle *nh, std::string topic)
@@ -58,7 +58,7 @@ namespace gazebo
 		waterSurface.x = pt->x;
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;
-		std::cerr<<"\n "<<model_name<<" L estah com z: "<<waterSurface.z;
+		//std::cerr<<"\n "<<model_name<<" L estah com z: "<<waterSurface.z;
 	}
 
 	void createSubscriber(ros::NodeHandle *nh, std::string topic)

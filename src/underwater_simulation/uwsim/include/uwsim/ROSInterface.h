@@ -283,7 +283,9 @@ public:
 
 class OceanSurfaceToROSOceanVehicle : public ROSPublisherInterface
 {
-  osg::Vec3f center;
+
+  osg::ref_ptr<osg::MatrixTransform> transform;
+  osg::Node *vehicleNode;
   osg::ref_ptr<osgOcean::OceanTechnique> _oceanTechnique;
 public:
   OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean);

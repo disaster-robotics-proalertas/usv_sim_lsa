@@ -578,17 +578,18 @@ ROSPublisherInterface(topic, rate)
 	_oceanTechnique = ptrOcean;
 	findNodeVisitor findNode(vehicleName);
 	rootNode->accept(findNode);
-	osg::Node *first = findNode.getFirst();
-	if(first == NULL)
+	vehicleNode = findNode.getFirst();
+	if(vehicleNode == NULL)
 	{
 		std::cerr<<"\n cannt find vehicle";
 	}
 	else
 	{
 		osg::Vec3f normal(0,0,1);
-		center = osg::Vec3f(center.x(), center.y(), _oceanTechnique->getSurfaceHeightAt(center.x(), center.y(), &normal));
+		transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode);
+		
 	}
-	publish_rate =10;
+	publish_rate =100;
 }
 
 void OceanSurfaceToROSOceanVehicle::createPublisher(ros::NodeHandle &nh)
@@ -601,14 +602,21 @@ void OceanSurfaceToROSOceanVehicle::createPublisher(ros::NodeHandle &nh)
 void OceanSurfaceToROSOceanVehicle::publish()
 {
 //std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHING "<<topic;
-	osg::Vec3f normal(0,0,1);
-	center = osg::Vec3f(center.x(), center.y(), _oceanTechnique->getSurfaceHeightAt(center.x(), center.y(), &normal));
-	geometry_msgs::Point surface;
-	surface.x = center.x();
-	surface.y = center.y();
-	surface.z = center.z();
+	if (transform != NULL)
+	{
+		osg::Vec3f normal(0,0,1);
 
-	pub_.publish(surface);
+	    	osg::Matrixd mat = transform->getMatrix();
+		osg::Vec3d pos = mat.getTrans();
+
+		pos = osg::Vec3f(pos.x(), pos.y(), _oceanTechnique->getSurfaceHeightAt(pos.x(), pos.y(), &normal));
+		geometry_msgs::Point surface;
+		surface.x = pos.x();
+		surface.y = pos.y();
+		surface.z = pos.z();
+
+		pub_.publish(surface);
+	}
 }
 
 OceanSurfaceToROSOceanVehicle::~OceanSurfaceToROSOceanVehicle()

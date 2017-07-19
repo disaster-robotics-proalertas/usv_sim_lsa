@@ -147,14 +147,24 @@ void FreeFloatingFluidPlugin::Update()
                     - surface_plane_.z * cob_position.z;
   	    
 
-	    std::cerr<<"\n "<<(*link_it)->model_name<<" delta: "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
+	    //if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//    std::cerr<<"\n "<<(*link_it)->model_name<<" delta: "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
 	    //std::cerr<<"\n "<<(*link_it)->model_name<<" estah com z: "<<(*link_it)->waterSurface.z;
             if(signed_distance_to_surface > -(*link_it)->limit)
             {
                 if(signed_distance_to_surface > (*link_it)->limit)
+		{
                     actual_force *= 0;
+		   // if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//	    std::cerr<<" ---> ZERAR";
+		}
                 else
+		{
                     actual_force *= cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
+//		    actual_force = 
+		   // if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//	    std::cerr<<" ---> reduzir Delta > "<<(*link_it)->limit<<" R: "<<cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
+		}
             }
         }
 
