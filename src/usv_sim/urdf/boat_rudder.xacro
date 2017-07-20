@@ -2,7 +2,7 @@
 
 <!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
 
-<robot name="barco_auv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="rudder_boat_usv" xmlns:xacro="http://www.ros.org/wiki/xacro">
       <material name="blue">
         <color rgba="0 0 .8 1"/>
       </material>

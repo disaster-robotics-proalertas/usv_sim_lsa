@@ -2,7 +2,7 @@
 
 <!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
 
-<robot name="barco_auv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
     
     <xacro:property name="PI" value="3.1415926535897931"/>
     
@@ -22,7 +22,7 @@
     
     <!-- Thruster link -->
     <xacro:macro name="thruster_link" params="name xyz rpy">
-        
+
         <joint name="${name}_link" type="revolute">
             <parent link="base_link"/>
             <child link="${name}"/>
@@ -68,8 +68,6 @@
                 <material>Gazebo/Black</material>
             </gazebo>
         </xacro:macro>                   
-        
-              
         
         <link name="base_link">
             <visual>
@@ -138,11 +136,9 @@
             <limit effort="30" velocity="5" lower="-${PI/2}" upper="${PI/2}" />
         </joint>
 
-<!-- Plugin list -->
+    <!-- Plugin list -->
         <gazebo>
-            <!-- Gazebo plugin listens to the body-->
-
-		
+        <!-- Gazebo plugin listens to the body-->
 		<!--<plugin name="LiftDragWW" filename="libLiftDragPlugin.so">-->
 		<plugin name="LiftDrag" filename="libliftdragww.so">
 			<a0>0</a0>
@@ -161,28 +157,24 @@
 			<link_name>rudder</link_name>
 <!--			<control_joint_name>rudder_joint</control_joint_name>-->
 <!--			<control_joint_rad_to_cl>4.0</control_joint_rad_to_cl>-->
-	      </plugin>
-<plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
-                <switchService>switch</switchService>
-                <updateRate>100</updateRate>
-                <link>base_link</link>
+      </plugin>
 
-                <!--    these two thrusters are actually orientable, so the map should not be hard-coded 
-                        the thruster name is the name of the corresponding link --> 
-                <thruster>
-                    <effort>30</effort>
-                    <name>fwd_left</name>
-                </thruster>
+        <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+            <switchService>switch</switchService>
+            <updateRate>100</updateRate>
+            <link>base_link</link>
+            <!--  these two thrusters are actually orientable, so the map should not be hard-coded the thruster name is the name of the corresponding link --> 
+            <thruster>
+                <effort>30</effort>
+                <name>fwd_left</name>
+            </thruster>
 <thruster>
-                    <effort>30</effort>
-                    <name>fwd_right</name>
-                </thruster>
-                
-                <!-- these thrusters are fixed and the map can be hard-coded 
-                     they will be given a name (thr2 to thr4)  --> 
-     
-            </plugin>
-
+                <effort>30</effort>
+                <name>fwd_right</name>
+            </thruster>
+            <!-- these thrusters are fixed and the map can be hard-coded 
+                 they will be given a name (thr2 to thr4)  --> 
+        </plugin>
         </gazebo>  
             
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
@@ -203,4 +195,4 @@
     <xacro:thruster_dummy_link name="thr3" xyz="-0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>
     <xacro:thruster_dummy_link name="thr4" xyz="0.45 0.0 0.0" rpy="0.0 -0.0 0.0"/>-->
             
-        </robot>
+</robot>
