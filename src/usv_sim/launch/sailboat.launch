@@ -4,6 +4,6 @@
     <!-- spawn world -->
     <include file="$(find usv_sim)/launch/world/spawn_world.launch"/>
     <!-- spawn robot -->
-    <include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch"/>
-    
+    <include file="$(find usv_sim)/launch/models/spawn_sailboat.launch"/>
+
 </launch>

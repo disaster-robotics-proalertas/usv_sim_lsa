@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 
-<!-- STL-version of the URDF, used with gazebo for dynamic simulation  -->
-
 <robot name="boat_diff" xmlns:xacro="http://www.ros.org/wiki/xacro">
-   
-    <xacro:include filename="$(find usv_sim)/urdf/boat_common.xacro" />
 
-    <!-- Plugin list -->
+<xacro:include filename="$(find usv_sim)/xacro/boat_common.xacro" />
+
+<!-- Plugin list -->
     <gazebo>
         <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
             <switchService>switch</switchService>
