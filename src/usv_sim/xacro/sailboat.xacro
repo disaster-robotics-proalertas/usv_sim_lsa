@@ -3,7 +3,9 @@
 <robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:include filename="$(find usv_sim)/xacro/boat_common.xacro" />
+    <xacro:rudder_xacro/>
 
+    <!-- Defining sail model -->
     <link name="sail">
 		<inertial>
 			<mass value="0.1" />
@@ -42,26 +44,24 @@
 
     <!-- Plugin list -->
     <gazebo>
-    <!-- Gazebo plugin listens to the body-->
-    <!--<plugin name="LiftDragWW" filename="libLiftDragPlugin.so">-->
-    <plugin name="LiftDrag" filename="libliftdragww.so">
-        <a0>0</a0>
-        <cla>2.752798721</cla>
-        <cda>2.6417112299</cda>
-        <cma>-1.8</cma>
-        <alpha_stall>0.785</alpha_stall>
-        <cla_stall>-3.85</cla_stall>
-        <cda_stall>-0.9233984055</cda_stall>
-        <cma_stall>0</cma_stall>
-        <cp>0 0 0</cp>
-        <area>0.4</area>
-        <air_density>1.2041</air_density>
-        <forward>1 0 0</forward>
-        <upward>0 1 0</upward>
-        <link_name>sail</link_name>
-        <!--<control_joint_name>rudder_joint</control_joint_name>-->
-        <!--<control_joint_rad_to_cl>4.0</control_joint_rad_to_cl>-->
-  </plugin>
+        <plugin name="LiftDrag" filename="libliftdragww.so">
+            <a0>0</a0>
+            <cla>2.752798721</cla>
+            <cda>2.6417112299</cda>
+            <cma>-1.8</cma>
+            <alpha_stall>0.785</alpha_stall>
+            <cla_stall>-3.85</cla_stall>
+            <cda_stall>-0.9233984055</cda_stall>
+            <cma_stall>0</cma_stall>
+            <cp>0 0 0</cp>
+            <area>0.4</area>
+            <air_density>1.2041</air_density>
+            <forward>1 0 0</forward>
+            <upward>0 1 0</upward>
+            <link_name>sail</link_name>
+            <!--<control_joint_name>rudder_joint</control_joint_name>-->
+            <!--<control_joint_rad_to_cl>4.0</control_joint_rad_to_cl>-->
+      </plugin>
   </gazebo>
 
 </robot>
