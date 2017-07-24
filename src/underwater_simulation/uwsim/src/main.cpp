@@ -113,7 +113,9 @@ int main(int argc, char *argv[])
   ros::start();
 
   ROSSceneBuilder builder(arguments);
+  std::cerr<<"\n ---- starting to load scene!";
   builder.loadScene(config);
+  std::cerr<<"\n ---- ended loading scene!";
 
   PhysicsBuilder physicsBuilder;
   if (config.enablePhysics)

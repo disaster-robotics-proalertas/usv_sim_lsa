@@ -1,0 +1,5 @@
+source /opt/ros/kinetic/setup.bash
+rm -rf install_isolated/setup.bash
+catkin_make_isolated --install
+source install_isolated/setup.bash
+roslaunch usv_sim boat_differential.launch parse:=true

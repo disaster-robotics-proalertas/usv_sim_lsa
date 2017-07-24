@@ -35,7 +35,8 @@ void FreeFloatingFluidPlugin::ReadVector3(const std::string &_string, math::Vect
 
 void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 {
-    ROS_INFO("Loading freefloating_fluid plugin");
+std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
+    ROS_INFO("############### Loading freefloating_fluid plugin");
     this->world_ = _world;
 
     // register ROS node
@@ -79,7 +80,7 @@ void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sd
     buoyant_links_.clear();
     parsed_models_.clear();
 
-    ROS_INFO("Loaded freefloating_fluid plugin.");
+    ROS_INFO("############### Loaded freefloating_fluid plugin.");
 }
 
 void FreeFloatingFluidPlugin::Update()
@@ -89,14 +90,14 @@ void FreeFloatingFluidPlugin::Update()
 
     // look for new world models
     unsigned int i;
-    std::vector<model_st>::iterator model_it;
+    std::vector<model_st*>::iterator model_it;
     bool found;
     for(i=0;i<world_->GetModelCount(); ++i)
     {
         found = false;
         for(model_it = parsed_models_.begin(); model_it!=parsed_models_.end();++model_it)
         {
-            if(world_->GetModel(i)->GetName() == model_it->name)
+            if(world_->GetModel(i)->GetName() == (*model_it)->name)
                 found = true;
         }
         if(!found && !(world_->GetModel(i)->IsStatic()))  // model not in listand not static, parse it for potential buoyancy flags
@@ -110,7 +111,7 @@ void FreeFloatingFluidPlugin::Update()
         found = false;
         for(i=0;i<world_->GetModelCount(); ++i)
         {
-            if(world_->GetModel(i)->GetName() == model_it->name)
+            if(world_->GetModel(i)->GetName() == (*model_it)->name)
                 found = true;
         }
         if(!found)  // model name not in world anymore, remove the corresponding links
@@ -122,52 +123,74 @@ void FreeFloatingFluidPlugin::Update()
     // here buoy_links is up-to-date with the links that are subject to buoyancy, let's apply it
     math::Vector3 actual_force, cob_position, velocity_difference, torque;
     double signed_distance_to_surface;
-    for( std::vector<link_st>::iterator link_it = buoyant_links_.begin(); link_it!=buoyant_links_.end();++link_it)
+
+            const math::Vector3 WORLD_GRAVITY = world_->GetPhysicsEngine()->GetGravity().Normalize();
+    for( std::vector<link_st*>::iterator link_it = buoyant_links_.begin(); link_it!=buoyant_links_.end();++link_it)
     {
         // get world position of the center of buoyancy
-        cob_position = link_it->link->GetWorldPose().pos + link_it->link->GetWorldPose().rot.RotateVector(link_it->buoyancy_center);
+        cob_position = (*link_it)->link->GetWorldPose().pos + (*link_it)->link->GetWorldPose().rot.RotateVector((*link_it)->buoyancy_center);
         // start from the theoretical buoyancy force
-        actual_force = link_it->buoyant_force;
+        actual_force = (*link_it)->buoyant_force;
         if(has_surface_)
         {
+            //surface_plane_.Set(0, 0, 1, (*link_it)->waterSurface.z);
+            //surface_plane_.Set(0, 0, 1, 0);
+
+
+            // water surface is orthogonal to gravity
+	    surface_plane_.Set(WORLD_GRAVITY.x, WORLD_GRAVITY.y, WORLD_GRAVITY.z, WORLD_GRAVITY.Dot((*link_it)->waterSurface));
+
             // adjust force depending on distance to surface (very simple model)
             signed_distance_to_surface = surface_plane_.w
                     - surface_plane_.x * cob_position.x
                     - surface_plane_.y * cob_position.y
                     - surface_plane_.z * cob_position.z;
-            if(signed_distance_to_surface > -link_it->limit)
+  	    
+
+	    //if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//    std::cerr<<"\n "<<(*link_it)->model_name<<" delta: "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
+	    //std::cerr<<"\n "<<(*link_it)->model_name<<" estah com z: "<<(*link_it)->waterSurface.z;
+            if(signed_distance_to_surface > -(*link_it)->limit)
             {
-                if(signed_distance_to_surface > link_it->limit)
+                if(signed_distance_to_surface > (*link_it)->limit)
+		{
                     actual_force *= 0;
+		   // if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//	    std::cerr<<" ---> ZERAR";
+		}
                 else
-                    actual_force *= cos(M_PI/4.*(signed_distance_to_surface/link_it->limit + 1));
+		{
+                    actual_force *= cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
+		   // if ((*link_it)->model_name.compare("barcoDiferencial")==0)
+		//	    std::cerr<<" ---> reduzir Delta > "<<(*link_it)->limit<<" R: "<<cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
+		}
             }
         }
 
         // get velocity damping
         // linear velocity difference in the link frame
-        velocity_difference = link_it->link->GetWorldPose().rot.RotateVectorReverse(link_it->link->GetWorldLinearVel() - fluid_velocity_);
+        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - fluid_velocity_);
         // to square
         velocity_difference.x *= fabs(velocity_difference.x);
         velocity_difference.y *= fabs(velocity_difference.y);
         velocity_difference.z *= fabs(velocity_difference.z);
         // apply damping coefficients
-        actual_force -= link_it->link->GetWorldPose().rot.RotateVector(link_it->linear_damping * velocity_difference);
+        actual_force -= (*link_it)->link->GetWorldPose().rot.RotateVector((*link_it)->linear_damping * velocity_difference);
 
         //link_it->link->AddForceAtRelativePosition(link_it->link->GetWorldPose().rot.RotateVectorReverse(link_it->buoyant_force),
         //                                          link_it->buoyancy_center);
-        link_it->link->AddForceAtWorldPosition(actual_force, cob_position);
+        (*link_it)->link->AddForceAtWorldPosition(actual_force, cob_position);
 
         // same for angular damping
-        velocity_difference = link_it->link->GetRelativeAngularVel();
+        velocity_difference = (*link_it)->link->GetRelativeAngularVel();
         velocity_difference.x *= fabs(velocity_difference.x);
         velocity_difference.y *= fabs(velocity_difference.y);
         velocity_difference.z *= fabs(velocity_difference.z);
-        link_it->link->AddRelativeTorque(-link_it->angular_damping*velocity_difference);
+        (*link_it)->link->AddRelativeTorque(-(*link_it)->angular_damping*velocity_difference);
 
         // publish states as odometry message
         nav_msgs::Odometry state;
-        state.header.frame_id = "odom";
+        state.header.frame_id = "world";
         state.header.stamp = ros::Time::now();
         math::Vector3 vec;
         math::Pose pose;
@@ -176,7 +199,7 @@ void FreeFloatingFluidPlugin::Update()
             // which link
             state.child_frame_id = "base_link";
             // write absolute pose
-            pose = model_it->model_ptr->GetWorldPose();
+            pose = (*model_it)->model_ptr->GetWorldPose();
             state.pose.pose.position.x = pose.pos.x;
             state.pose.pose.position.y = pose.pos.y;
             state.pose.pose.position.z = pose.pos.z;
@@ -186,18 +209,18 @@ void FreeFloatingFluidPlugin::Update()
             state.pose.pose.orientation.w = pose.rot.w;
 
             // write relative linear velocity
-            vec = model_it->model_ptr->GetRelativeLinearVel();
+            vec = (*model_it)->model_ptr->GetRelativeLinearVel();
             state.twist.twist.linear.x = vec.x;
             state.twist.twist.linear.y = vec.y;
             state.twist.twist.linear.z = vec.z;
             // write relative angular velocity
-            vec = model_it->model_ptr->GetRelativeAngularVel();
+            vec = (*model_it)->model_ptr->GetRelativeAngularVel();
             state.twist.twist.angular.x = vec.x;
             state.twist.twist.angular.y = vec.y;
             state.twist.twist.angular.z = vec.z;
 
             // publish
-            model_it->state_publisher.publish(state);
+            (*model_it)->state_publisher.publish(state);
         }
 
         //  ROS_INFO("Link %s: Applying buoyancy force (%.01f, %.01f, %.01f)", link.name.c_str(), link.buoyant_force.x, link.buoyant_force.y, link.buoyant_force.z);
@@ -208,11 +231,20 @@ void FreeFloatingFluidPlugin::Update()
 
 void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
 {
+
+std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
     // define new model structure: name / pointer / publisher to odometry
-    model_st new_model;
-    new_model.name = _model->GetName();
-    new_model.model_ptr = _model;
-    new_model.state_publisher = rosnode_->advertise<nav_msgs::Odometry>("/" + _model->GetName() + "/state", 1);
+    model_st* new_model = new model_st();
+    new_model->name = _model->GetName();
+    new_model->model_ptr = _model;
+    new_model->state_publisher = rosnode_->advertise<nav_msgs::Odometry>("/" + _model->GetName() + "/state", 1);
+	std::string topic = "/" + _model->GetName() + "/Surface";
+
+	/*ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3>(
+		topic, 1,
+		boost::bind(&model_st::processSurfaceData, new_model, _1),
+		ros::VoidPtr(), &callback_queue_);*/
+	//new_model->createSubscriber(rosnode_, topic);
     // tells this model has been parsed
     parsed_models_.push_back(new_model);
 
@@ -261,38 +293,40 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
                     if(link_node->ValueStr() == "buoyancy")
                     {
                         // this link is subject to buoyancy, create an instance
-                        link_st new_buoy_link;
-                        new_buoy_link.model_name = _model->GetName();            // in case this model is deleted
-                        new_buoy_link.link =  sdf_link;    // to apply forces
-                        new_buoy_link.limit = .1;
+                        link_st* new_buoy_link = new link_st();
+                        new_buoy_link->model_name = _model->GetName();            // in case this model is deleted
+                        new_buoy_link->link =  sdf_link;    // to apply forces
+                        new_buoy_link->limit = .1;
+			std::string topic = "/" + _model->GetName() + "/Surface";
+			new_buoy_link->createSubscriber(rosnode_, topic);
 
                         // get data from urdf
                         // default values
-                        new_buoy_link.buoyancy_center = sdf_link->GetInertial()->GetCoG();
-                        new_buoy_link.linear_damping = new_buoy_link.angular_damping = 5 * math::Vector3::One * sdf_link->GetInertial()->GetMass();
+                        new_buoy_link->buoyancy_center = sdf_link->GetInertial()->GetCoG();
+                        new_buoy_link->linear_damping = new_buoy_link->angular_damping = 5 * math::Vector3::One * sdf_link->GetInertial()->GetMass();
 
                         compensation = 0;
                         for(buoy_node = link_node->FirstChild(); buoy_node != 0; buoy_node = buoy_node->NextSibling())
                         {
                             if(buoy_node->ValueStr() == "origin")
-                                ReadVector3((buoy_node->ToElement()->Attribute("xyz")), new_buoy_link.buoyancy_center);
+                                ReadVector3((buoy_node->ToElement()->Attribute("xyz")), new_buoy_link->buoyancy_center);
                             else if(buoy_node->ValueStr() == "compensation")
                                 compensation = atof(buoy_node->ToElement()->GetText());
                             else if(buoy_node->ValueStr() == "limit")
                             {
                                 std::stringstream ss(buoy_node->ToElement()->Attribute("radius"));
-                                ss >> new_buoy_link.limit;
+                                ss >> new_buoy_link->limit;
                             }
                             else if(buoy_node->ValueStr() == "damping")
                             {
                                 if(buoy_node->ToElement()->Attribute("xyz") != NULL)
                                 {
-                                    ReadVector3((buoy_node->ToElement()->Attribute("xyz")), new_buoy_link.linear_damping);
+                                    ReadVector3((buoy_node->ToElement()->Attribute("xyz")), new_buoy_link->linear_damping);
                                     ROS_INFO("Found linear damping");
                                 }
                                 if(buoy_node->ToElement()->Attribute("rpy") != NULL)
                                 {
-                                    ReadVector3((buoy_node->ToElement()->Attribute("rpy")), new_buoy_link.angular_damping);
+                                    ReadVector3((buoy_node->ToElement()->Attribute("rpy")), new_buoy_link->angular_damping);
                                  ROS_INFO("Found angular damping");
                                 }
                             }
@@ -300,7 +334,7 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
                                 ROS_WARN("Unknown tag <%s/> in buoyancy node for model %s", buoy_node->ValueStr().c_str(), _model->GetName().c_str());
                         }
 
-                        new_buoy_link.buoyant_force = -compensation * sdf_link->GetInertial()->GetMass() * WORLD_GRAVITY;
+                        new_buoy_link->buoyant_force = -compensation * sdf_link->GetInertial()->GetMass() * WORLD_GRAVITY;
 
                         // store this link
                         buoyant_links_.push_back(new_buoy_link);
@@ -313,22 +347,26 @@ void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
         ROS_INFO_NAMED("Buoyancy plugin", "No links subject to buoyancy inside %s", _model->GetName().c_str());
     else
         ROS_INFO_NAMED("Buoyancy plugin", "Added %i buoy links from %s", (int) buoyant_links_.size()-previous_link_number, _model->GetName().c_str());
+    std::cerr<<"\n ### FINISHED FreeFloatingFluidPlugin::ParseNewModel";
 }
 
-void FreeFloatingFluidPlugin::RemoveDeletedModel(std::vector<model_st>::iterator &_model_it)
+void FreeFloatingFluidPlugin::RemoveDeletedModel(std::vector<model_st*>::iterator &_model_it)
 {
-    ROS_INFO("Removing deleted model: %s", _model_it->name.c_str());
+    ROS_INFO("Removing deleted model: %s", (*_model_it)->name.c_str());
 
     // remove model stored links
-    std::vector<link_st>::iterator link_it = buoyant_links_.begin();
+    std::vector<link_st*>::iterator link_it = buoyant_links_.begin();
     while (link_it != buoyant_links_.end())
     {
-        if(link_it->model_name == _model_it->name)
+        if((*link_it)->model_name == (*_model_it)->name)
+	{
+		delete *link_it;
             link_it = buoyant_links_.erase(link_it);
+	}
         else
             ++link_it;
     }
-
+	delete *_model_it;
     // remove it from the list
     _model_it = parsed_models_.erase(_model_it);
 }
