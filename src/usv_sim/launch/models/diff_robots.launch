@@ -9,12 +9,4 @@
     </include>
 </group>
 
-<group ns="diff2">
-    <param name="tf_prefix" value="diff2" />
-    <include file="$(find usv_sim)/launch/models/diff_one_robot.launch" >
-      <arg name="init_pose" value="-x 0 -y 0 -z 0 -R 0 -P 0 -Y 0" />
-      <arg name="robot_name" value="diff2" />
-    </include>
-</group>
-
 </launch>

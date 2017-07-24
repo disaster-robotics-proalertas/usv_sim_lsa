@@ -1,12 +1,24 @@
 digraph G {
-"diff1/base_link" -> "diff1/base_laser"[label="Broadcaster: /diff1/laser_base_tf\nAverage rate: 99.056 Hz\nMost recent transform: 584.041 ( -0.002 sec old)\nBuffer length: 4.977 sec\n"];
-"odom" -> "base_link"[label="Broadcaster: /diff1/odom_base_tf\nAverage rate: 2181.014 Hz\nMost recent transform: 584.037 ( 0.002 sec old)\nBuffer length: 4.972 sec\n"];
+"robot2_tf/odom" -> "robot2_tf/base_footprint"[label="Broadcaster: /gazebo\nAverage rate: 100.201 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.970 sec\n"];
+"robot2_tf/map" -> "robot2_tf/odom"[label="Broadcaster: /robot2/amcl\nAverage rate: 10.204 Hz\nMost recent transform: 35.540 ( -0.080 sec old)\nBuffer length: 4.900 sec\n"];
+"robot1_tf/odom" -> "robot1_tf/base_footprint"[label="Broadcaster: /gazebo\nAverage rate: 100.201 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.970 sec\n"];
+"robot1_tf/map" -> "robot1_tf/odom"[label="Broadcaster: /robot1/amcl\nAverage rate: 10.204 Hz\nMost recent transform: 35.540 ( -0.080 sec old)\nBuffer length: 4.900 sec\n"];
+"robot1_tf/base_link" -> "robot1_tf/wheel_left_link"[label="Broadcaster: /robot1/robot_state_publisher\nAverage rate: 25.051 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.950 sec\n"];
+"robot1_tf/base_link" -> "robot1_tf/wheel_right_link"[label="Broadcaster: /robot1/robot_state_publisher\nAverage rate: 25.051 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.950 sec\n"];
+"robot2_tf/base_link" -> "robot2_tf/wheel_left_link"[label="Broadcaster: /robot2/robot_state_publisher\nAverage rate: 24.646 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.950 sec\n"];
+"robot2_tf/base_link" -> "robot2_tf/wheel_right_link"[label="Broadcaster: /robot2/robot_state_publisher\nAverage rate: 24.646 Hz\nMost recent transform: 35.460 ( 0.000 sec old)\nBuffer length: 4.950 sec\n"];
+"world" -> "robot2_tf/map"[label="Broadcaster: /robot2/static_publisher\nAverage rate: 10.204 Hz\nMost recent transform: 35.530 ( -0.070 sec old)\nBuffer length: 4.900 sec\n"];
+"world" -> "robot1_tf/map"[label="Broadcaster: /robot1/static_publisher\nAverage rate: 10.204 Hz\nMost recent transform: 35.530 ( -0.070 sec old)\nBuffer length: 4.900 sec\n"];
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 584.039"[ shape=plaintext ] ;
- }->"diff1/base_link";
+"Recorded at time: 35.460"[ shape=plaintext ] ;
+ }->"robot1_tf/base_link";
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 584.039"[ shape=plaintext ] ;
- }->"odom";
+"Recorded at time: 35.460"[ shape=plaintext ] ;
+ }->"robot2_tf/base_link";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 35.460"[ shape=plaintext ] ;
+ }->"world";
 }

@@ -6,4 +6,4 @@ inflation_radius: 0.8
 
 observation_sources: laser_scan_sensor 
 
-laser_scan_sensor: {sensor_frame: barco_auv/hokuyo_link, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+laser_scan_sensor: {sensor_frame: base_laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
