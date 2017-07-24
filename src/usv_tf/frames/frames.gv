@@ -1,8 +1,12 @@
 digraph G {
-"base_link" -> "boat_diff/base_laser"[label="Broadcaster: /boat_diff/laser_base_tf\nAverage rate: 99.315 Hz\nMost recent transform: 12.183 ( -0.004 sec old)\nBuffer length: 4.964 sec\n"];
-"odom" -> "base_link"[label="Broadcaster: /boat_diff/odom_base_tf\nAverage rate: 2177.491 Hz\nMost recent transform: 12.171 ( 0.008 sec old)\nBuffer length: 4.958 sec\n"];
+"diff1/base_link" -> "diff1/base_laser"[label="Broadcaster: /diff1/laser_base_tf\nAverage rate: 99.056 Hz\nMost recent transform: 584.041 ( -0.002 sec old)\nBuffer length: 4.977 sec\n"];
+"odom" -> "base_link"[label="Broadcaster: /diff1/odom_base_tf\nAverage rate: 2181.014 Hz\nMost recent transform: 584.037 ( 0.002 sec old)\nBuffer length: 4.972 sec\n"];
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 12.179"[ shape=plaintext ] ;
+"Recorded at time: 584.039"[ shape=plaintext ] ;
+ }->"diff1/base_link";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 584.039"[ shape=plaintext ] ;
  }->"odom";
 }
