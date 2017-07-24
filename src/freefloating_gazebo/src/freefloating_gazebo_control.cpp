@@ -41,10 +41,12 @@ bool FreeFloatingControlPlugin::SwitchService(std_srvs::EmptyRequest &req, std_s
 
 void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
+    std::cerr<<" ######Starting to load FreeFloating Control Plugin for "<< _model->GetName();
     // get model and name
     model_ = _model;
     robot_namespace_ = model_->GetName();
     controller_is_running_ = true;
+
 
     // register ROS node & time
     rosnode_ = ros::NodeHandle(robot_namespace_);
@@ -60,6 +62,7 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
 
     while(!(control_body_ || control_joints_))
     {
+
         control_body_ = control_node.hasParam("config/body");
         control_joints_ = control_node.hasParam("config/joints");
     }
@@ -70,6 +73,7 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
     unsigned int i,j;
     if(control_body_)
     {
+	std::cerr<<"\n FREEFLOATING_GAZEBO_CONTROL::"<<robot_namespace_<<" has control body";
         // read topics
         control_node.param("config/body/command", body_command_topic, std::string("body_command"));
         control_node.param("config/body/state", body_state_topic, std::string("body_state"));
@@ -235,6 +239,7 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
 
     if(control_joints_ && model_->GetJointCount() != 0)
     {
+	std::cerr<<"\n FREEFLOATING_GAZEBO_CONTROL::"<<robot_namespace_<<" has control joints";
         std::string joint_command_topic, joint_state_topic;
         control_node.param("config/joints/command", joint_command_topic, std::string("joint_command"));
         control_node.param("config/joints/state", joint_state_topic, std::string("joint_state"));
@@ -317,7 +322,7 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
     update_event_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&FreeFloatingControlPlugin::Update, this));
 
     ros::spinOnce();
-    ROS_INFO("Started FreeFloating Control Plugin for %s.", _model->GetName().c_str());
+    ROS_INFO("######Started FreeFloating Control Plugin for %s.", _model->GetName().c_str());
 }
 
 void FreeFloatingControlPlugin::Update()

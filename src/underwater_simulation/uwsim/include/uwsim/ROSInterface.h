@@ -281,6 +281,22 @@ public:
   ~PATToROSOdom();
 };
 
+class OceanSurfaceToROSOceanVehicle : public ROSPublisherInterface
+{
+
+  osg::ref_ptr<osg::MatrixTransform> transform;
+  osg::Node *vehicleNode;
+  osg::ref_ptr<osgOcean::OceanTechnique> _oceanTechnique;
+public:
+  OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean);
+
+  void createPublisher(ros::NodeHandle &nh);
+
+  void publish();
+
+  ~OceanSurfaceToROSOceanVehicle();
+};
+
 class WorldToROSTF : public ROSPublisherInterface
 {
   std::vector< osg::ref_ptr<osg::MatrixTransform> > transforms_;

@@ -54,6 +54,7 @@ bool SceneBuilder::loadScene(std::string xml_file)
  */
 bool SceneBuilder::loadScene(ConfigFile config)
 {
+  std::cerr<<"\n ############ Starting loading scene file!\n";
   float windx = config.windx, windy = config.windy;
   while (arguments->read("--windx", windx))
     ;
@@ -274,6 +275,9 @@ bool SceneBuilder::loadScene(ConfigFile config)
     if (rosInterface.type == ROSInterfaceInfo::ROSTwistToPAT)
       iface = boost::shared_ptr < ROSTwistToPAT
           > (new ROSTwistToPAT(root, rosInterface.topic, rosInterface.targetName));
+
+    if (rosInterface.type == ROSInterfaceInfo::OceanSurfaceToROSOceanVehicle)
+      iface = boost::shared_ptr < OceanSurfaceToROSOceanVehicle > (new OceanSurfaceToROSOceanVehicle(root, rosInterface.targetName, rosInterface.topic, rosInterface.rate, scene->getOceanSurface()));
 
     if (rosInterface.type == ROSInterfaceInfo::PATToROSOdom)
       iface = boost::shared_ptr < PATToROSOdom
@@ -524,7 +528,10 @@ bool SceneBuilder::loadScene(ConfigFile config)
     }
 
     if (iface)
+    {
       ROSInterfaces.push_back(iface);
+	std::cerr<<"\n iface not null interfaceCount: "<<ROSInterfaces.size();
+    }
     config.ROSInterfaces.pop_front();
   }
   //root->addChild(physics.debugDrawer.getSceneGraph());

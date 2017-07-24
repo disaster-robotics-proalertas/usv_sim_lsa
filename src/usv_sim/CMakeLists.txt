@@ -19,3 +19,18 @@ catkin_package(
 
 include_directories(${catkin_INCLUDE_DIRS})
 
+
+install(DIRECTORY config/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
+
+install(DIRECTORY launch/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
+
+install(DIRECTORY scenes/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/scenes)
+
+install(DIRECTORY terrain/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/terrain)
+
+install(DIRECTORY urdf/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
