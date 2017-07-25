@@ -7,8 +7,9 @@
   <arg name="odom_frame_id"   default="odom"/>
   <arg name="base_frame_id"   default="base_footprint"/>
   <arg name="global_frame_id" default="map"/>
+  <arg name="robot_namespace"/>
 
-  <node pkg="amcl" type="amcl" name="amcl">
+  <node pkg="amcl" type="amcl" name="amcl" output="screen" ns="$(arg robot_namespace)">
     <param name="use_map_topic"             value="$(arg use_map_topic)"/>
     <!-- Publish scans from best pose at a max of 10 Hz -->
     <param name="odom_model_type"           value="diff"/>
@@ -36,9 +37,9 @@
     <param name="laser_likelihood_max_dist" value="2.0"/>
     <param name="update_min_d"              value="0.25"/>
     <param name="update_min_a"              value="0.2"/>
-    <param name="odom_frame_id"             value="$(arg odom_frame_id)"/> 
-    <param name="base_frame_id"             value="$(arg base_frame_id)"/> 
-    <param name="global_frame_id"           value="$(arg global_frame_id)"/>
+    <param name="odom_frame_id"             value="$(arg robot_namespace)_tf/$(arg odom_frame_id)"/> 
+    <param name="base_frame_id"             value="$(arg robot_namespace)_tf/$(arg base_frame_id)"/> 
+    <param name="global_frame_id"           value="$(arg robot_namespace)_tf/$(arg global_frame_id)"/>
     <param name="resample_interval"         value="1"/>
     <!-- Increase tolerance because the computer can get quite busy -->
     <param name="transform_tolerance"       value="1.0"/>

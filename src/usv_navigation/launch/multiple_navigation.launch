@@ -3,7 +3,7 @@
 
   <!-- Run the map server -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(find usv_navigation)/maps/my_map.yaml" >
-    <param name="frame_id" value="/map" />
+    <param name="frame_id" value="$(arg robot_name)_tf/map" />
   </node>
 
   <group ns="diff1">
