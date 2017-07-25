@@ -161,7 +161,6 @@ void FreeFloatingFluidPlugin::Update()
                 else
 		{
                     actual_force *= cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
-//		    actual_force = 
 		   // if ((*link_it)->model_name.compare("barcoDiferencial")==0)
 		//	    std::cerr<<" ---> reduzir Delta > "<<(*link_it)->limit<<" R: "<<cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
 		}

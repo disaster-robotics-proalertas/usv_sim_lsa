@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- spawn in Gazebo with GUI -->
+    <group ns="sailboat">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/sailboat.xacro"/>
+        <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model sailboat -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+
+        <!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
+        <rosparam file="$(find usv_sim)/config/sailboat.yaml" command="load"/>
+
+        <!-- Launch low-level PID control for arm 
+             body control will not activate as we expect direct thruster control -->
+        <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
+        <node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"/>
+        <node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py"/> 
+        <!-- <node name="base_laser_tf" pkg="usv_tf" type="laser_tf_broadcaster"/> -->
+        <node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 base_link boat_diff/base_laser 10" />
+
+        <node name="odom_relay" type="relay" pkg="topic_tools" args="state /odom" />
+        <node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" />
+    
+    </group>
+</launch>

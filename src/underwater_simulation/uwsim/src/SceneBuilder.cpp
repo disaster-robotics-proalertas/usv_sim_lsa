@@ -54,6 +54,7 @@ bool SceneBuilder::loadScene(std::string xml_file)
  */
 bool SceneBuilder::loadScene(ConfigFile config)
 {
+  std::cerr<<"\n ############ Starting loading scene file!\n";
   float windx = config.windx, windy = config.windy;
   while (arguments->read("--windx", windx))
     ;

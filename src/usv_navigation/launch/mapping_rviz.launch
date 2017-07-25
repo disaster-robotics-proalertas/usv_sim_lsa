@@ -1,0 +1,4 @@
+<launch>
+<param name="robot_description" textfile="/home/lsa/usv_sim_lsa/src/freefloating_gazebo_demo/urdf/barcoDiferencial.xacro" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find freefloating_gazebo_demo)/rviz/mapping.rviz"/>
+</launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- spawn world -->
+    <include file="$(find usv_sim)/launch/world/spawn_world.launch"/>
+    <!-- spawn robot -->
+    <include file="$(find usv_sim)/launch/models/diff_robots.launch"/>
+
+</launch>

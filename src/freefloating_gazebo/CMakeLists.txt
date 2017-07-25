@@ -60,6 +60,7 @@ src/freefloating_pids_body.cpp include/freefloating_gazebo/freefloating_pids_bod
 src/freefloating_pids_joint.cpp include/freefloating_gazebo/freefloating_pids_joint.h)
 target_link_libraries(pid_control ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
 
+
 install(
   TARGETS
     pid_control

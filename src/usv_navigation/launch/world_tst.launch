@@ -1,0 +1,16 @@
+<launch>
+<group ns="barco_obs">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find freefloating_gazebo_demo)/urdf/barco_obs.xacro"/>
+        <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_obs -param robot_description -x 10 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+    </group>
+
+<group ns="barco_obs1">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find freefloating_gazebo_demo)/urdf/barco_obs1.xacro"/>
+    <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_obs1 -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+</group>
+
+<group ns="barco_obs2">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find freefloating_gazebo_demo)/urdf/barco_obs2.xacro"/>
+    <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model barco_obs2 -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+</group>
+</launch>
