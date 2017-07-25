@@ -8,10 +8,10 @@
     
     <!-- TF tree -->
     <node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py" ns="$(arg robot_name)" args="$(arg robot_name)"/> 
-    <node pkg="tf" type="static_transform_publisher" name="laser_base_tf" ns="$(arg robot_name)" args="0.5 0 0.2 0 0 0 1 $(arg robot_name)/base_link $(arg robot_name)/base_laser 10" />
+    <node pkg="tf" type="static_transform_publisher" name="laser_base_tf" ns="$(arg robot_name)" args="0.5 0 0.2 0 0 0 1 $(arg robot_name)_tf/base_link $(arg robot_name)_tf/base_laser 10" />
     <node pkg="tf" type="static_transform_publisher" name="static_publisher" ns="$(arg robot_name)" args="0 0 0 0 0 0 /world $(arg robot_name)_tf/map 100"/>
 
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find usv_navigation)/maps/my_map.yaml" >
+    <node name="map_server" pkg="map_server" type="map_server" ns="$(arg robot_name)" args="$(find usv_navigation)/maps/my_map.yaml" >
         <param name="frame_id" value="$(arg robot_name)_tf/map" />
     </node>
 
@@ -33,11 +33,14 @@
 
         <!-- some relays -->
         <node name="odom_relay" type="relay" pkg="topic_tools" args="state odom" />
-        <node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" />
+
+        <include file="$(find usv_navigation)/launch/includes/velocity_smoother.launch.xml"/>
+        <include file="$(find usv_navigation)/launch/includes/safety_controller.launch.xml"/>
+
     </group>
 
      <!-- Move base here! -->
-     <include file="$(find usv_navigation)/launch/move_base.launch">
+     <include file="$(find usv_navigation)/launch/multi_move_base.launch">
          <arg name="namespace_prefix" value="$(arg robot_name)" />
      </include>
 

@@ -5,5 +5,7 @@
     <include file="$(find usv_sim)/launch/world/spawn_world.launch"/>
     <!-- spawn robot -->
     <include file="$(find usv_sim)/launch/models/diff_robots.launch"/>
+    <!-- start rviz -->
+    <include file="$(find usv_sim_rviz)/launch/navigation_rviz.launch"/>
 
 </launch>
