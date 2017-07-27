@@ -25,6 +25,14 @@
           </geometry>
           <material name="blue"/>
         </visual>
+
+        <collision>
+          <origin rpy="1.57079632679 0 1.57079632679"/>
+          <geometry>
+            <mesh filename="package://usv_sim/meshes/pt90.stl"/>
+          </geometry>
+        </collision>
+
         <inertial>
             <origin rpy="0 0 0" xyz="0 0 -0.05"/>
           <mass value="10"/>
@@ -171,7 +179,7 @@
     <gazebo reference="hokuyo_link">
         <sensor type="gpu_ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <update_rate>40</update_rate>
         <ray>
         <scan>
@@ -198,7 +206,7 @@
         </noise>
         </ray>
         <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
-        <topicName>/scan</topicName>
+        <topicName>scan</topicName>
         <frameName>base_laser</frameName>
         </plugin>
         </sensor>
