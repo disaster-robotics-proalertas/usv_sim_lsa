@@ -40,7 +40,7 @@
 /* #undef BUILD_BULLET_PHYSICS */
 
 //UWSim root folder
-#define UWSIM_ROOT_PATH "/home/paravisi/usv_sim_lsa/install_isolated/share/uwsim"
+#define UWSIM_ROOT_PATH "/home/lsa/usv_sim_lsa/install_isolated/share/uwsim"
 
 //Operating system
 /* #undef WIN32 */
