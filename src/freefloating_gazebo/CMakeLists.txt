@@ -79,5 +79,3 @@ install(DIRECTORY scripts/
                WORLD_READ WORLD_EXECUTE
 )
 
-install(DIRECTORY world/
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/world)
