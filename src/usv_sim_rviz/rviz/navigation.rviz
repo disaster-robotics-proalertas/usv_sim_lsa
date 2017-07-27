@@ -642,6 +642,8 @@ Visualization Manager:
       Topic: diff1/move_base_simple/goal
     - Class: rviz/SetGoal
       Topic: diff2/move_base_simple/goal
+    - Class: rviz/SetGoal
+      Topic: diff3/move_base_simple/goal
     - Class: rviz/Measure
     - Class: rviz/PublishPoint
       Single click: true
