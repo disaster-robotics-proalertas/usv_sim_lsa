@@ -37,5 +37,5 @@ controllers:
         velocity: {p: 20, i: 1, d: 0.0}
         position: {p: 1, i: 0.1, d: 0.5} 
     rudder_joint:
-        velocity: {p: 20.0, i: 1, d: 0.0}
+        velocity: {p: 5.0, i: 1, d: 0.0}
         position: {p: 10.0, i: 1, d: 0}

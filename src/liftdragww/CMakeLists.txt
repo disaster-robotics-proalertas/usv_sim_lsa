@@ -192,6 +192,7 @@ include_directories( include
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+
 #############
 ## Testing ##
 #############
@@ -210,3 +211,11 @@ include_directories( include
 
 add_library(liftdragww SHARED src/liftdragww.cpp include/liftdragww/liftdragww.h)
 target_link_libraries(liftdragww ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
+install(
+  TARGETS
+    liftdragww
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

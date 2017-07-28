@@ -13,18 +13,113 @@
 using namespace gazebo;
 
 
-GZ_REGISTER_MODEL_PLUGIN(Rudder_plugin)
-
+  GZ_REGISTER_MODEL_PLUGIN(Rudderplugin)
 
 /////////////////////////////////////////////////
-void Rudder_plugin::OnUpdate()
+Rudderplugin::Rudderplugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
 {
-//ROS_INFO("------------------------------LiftDragWW OnUpdate!!!!");
+gzerr << "-----------------------------------";
+ROS_INFO("------------------------------Rudderplugin OBJECT CREATED!!!!");
+  this->cp = math::Vector3(0, 0, 0);
+  this->forward = math::Vector3(1, 0, 0);
+  this->upward = math::Vector3(0, 0, 1);
+  this->area = 1.0;
+  this->alpha0 = 0.0;
+
+  // 90 deg stall
+  this->alphaStall = 0.5*M_PI;
+  this->claStall = 0.0;
+
+  /// \TODO: what's flat plate drag?
+  this->cdaStall = 1.0;
+  this->cmaStall = 0.0;
+}
+
+/////////////////////////////////////////////////
+void Rudderplugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+{
+ROS_INFO("------------------------------Rudderplugin loaded!!!!");
+
+
+  GZ_ASSERT(_model, "Rudderplugin _model pointer is NULL");
+  GZ_ASSERT(_sdf, "Rudderplugin _sdf pointer is NULL");
+  this->model = _model;
+  this->modelName = _model->GetName();
+  this->sdf = _sdf;
+
+  this->world = this->model->GetWorld();
+  GZ_ASSERT(this->world, "Rudderplugin world pointer is NULL");
+
+  this->physics = this->world->GetPhysicsEngine();
+  GZ_ASSERT(this->physics, "Rudderplugin physics pointer is NULL");
+
+  GZ_ASSERT(_sdf, "Rudderplugin _sdf pointer is NULL");
+
+  if (_sdf->HasElement("a0"))
+    this->alpha0 = _sdf->Get<double>("a0");
+
+  if (_sdf->HasElement("cla"))
+    this->cla = _sdf->Get<double>("cla");
+
+  if (_sdf->HasElement("cda"))
+    this->cda = _sdf->Get<double>("cda");
+
+  if (_sdf->HasElement("cma"))
+    this->cma = _sdf->Get<double>("cma");
+
+  if (_sdf->HasElement("alpha_stall"))
+    this->alphaStall = _sdf->Get<double>("alpha_stall");
+
+  if (_sdf->HasElement("cla_stall"))
+    this->claStall = _sdf->Get<double>("cla_stall");
+
+  if (_sdf->HasElement("cda_stall"))
+    this->cdaStall = _sdf->Get<double>("cda_stall");
+
+  if (_sdf->HasElement("cma_stall"))
+    this->cmaStall = _sdf->Get<double>("cma_stall");
+
+  if (_sdf->HasElement("cp"))
+    this->cp = _sdf->Get<math::Vector3>("cp");
+
+  // blade forward (-drag) direction in link frame
+  if (_sdf->HasElement("forward"))
+    this->forward = _sdf->Get<math::Vector3>("forward");
+
+  // blade upward (+lift) direction in link frame
+  if (_sdf->HasElement("upward"))
+    this->upward = _sdf->Get<math::Vector3>("upward");
+
+  if (_sdf->HasElement("area"))
+    this->area = _sdf->Get<double>("area");
+
+  if (_sdf->HasElement("air_density"))
+    this->rho = _sdf->Get<double>("air_density");
+
+  if (_sdf->HasElement("link_name"))
+  {
+    sdf::ElementPtr elem = _sdf->GetElement("link_name");
+    this->linkName = elem->Get<std::string>();
+    this->link = this->model->GetLink(this->linkName);
+  }
+}
+
+/////////////////////////////////////////////////
+void Rudderplugin::Init()
+{
+  this->updateConnection = event::Events::ConnectWorldUpdateBegin(
+          boost::bind(&Rudderplugin::OnUpdate, this));
+}
+
+/////////////////////////////////////////////////
+void Rudderplugin::OnUpdate()
+{
+//ROS_INFO("------------------------------Rudderplugin OnUpdate!!!!");
 	
   // get linear velocity at cp in inertial frame
   //math::Vector3 vel = math::Vector3(1,0,0)- this->link->GetWorldLinearVel(this->cp);
-  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp)- math::Vector3(3,0,0);
-  //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
+//  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp)- math::Vector3(3,0,0);
+  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
 std::cerr<<"\n------------------ vel: "<<vel;
 
   // smoothing
