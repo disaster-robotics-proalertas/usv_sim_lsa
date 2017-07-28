@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name"/>
+    <arg name="init_pose_x"/>
+    <arg name="init_pose_y"/>
+    <arg name="init_pose_a"/>
+    <arg name="init_pose" value=""/>
+    
+    <!-- TF tree -->
+    <node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py" ns="$(arg robot_name)" args="$(arg robot_name)"/> 
+    <node pkg="tf" type="static_transform_publisher" name="laser_base_tf" ns="$(arg robot_name)" args="0.5 0 0.2 0 0 0 1 $(arg robot_name)_tf/base_link $(arg robot_name)_tf/base_laser 10" />
+    <node pkg="tf" type="static_transform_publisher" name="static_publisher" ns="$(arg robot_name)" args="0 0 0 0 0 0 /world $(arg robot_name)_tf/map 100"/>
+
+    <node name="map_server" pkg="map_server" type="map_server" ns="$(arg robot_name)" args="$(find usv_navigation)/maps/my_map.yaml" >
+        <param name="frame_id" value="$(arg robot_name)_tf/map" />
+    </node>
+
+    <group ns="$(arg robot_name)">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/sailboat.xacro"/>
+        <node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model $(arg robot_name) -param robot_description -x $(arg init_pose_x) -y $(arg init_pose_y) -z 0.0 -R 0 -P 0 -Y $(arg init_pose_a)"/>
+        <!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
+        <rosparam file="$(find usv_sim)/config/sailboat.yaml" command="load"/>
+
+        <!-- Launch low-level PID control for arm 
+             body control will not activate as we expect direct thruster control -->
+        <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+            <param name="publish_frequency" type="double" value="30.0" />
+        </node>
+
+        <!-- some relays -->
+        <node name="odom_relay" type="relay" pkg="topic_tools" args="state odom" />
+
+    </group>
+
+</launch>

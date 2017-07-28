@@ -64,11 +64,11 @@ class VelocityCtrl():
         self.rudder_max = 70
         self.thruster_max = 30
 
-        self.pub_motor = rospy.Publisher('/barco_auv/thruster_command', JointState, queue_size=10)
-        self.pub_rudder = rospy.Publisher('/barco_auv/joint_setpoint', JointState, queue_size=10)
+        self.pub_motor = rospy.Publisher('thruster_command', JointState, queue_size=10)
+        self.pub_rudder = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
 
-        rospy.Subscriber("/barco_auv/state", Odometry, self.get_usv_vel)  
-        rospy.Subscriber("/barco_auv/cmd_vel", Twist, self.get_target_vel)
+        rospy.Subscriber("state", Odometry, self.get_usv_vel)  
+        rospy.Subscriber("cmd_vel", Twist, self.get_target_vel)
 
         while not rospy.is_shutdown():
             self.pub_rudder.publish(self.rudder_ctrl_msg(self.ang_vel_ctrl(), rudder_name))
@@ -91,8 +91,8 @@ class VelocityCtrl():
         self.ang_vel = self.target_vel.angular.z - self.usv_vel.twist.twist.angular.z
         self.ang_vel = self.ang_vel * self.kp_ang + self.I_ang(self.ang_vel)
         self.sat_rudder()
-        msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3}; Comand motor: {4}; erro cominado: {5}; i_lin: {6}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.I_ant_ang, self.lin_vel, self.lin_vel + self.I_ant_ang, self.I_ant_lin)
-        rospy.loginfo(msg)
+        #msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3}; Comand motor: {4}; erro cominado: {5}; i_lin: {6}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.I_ant_ang, self.lin_vel, self.lin_vel + self.I_ant_ang, self.I_ant_lin)
+        #rospy.loginfo(msg)
         return -self.ang_vel
 
     def I_lin(self, erro):
