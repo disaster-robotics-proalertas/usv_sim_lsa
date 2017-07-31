@@ -1,5 +1,5 @@
 # usv_sim
-water surface vehicles simulator;
+Water surface vehicles simulator. This simulator is used, at first, to test control and trajectory strategies for disaster mitigation but it can be easily adapted to other applications. Various usv models are presented in package usv_sim (xacro directory).
 
 1. cd ~/usv_sim_lsa
 2. catkin_make_isolated
