@@ -2,14 +2,15 @@
 <package format="2">
   <name>usv_navigation</name>
   <version>1.1.0</version>
-  <description>This package contains an example of underwater robot using the freefloating_gazebo plugin.</description>
-  <maintainer email="olivier_kermorgant@yahoo.fr">Olivier Kermorgant</maintainer>
+  <description>This package contains the necessary configs to interface with the navigation stack. It also contain navigation code for the usvs.</description>
 
-  <license>BSD</license>
+  <maintainer email="lsa@todo.todo">lsa</maintainer>
 
-  <url type="website">https://github.com/freefloating-gazebo/freefloating_gazebo_demo</url>
+  <license>TODO</license>
 
-  <author>Olivier Kermorgant</author>
+  <url type="website">https://github.com/disaster-robotics-proalertas/usv_sim_lsa</url>
+
+  <author>lsa</author>
 
   <buildtool_depend>catkin</buildtool_depend>
   
