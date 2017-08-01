@@ -7,6 +7,8 @@
 #include <gazebo/transport/transport.hh>
 #include <rudder_plugin/rudder_plugin.h>
 
+
+
 #include <ros/publisher.h>
 #include <sensor_msgs/JointState.h>
 
@@ -18,8 +20,7 @@ using namespace gazebo;
 /////////////////////////////////////////////////
 Rudderplugin::Rudderplugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
 {
-gzerr << "-----------------------------------";
-ROS_INFO("------------------------------Rudderplugin OBJECT CREATED!!!!");
+  ROS_INFO("------------------------------Rudderplugin OBJECT CREATED!!!!");
   this->cp = math::Vector3(0, 0, 0);
   this->forward = math::Vector3(1, 0, 0);
   this->upward = math::Vector3(0, 0, 1);
@@ -38,14 +39,14 @@ ROS_INFO("------------------------------Rudderplugin OBJECT CREATED!!!!");
 /////////////////////////////////////////////////
 void Rudderplugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
-ROS_INFO("------------------------------Rudderplugin loaded!!!!");
-
+  ROS_INFO("------------------------------Rudderplugin loaded!!!!");
 
   GZ_ASSERT(_model, "Rudderplugin _model pointer is NULL");
   GZ_ASSERT(_sdf, "Rudderplugin _sdf pointer is NULL");
   this->model = _model;
   this->modelName = _model->GetName();
   this->sdf = _sdf;
+  rosnode_ = ros::NodeHandle(modelName);
 
   this->world = this->model->GetWorld();
   GZ_ASSERT(this->world, "Rudderplugin world pointer is NULL");
@@ -102,11 +103,13 @@ ROS_INFO("------------------------------Rudderplugin loaded!!!!");
     this->linkName = elem->Get<std::string>();
     this->link = this->model->GetLink(this->linkName);
   }
+  waterCurrent = math::Vector3(0,0,0);
 }
 
 /////////////////////////////////////////////////
 void Rudderplugin::Init()
 {
+  current_subscriber_ = rosnode_.subscribe("/gazebo/current", 1, &Rudderplugin::ReadWaterCurrent, this);
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&Rudderplugin::OnUpdate, this));
 }
@@ -118,10 +121,10 @@ void Rudderplugin::OnUpdate()
 	
   // get linear velocity at cp in inertial frame
   //math::Vector3 vel = math::Vector3(1,0,0)- this->link->GetWorldLinearVel(this->cp);
-//  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp)- math::Vector3(3,0,0);
-  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
-std::cerr<<"\n------------------ vel: "<<vel;
+  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp)- waterCurrent;
 
+//  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
+//std::cerr<<"\n vel: "<<vel;
   // smoothing
   // double e = 0.8;
   // this->velSmooth = e*vel + (1.0 - e)*velSmooth;
@@ -136,7 +139,7 @@ std::cerr<<"\n------------------ vel: "<<vel;
   // rotate forward and upward vectors into inertial frame
   math::Vector3 forwardI = pose.rot.RotateVector(this->forward);
   math::Vector3 upwardI = pose.rot.RotateVector(this->upward);
-std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
+//std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
 
   // ldNormal vector to lift-drag-plane described in inertial frame
   math::Vector3 ldNormal = forwardI.Cross(upwardI).Normalize();
@@ -163,7 +166,7 @@ std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
   // so,
   // velocity in lift-drag plane (expressed in inertial frame) is:
   math::Vector3 velInLDPlane = ldNormal.Cross(vel.Cross(ldNormal));
-std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
+//std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
 
   // get direction of drag
   math::Vector3 dragDirection = -velInLDPlane;
@@ -172,7 +175,7 @@ std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
   // get direction of lift
   math::Vector3 liftDirection = ldNormal.Cross(velInLDPlane);
   liftDirection.Normalize();
-std::cerr<<"\n liftDirection: "<<liftDirection;
+//std::cerr<<"\n liftDirection: "<<liftDirection;
 
   // get direction of moment
   math::Vector3 momentDirection = ldNormal;
@@ -204,8 +207,8 @@ std::cerr<<"\n liftDirection: "<<liftDirection;
   double speedInLDPlane = velInLDPlane.GetLength();
   double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
-std::cerr<<"\n speedInLDPlane: "<<speedInLDPlane<<" q: "<<q;
-std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
+//std::cerr<<"\n speedInLDPlane: "<<speedInLDPlane<<" q: "<<q;
+//std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
   // compute cl at cp, check for stall, correct for sweep
   double cl;
   if (this->alpha > this->alphaStall)
@@ -290,8 +293,8 @@ std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
   // + moment.Cross(momentArm);
 
   math::Vector3 torque = moment;
-std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
-std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
+//std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
+//std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
   // - lift.Cross(momentArm) - drag.Cross(momentArm);
 
   // debug
@@ -327,4 +330,11 @@ std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
   // apply forces at cg (with torques for position shift)
   this->link->AddForceAtRelativePosition(force, this->cp);
   //this->link->AddTorque(torque);
+}
+
+void Rudderplugin::ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg)
+{
+	waterCurrent.x = _msg->x;
+	waterCurrent.y = _msg->y;
+	waterCurrent.z = _msg->z;
 }

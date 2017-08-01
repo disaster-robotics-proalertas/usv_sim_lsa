@@ -23,6 +23,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <ros/ros.h>
+#include <geometry_msgs/Vector3.h>
 
 namespace gazebo
 {
@@ -40,6 +41,9 @@ namespace gazebo
 
     /// \brief Callback for World Update events.
     protected: virtual void OnUpdate();
+
+    // Read topic gazebo/current to get water current
+    protected: void ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg);
 
     /// \brief Connection to World Update events.
     protected: event::ConnectionPtr updateConnection;
@@ -124,6 +128,12 @@ namespace gazebo
 
     /// \brief SDF for this plugin;
     protected: sdf::ElementPtr sdf;
+
+    protected: ros::Subscriber current_subscriber_;
+
+    protected: math::Vector3 waterCurrent;
+
+    protected: ros::NodeHandle rosnode_;
   };
 
 }
