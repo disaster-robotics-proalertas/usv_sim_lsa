@@ -65,6 +65,12 @@ bool SceneBuilder::loadScene(ConfigFile config)
   float windSpeed = config.windSpeed;
   while (arguments->read("--windSpeed", windSpeed))
     ;
+  ros::NodeHandle nh;
+  osg::Vec2f windWithValue = osg::Vec2f(windx,windy);
+  windWithValue.normalize();
+
+  nh.setParam("/uwsim/wind/x", windSpeed*windWithValue.x());
+  nh.setParam("/uwsim/wind/y", windSpeed*windWithValue.y());
 
   float depth = config.depth;
   //while (arguments->read("--depth", depth));

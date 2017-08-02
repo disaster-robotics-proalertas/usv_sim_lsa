@@ -44,7 +44,7 @@
 
     <!-- Plugin list -->
     <gazebo>
-        <plugin name="LiftDrag" filename="libliftdragww.so">
+        <plugin name="sail_plugin" filename="libsail_plugin.so">
             <a0>0</a0>
             <cla>2.752798721</cla>
             <cda>2.6417112299</cda>

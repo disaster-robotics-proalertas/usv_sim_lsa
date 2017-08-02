@@ -39,10 +39,10 @@
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
-          <compensation>1.2</compensation>
+          <compensation>5</compensation>
           <origin xyz="-0.0005 0 0.05"/>
           <limit radius="0.1"/>
-          <damping rpy="20 50 50" xyz="20 50 50"/>
+          <damping rpy="20 500 50" xyz="20 50 50"/>
         </buoyancy>
     </link>
 
@@ -165,7 +165,7 @@
         <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-        <mesh filename="package://usv_sim/meshes/hokuyo.dae"/>
+        <mesh filename="package://usv_sim/meshes/hokuyo.stl"/>
         </geometry>
         </visual>
 
