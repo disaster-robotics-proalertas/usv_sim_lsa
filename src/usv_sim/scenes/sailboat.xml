@@ -101,9 +101,23 @@
     </ROSOdomToPAT>
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface</topic>
+	<topic>/sailboat/Surface/base_link</topic>
 	<vehicleName>sailboat</vehicleName>
+	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/back_link</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>back_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/front_link</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>front_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
    
   </rosInterfaces>
 </UWSimScene>

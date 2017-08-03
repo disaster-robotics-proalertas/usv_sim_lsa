@@ -2,9 +2,7 @@
 <launch>
 
         <arg name="gui" default="false"/>
-        <arg name="parse" default="false"/>	
-
-    
+        <arg name="parse" default="false"/>    
     	<!-- spawn in Gazebo with GUI -->
 	<group unless="$(arg parse)" ns="sailboat"  >
 		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/sailboat.xacro"/>
@@ -29,14 +27,6 @@
 				<remap from="joint_states" to="joint_setpoint" />        
 			</node>
 			<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
-		<!-- GUI interface to control thrusters -->
-			<group ns="thrusters">
-			     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder_dummy.urdf"/>                         
-			     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-			     <param name="use_gui" value="True"/>
-			     <remap from="joint_states" to="/boat_rudder/thruster_command" />
-			     </node>             
-			</group>
-    
+
     	</group>
 </launch>

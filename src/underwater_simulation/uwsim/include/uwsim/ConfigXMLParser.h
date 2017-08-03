@@ -37,7 +37,7 @@ struct ROSInterfaceInfo
   } type_t;
   string subtype; //type of a SimulatedDevice
   std::map<std::string, std::string> values; //all configuration values for a SimulatedDevice
-  string topic, infoTopic, targetName, rootName;
+  string topic, infoTopic, targetName, rootName, linkName;
   type_t type; //Type of ROSInterface
   int rate; //if it's necessary
   unsigned int w, h; //width and height if necessary

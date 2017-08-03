@@ -110,7 +110,7 @@
 
 <!-- elementos rosinterfaces -->
 <!ELEMENT ROSOdomToPAT (topic,vehicleName, visualize?)>
-<!ELEMENT OceanSurfaceToROSOceanVehicle (topic,vehicleName)>
+<!ELEMENT OceanSurfaceToROSOceanVehicle (topic,vehicleName,linkName)>
 <!ELEMENT PATToROSOdom  (topic, vehicleName, rate?)>
 <!ELEMENT ArmToROSJointState  (topic, vehicleName, rate?)>
 <!ELEMENT ROSJointStateToArm  (topic,vehicleName)>
@@ -134,6 +134,7 @@
 <!ELEMENT scale (#PCDATA)>
 <!ELEMENT topic (#PCDATA)>
 <!ELEMENT vehicleName (#PCDATA)>
+<!ELEMENT linkName (#PCDATA)>
 <!ELEMENT rate (#PCDATA)>
 <!ELEMENT cameraName (#PCDATA)>
 <!ELEMENT imageTopic (#PCDATA)>

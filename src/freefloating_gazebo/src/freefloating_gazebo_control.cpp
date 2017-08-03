@@ -60,11 +60,13 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
     control_body_ = false;
     control_joints_ = false;
 
+    std::cerr<<"\n STARTING TO VERIFY EXISTENCE OF CONTROL BODY AND CONTROL JOINTS!"<<endl;
     while(!(control_body_ || control_joints_))
     {
 
         control_body_ = control_node.hasParam("config/body");
         control_joints_ = control_node.hasParam("config/joints");
+        std::cerr<<"==========FFControlPlugin -  WAIT INTENTIFING CONTROL! body: "<<control_body_<<" joints: "<<control_joints_<<endl;
     }
 
     // *** SET UP BODY CONTROL

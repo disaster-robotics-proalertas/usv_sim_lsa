@@ -2,6 +2,7 @@
 <launch>
 
     <arg name="gui" default="false"/>
+
     <!-- spawn in Gazebo with GUI -->
         <group ns="boat_rudder">
             	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/boat_rudder.xacro"/>

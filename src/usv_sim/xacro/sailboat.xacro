@@ -2,7 +2,7 @@
 
 <robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
     <xacro:rudder_xacro/>
 
     <!-- Defining sail model -->
@@ -62,6 +62,33 @@
             <!--<control_joint_name>rudder_joint</control_joint_name>-->
             <!--<control_joint_rad_to_cl>4.0</control_joint_rad_to_cl>-->
       </plugin>
+
+        <plugin name="rudder_plugin" filename="librudder_plugin.so">
+
+            <a0>0</a0>
+            <cla>0.752798721</cla>
+            <cda>0.3417112299</cda>
+            <!--
+            <cma>-1.8</cma> momentum
+            <cma_stall>0</cma_stall>
+            -->
+            <alpha_stall>0.785</alpha_stall>
+            <cla_stall>-0.85</cla_stall>
+            <cda_stall>-0.3233984055</cda_stall>
+
+            <cp>-0.5 0 0</cp>
+            <area>0.03</area>
+            <air_density>1000</air_density>
+            <forward>1 0 0</forward>
+            <upward>0 1 0</upward>
+            <link_name>rudder</link_name>
+        </plugin>
+
+        <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+            <switchService>switch</switchService>
+            <updateRate>100</updateRate>
+            <link>base_link</link>
+        </plugin>
   </gazebo>
 
 </robot>
