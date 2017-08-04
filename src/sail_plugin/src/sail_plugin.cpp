@@ -162,9 +162,9 @@ void SailPlugin::OnUpdate()
   this->sweep = asin(sinSweepAngle);
 
   // truncate sweep to within +/-90 deg
-  while (fabs(this->sweep) > 0.5 * M_PI)
-    this->sweep = this->sweep > 0 ? this->sweep - M_PI
-                                  : this->sweep + M_PI;
+  //while (fabs(this->sweep) > 0.5 * M_PI)
+  //  this->sweep = this->sweep > 0 ? this->sweep - M_PI
+  //                                : this->sweep + M_PI;
 
   // angle of attack is the angle between
   // vel projected into lift-drag plane
@@ -209,9 +209,9 @@ void SailPlugin::OnUpdate()
     this->alpha = this->alpha0 - acos(cosAlpha);
 
   // normalize to within +/-90 deg
-  while (fabs(this->alpha) > 0.5 * M_PI)
-    this->alpha = this->alpha > 0 ? this->alpha - M_PI
-                                  : this->alpha + M_PI;
+  //while (fabs(this->alpha) > 0.5 * M_PI)
+  //  this->alpha = this->alpha > 0 ? this->alpha - M_PI
+  //                                : this->alpha + M_PI;
 
   // compute dynamic pressure
   double speedInLDPlane = velInLDPlane.GetLength();
@@ -240,6 +240,8 @@ void SailPlugin::OnUpdate()
   else
     cl = this->cla * this->alpha * cosSweepAngle2;
 
+
+  cl = 1.5*sin(2*this->alpha);
   // compute lift force at cp
   math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -263,6 +265,7 @@ void SailPlugin::OnUpdate()
   // make sure drag is positive
   cd = fabs(cd);
 
+  cd = 1.5*(1-cos(2*this->alpha));
   // drag at cp
   math::Vector3 drag = cd * q * this->area * dragDirection;
 
@@ -313,6 +316,11 @@ void SailPlugin::OnUpdate()
   //      this->link->GetName() == "wing_2") &&
   //     (vel.GetLength() > 50.0 &&
   //      vel.GetLength() < 50.0))
+
+  std::cerr << "sweep: " << this->sweep*180/3.1415 << "\n";
+  std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
+  std::cerr << "cl: " << cl << "\n";
+  std::cerr << "cd: " << cd << "\n\n";
   if (0)
   {
     gzerr << "=============================\n";

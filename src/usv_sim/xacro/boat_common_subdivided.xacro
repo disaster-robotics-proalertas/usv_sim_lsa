@@ -124,7 +124,6 @@
 
 	<limit effort="50" velocity="5" lower="0" upper="0" />
 
-
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
     </joint>
