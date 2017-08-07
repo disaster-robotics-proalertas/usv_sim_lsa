@@ -117,7 +117,6 @@
 	<vehicleName>sailboat</vehicleName>
 	<linkName>front_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
-
    
   </rosInterfaces>
 </UWSimScene>

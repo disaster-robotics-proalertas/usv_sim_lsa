@@ -131,7 +131,8 @@ void SailPlugin::OnUpdate()
 	
   // get linear velocity at cp in inertial frame
   //math::Vector3 vel = math::Vector3(1,0,0)- this->link->GetWorldLinearVel(this->cp);
-  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp) - wind;
+  //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp) - wind;
+  math::Vector3 aw = this->link->GetWorldLinearVel(this->cp) - wind; //wind = v_tw
   //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
 //std::cerr<<"\n------------------ vel: "<<vel;
 
@@ -140,26 +141,27 @@ void SailPlugin::OnUpdate()
   // this->velSmooth = e*vel + (1.0 - e)*velSmooth;
   // vel = this->velSmooth;
 
-  if (vel.GetLength() <= 0.01)
+  if (aw.GetLength() <= 0.01)
     return;
 
   // pose of body
   math::Pose pose = this->link->GetWorldPose();
 
   // rotate forward and upward vectors into inertial frame
-  math::Vector3 forwardI = pose.rot.RotateVector(this->forward);
-  math::Vector3 upwardI = pose.rot.RotateVector(this->upward);
+  math::Vector3 forwardI = pose.rot.RotateVector(this->forward); //xb
+  math::Vector3 upwardI = pose.rot.RotateVector(this->upward);   //yb
 //std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
 
   // ldNormal vector to lift-drag-plane described in inertial frame
   math::Vector3 ldNormal = forwardI.Cross(upwardI).Normalize();
+  // TODOS ESSES PRODUTOS VETORIAIS SÃO PRA PEGAR OS VETORES PERPENDICULARES
 
   // check sweep (angle between vel and lift-drag-plane)
-  double sinSweepAngle = ldNormal.Dot(vel) / vel.GetLength();
+  //double sinSweepAngle = ldNormal.Dot(vel) / vel.GetLength();
 
   // get cos from trig identity
-  double cosSweepAngle2 = (1.0 - sinSweepAngle * sinSweepAngle);
-  this->sweep = asin(sinSweepAngle);
+  //double cosSweepAngle2 = (1.0 - sinSweepAngle * sinSweepAngle);
+  //this->sweep = asin(sinSweepAngle);
 
   // truncate sweep to within +/-90 deg
   //while (fabs(this->sweep) > 0.5 * M_PI)
@@ -175,8 +177,9 @@ void SailPlugin::OnUpdate()
   //
   // so,
   // velocity in lift-drag plane (expressed in inertial frame) is:
-  math::Vector3 velInLDPlane = ldNormal.Cross(vel.Cross(ldNormal));
-//std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
+  math::Vector3 velInLDPlane = ldNormal.Cross(aw.Cross(ldNormal)); // isso é igual ao vel, só que escalado????
+  
+  //std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
 
   // get direction of drag
   math::Vector3 dragDirection = -velInLDPlane;
@@ -204,14 +207,14 @@ void SailPlugin::OnUpdate()
 
   // double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
   if (alphaSign > 0.0)
-    this->alpha = this->alpha0 + acos(cosAlpha);
+    this->alpha = acos(cosAlpha);
   else
-    this->alpha = this->alpha0 - acos(cosAlpha);
+    this->alpha = -acos(cosAlpha);
 
-  // normalize to within +/-90 deg
-  //while (fabs(this->alpha) > 0.5 * M_PI)
-  //  this->alpha = this->alpha > 0 ? this->alpha - M_PI
-  //                                : this->alpha + M_PI;
+  // normalize to within +/-180 deg
+  while (fabs(this->alpha) > M_PI)
+    this->alpha = this->alpha > 0 ? this->alpha - 2*M_PI
+                                  : this->alpha + 2*M_PI;
 
   // compute dynamic pressure
   double speedInLDPlane = velInLDPlane.GetLength();
@@ -224,21 +227,21 @@ void SailPlugin::OnUpdate()
   if (this->alpha > this->alphaStall)
   {
     cl = (this->cla * this->alphaStall +
-          this->claStall * (this->alpha - this->alphaStall))
-         * cosSweepAngle2;
+          this->claStall * (this->alpha - this->alphaStall));
+//         * cosSweepAngle2;
     // make sure cl is still great than 0
     cl = std::max(0.0, cl);
   }
   else if (this->alpha < -this->alphaStall)
   {
     cl = (-this->cla * this->alphaStall +
-          this->claStall * (this->alpha + this->alphaStall))
-         * cosSweepAngle2;
+          this->claStall * (this->alpha + this->alphaStall));
+         //* cosSweepAngle2;
     // make sure cl is still less than 0
     cl = std::min(0.0, cl);
   }
   else
-    cl = this->cla * this->alpha * cosSweepAngle2;
+    cl = this->cla * this->alpha;
 
 
   cl = 1.5*sin(2*this->alpha);
@@ -250,17 +253,17 @@ void SailPlugin::OnUpdate()
   if (this->alpha > this->alphaStall)
   {
     cd = (this->cda * this->alphaStall +
-          this->cdaStall * (this->alpha - this->alphaStall))
-         * cosSweepAngle2;
+          this->cdaStall * (this->alpha - this->alphaStall));
+//         * cosSweepAngle2;
   }
   else if (this->alpha < -this->alphaStall)
   {
     cd = (-this->cda * this->alphaStall +
-          this->cdaStall * (this->alpha + this->alphaStall))
-         * cosSweepAngle2;
+          this->cdaStall * (this->alpha + this->alphaStall));
+//         * cosSweepAngle2;
   }
   else
-    cd = (this->cda * this->alpha) * cosSweepAngle2;
+    cd = (this->cda * this->alpha);
 
   // make sure drag is positive
   cd = fabs(cd);
@@ -274,21 +277,19 @@ void SailPlugin::OnUpdate()
   if (this->alpha > this->alphaStall)
   {
     cm = (this->cma * this->alphaStall +
-          this->cmaStall * (this->alpha - this->alphaStall))
-         * cosSweepAngle2;
-    // make sure cm is still great than 0
-    cm = std::max(0.0, cm);
+          this->cmaStall * (this->alpha - this->alphaStall));
+//         * cosSweepAngle2;
   }
   else if (this->alpha < -this->alphaStall)
   {
     cm = (-this->cma * this->alphaStall +
-          this->cmaStall * (this->alpha + this->alphaStall))
-         * cosSweepAngle2;
+          this->cmaStall * (this->alpha + this->alphaStall));
+//         * cosSweepAngle2;
     // make sure cm is still less than 0
     cm = std::min(0.0, cm);
   }
   else
-    cm = this->cma * this->alpha * cosSweepAngle2;
+    cm = this->cma * this->alpha;
 
   // reset cm to zero, as cm needs testing
   cm = 0.0;
@@ -317,7 +318,6 @@ void SailPlugin::OnUpdate()
   //     (vel.GetLength() > 50.0 &&
   //      vel.GetLength() < 50.0))
 
-  std::cerr << "sweep: " << this->sweep*180/3.1415 << "\n";
   std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
   std::cerr << "cl: " << cl << "\n";
   std::cerr << "cd: " << cd << "\n\n";
@@ -327,7 +327,7 @@ void SailPlugin::OnUpdate()
     gzerr << "Link: [" << this->link->GetName()
           << "] pose: [" << pose
           << "] dynamic pressure: [" << q << "]\n";
-    gzerr << "spd: [" << vel.GetLength() << "] vel: [" << vel << "]\n";
+    gzerr << "spd: [" << aw.GetLength() << "] vel: [" << aw << "]\n";
     gzerr << "spd sweep: [" << velInLDPlane.GetLength()
           << "] vel in LD: [" << velInLDPlane << "]\n";
     gzerr << "forward (inertial): " << forwardI << "\n";
