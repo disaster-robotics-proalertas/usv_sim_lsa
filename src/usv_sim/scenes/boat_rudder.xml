@@ -42,7 +42,7 @@
 
   <camera>
     <freeMotion> 1 </freeMotion>
-    <objectToTrack>sailboat/base_link</objectToTrack>
+    <objectToTrack>boat_rudder/base_link</objectToTrack>
     <fov> 60 </fov>
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
@@ -60,8 +60,8 @@
   </camera>
 
   <vehicle>
-    <name>sailboat</name>
-    <file>urdf/sailboat_uwsim.urdf</file>
+    <name>boat_rudder</name>
+    <file>urdf/boat_rudder_uwsim.urdf</file>
     <jointValues>
       <joint> 0 </joint>
       <joint> 0 </joint>
@@ -96,25 +96,25 @@
   <rosInterfaces>      
 
     <ROSOdomToPAT>
-      <topic> /sailboat/state </topic>
-      <vehicleName> sailboat </vehicleName>
+      <topic> /boat_rudder/state </topic>
+      <vehicleName> boat_rudder </vehicleName>
     </ROSOdomToPAT>
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface/base_link</topic>
-	<vehicleName>sailboat</vehicleName>
+	<topic>/boat_rudder/Surface/base_link</topic>
+	<vehicleName>boat_rudder</vehicleName>
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface/back_link</topic>
-	<vehicleName>sailboat</vehicleName>
+	<topic>/boat_rudder/Surface/back_link</topic>
+	<vehicleName>boat_rudder</vehicleName>
 	<linkName>back_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface/front_link</topic>
-	<vehicleName>sailboat</vehicleName>
+	<topic>/boat_rudder/Surface/front_link</topic>
+	<vehicleName>boat_rudder</vehicleName>
 	<linkName>front_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 

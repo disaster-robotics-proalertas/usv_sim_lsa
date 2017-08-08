@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="gui" default="false"/>
-
-    <!-- spawn in Gazebo with GUI -->
-        <group ns="boat_rudder">
+	<arg name="gui" default="false"/>
+        <arg name="parse" default="false"/>   
+    	<!-- spawn in Gazebo with GUI -->
+        <group ns="boat_rudder" unless="$(arg parse)">
             	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/boat_rudder.xacro"/>
             	<node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_rudder -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
 
@@ -24,18 +24,18 @@
 	    
 
 		<!-- GUI interface to control joints -->
-		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-			<param name="use_gui" value="True"/>
-			<remap from="joint_states" to="joint_setpoint" />        
-		</node>
-		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
+			<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+				<param name="use_gui" value="True"/>
+				<remap from="joint_states" to="joint_setpoint" />        
+			</node>
+			<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
 		<!-- GUI interface to control thrusters -->
-		<group ns="thrusters">
-		     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder_dummy.urdf"/>                         
-		     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-		     <param name="use_gui" value="True"/>
-		     <remap from="joint_states" to="/boat_rudder/thruster_command" />
-		     </node>             
-		</group>
+			<group ns="thrusters">
+			     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder_dummy.urdf"/>                         
+			     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+			     <param name="use_gui" value="True"/>
+			     <remap from="joint_states" to="/boat_rudder/thruster_command" />
+			     </node>             
+			</group>
 	</group>
 </launch>
