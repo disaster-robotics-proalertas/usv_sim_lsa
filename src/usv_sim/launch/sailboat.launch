@@ -17,7 +17,7 @@
 	<group unless="$(arg parse)">
 		<arg name="disableShaders" default="false"/>
 		<!-- launch uwsim -->
-		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/sailboat.xml" respawn="true"/>
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/sailboat.xml" respawn="false"/>
 
 	</group>
 

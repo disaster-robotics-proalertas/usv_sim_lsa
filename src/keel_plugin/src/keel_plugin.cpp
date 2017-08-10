@@ -5,7 +5,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/SensorManager.hh>
 #include <gazebo/transport/transport.hh>
-#include <sail_plugin/sail_plugin.h>
+#include <keel_plugin/keel_plugin.h>
 
 #include <ros/publisher.h>
 #include <sensor_msgs/JointState.h>
@@ -13,13 +13,12 @@
 using namespace gazebo;
 
 
-  GZ_REGISTER_MODEL_PLUGIN(SailPlugin)
+  GZ_REGISTER_MODEL_PLUGIN(Rudderplugin)
 
 /////////////////////////////////////////////////
-SailPlugin::SailPlugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
+Rudderplugin::Rudderplugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
 {
-std::cerr << "-----------------------------------";
-ROS_INFO("------------------------------SailPlugin OBJECT CREATED!!!!");
+  ROS_INFO("------------------------------Rudderplugin OBJECT CREATED!!!!");
   this->cp = math::Vector3(0, 0, 0);
   this->forward = math::Vector3(1, 0, 0);
   this->upward = math::Vector3(0, 0, 1);
@@ -33,28 +32,27 @@ ROS_INFO("------------------------------SailPlugin OBJECT CREATED!!!!");
   /// \TODO: what's flat plate drag?
   this->cdaStall = 1.0;
   this->cmaStall = 0.0;
-  this->wind = 0.0;
 }
 
 /////////////////////////////////////////////////
-void SailPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+void Rudderplugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
-ROS_INFO("------------------------------SailPlugin loaded!!!!");
+  ROS_INFO("------------------------------Rudderplugin loaded!!!!");
 
-
-  GZ_ASSERT(_model, "SailPlugin _model pointer is NULL");
-  GZ_ASSERT(_sdf, "SailPlugin _sdf pointer is NULL");
+  GZ_ASSERT(_model, "Rudderplugin _model pointer is NULL");
+  GZ_ASSERT(_sdf, "Rudderplugin _sdf pointer is NULL");
   this->model = _model;
   this->modelName = _model->GetName();
   this->sdf = _sdf;
+  rosnode_ = ros::NodeHandle(modelName);
 
   this->world = this->model->GetWorld();
-  GZ_ASSERT(this->world, "SailPlugin world pointer is NULL");
+  GZ_ASSERT(this->world, "Rudderplugin world pointer is NULL");
 
   this->physics = this->world->GetPhysicsEngine();
-  GZ_ASSERT(this->physics, "SailPlugin physics pointer is NULL");
+  GZ_ASSERT(this->physics, "Rudderplugin physics pointer is NULL");
 
-  GZ_ASSERT(_sdf, "SailPlugin _sdf pointer is NULL");
+  GZ_ASSERT(_sdf, "Rudderplugin _sdf pointer is NULL");
 
   if (_sdf->HasElement("a0"))
     this->alpha0 = _sdf->Get<double>("a0");
@@ -103,60 +101,80 @@ ROS_INFO("------------------------------SailPlugin loaded!!!!");
     this->linkName = elem->Get<std::string>();
     this->link = this->model->GetLink(this->linkName);
   }
-  ros::NodeHandle nh;
-  float wind_value_x;  
-  float wind_value_y;
-  float wind_value_z;
-  if (nh.getParam("/uwsim/wind/x", wind_value_x) & nh.getParam("/uwsim/wind/y", wind_value_y))
-  {
-	this->wind = math::Vector3(wind_value_x, wind_value_y, 0);
-  }
-  else
-  {
-	ROS_INFO("Sail plugin error: Cant find value of /uwsim/wind in param server");
-  }
+  waterCurrent = math::Vector3(0,0,0);
 }
 
 /////////////////////////////////////////////////
-void SailPlugin::Init()
+void Rudderplugin::Init()
 {
+  current_subscriber_ = rosnode_.subscribe("/gazebo/current", 1, &Rudderplugin::ReadWaterCurrent, this);
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
-          boost::bind(&SailPlugin::OnUpdate, this));
+          boost::bind(&Rudderplugin::OnUpdate, this));
 }
 
 /////////////////////////////////////////////////
-void SailPlugin::OnUpdate()
+void Rudderplugin::OnUpdate()
 {
+//ROS_INFO("------------------------------Rudderplugin OnUpdate!!!!");
+	
+  // get linear velocity at cp in inertial frame
   //math::Vector3 vel = math::Vector3(1,0,0)- this->link->GetWorldLinearVel(this->cp);
- // math::Vector3 vel = this->link->GetWorldLinearVel(this->cp) - wind;
-  math::Vector3 aw = wind - this->link->GetWorldLinearVel(this->cp); //wind = v_tw
-  //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
+  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp)- waterCurrent;
+  // math::Vector3 vel = waterCurrent - this->link->GetWorldLinearVel(this->cp);
 
-  if (aw.GetLength() <= 0.01)
+//  math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
+//std::cerr<<"\n vel: "<<vel;
+  // smoothing
+  // double e = 0.8;
+  // this->velSmooth = e*vel + (1.0 - e)*velSmooth;
+  // vel = this->velSmooth;
+
+  if (vel.GetLength() <= 0.01)
     return;
 
   // pose of body
   math::Pose pose = this->link->GetWorldPose();
 
   // rotate forward and upward vectors into inertial frame
-  math::Vector3 forwardI = pose.rot.RotateVector(this->forward); //xb
-  math::Vector3 upwardI = pose.rot.RotateVector(this->upward);   //yb
+  math::Vector3 forwardI = pose.rot.RotateVector(this->forward);
+  math::Vector3 upwardI = pose.rot.RotateVector(this->upward);
 //std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
 
   // ldNormal vector to lift-drag-plane described in inertial frame
   math::Vector3 ldNormal = forwardI.Cross(upwardI).Normalize();
-  // TODOS ESSES PRODUTOS VETORIAIS SÃO PRA PEGAR OS VETORES PERPENDICULARES
 
-  //math::Vector3 velInLDPlane = ldNormal.Cross(aw.Cross(ldNormal)); // isso é igual ao vel, só que escalado????
-  math::Vector3 velInLDPlane = aw;
+  // check sweep (angle between vel and lift-drag-plane)
+  double sinSweepAngle = ldNormal.Dot(vel) / vel.GetLength();
+
+  // get cos from trig identity
+  double cosSweepAngle2 = (1.0 - sinSweepAngle * sinSweepAngle);
+  this->sweep = asin(sinSweepAngle);
+
+  // truncate sweep to within +/-90 deg
+  while (fabs(this->sweep) > 0.5 * M_PI)
+    this->sweep = this->sweep > 0 ? this->sweep - M_PI
+                                  : this->sweep + M_PI;
+
+  // angle of attack is the angle between
+  // vel projected into lift-drag plane
+  //  and
+  // forward vector
+  //
+  // projected = ldNormal Xcross ( vector Xcross ldNormal)
+  //
+  // so,
+  // velocity in lift-drag plane (expressed in inertial frame) is:
+  math::Vector3 velInLDPlane = ldNormal.Cross(vel.Cross(ldNormal));
+//std::cerr<<"\n velInLDPlane: "<<velInLDPlane;
+
   // get direction of drag
-  math::Vector3 dragDirection = velInLDPlane;
+  math::Vector3 dragDirection = -velInLDPlane;
   dragDirection.Normalize();
 
   // get direction of lift
- // math::Vector3 liftDirection = ldNormal.Cross(velInLDPlane);
-  math::Vector3 liftDirection = -ldNormal.Cross(velInLDPlane);
+  math::Vector3 liftDirection = ldNormal.Cross(velInLDPlane);
   liftDirection.Normalize();
+//std::cerr<<"\n liftDirection: "<<liftDirection;
 
   // get direction of moment
   math::Vector3 momentDirection = ldNormal;
@@ -164,6 +182,8 @@ void SailPlugin::OnUpdate()
   double cosAlpha = math::clamp(
     forwardI.Dot(velInLDPlane) /
     (forwardI.GetLength() * velInLDPlane.GetLength()), -1.0, 1.0);
+  // std::cerr << "ca " << forwardI.Dot(velInLDPlane) /
+  //   (forwardI.GetLength() * velInLDPlane.GetLength()) << "\n";
 
   // get sign of alpha
   // take upwards component of velocity in lift-drag plane.
@@ -173,38 +193,91 @@ void SailPlugin::OnUpdate()
 
   // double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
   if (alphaSign > 0.0)
-    this->alpha = acos(cosAlpha);
+    this->alpha = this->alpha0 + acos(cosAlpha);
   else
-    this->alpha = -acos(cosAlpha);
-  
-  // normalize to within +/-180 deg
- // while (fabs(this->alpha) > M_PI)
- //   this->alpha = this->alpha > 0 ? this->alpha - 2*M_PI
-  //                                : this->alpha + 2*M_PI;
-  
- // this->alpha += M_PI;
+    this->alpha = this->alpha0 - acos(cosAlpha);
+
+  // normalize to within +/-90 deg
+  while (fabs(this->alpha) > M_PI)
+    this->alpha = this->alpha > 0 ? this->alpha - 2*M_PI
+                                  : this->alpha + 2*M_PI;
 
   // compute dynamic pressure
   double speedInLDPlane = velInLDPlane.GetLength();
   double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
+//std::cerr<<"\n speedInLDPlane: "<<speedInLDPlane<<" q: "<<q;
+//std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
+  // compute cl at cp, check for stall, correct for sweep
   double cl;
+  if (this->alpha > this->alphaStall)
+  {
+    cl = (this->cla * this->alphaStall +
+          this->claStall * (this->alpha - this->alphaStall))
+         * cosSweepAngle2;
+    // make sure cl is still great than 0
+    cl = std::max(0.0, cl);
+  }
+  else if (this->alpha < -this->alphaStall)
+  {
+    cl = (-this->cla * this->alphaStall +
+          this->claStall * (this->alpha + this->alphaStall))
+         * cosSweepAngle2;
+    // make sure cl is still less than 0
+    cl = std::min(0.0, cl);
+  }
+  else
+    cl = this->cla * this->alpha * cosSweepAngle2;
 
-  cl = 1.5*sin(2*this->alpha);
+  cl = 8 * sin(2*this->alpha);
   // compute lift force at cp
   math::Vector3 lift = cl * q * this->area * liftDirection;
 
   // compute cd at cp, check for stall, correct for sweep
   double cd;
+  if (this->alpha > this->alphaStall)
+  {
+    cd = (this->cda * this->alphaStall +
+          this->cdaStall * (this->alpha - this->alphaStall))
+         * cosSweepAngle2;
+  }
+  else if (this->alpha < -this->alphaStall)
+  {
+    cd = (-this->cda * this->alphaStall +
+          this->cdaStall * (this->alpha + this->alphaStall))
+         * cosSweepAngle2;
+  }
+  else
+    cd = (this->cda * this->alpha) * cosSweepAngle2;
+
   // make sure drag is positive
   //cd = fabs(cd);
 
-  cd = 0.5*(1-cos(2*this->alpha));
+  cd = 2 * (1-cos(2*this->alpha));
   // drag at cp
   math::Vector3 drag = cd * q * this->area * dragDirection;
 
   // compute cm at cp, check for stall, correct for sweep
   double cm;
+  if (this->alpha > this->alphaStall)
+  {
+    cm = (this->cma * this->alphaStall +
+          this->cmaStall * (this->alpha - this->alphaStall))
+         * cosSweepAngle2;
+    // make sure cm is still great than 0
+    cm = std::max(0.0, cm);
+  }
+  else if (this->alpha < -this->alphaStall)
+  {
+    cm = (-this->cma * this->alphaStall +
+          this->cmaStall * (this->alpha + this->alphaStall))
+         * cosSweepAngle2;
+    // make sure cm is still less than 0
+    cm = std::min(0.0, cm);
+  }
+  else
+    cm = this->cma * this->alpha * cosSweepAngle2;
+
   // reset cm to zero, as cm needs testing
   cm = 0.0;
 
@@ -221,23 +294,34 @@ void SailPlugin::OnUpdate()
   // + moment.Cross(momentArm);
 
   math::Vector3 torque = moment;
+//std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
+//std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
+  // - lift.Cross(momentArm) - drag.Cross(momentArm);
 
+  // debug
+  //
+  // if ((this->link->GetName() == "wing_1" ||
+  //      this->link->GetName() == "wing_2") &&
+  //     (vel.GetLength() > 50.0 &&
+  //      vel.GetLength() < 50.0))
+  //force.z = ;
   std::cerr << "Link: [" << this->link->GetName() << "\n";
   std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
-  std::cerr << "wind: " << wind << "\n";
+  std::cerr << "waterCurrent: " << waterCurrent << "\n";
   std::cerr << "cl: " << cl << "\n";
   std::cerr << "lift: " << lift << "\n";
   std::cerr << "cd: " << cd << "\n";
   std::cerr << "drag: " << drag << " cd: "
   << cd << "\n";
   std::cerr << "force: " << force << "\n\n";
+
   if (0)
   {
     std::cerr << "=============================\n";
     std::cerr << "Link: [" << this->link->GetName()
           << "] pose: [" << pose
           << "] dynamic pressure: [" << q << "]\n";
-    std::cerr << "spd: [" << aw.GetLength() << "] vel: [" << aw << "]\n";
+    std::cerr << "spd: [" << vel.GetLength() << "] vel: [" << vel << "]\n";
     std::cerr << "spd sweep: [" << velInLDPlane.GetLength()
           << "] vel in LD: [" << velInLDPlane << "]\n";
     std::cerr << "forward (inertial): " << forwardI << "\n";
@@ -245,16 +329,24 @@ void SailPlugin::OnUpdate()
     std::cerr << "lift dir (inertial): " << liftDirection << "\n";
     std::cerr << "LD Normal: " << ldNormal << "\n";
     std::cerr << "sweep: " << this->sweep << "\n";
-    std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
-    std::cerr << "cl: " << cl << "\n";
+    std::cerr << "alpha: " << this->alpha << "\n";
     std::cerr << "lift: " << lift << "\n";
-    std::cerr << "cd: " << cd << "\n";
     std::cerr << "drag: " << drag << " cd: "
-    << cd << "\n";
+    << cd << " cda: " << this->cda << "\n";
+    std::cerr << "moment: " << moment << "\n";
+    std::cerr << "cp momentArm: " << momentArm << "\n";
     std::cerr << "force: " << force << "\n";
+    std::cerr << "torque: " << torque << "\n";
   }
 
   // apply forces at cg (with torques for position shift)
   this->link->AddForceAtRelativePosition(force, this->cp);
   //this->link->AddTorque(torque);
+}
+
+void Rudderplugin::ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg)
+{
+	waterCurrent.x = _msg->x;
+	waterCurrent.y = _msg->y;
+	waterCurrent.z = _msg->z;
 }

@@ -4,8 +4,8 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1.0 </windx>
-    <windy> 0.0 </windy>
+    <windx>-1.0 </windx>
+    <windy>-1.0 </windy>
     <windSpeed> 6 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
@@ -120,4 +120,3 @@
    
   </rosInterfaces>
 </UWSimScene>
-
