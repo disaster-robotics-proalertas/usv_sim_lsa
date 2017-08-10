@@ -7,12 +7,12 @@ water surface vehicles simulator;
 4. launchs:
 
     4.1 for heading control: 
-        roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch
-        publish the desired location on topic /barco_auv/usv_postion_setpoint
+        `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`
+        `publish the desired location on topic /barco_auv/usv_postion_setpoint`
 
     4.2 for velocity control:
-        roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch
-        publish the desired location on topic /barco_auv/cmd_vel
+        `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
+        `publish the desired location on topic /barco_auv/cmd_vel`
 
     4.3 for differential boat with user interface to define joints positions:
 	`roslaunch usv_sim boat_diff.launch parse:=true`
