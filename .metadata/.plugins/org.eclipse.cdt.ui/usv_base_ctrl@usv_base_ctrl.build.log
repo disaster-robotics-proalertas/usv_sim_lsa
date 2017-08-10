@@ -1,0 +1,6 @@
+15:58:19 **** Build of project usv_base_ctrl@usv_base_ctrl ****
+/usr/bin/make -j8 all 
+make: *** No rule to make target 'all'.  Stop.
+
+15:58:19 Build Finished (took 66ms)
+

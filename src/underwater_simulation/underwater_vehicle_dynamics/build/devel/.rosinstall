@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/devel/setup.sh

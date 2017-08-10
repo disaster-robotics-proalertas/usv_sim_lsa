@@ -17,8 +17,9 @@
 namespace gazebo
 {
 
-class FreeFloatingControlPlugin : public ModelPlugin
+class FreeFloatingControlPlugin : public gazebo::ModelPlugin
 {
+
 public:
     FreeFloatingControlPlugin() {}
     ~FreeFloatingControlPlugin()

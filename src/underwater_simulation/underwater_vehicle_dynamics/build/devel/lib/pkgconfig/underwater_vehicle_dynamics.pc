@@ -1,0 +1,8 @@
+prefix=/home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/devel
+
+Name: underwater_vehicle_dynamics
+Description: Description of underwater_vehicle_dynamics
+Version: 1.4.1
+Cflags: 
+Libs: -L/home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/devel/lib 
+Requires: rospy std_msgs nav_msgs geometry_msgs sensor_msgs tf tf_conversions

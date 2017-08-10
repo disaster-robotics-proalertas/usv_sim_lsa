@@ -1,0 +1,29 @@
+catkin_make_isolated  --force-cmake -G"Eclipse CDT4 - Unix Makefiles"
+ROOT=$PWD
+source devel_isolated/setup.bash
+cd build_isolated
+for FOLDER in *; do
+    echo $FOLDER
+    cd $FOLDER
+    if [ -f ".project" ] 
+    then
+	echo "Creating project into $FOLDER"
+
+	    awk -f $(rospack find mk)/eclipse.awk .project > .project_with_env && cp .project_with_env .project
+	    $(rospack find $FOLDER) > $destino
+	    #echo $destino
+
+	    if [[ $destino == *"Error"* ]];
+	    then
+		    echo "Impossivel localizar o pacote $FOLDER"
+	    else
+		    cp .project $(rospack find $FOLDER)/.project
+	    fi
+
+    else
+	echo "No project into $FOLDER"
+	ls -a
+    fi
+    cd ..
+done
+cd $ROOT

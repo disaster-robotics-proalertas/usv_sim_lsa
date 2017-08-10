@@ -1,0 +1,6 @@
+15:58:19 **** Build of project usv_navigation@usv_navigation ****
+/usr/bin/make -j8 all 
+make: *** No rule to make target 'all'.  Stop.
+
+15:58:19 Build Finished (took 61ms)
+

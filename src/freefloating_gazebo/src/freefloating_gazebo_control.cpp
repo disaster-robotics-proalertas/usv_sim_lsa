@@ -349,6 +349,7 @@ void FreeFloatingControlPlugin::Update()
         }
 
         // deal with body control if underwater
+	std::cerr<<"\n cog: "<<body_->GetWorldCoGPose().pos.z<<" water: "<<z_surface_<<endl;
         if(control_body_ && body_command_received_ && (body_->GetWorldCoGPose().pos.z < z_surface_))
         {
             // saturate thruster use
