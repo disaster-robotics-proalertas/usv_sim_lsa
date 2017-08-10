@@ -295,6 +295,7 @@ void Rudderplugin::OnUpdate()
   math::Vector3 torque = moment;
 //std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
 //std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
+std::cerr<<"\n "<<this->link->GetName()<<" total: "<<force;
   // - lift.Cross(momentArm) - drag.Cross(momentArm);
 
   // debug

@@ -219,6 +219,7 @@ void SailPlugin::OnUpdate()
 
 //std::cerr<<"\n speedInLDPlane: "<<speedInLDPlane<<" q: "<<q;
 //std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
+std::cerr<<"\n alpha: "<<alpha;
   // compute cl at cp, check for stall, correct for sweep
   double cl;
   if (this->alpha > this->alphaStall)
@@ -304,7 +305,8 @@ void SailPlugin::OnUpdate()
 
   math::Vector3 torque = moment;
 //std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
-//std::cerr<<"\nlift: "<<lift<<" drag: "<<drag<< "moment: "<<moment;
+std::cerr<<"\n"<<this->link->GetName()<<" lift: "<<lift<<" drag: "<<drag<< "total: "<<force;
+//std::cerr<<"\n "<<this->link->GetName()<<" total: "<<force;
   // - lift.Cross(momentArm) - drag.Cross(momentArm);
 
   // debug
