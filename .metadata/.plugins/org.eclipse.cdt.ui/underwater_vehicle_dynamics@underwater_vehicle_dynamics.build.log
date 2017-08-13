@@ -1,41 +1,17 @@
-15:58:17 **** Build of project underwater_vehicle_dynamics@underwater_vehicle_dynamics ****
+17:13:06 **** Incremental Build of project underwater_vehicle_dynamics@underwater_vehicle_dynamics ****
 /usr/bin/make -j8 all 
 mkdir -p bin
 cd build && cmake -Wdev -DCMAKE_TOOLCHAIN_FILE=/opt/ros/kinetic/share/ros/core/rosbuild/rostoolchain.cmake  ..
 Re-run cmake no build system arguments
--- The C compiler identification is GNU 5.4.0
--- The CXX compiler identification is GNU 5.4.0
--- Check for working C compiler: /usr/bin/cc
--- Check for working C compiler: /usr/bin/cc -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Detecting C compile features
--- Detecting C compile features - done
--- Check for working CXX compiler: /usr/bin/c++
--- Check for working CXX compiler: /usr/bin/c++ -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- Using CATKIN_DEVEL_PREFIX: /home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/devel
 -- Using CMAKE_PREFIX_PATH: /home/paravisi/usv_sim_lsa/devel_isolated/visualization_osg;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim;/home/paravisi/usv_sim_lsa/devel_isolated/usv_tf;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim_test;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim_rviz;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim;/home/paravisi/usv_sim_lsa/devel_isolated/usv_navigation;/home/paravisi/usv_sim_lsa/devel_isolated/usv_base_ctrl;/home/paravisi/usv_sim_lsa/devel_isolated/underwater_vehicle_dynamics;/home/paravisi/usv_sim_lsa/devel_isolated/underwater_sensor_msgs;/home/paravisi/usv_sim_lsa/devel_isolated/sail_plugin;/home/paravisi/usv_sim_lsa/devel_isolated/rudder_plugin;/home/paravisi/usv_sim_lsa/devel_isolated/osg_interactive_markers;/home/paravisi/usv_sim_lsa/devel_isolated/osg_utils;/home/paravisi/usv_sim_lsa/devel_isolated/osg_markers;/home/paravisi/usv_sim_lsa/devel_isolated/liftdragww;/home/paravisi/usv_sim_lsa/devel_isolated/freefloating_gazebo;/opt/ros/kinetic;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim_osgbullet;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim_osgworks;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim_osgocean;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim_bullet
 -- This workspace overlays: /home/paravisi/usv_sim_lsa/devel_isolated/visualization_osg;/home/paravisi/usv_sim_lsa/devel_isolated/uwsim;/home/paravisi/usv_sim_lsa/devel_isolated/usv_tf;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim_test;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim_rviz;/home/paravisi/usv_sim_lsa/devel_isolated/usv_sim;/home/paravisi/usv_sim_lsa/devel_isolated/usv_navigation;/home/paravisi/usv_sim_lsa/devel_isolated/usv_base_ctrl;/home/paravisi/usv_sim_lsa/devel_isolated/underwater_vehicle_dynamics;/home/paravisi/usv_sim_lsa/devel_isolated/underwater_sensor_msgs;/home/paravisi/usv_sim_lsa/devel_isolated/sail_plugin;/home/paravisi/usv_sim_lsa/devel_isolated/rudder_plugin;/home/paravisi/usv_sim_lsa/devel_isolated/osg_interactive_markers;/home/paravisi/usv_sim_lsa/devel_isolated/osg_utils;/home/paravisi/usv_sim_lsa/devel_isolated/osg_markers;/home/paravisi/usv_sim_lsa/devel_isolated/liftdragww;/home/paravisi/usv_sim_lsa/devel_isolated/freefloating_gazebo;/opt/ros/kinetic
--- Found PythonInterp: /usr/bin/python (found version "2.7.12") 
 -- Using PYTHON_EXECUTABLE: /usr/bin/python
 -- Using Debian Python package layout
 -- Using empy: /usr/bin/empy
 -- Using CATKIN_ENABLE_TESTING: ON
 -- Call enable_testing()
 -- Using CATKIN_TEST_RESULTS_DIR: /home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/test_results
--- Looking for pthread.h
--- Looking for pthread.h - found
--- Looking for pthread_create
--- Looking for pthread_create - not found
--- Looking for pthread_create in pthreads
--- Looking for pthread_create in pthreads - not found
--- Looking for pthread_create in pthread
--- Looking for pthread_create in pthread - found
--- Found Threads: TRUE  
 -- Found gtest sources under '/usr/src/gtest': gtests will be built
 -- Using Python nosetests: /usr/bin/nosetests-2.7
 -- catkin 0.7.6
@@ -54,5 +30,5 @@ make[2]: Leaving directory '/home/paravisi/usv_sim_lsa/src/underwater_simulation
 /usr/bin/cmake -E cmake_progress_start /home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build/CMakeFiles 0
 make[1]: Leaving directory '/home/paravisi/usv_sim_lsa/src/underwater_simulation/underwater_vehicle_dynamics/build'
 
-15:58:19 Build Finished (took 1s.616ms)
+17:13:11 Build Finished (took 4s.783ms)
 

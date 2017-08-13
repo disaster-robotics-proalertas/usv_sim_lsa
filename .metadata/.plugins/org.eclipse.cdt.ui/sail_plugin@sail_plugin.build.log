@@ -1,6 +1,6 @@
-15:58:17 **** Build of project sail_plugin@sail_plugin ****
+17:13:06 **** Incremental Build of project sail_plugin@sail_plugin ****
 /usr/bin/make -j8 all 
 make: *** No rule to make target 'all'.  Stop.
 
-15:58:17 Build Finished (took 72ms)
+17:13:06 Build Finished (took 67ms)
 

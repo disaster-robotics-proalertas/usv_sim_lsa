@@ -118,6 +118,11 @@
 	<linkName>front_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/fwd</topic>
+	<vehicleName>airboat</vehicleName>
+	<linkName>fwd</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
    
   </rosInterfaces>
 </UWSimScene>

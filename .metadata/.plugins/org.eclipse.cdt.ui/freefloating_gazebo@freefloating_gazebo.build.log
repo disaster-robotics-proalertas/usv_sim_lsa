@@ -1,6 +1,6 @@
-15:58:17 **** Build of project freefloating_gazebo@freefloating_gazebo ****
-/usr/bin/make -j8 all 
-make: *** No rule to make target 'all'.  Stop.
+17:21:35 **** Incremental Build of project freefloating_gazebo@freefloating_gazebo ****
+make -k all 
+make: *** No rule to make target 'all'.
 
-15:58:17 Build Finished (took 61ms)
+17:21:35 Build Finished (took 89ms)
 

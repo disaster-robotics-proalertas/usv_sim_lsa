@@ -1,6 +1,6 @@
-15:58:17 **** Build of project rudder_plugin@rudder_plugin ****
+17:13:06 **** Incremental Build of project rudder_plugin@rudder_plugin ****
 /usr/bin/make -j8 all 
 make: *** No rule to make target 'all'.  Stop.
 
-15:58:17 Build Finished (took 63ms)
+17:13:06 Build Finished (took 74ms)
 

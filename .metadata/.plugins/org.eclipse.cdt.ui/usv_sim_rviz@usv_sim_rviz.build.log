@@ -1,6 +1,6 @@
-15:58:19 **** Build of project usv_sim_rviz@usv_sim_rviz ****
+17:13:11 **** Incremental Build of project usv_sim_rviz@usv_sim_rviz ****
 /usr/bin/make -j8 all 
 make: *** No rule to make target 'all'.  Stop.
 
-15:58:19 Build Finished (took 62ms)
+17:13:11 Build Finished (took 68ms)
 
