@@ -118,6 +118,12 @@
 	<linkName>front_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/fwd_left</topic>
+	<vehicleName>boat_diff</vehicleName>
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
    
   </rosInterfaces>
 </UWSimScene>

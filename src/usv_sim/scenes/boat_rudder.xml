@@ -118,6 +118,12 @@
 	<linkName>front_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_rudder/Surface/fwd</topic>
+	<vehicleName>boat_rudder</vehicleName>
+	<linkName>fwd</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+
    
   </rosInterfaces>
 </UWSimScene>

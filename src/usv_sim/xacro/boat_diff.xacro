@@ -9,20 +9,20 @@
         <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
             <switchService>switch</switchService>
             <updateRate>100</updateRate>
-            <link>base_link</link>
+            <link>fwd_left</link>
             <thruster>
                 <effort>30</effort>
                 <name>fwd_left</name>
             </thruster>
-        <thruster>
-            <effort>30</effort>
-            <name>fwd_right</name>
-        </thruster>    
+   	    <thruster>
+	        <effort>30</effort>
+	        <name>fwd_right</name>
+	    </thruster>    
         </plugin>
     </gazebo>  
 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd_left" xyz="-0.52 0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
-    <xacro:thruster_link name="fwd_right" xyz="-0.52 -0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
+    <xacro:thruster_link name="fwd_left" xyz="-0.77 0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
+    <xacro:thruster_link name="fwd_right" xyz="-0.77 -0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
        
 </robot>

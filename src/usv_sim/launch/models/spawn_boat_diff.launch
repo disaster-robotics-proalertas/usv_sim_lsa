@@ -4,7 +4,7 @@
 	<arg name="gui" default="false"/>
         <arg name="parse" default="false"/>  
 	<!-- spawn in Gazebo with GUI -->
-	<group ns="boat_diff">
+	<group ns="boat_diff" unless="$(arg parse)">
 		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/boat_diff.xacro"/>
 		<node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_diff -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
 
