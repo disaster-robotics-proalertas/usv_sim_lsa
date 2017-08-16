@@ -2,7 +2,7 @@
 
 <robot name="boat_rudder" xmlns:xacro="http://www.ros.org/wiki/xacro">
                       
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
         
     <xacro:rudder_xacro/> 
 
@@ -34,7 +34,7 @@
         <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
             <switchService>switch</switchService>
             <updateRate>100</updateRate>
-            <link>base_link</link>
+            <link>fwd</link>
             <thruster>
                 <effort>30</effort>
                 <name>fwd</name>
@@ -43,6 +43,6 @@
     </gazebo>  
                 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd" xyz="-0.52 0 -0.03" rpy="0 ${-PI/2} 0"/>
+    <xacro:thruster_link name="fwd" xyz="-0.77 0 -0.03" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
             
 </robot>

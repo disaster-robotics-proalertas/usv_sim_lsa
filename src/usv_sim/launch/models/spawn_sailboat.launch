@@ -30,6 +30,7 @@
 
 		<node name="odom_relay" type="relay" pkg="topic_tools" args="state /odom" />
 		<node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" />
+
 		<!-- GUI interface to control joints -->
 			<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
 				<param name="use_gui" value="True"/>

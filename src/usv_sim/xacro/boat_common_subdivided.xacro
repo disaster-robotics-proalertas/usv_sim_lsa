@@ -129,14 +129,14 @@
     </joint>
 
     <!-- Thruster link -->
-    <xacro:macro name="thruster_link" params="name xyz rpy">
-        <joint name="${name}_link" type="revolute">
+    <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=30 velocity:=5 lowerLimit upperLimit">
+        <joint name="${name}_joint" type="revolute">
             <parent link="base_link"/>
             <child link="${name}"/>
             <origin rpy="${rpy}" xyz="${xyz}"/>
             <dynamics damping="10.0"/>
-            <axis xyz="0 1 0"/>
-            <limit effort="30" velocity="5.0" lower="-${PI/2}" upper="${PI/2}" />
+            <axis xyz="${rotationAxis}"/>
+            <limit effort="${effort}" velocity="${velocity}" lower="${lowerLimit}" upper="${upperLimit}" />
         </joint>
         
         <link name="${name}">      

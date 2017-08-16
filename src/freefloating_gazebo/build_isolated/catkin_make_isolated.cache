@@ -1,0 +1,2 @@
+
+-G Unix Makefiles -DCATKIN_DEVEL_PREFIX=/home/paravisi/usv_sim_lsa/src/freefloating_gazebo/devel_isolated -DCMAKE_INSTALL_PREFIX=/home/paravisi/usv_sim_lsa/src/freefloating_gazebo/install_isolated

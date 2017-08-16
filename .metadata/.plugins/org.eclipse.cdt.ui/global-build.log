@@ -1,0 +1,13 @@
+12:14:19 **** Build of configuration Release for project freefloating_gazebo ****
+make all 
+Building file: ../src/freefloating_gazebo_control.cpp
+Invoking: GCC C++ Compiler
+g++ -I/usr/include/gazebo-7 -I/opt/ros/kinetic/include -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/freefloating_gazebo_control.d" -MT"src/freefloating_gazebo_control.o" -o "src/freefloating_gazebo_control.o" "../src/freefloating_gazebo_control.cpp"
+In file included from /usr/include/gazebo-7/gazebo/common/common.hh:8:0,
+                 from /usr/include/gazebo-7/gazebo/gazebo_core.hh:19,
+                 from /usr/include/gazebo-7/gazebo/gazebo.hh:20,
+                 from ../src/freefloating_gazebo_control.cpp:5:
+/usr/include/gazebo-7/gazebo/common/Battery.hh:25:22: fatal error: sdf/sdf.hh: No such file or directory
+compilation terminated.
+src/subdir.mk:36: recipe for target 'src/freefloating_gazebo_control.o' failed
+make: *** [src/freefloating_gazebo_control.o] Error 1

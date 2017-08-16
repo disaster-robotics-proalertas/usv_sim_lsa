@@ -1,0 +1,6 @@
+17:13:06 **** Incremental Build of project underwater_sensor_msgs@underwater_sensor_msgs ****
+/usr/bin/make -j8 all 
+make: *** No rule to make target 'all'.  Stop.
+
+17:13:06 Build Finished (took 70ms)
+

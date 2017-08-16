@@ -1,0 +1,6 @@
+17:21:35 **** Incremental Build of project freefloating_gazebo@freefloating_gazebo ****
+make -k all 
+make: *** No rule to make target 'all'.
+
+17:21:35 Build Finished (took 89ms)
+

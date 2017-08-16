@@ -1,3 +1,0 @@
-source /opt/ros/kinetic/setup.bash
-source install_isolated/setup.bash
-roslaunch usv_sim boat_differential_gazebo.launch uwsim:=false

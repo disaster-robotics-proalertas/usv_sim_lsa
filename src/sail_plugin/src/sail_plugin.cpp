@@ -204,6 +204,12 @@ void SailPlugin::OnUpdate()
   double speedInLDPlane = velInLDPlane.GetLength();
   double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
+
+//std::cerr<<"\n speedInLDPlane: "<<speedInLDPlane<<" q: "<<q;
+//std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
+//std::cerr<<"\n alpha: "<<alpha;
+  // compute cl at cp, check for stall, correct for sweep
+
   double cl;
 
   cl = 1.5*sin(2*this->alpha);
@@ -238,6 +244,7 @@ void SailPlugin::OnUpdate()
 
   math::Vector3 torque = moment;
 
+
   if (0) {
     std::cerr << "Link: [" << this->link->GetName() << "\n";
     std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
@@ -249,6 +256,18 @@ void SailPlugin::OnUpdate()
     << cd << "\n";
     std::cerr << "force: " << force << "\n\n";
   }
+//std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
+//std::cerr<<"\n"<<this->link->GetName()<<" lift: "<<lift<<" drag: "<<drag<< "total: "<<force;
+//std::cerr<<"\n "<<this->link->GetName()<<" total: "<<force;
+  // - lift.Cross(momentArm) - drag.Cross(momentArm);
+
+  // debug
+  //
+  // if ((this->link->GetName() == "wing_1" ||
+  //      this->link->GetName() == "wing_2") &&
+  //     (vel.GetLength() > 50.0 &&
+  //      vel.GetLength() < 50.0))
+
   if (0)
   {
     std::cerr << "=============================\n";

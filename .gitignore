@@ -3,4 +3,5 @@ devel_isolated/*
 install_isolated/*
 build/*
 devel/*
-
+.medatada/*
+RemoteSystemsTempFiles/*

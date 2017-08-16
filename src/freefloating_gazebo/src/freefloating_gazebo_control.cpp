@@ -154,8 +154,19 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
                 // register maximum effort
                 if(sdf_element->HasElement("effort"))
                     thruster_max_command_.push_back(sdf_element->Get<double>("effort"));
+		else if (sdf_element->HasElement("effortUnderWater"))
+                    thruster_max_command_.push_back(sdf_element->Get<double>("effortUnderWater"));
                 else
                     thruster_max_command_.push_back(100);
+
+		if (sdf_element->HasElement("effortOverWater"))
+                    thruster_overWater_max_command_.push_back(sdf_element->Get<double>("effortOverWater"));
+		else
+                    thruster_overWater_max_command_.push_back(100);
+		LinkSurface* linkSurface = new LinkSurface();
+		std::string topic = "/" + robot_namespace_ + "/Surface/" + thruster_names_[thruster_names_.size()-1];
+		linkSurface->createSubscriber(rosnode_, topic);
+		link_water_surface.push_back(linkSurface);
             }
             sdf_element = sdf_element->GetNextElement();
         }
@@ -168,6 +179,7 @@ void FreeFloatingControlPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _
 
         // initialize subscriber to body commands
         thruster_command_.resize(thruster_names_.size());
+
         // initialize publisher to thruster_use
         thruster_use_.name = thruster_names_;
         thruster_use_.position.resize(thruster_max_command_.size());
@@ -348,13 +360,24 @@ void FreeFloatingControlPlugin::Update()
         }
 
         // deal with body control if underwater
-        if(control_body_ && body_command_received_ && (body_->GetWorldCoGPose().pos.z < z_surface_))
+        if(control_body_ && body_command_received_)
         {
+   	   // std::cerr<<"\n cog: "<<body_->GetWorldCoGPose().pos.z<<" water: "<<z_surface_;
             // saturate thruster use
             double norm_ratio = 1;
             unsigned int i;
             for(i=0;i<thruster_fixed_idx_.size();++i)
-                norm_ratio = std::max(norm_ratio, std::abs(thruster_command_(i)) / thruster_max_command_[i]);
+	    {
+		//std::cerr<<"\n link z: "<< link_water_surface[i]->waterSurface.z ;
+		if (body_->GetWorldCoGPose().pos.z < link_water_surface[i]->waterSurface.z)
+		{
+	                norm_ratio = std::max(norm_ratio, std::abs(thruster_command_(i)) / thruster_max_command_[i]);
+		}
+		else
+		{
+	                norm_ratio = std::max(norm_ratio, std::abs(thruster_command_(i)) / thruster_overWater_max_command_[i]);
+		}
+            }
             thruster_command_ *= 1./norm_ratio;
 
             // build and apply wrench for fixed thrusters
@@ -374,12 +397,61 @@ void FreeFloatingControlPlugin::Update()
             if(thruster_steer_idx_.size())
             {
                 for(unsigned int i=0;i<thruster_steer_idx_.size();++i)
-                    thruster_links_[i]->AddRelativeForce(math::Vector3(0,0,-thruster_command_(thruster_steer_idx_[i])));
+		if (body_->GetWorldCoGPose().pos.z < link_water_surface[i]->waterSurface.z)
+		{
+		    //std::cerr<<"\n ["<<i<<"] UNDER WATER "<<thruster_command_(thruster_steer_idx_[i]);
+		    if (thruster_command_(thruster_steer_idx_[i]) < -thruster_max_command_[i])
+		    {
+			thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,thruster_max_command_[i] )
+						);
+		    }
+		    else if (thruster_command_(thruster_steer_idx_[i]) > thruster_max_command_[i])
+		    {
+			thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,-thruster_max_command_[i] )
+						);
+		    }
+		    else
+		    {
+                    thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,-thruster_command_(thruster_steer_idx_[i]) )
+						);
+		    }
+		}
+		else
+		{
+			  double v = thruster_command_(thruster_steer_idx_[i]);
+		    //std::cerr<<"\n ["<<i<<"]"<<thruster_overWater_max_command_.size()<<" OVER WATER "<<v<<" > "<<thruster_overWater_max_command_[i];
+		    if (thruster_command_(thruster_steer_idx_[i]) < -thruster_overWater_max_command_[i])
+		    {
+			thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,thruster_overWater_max_command_[i] )
+						);
+		    }
+		    else if (thruster_command_(thruster_steer_idx_[i]) > thruster_overWater_max_command_[i])
+		    {
+			thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,-thruster_overWater_max_command_[i] )
+						);
+		    }
+		    else
+		    {
+                    thruster_links_[i]->AddRelativeForce(
+						math::Vector3( 0,0,-thruster_command_(thruster_steer_idx_[i]) )
+						);
+		    }
+		}
             }
 
             // compute and publish thruster use in %
-            for(i=0;i<thruster_command_.size();++i)
-                thruster_use_.position[i] = 100*std::abs(thruster_command_(i) / thruster_max_command_[i]);
+            for(i=0;i<thruster_fixed_idx_.size();++i)
+	    {
+		if (body_->GetWorldCoGPose().pos.z < link_water_surface[i]->waterSurface.z)
+                	thruster_use_.position[i] = 100*std::abs(thruster_command_(i) / thruster_max_command_[i]);
+		else
+                	thruster_use_.position[i] = 100*std::abs(thruster_command_(i) / thruster_overWater_max_command_[i]);
+            }
             thruster_use_publisher_.publish(thruster_use_);
         }
     }

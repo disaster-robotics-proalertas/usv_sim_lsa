@@ -42,7 +42,7 @@
 
   <camera>
     <freeMotion> 1 </freeMotion>
-    <objectToTrack>g500/base_link</objectToTrack>
+    <objectToTrack>sailboat/base_link</objectToTrack>
     <fov> 60 </fov>
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
@@ -69,7 +69,7 @@
      <position>
       <x> 0</x>
       <y> 0 </y>
-      <z> -1 </z>
+      <z> 0 </z>
     </position>
     <orientation>
       <r>0</r>

@@ -1,0 +1,6 @@
+17:13:11 **** Incremental Build of project usv_tf@usv_tf ****
+/usr/bin/make -j8 all 
+make: *** No rule to make target 'all'.  Stop.
+
+17:13:11 Build Finished (took 70ms)
+

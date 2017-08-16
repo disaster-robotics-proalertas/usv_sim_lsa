@@ -17,8 +17,33 @@
 namespace gazebo
 {
 
-class FreeFloatingControlPlugin : public ModelPlugin
+
+class LinkSurface
 {
+public:
+	std::string linkName;
+	math::Vector3 waterSurface;
+	ros::Subscriber water_subscriber;
+
+	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
+	{
+		waterSurface.x = pt->x;
+		waterSurface.y = pt->y;
+		waterSurface.z = pt->z;
+
+		//std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
+	}
+
+	void createSubscriber(ros::NodeHandle nh, std::string topic)
+	{
+		water_subscriber = nh.subscribe(topic, 1, &LinkSurface::processSurfaceData, this);
+	}
+
+};
+
+class FreeFloatingControlPlugin : public gazebo::ModelPlugin
+{
+
 public:
     FreeFloatingControlPlugin() {}
     ~FreeFloatingControlPlugin()
@@ -71,6 +96,7 @@ private:
     Eigen::MatrixXd thruster_map_;
     Eigen::MatrixXd thruster_inverse_map_;
     std::vector<double> thruster_max_command_;
+    std::vector<double> thruster_overWater_max_command_;
     bool control_body_, wrench_control_;
 
     // thruster control
@@ -83,6 +109,8 @@ private:
     ros::Subscriber body_command_subscriber_;
     std::string body_command_topic_;
     bool body_command_received_;
+    std::vector<LinkSurface*> link_water_surface;
+
 
     // -- joint control ----------------------------------------
     // model joint data
