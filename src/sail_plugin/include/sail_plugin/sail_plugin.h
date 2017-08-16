@@ -23,6 +23,7 @@
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <ros/ros.h>
+#include <std_msgs/Float32.h>
 
 namespace gazebo
 {
@@ -118,14 +119,21 @@ namespace gazebo
 
     /// \brief Names of allowed target links, specified in sdf parameters.
     protected: std::string linkName;
+    protected: std::string jointName;
 
     /// \brief Pointer to link currently targeted by mud joint.
     protected: physics::LinkPtr link;
+    protected: physics::JointPtr joint;
 
     /// \brief SDF for this plugin;
     protected: sdf::ElementPtr sdf;
     protected: math::Vector3 wind;
+    protected: float angle;
+    protected: ros::NodeHandle rosnode;
+    protected: ros::Subscriber angleLimits_subscriber;
+
+    public: void ropeSimulator(const std_msgs::Float32::ConstPtr& _angle){
+        this->angle = _angle->data;
+    }
   };
-
 }
-

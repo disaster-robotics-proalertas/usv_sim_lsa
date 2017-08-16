@@ -210,46 +210,12 @@ void Rudderplugin::OnUpdate()
 //std::cerr<<"\n alpha: "<<alpha<<" alphaStall: "<<alphaStall;
   // compute cl at cp, check for stall, correct for sweep
   double cl;
-  if (this->alpha > this->alphaStall)
-  {
-    cl = (this->cla * this->alphaStall +
-          this->claStall * (this->alpha - this->alphaStall))
-         * cosSweepAngle2;
-    // make sure cl is still great than 0
-    cl = std::max(0.0, cl);
-  }
-  else if (this->alpha < -this->alphaStall)
-  {
-    cl = (-this->cla * this->alphaStall +
-          this->claStall * (this->alpha + this->alphaStall))
-         * cosSweepAngle2;
-    // make sure cl is still less than 0
-    cl = std::min(0.0, cl);
-  }
-  else
-    cl = this->cla * this->alpha * cosSweepAngle2;
-
   cl = 8 * sin(2*this->alpha);
   // compute lift force at cp
   math::Vector3 lift = cl * q * this->area * liftDirection;
 
   // compute cd at cp, check for stall, correct for sweep
   double cd;
-  if (this->alpha > this->alphaStall)
-  {
-    cd = (this->cda * this->alphaStall +
-          this->cdaStall * (this->alpha - this->alphaStall))
-         * cosSweepAngle2;
-  }
-  else if (this->alpha < -this->alphaStall)
-  {
-    cd = (-this->cda * this->alphaStall +
-          this->cdaStall * (this->alpha + this->alphaStall))
-         * cosSweepAngle2;
-  }
-  else
-    cd = (this->cda * this->alpha) * cosSweepAngle2;
-
   // make sure drag is positive
   //cd = fabs(cd);
 
@@ -305,15 +271,17 @@ void Rudderplugin::OnUpdate()
   //     (vel.GetLength() > 50.0 &&
   //      vel.GetLength() < 50.0))
   //force.z = ;
-  std::cerr << "Link: [" << this->link->GetName() << "\n";
-  std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
-  std::cerr << "waterCurrent: " << waterCurrent << "\n";
-  std::cerr << "cl: " << cl << "\n";
-  std::cerr << "lift: " << lift << "\n";
-  std::cerr << "cd: " << cd << "\n";
-  std::cerr << "drag: " << drag << " cd: "
-  << cd << "\n";
-  std::cerr << "force: " << force << "\n\n";
+  if (0){
+    std::cerr << "Link: [" << this->link->GetName() << "\n";
+    std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
+    std::cerr << "waterCurrent: " << waterCurrent << "\n";
+    std::cerr << "cl: " << cl << "\n";
+    std::cerr << "lift: " << lift << "\n";
+    std::cerr << "cd: " << cd << "\n";
+    std::cerr << "drag: " << drag << " cd: "
+    << cd << "\n";
+    std::cerr << "force: " << force << "\n\n";
+  }
 
   if (0)
   {

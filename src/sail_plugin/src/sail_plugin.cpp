@@ -13,7 +13,7 @@
 using namespace gazebo;
 
 
-  GZ_REGISTER_MODEL_PLUGIN(SailPlugin)
+GZ_REGISTER_MODEL_PLUGIN(SailPlugin)
 
 /////////////////////////////////////////////////
 SailPlugin::SailPlugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
@@ -102,7 +102,19 @@ ROS_INFO("------------------------------SailPlugin loaded!!!!");
     sdf::ElementPtr elem = _sdf->GetElement("link_name");
     this->linkName = elem->Get<std::string>();
     this->link = this->model->GetLink(this->linkName);
+    std::cerr << "Link name: [" << this->linkName << "\n";
+    std::cerr << "Link: [" << this->link->GetName() << "\n";
   }
+
+  if (_sdf->HasElement("joint_name"))
+  {
+    sdf::ElementPtr elem = _sdf->GetElement("joint_name");
+    this->jointName = elem->Get<std::string>();
+    this->joint = this->model->GetJoint(this->jointName);
+    std::cerr << "Joint name: [" << this->jointName << "\n";
+    std::cerr << "Joint: [" << this->joint->GetName() << "\n";
+  }
+
   ros::NodeHandle nh;
   float wind_value_x;  
   float wind_value_y;
@@ -117,18 +129,23 @@ ROS_INFO("------------------------------SailPlugin loaded!!!!");
   }
 }
 
-/////////////////////////////////////////////////
 void SailPlugin::Init()
 {
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&SailPlugin::OnUpdate, this));
+  std::string topic = "/" + this->model->GetName() + "/angleLimits";
+  this->angleLimits_subscriber = rosnode.subscribe(topic, 1, &SailPlugin::ropeSimulator, this); 
 }
 
 /////////////////////////////////////////////////
 void SailPlugin::OnUpdate()
 {
+//  this->joint->SetLowerLimit(0, gazebo::math::Angle(-this->angle));
+//  this->joint->SetUpperLimit(0, gazebo::math::Angle(this->angle));
+  this->joint->SetLowStop(0, gazebo::math::Angle(-this->angle));
+  this->joint->SetHighStop(0, gazebo::math::Angle(this->angle));
   //math::Vector3 vel = math::Vector3(1,0,0)- this->link->GetWorldLinearVel(this->cp);
- // math::Vector3 vel = this->link->GetWorldLinearVel(this->cp) - wind;
+  //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp) - wind;
   math::Vector3 aw = wind - this->link->GetWorldLinearVel(this->cp); //wind = v_tw
   //math::Vector3 vel = this->link->GetWorldLinearVel(this->cp);
 
@@ -141,7 +158,6 @@ void SailPlugin::OnUpdate()
   // rotate forward and upward vectors into inertial frame
   math::Vector3 forwardI = pose.rot.RotateVector(this->forward); //xb
   math::Vector3 upwardI = pose.rot.RotateVector(this->upward);   //yb
-//std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
 
   // ldNormal vector to lift-drag-plane described in inertial frame
   math::Vector3 ldNormal = forwardI.Cross(upwardI).Normalize();
@@ -222,15 +238,17 @@ void SailPlugin::OnUpdate()
 
   math::Vector3 torque = moment;
 
-  std::cerr << "Link: [" << this->link->GetName() << "\n";
-  std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
-  std::cerr << "wind: " << wind << "\n";
-  std::cerr << "cl: " << cl << "\n";
-  std::cerr << "lift: " << lift << "\n";
-  std::cerr << "cd: " << cd << "\n";
-  std::cerr << "drag: " << drag << " cd: "
-  << cd << "\n";
-  std::cerr << "force: " << force << "\n\n";
+  if (0) {
+    std::cerr << "Link: [" << this->link->GetName() << "\n";
+    std::cerr << "alpha: " << this->alpha*180/3.1415 << "\n";
+    std::cerr << "wind: " << wind << "\n";
+    std::cerr << "cl: " << cl << "\n";
+    std::cerr << "lift: " << lift << "\n";
+    std::cerr << "cd: " << cd << "\n";
+    std::cerr << "drag: " << drag << " cd: "
+    << cd << "\n";
+    std::cerr << "force: " << force << "\n\n";
+  }
   if (0)
   {
     std::cerr << "=============================\n";

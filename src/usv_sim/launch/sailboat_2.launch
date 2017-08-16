@@ -6,7 +6,8 @@
 	<!-- spawn world -->
 	<include file="$(find usv_sim)/launch/world/spawn_world.launch" unless="$(arg parse)" />
 	<!-- spawn robot -->
-	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
+	<include file="$(find usv_sim)/launch/models/spawn_sailboat_2.launch" pass_all_args="true"/>
+
 
 	<!-- parse launch file -->
 	<group if="$(arg parse)">

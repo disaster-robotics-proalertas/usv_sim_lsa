@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
+    <xacro:rudder_xacro/>
+
+    <!-- Defining sail model -->
+    <link name="sail">
+		<inertial>
+			<mass value="0.1" />
+			<inertia
+			  ixx="0.4708"
+			  ixy="0.0"
+			  iyy="0.5208"
+			  ixz="0.0"
+			  iyz="0.0"
+			  izz="0.0508"/>
+		</inertial>
+
+	    <collision name="collision">
+            <geometry>
+              <box size="0.4 0.02 1" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.2 0 0"/>
+	    </collision>
+
+	    <visual name="visual">
+            <geometry>
+              <box size="0.4 0.02 1" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.2 0 0"/>
+	    </visual>
+    </link>
+
+    <link name="keel">
+        <inertial>
+            <mass value="50" />
+            <inertia
+              ixx="0.05"
+              ixy="0.0"
+              iyy="0.05"
+              ixz="0.0"
+              iyz="0.0"
+              izz="0.005"/>
+        </inertial>
+
+        <collision name="collision">
+            <geometry>
+              <box size="0.1 0.02 0.4" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+
+        <visual name="visual">
+            <geometry>
+              <box size="0.1 0.02 0.4" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="keel_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="keel"/>
+        <origin rpy="0 0 0" xyz="0 0 -0.2"/>
+        <dynamics damping="1.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="50" velocity="5" lower="0" upper="0" />
+    </joint>
+
+    <joint name="sail_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="sail"/>
+        <origin rpy="0 0 0" xyz="0.2 0 0.6"/>
+        <dynamics damping="1.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" velocity="5" lower="-${PI/2}" upper="${PI/2}" />
+    </joint>
+
+    <!-- Plugin list -->
+  <gazebo>
+        <plugin name="sail_plugin" filename="libsail_plugin.so">
+            <a0>0</a0>
+            <cla>2.752798721</cla>
+            <cda>2.6417112299</cda>
+            <cma>-1.8</cma>
+            <alpha_stall>0.785</alpha_stall>
+            <cla_stall>-3.85</cla_stall>
+            <cda_stall>-0.9233984055</cda_stall>
+            <cma_stall>0</cma_stall>
+            <cp>-0.3 0 0</cp>
+            <area>0.4</area>
+            <air_density>1.2041</air_density>
+            <forward>1 0 0</forward>
+            <upward>0 1 0</upward>
+            <link_name>sail</link_name>
+            <joint_name>sail_joint</joint_name>
+            <!--<control_joint_name>rudder_joint</control_joint_name>-->
+            <!--<control_joint_rad_to_cl>4.0</control_joint_rad_to_cl>-->
+      </plugin>
+
+      <plugin name="keel_plugin" filename="libkeel_plugin.so">
+
+          <a0>0</a0>
+          <cla>0.752798721</cla>
+          <cda>0.3417112299</cda>
+          <!--
+          <cma>-1.8</cma> momentum
+          <cma_stall>0</cma_stall>
+          -->
+          <alpha_stall>0.785</alpha_stall>
+          <cla_stall>-0.85</cla_stall>
+          <cda_stall>-0.3233984055</cda_stall>
+
+          <cp>0 0 0</cp>
+          <area>0.1</area>
+          <air_density>1000</air_density>
+          <forward>1 0 0</forward>
+          <upward>0 1 0</upward>
+          <link_name>keel</link_name>
+    </plugin>
+
+    <plugin name="rudder_plugin" filename="librudder_plugin.so">
+
+          <a0>0</a0>
+          <cla>0.752798721</cla>
+          <cda>0.3417112299</cda>
+          <!--
+          <cma>-1.8</cma> momentum
+          <cma_stall>0</cma_stall>
+          -->
+          <alpha_stall>0.785</alpha_stall>
+          <cla_stall>-0.85</cla_stall>
+          <cda_stall>-0.3233984055</cda_stall>
+
+          <cp>0 0 0</cp>
+          <area>0.1</area>
+          <air_density>1000</air_density>
+          <forward>1 0 0</forward>
+          <upward>0 1 0</upward>
+          <link_name>rudder</link_name>
+      </plugin>
+
+      <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+          <switchService>switch</switchService>
+          <updateRate>100</updateRate>
+          <link>base_link</link>
+      </plugin>
+
+  </gazebo>
+
+</robot>
