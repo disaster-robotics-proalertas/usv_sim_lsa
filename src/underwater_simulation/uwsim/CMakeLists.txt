@@ -210,7 +210,7 @@ endforeach(it)
 # add an abstract target to actually trigger the builds
 add_custom_target(media_files ALL DEPENDS ${world_files})
 
-install(DIRECTORY data/scenes data/shaders
+install(DIRECTORY data/shaders
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/data
    PATTERN "*.xacro" EXCLUDE ##Exclude .xacro files
 )

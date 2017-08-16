@@ -65,6 +65,12 @@ bool SceneBuilder::loadScene(ConfigFile config)
   float windSpeed = config.windSpeed;
   while (arguments->read("--windSpeed", windSpeed))
     ;
+  ros::NodeHandle nh;
+  osg::Vec2f windWithValue = osg::Vec2f(windx,windy);
+  windWithValue.normalize();
+
+  nh.setParam("/uwsim/wind/x", windSpeed*windWithValue.x());
+  nh.setParam("/uwsim/wind/y", windSpeed*windWithValue.y());
 
   float depth = config.depth;
   //while (arguments->read("--depth", depth));
@@ -277,7 +283,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
           > (new ROSTwistToPAT(root, rosInterface.topic, rosInterface.targetName));
 
     if (rosInterface.type == ROSInterfaceInfo::OceanSurfaceToROSOceanVehicle)
-      iface = boost::shared_ptr < OceanSurfaceToROSOceanVehicle > (new OceanSurfaceToROSOceanVehicle(root, rosInterface.targetName, rosInterface.topic, rosInterface.rate, scene->getOceanSurface()));
+      iface = boost::shared_ptr < OceanSurfaceToROSOceanVehicle > (new OceanSurfaceToROSOceanVehicle(root, rosInterface.targetName, rosInterface.linkName, rosInterface.topic, rosInterface.rate, scene->getOceanSurface()));
 
     if (rosInterface.type == ROSInterfaceInfo::PATToROSOdom)
       iface = boost::shared_ptr < PATToROSOdom

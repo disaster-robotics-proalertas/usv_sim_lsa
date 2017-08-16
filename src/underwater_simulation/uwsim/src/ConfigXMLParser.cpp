@@ -1237,6 +1237,8 @@ void ConfigFile::processROSInterface(const xmlpp::Node* node, ROSInterfaceInfo &
       extractStringChar(child, rosInterface.topic);
     else if (child->get_name() == "vehicleName" || child->get_name() == "cameraName" || child->get_name() == "name")
       extractStringChar(child, rosInterface.targetName);
+    else if (child->get_name() == "linkName")
+      extractStringChar(child, rosInterface.linkName);
     else if (child->get_name() == "rate")
       extractIntChar(child, rosInterface.rate);
     else if (child->get_name() == "rootName")

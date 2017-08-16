@@ -10,8 +10,8 @@
 
     <gazebo>
     <!-- Gazebo plugin listens to the body-->
-        <plugin name="rudder_plugin" filename="librudder_plugin.so"> 
-        <!--<plugin name="LiftDrag" filename="libliftdragww.so">-->
+        <plugin name="rudder_plugin" filename="librudder_plugin.so">
+
             <a0>0</a0>
             <cla>0.752798721</cla>
             <cda>0.3417112299</cda>

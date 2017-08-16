@@ -1,9 +1,23 @@
 <?xml version="1.0"?>
 <launch>
 
-    <!-- spawn world -->
-    <include file="$(find usv_sim)/launch/world/spawn_world.launch"/>
-    <!-- spawn robot -->
-    <include file="$(find usv_sim)/launch/models/spawn_sailboat.launch"/>
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+	<!-- spawn world -->
+	<include file="$(find usv_sim)/launch/world/spawn_world.launch" unless="$(arg parse)" />
+	<!-- spawn robot -->
+	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
+
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/sailboat.launch" output="screen" required="true"/>
+	</group>
+        <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/sailboat.xml" respawn="false"/>
+
+	</group>
 
 </launch>

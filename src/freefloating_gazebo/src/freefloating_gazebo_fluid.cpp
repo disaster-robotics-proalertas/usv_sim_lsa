@@ -274,10 +274,13 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
     {
         if(urdf_node->ValueStr() == "link")
         {
+	    //ROS_INFO("++++++++++++++++++++++++++++++++++++NODE : %s", urdf_node->ToElement()->Attribute("name"));
+
             // find corresponding sdf model link if any
             found = false;
             for(link_index = 0; link_index < _model->GetLinks().size(); ++link_index)
             {
+		//ROS_INFO("match %s", _model->GetLinks()[link_index]->GetName().c_str());
                 if(urdf_node->ToElement()->Attribute("name") == _model->GetLinks()[link_index]->GetName())
                 {
                     found = true;
@@ -297,8 +300,9 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
                         new_buoy_link->model_name = _model->GetName();            // in case this model is deleted
                         new_buoy_link->link =  sdf_link;    // to apply forces
                         new_buoy_link->limit = .1;
-			std::string topic = "/" + _model->GetName() + "/Surface";
+			std::string topic = "/" + _model->GetName() + "/Surface/" + urdf_node->ToElement()->Attribute("name");
 			new_buoy_link->createSubscriber(rosnode_, topic);
+			//ROS_INFO("+++++++++++++++++++++Creating topic surface to link %s", urdf_node->ToElement()->Attribute("name"));
 
                         // get data from urdf
                         // default values

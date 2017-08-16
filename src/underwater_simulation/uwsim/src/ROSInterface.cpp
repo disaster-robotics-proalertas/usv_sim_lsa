@@ -571,7 +571,7 @@ PATToROSOdom::~PATToROSOdom()
 }
 
 
-OceanSurfaceToROSOceanVehicle::OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean):
+OceanSurfaceToROSOceanVehicle::OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string linkName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean):
 ROSPublisherInterface(topic, rate)
 {
 	std::cerr<<"\n --------------- new OceanSurfaceToROSOceanVehicle. vehicle: " << vehicleName;
@@ -587,7 +587,16 @@ ROSPublisherInterface(topic, rate)
 	{
 		osg::Vec3f normal(0,0,1);
 		transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode);
-		
+		findNodeVisitor findNode2(linkName);
+		vehicleNode->accept(findNode2);
+		osg::Node * vehicleNode2 = findNode.getFirst();
+		if (vehicleNode2 != NULL)
+		{
+			osg::Matrixd mat = transform->getMatrix();
+			osg::Vec3d pos = mat.getTrans();
+			std::cerr<<"\n ----- pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
+			transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);
+		}
 	}
 	publish_rate =100;
 }

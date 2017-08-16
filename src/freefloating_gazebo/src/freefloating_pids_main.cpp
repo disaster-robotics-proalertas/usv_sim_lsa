@@ -22,8 +22,9 @@ int main(int argc, char ** argv)
         sleep(5);
         control_body = control_node.hasParam("config/body");
         control_joints = control_node.hasParam("config/joints/name");
+    std::cerr<<"___ WAIT INTENTIFING CONTROL! body: "<<control_body<<" joints: "<<control_joints<<endl;
     }
-
+    std::cerr<<"_______ INTENTIFIED CONTROL!"<<endl;
     // recheck control_body against wrench vs thruster control (this basic PID can only do wrench)
     if(control_node.hasParam("config/body/control_type"))
     {
