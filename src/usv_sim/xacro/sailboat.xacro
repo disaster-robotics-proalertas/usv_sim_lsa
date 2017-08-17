@@ -104,7 +104,8 @@
 	</geometry>
 	<origin rpy="0 0 0" xyz="0 0 0"/>
 	</visual>
-    </link>
+</link>
+
     <joint name="keel_joint" type="revolute">
         <parent link="base_link"/>
         <child link="keel"/>

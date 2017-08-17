@@ -91,14 +91,8 @@ class VelocityCtrl():
         self.ang_vel = self.target_vel.angular.z - self.usv_vel.twist.twist.angular.z
         self.ang_vel = self.ang_vel * self.kp_ang + self.I_ang(self.ang_vel)
         self.sat_rudder()
-<<<<<<< HEAD:src/usv_base_ctrl/scripts/boat_rudder_vel_ctrl.py
         #msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3}; Comand motor: {4}; erro cominado: {5}; i_lin: {6}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.I_ant_ang, self.lin_vel, self.lin_vel + self.I_ant_ang, self.I_ant_lin)
         #rospy.loginfo(msg)
-=======
-        msg = "atual: {0}; desejada: {1}; erro: {2}; I: {3}; Comand motor: {4}; erro cominado: {5}; i_lin: {6}" .format(self.usv_vel.twist.twist.angular.z, self.target_vel.angular.z, self.ang_vel, self.I_ant_ang, self.lin_vel, self.lin_vel + self.I_ant_ang, self.I_ant_lin)
-        rospy.loginfo(msg)
-
->>>>>>> simulation_tst:src/usv_base_ctrl/scripts/control_vel_rudder.py
         return -self.ang_vel
 
     def I_lin(self, erro):

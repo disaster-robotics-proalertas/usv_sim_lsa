@@ -33,6 +33,15 @@
 	    </visual>
     </link>
 
+    <joint name="sail_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="sail"/>
+        <origin rpy="0 0 0" xyz="0.2 0 0.6"/>
+        <dynamics damping="1.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="0" velocity="5" lower="-${PI/2}" upper="${PI/2}" />
+    </joint>
+
     <link name="keel">
         <inertial>
             <mass value="50" />
@@ -69,16 +78,7 @@
         <limit effort="50" velocity="5" lower="0" upper="0" />
     </joint>
 
-    <joint name="sail_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="sail"/>
-        <origin rpy="0 0 0" xyz="0.2 0 0.6"/>
-        <dynamics damping="1.0"/>
-        <axis xyz="0 0 1"/>
-        <limit effort="0" velocity="5" lower="-${PI/2}" upper="${PI/2}" />
-    </joint>
-
-    <!-- Plugin list -->
+        <!-- Plugin list -->
   <gazebo>
         <plugin name="sail_plugin" filename="libsail_plugin.so">
             <a0>0</a0>
