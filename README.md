@@ -1,5 +1,19 @@
-# usv_sim
-Water surface vehicles simulator. This simulator is used, at first, to test control and trajectory strategies for disaster mitigation but it can be easily adapted to other applications. Various usv models are presented in package usv_sim (xacro directory).
+# usv_sim - Simulated enviroment for Water Surface Vehicles
+This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicle (USV). We curently use UWsim for water surface modelingi. Our main goal is to build a simulator for distater scenarios, such as floods, .... We'll use it to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains some robot models such as propeled boats and sailboats. You can find its xacros at packacge usv_sim.
+
+## Getting Started
+
+The main files to configure your simulations are:
+
+1. XML files located into folder scenes of package usv_sim. In those files, you can configure UWSIM to run water simulation and some other world properties (current, waves and wind).
+2. Launch files located into folder launch of package usv_sim. In those files, you can configure gazebo to run the simulation.
+3. Xacro files located into folder xacro of package usv_sim. In those files, you can define the structure of your robot. You can use the available models (diferential boat, rudder boat, airboat and sailboat) as template to build your own model.
+
+### Prerequisites
+
+You need to have Linux 16.04 installed since the curent version of this simulator uses ROS Kinetic.
+
+### Installing
 
 1. cd ~/usv_sim_lsa
 2. catkin_make_isolated --install
@@ -15,42 +29,52 @@ Water surface vehicles simulator. This simulator is used, at first, to test cont
         `publish the desired location on topic /barco_auv/cmd_vel`  
 
     4.3 for differential boat with user interface to define joints positions:  
-	`roslaunch usv_sim boat_diff.launch parse:=true`  
-	`roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
+        `roslaunch usv_sim boat_diff.launch parse:=true`  
+        `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
 
     4.4 for differential boat with heading control:  
-	`roslaunch usv_sim boat_diff.launch parse:=true`  
-	`roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
+        `roslaunch usv_sim boat_diff.launch parse:=true`  
+        `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
 
     4.5 for differential boat with user interface to define joints positions:  
-	`roslaunch usv_sim boat_rudder.launch parse:=true`  
-	`roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
+        `roslaunch usv_sim boat_rudder.launch parse:=true`  
+        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
 
     4.6 for rudder boat with heading control:  
-	`roslaunch usv_sim boat_rudder.launch parse:=true`  
-	`roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
+        `roslaunch usv_sim boat_rudder.launch parse:=true`  
+        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
 
     4.7 for sailboat with user interface to define joints positions:  
-	`roslaunch usv_sim sailboat.launch parse:=true`  
-	`roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
+        `roslaunch usv_sim sailboat.launch parse:=true`  
+        `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
 
     4.8 for sailboat with heading control:  
-	`roslaunch usv_sim sailboat.launch parse:=true`  
-	`roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
+        `roslaunch usv_sim sailboat.launch parse:=true`  
+        `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
 
     4.9 for airboat with user interface to define joints positions:  
-	`roslaunch usv_sim airboat.launch parse:=true`  
-	`roslaunch usv_sim airboat.launch parse:=false gui:=true`  
+        `roslaunch usv_sim airboat.launch parse:=true`  
+        `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
 
     4.10 for airboat with heading control:  
-	`roslaunch usv_sim airboat.launch parse:=true`  
-	`roslaunch usv_sim airboat.launch parse:=false gui:=false`  
+        `roslaunch usv_sim airboat.launch parse:=true`  
+        `roslaunch usv_sim airboat.launch parse:=false gui:=false`  
 
+## Running the tests
 
-The main files to configure your simulations are:
+## Contributing
 
-1) XML files located into folder scenes of package usv_sim. In those files, you can configure UWSIM to run water simulation.
-2) Launch files located into folder launch of package usv_sim. In those files, you can configure gazebo to run physical simulation.
-3) Xacro files located into folder xacro of package usv_sim. In those files, you can define the structure of your robot.
+TODO
 
+## Authors
 
+* **Davi Henrique** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Marcelo Paravisi** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
+## License
+
+## Acknowledgments
+
+* freefloating_gazebo
+* UWsim
+* LiftDrag 
