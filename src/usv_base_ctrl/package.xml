@@ -2,15 +2,14 @@
 <package>
   <name>usv_base_ctrl</name>
   <version>0.0.0</version>
-  <description>The usv_base_ctrl package</description>
+  <description>Contains the velocity control of multiple robots.</description>
 
-  <maintainer email="lsa@todo.todo">lsa</maintainer>
+  <maintainer email="davihenriqueds@gmail.com">Davi Henrique</maintainer>
+  <maintainer email="marcelo.paravisi@osorio.ifrs.edu.br">Marcelo Paravisi</maintainer>
 
   <license>TODO</license>
 
-  <!-- <url type="website">http://wiki.ros.org/usv_base_ctrl</url> -->
-
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <url type="website">https://github.com/disaster-robotics-proalertas/usv_sim_lsa</url> 
 
   <buildtool_depend>catkin</buildtool_depend>
 </package>

@@ -1,4 +1,4 @@
-# usv_sim - Simulated enviroment for Water Surface Vehicles
+# Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
 This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicle (USV). We curently use UWsim for water surface modelingi. Our main goal is to build a simulator for distater scenarios, such as floods, .... We'll use it to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains some robot models such as propeled boats and sailboats. You can find its xacros at packacge usv_sim.
 
 ## Getting Started
@@ -11,7 +11,7 @@ The main files to configure your simulations are:
 
 ### Prerequisites
 
-You need to have Linux 16.04 installed since the curent version of this simulator uses ROS Kinetic.
+You need Linux 16.04 since the curent version of this simulator uses ROS Kinetic.
 
 ### Installing
 
@@ -62,16 +62,25 @@ You need to have Linux 16.04 installed since the curent version of this simulato
 
 ## Running the tests
 
+TODO
+
 ## Contributing
+
+TODO
+
+## Versioning
 
 TODO
 
 ## Authors
 
-* **Davi Henrique** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Marcelo Paravisi** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Alexandre Amory**
+* **Davi Henrique** 
+* **Marcelo Paravisi** 
 
 ## License
+
+TODO
 
 ## Acknowledgments
 
