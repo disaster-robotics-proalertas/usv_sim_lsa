@@ -11,52 +11,67 @@ The main files to configure your simulations are:
 
 ### Prerequisites
 
-You need Linux 16.04 since the curent version of this simulator uses ROS Kinetic.
+You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
+
+        `sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        `sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116`
+        `sudo apt-get update`
+        `sudo apt-get install ros-kinetic-desktop-full`
+        `sudo rosdep init`
+        `rosdep update`
+        `sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc`
+        `source ~/.bashrc`
+        `sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential`
+        `sudo apt install python-rosdep`
+        `sudo rosdep init`
+        `rosdep update`
+        `sudo apt-get install python-lxml python-pathlib`
 
 ### Installing
 
-1. cd ~/usv_sim_lsa
-2. catkin_make_isolated --install
-3. source ~/usv_sim_lsa/install_isolated/setup.bash
-4. launchs:
+1. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+2. cd ~/usv_sim_lsa
+3. catkin_make_isolated --install
+4. source ~/usv_sim_lsa/install_isolated/setup.bash
+5. launchs:
 
-    4.1 for heading control:   
+    5.1 for heading control:   
         `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`  
         `publish the desired location on topic /barco_auv/usv_postion_setpoint`  
 
-    4.2 for velocity control:    
+    5.2 for velocity control:    
         `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
         `publish the desired location on topic /barco_auv/cmd_vel`  
 
-    4.3 for differential boat with user interface to define joints positions:  
+    5.3 for differential boat with user interface to define joints positions:  
         `roslaunch usv_sim boat_diff.launch parse:=true`  
         `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
 
-    4.4 for differential boat with heading control:  
+    5.4 for differential boat with heading control:  
         `roslaunch usv_sim boat_diff.launch parse:=true`  
         `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
 
-    4.5 for differential boat with user interface to define joints positions:  
+    5.5 for differential boat with user interface to define joints positions:  
         `roslaunch usv_sim boat_rudder.launch parse:=true`  
         `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
 
-    4.6 for rudder boat with heading control:  
+    5.6 for rudder boat with heading control:  
         `roslaunch usv_sim boat_rudder.launch parse:=true`  
         `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
 
-    4.7 for sailboat with user interface to define joints positions:  
+    5.7 for sailboat with user interface to define joints positions:  
         `roslaunch usv_sim sailboat.launch parse:=true`  
         `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
 
-    4.8 for sailboat with heading control:  
+    5.8 for sailboat with heading control:  
         `roslaunch usv_sim sailboat.launch parse:=true`  
         `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
 
-    4.9 for airboat with user interface to define joints positions:  
+    5.9 for airboat with user interface to define joints positions:  
         `roslaunch usv_sim airboat.launch parse:=true`  
         `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
 
-    4.10 for airboat with heading control:  
+    5.10 for airboat with heading control:  
         `roslaunch usv_sim airboat.launch parse:=true`  
         `roslaunch usv_sim airboat.launch parse:=false gui:=false`  
 
