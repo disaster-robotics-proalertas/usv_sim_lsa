@@ -1,5 +1,5 @@
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
-This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicle (USV). We curently use UWsim for water surface modelingi. Our main goal is to build a simulator for distater scenarios, such as floods, .... We'll use it to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains some robot models such as propeled boats and sailboats. You can find its xacros at packacge usv_sim.
+This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicles (USV). We curently use UWsim for water surface modeling and ... . Our goal is to build a simulator for distater scenarios, such as floods, ... . We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains some robot models such as propeled boats and sailboats. You can find their xacros in packacge usv_sim.
 
 ## Getting Started
 
