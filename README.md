@@ -1,5 +1,5 @@
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
-This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicles (USV). We curently use UWsim for water surface modeling and ... . Our goal is to build a simulator for distater scenarios, such as floods, ... . We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains some robot models such as propeled boats and sailboats. You can find their xacros in packacge usv_sim.
+This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicles (USV). We curently use UWsim for water surface modeling and ... . Our goal is to build a simulator for distater scenarios, such as floods, ... . We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats and sailboats. You can find their xacros in packacge usv_sim.
 
 ## Getting Started
 
@@ -29,55 +29,55 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
 ### Installing
 
-1. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-2. cd ~/usv_sim_lsa
-3. catkin_make_isolated --install
-4. source ~/usv_sim_lsa/install_isolated/setup.bash
-5. launchs:
-
-    5.1 for heading control:   
-        `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`  
-        `publish the desired location on topic /barco_auv/usv_postion_setpoint`  
-
-    5.2 for velocity control:    
-        `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
-        `publish the desired location on topic /barco_auv/cmd_vel`  
-
-    5.3 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
-
-    5.4 for differential boat with heading control:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
-
-    5.5 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
-
-    5.6 for rudder boat with heading control:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
-
-    5.7 for sailboat with user interface to define joints positions:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
-
-    5.8 for sailboat with heading control:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
-
-    5.9 for airboat with user interface to define joints positions:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
-
-    5.10 for airboat with heading control:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=false`  
+1. cd ~
+2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+3. cd ~/usv_sim_lsa
+4. catkin_make_isolated --install
+5. source ~/usv_sim_lsa/install_isolated/setup.bash
 
 ## Running the tests
 
-TODO
+6. launchs:
+
+    6.1 for heading control:   
+        `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`  
+        `publish the desired location on topic /barco_auv/usv_postion_setpoint`  
+
+    6.2 for velocity control:    
+        `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
+        `publish the desired location on topic /barco_auv/cmd_vel`  
+
+    6.3 for differential boat with user interface to define joints positions:  
+        `roslaunch usv_sim boat_diff.launch parse:=true`  
+        `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
+
+    6.4 for differential boat with heading control:  
+        `roslaunch usv_sim boat_diff.launch parse:=true`  
+        `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
+
+    6.5 for differential boat with user interface to define joints positions:  
+        `roslaunch usv_sim boat_rudder.launch parse:=true`  
+        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
+
+    6.6 for rudder boat with heading control:  
+        `roslaunch usv_sim boat_rudder.launch parse:=true`  
+        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
+
+    6.7 for sailboat with user interface to define joints positions:  
+        `roslaunch usv_sim sailboat.launch parse:=true`  
+        `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
+
+    6.8 for sailboat with heading control:  
+        `roslaunch usv_sim sailboat.launch parse:=true`  
+        `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
+
+    6.9 for airboat with user interface to define joints positions:  
+        `roslaunch usv_sim airboat.launch parse:=true`  
+        `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
+
+    6.10 for airboat with heading control:  
+        `roslaunch usv_sim airboat.launch parse:=true`  
+        `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
 
 ## Contributing
 
