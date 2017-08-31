@@ -79,6 +79,21 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `roslaunch usv_sim airboat.launch parse:=true`  
         `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
 
+## Models
+
+
+There are 4 models preconfigured in package usv_sim:
+- airboat: composed by one thruster above the hull. This model has greater advantaged to navigate on shallow waters.
+![Structure of airboat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png)
+- differential boat: two thruster under water surface. This model has the simplest maneuverability.
+![Structure of differential boat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_diff.png)
+- rudder boat: one thruster and one rudder. One of the most common configuration presented in boats.
+![Structure of rudder boat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png)
+- sailboat: one sail and one rudder.
+![Structure of sailboat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png)
+
+The hull of all models above has been subdivided in 3 parts, so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_common_subdivided). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
+
 ## Contributing
 
 TODO
