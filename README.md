@@ -84,11 +84,20 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
 There are 4 models preconfigured in package usv_sim:
 - airboat: composed by one thruster above the hull. This model has greater advantaged to navigate on shallow waters.
-![Structure of airboat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png)
+<p align="center">
+  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png" width="650" alt="Structure of airboat"/>
+</p>
+
 - differential boat: two thruster under water surface. This model has the simplest maneuverability.
-![Structure of differential boat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_diff.png)
+<p align="center">
+  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_diff.png" width="650" alt="Structure of differential boat"/>
+</p>
+
 - rudder boat: one thruster and one rudder. One of the most common configuration presented in boats.
-![Structure of rudder boat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png)
+<p align="center">
+  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png" width="650" alt="Structure of rudder boat"/>
+</p>
+
 - sailboat: one sail and one rudder.
 <p align="center">
   <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png" width="650" alt="Structure of sailboat"/>
