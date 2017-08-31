@@ -91,7 +91,7 @@ There are 4 models preconfigured in package usv_sim:
 ![Structure of rudder boat](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png)
 - sailboat: one sail and one rudder.
 <p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png" width="350" alt="Structure of sailboat"/>
+  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png" width="500" alt="Structure of sailboat"/>
 </p>
 
 The hull of all models above has been subdivided in 3 parts, so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_common_subdivided). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
