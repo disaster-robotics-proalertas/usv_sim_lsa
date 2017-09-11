@@ -12,7 +12,7 @@
     <arg name="robot_name" value="diff1" />
 </include>
 
-<group ns="diff2">
+<!--<group ns="diff2">
     <param name="tf_prefix" value="diff2_tf" />
 </group>
 <include file="$(find usv_sim)/launch/models/diff_one_robot.launch" >
@@ -40,6 +40,6 @@
     <arg name="init_pose_y" value="0" />
     <arg name="init_pose_a" value="0" />
     <arg name="robot_name" value="rudder1" />
-</include>
+</include>-->
 
 </launch>
