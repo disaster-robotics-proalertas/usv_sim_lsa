@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-<group ns="diff1">
+    <!--    <group ns="diff1">
     <param name="tf_prefix" value="diff1_tf" />
     <param name="robot_description" textfile="$(find usv_sim)/urdf/boat_diff.urdf" />
 </group>
@@ -10,19 +10,19 @@
     <arg name="init_pose_y" value="1" />
     <arg name="init_pose_a" value="0" />
     <arg name="robot_name" value="diff1" />
-</include>
+</include>-->
 
-<!--<group ns="diff2">
+<group ns="diff2">
     <param name="tf_prefix" value="diff2_tf" />
 </group>
-<include file="$(find usv_sim)/launch/models/diff_one_robot.launch" >
+<include file="$(find usv_sim)/launch/models/diff_one_robot_pid.launch" >
     <arg name="init_pose_x" value="0" />
     <arg name="init_pose_y" value="-1" />
     <arg name="init_pose_a" value="0" />
     <arg name="robot_name" value="diff2" />
 </include>
 
-<group ns="diff3">
+<!--<group ns="diff3">
     <param name="tf_prefix" value="diff3_tf" />
 </group>
 <include file="$(find usv_sim)/launch/models/diff_one_robot.launch" >
