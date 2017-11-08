@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # LatticeBoltzmannDemo.py:  a two-dimensional lattice-Boltzmann "wind tunnel" simulation
 # Uses numpy to speed up all array handling.
 # Uses matplotlib to plot and animate the curl of the macroscopic velocity field.
@@ -36,33 +35,18 @@
 
 # For related materials see http://physics.weber.edu/schroeder/fluids
 
-
-
 import numpy, time, matplotlib.pyplot, matplotlib.animation
-from PIL import Image
-from scipy import misc
-from scipy import ndimage
-import scipy
-import rospy
-from nav_msgs.msg import Odometry, OccupancyGrid
-from std_msgs.msg import Float64
-from geometry_msgs.msg import Twist, Point, Quaternion
 
 # Define constants:
-height = 80				# lattice dimensions
+height = 80							# lattice dimensions
 width = 200
-viscosity = 0.02			# fluid viscosity
+viscosity = 0.02					# fluid viscosity
 omega = 1 / (3*viscosity + 0.5)		# "relaxation" parameter
-u0 = 0.1				# initial and in-flow speed
-four9ths = 4.0/9.0			# abbreviations for lattice-Boltzmann weight factors
+u0 = 0.1							# initial and in-flow speed
+four9ths = 4.0/9.0					# abbreviations for lattice-Boltzmann weight factors
 one9th   = 1.0/9.0
 one36th  = 1.0/36.0
-performanceData = False			# set to True if performance data is desired
-
-obstaculos = scipy.misc.imread("src/usv_water_current/maps/obstaculos2.jpg", True)
-matplotlib.pyplot.imshow(obstaculos, cmap=matplotlib.pyplot.cm.gray)  
-pub = rospy.Publisher('waterflow', OccupancyGrid, queue_size=1)
-
+performanceData = False				# set to True if performance data is desired
 
 # Initialize all the arrays to steady rightward flow:
 n0 = four9ths * (numpy.ones((height,width)) - 1.5*u0**2)	# particle densities along 9 directions
@@ -75,53 +59,24 @@ nSE = one36th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 nNW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 nSW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 rho = n0 + nN + nS + nE + nW + nNE + nSE + nNW + nSW		# macroscopic density
-ux = (nE + nNE + nSE - nW - nNW - nSW) / rho			# macroscopic x velocity
-uy = (nN + nNE + nNW - nS - nSE - nSW) / rho			# macroscopic y velocity
-#print(" ux",ux);
-
-def acellerate():
-	global rho, ux, uy, n0, nN, nS, nE, nW, nNE, nNW, nSE, nSW, u0
-	u0 = u0+0.01
-	n0 = four9ths * (numpy.ones((height,width)) - 1.5*u0**2)	# particle densities along 9 directions
-	nN = one9th * (numpy.ones((height,width)) - 1.5*u0**2)
-	nS = one9th * (numpy.ones((height,width)) - 1.5*u0**2)
-	nE = one9th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nW = one9th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nNE = one36th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nSE = one36th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nNW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nSW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	rho = n0 + nN + nS + nE + nW + nNE + nSE + nNW + nSW		# macroscopic density
-	ux = (nE + nNE + nSE - nW - nNW - nSW) / rho			# macroscopic x velocity
-	uy = (nN + nNE + nNW - nS - nSE - nSW) / rho			# macroscopic y velocity
-	
+ux = (nE + nNE + nSE - nW - nNW - nSW) / rho				# macroscopic x velocity
+uy = (nN + nNE + nNW - nS - nSE - nSW) / rho				# macroscopic y velocity
 
 # Initialize barriers:
 barrier = numpy.zeros((height,width), bool)					# True wherever there's a barrier
-
-#barrier[(height/2)-8:(height/2)+8, height/2] = True			# simple linear barrier
-for x in range(0,height):
-	for y in range(0,width):
-		#if (x==2 and y==2):
-		if (obstaculos[x,y] < 100):
-			barrier[x,y]=True
-barrierN = numpy.roll(barrier,  1, axis=0)				# sites just north of barriers
-barrierS = numpy.roll(barrier, -1, axis=0)				# sites just south of barriers
-barrierE = numpy.roll(barrier,  1, axis=1)				# etc.
+barrier[(height/2)-8:(height/2)+8, height/2] = True			# simple linear barrier
+barrierN = numpy.roll(barrier,  1, axis=0)					# sites just north of barriers
+barrierS = numpy.roll(barrier, -1, axis=0)					# sites just south of barriers
+barrierE = numpy.roll(barrier,  1, axis=1)					# etc.
 barrierW = numpy.roll(barrier, -1, axis=1)
 barrierNE = numpy.roll(barrierN,  1, axis=1)
 barrierNW = numpy.roll(barrierN, -1, axis=1)
 barrierSE = numpy.roll(barrierS,  1, axis=1)
 barrierSW = numpy.roll(barrierS, -1, axis=1)
 
-posX = 30
-posY = 20
-desX =0.
-desY =0.
-
 # Move all particles by one step along their directions of motion (pbc):
 def stream():
-	global nN, nS, nE, nW, nNE, nNW, nSE, nSW, desX, desY,posX, posY
+	global nN, nS, nE, nW, nNE, nNW, nSE, nSW
 	nN  = numpy.roll(nN,   1, axis=0)	# axis 0 is north-south; + direction is north
 	nNE = numpy.roll(nNE,  1, axis=0)
 	nNW = numpy.roll(nNW,  1, axis=0)
@@ -134,39 +89,6 @@ def stream():
 	nW  = numpy.roll(nW,  -1, axis=1)
 	nNW = numpy.roll(nNW, -1, axis=1)
 	nSW = numpy.roll(nSW, -1, axis=1)
-
-	desX=desX+ux[posX,posY]#*1./5.
-        desY=desY+uy[posX,posY]#*1./5.
-#	print (ux[posX,posY], uy[posX,posY], " ===== des: ",desX,desY)
-	if (desX>1): 
-		desX=desX-1.0
-		if (barrier[posX+1,posY]==False):
-			barrier[posX,posY]=False
-			posX=posX+1
-	if (desX>-1): 
-		desX=desX+1.0
-		if (barrier[posX-1,posY]==False):
-			barrier[posX,posY]=False
-			posX=posX-1
-	if (desY>1): 
-		desY=desY-1.0
-		if (barrier[posX,posY+1]==False):
-			barrier[posX,posY]=False
-			posY=posY+1
-	if (desY<-1): 
-		desY=desY+1.0
-		if (barrier[posX,posY-1]==False):
-			barrier[posX,posY]=False
-			posY=posY-1
-	barrier[posX,posY]=True
-	barrierN = numpy.roll(barrier,  1, axis=0)				# sites just north of barriers
-	barrierS = numpy.roll(barrier, -1, axis=0)				# sites just south of barriers
-	barrierE = numpy.roll(barrier,  1, axis=1)				# etc.
-	barrierW = numpy.roll(barrier, -1, axis=1)
-	barrierNE = numpy.roll(barrierN,  1, axis=1)
-	barrierNW = numpy.roll(barrierN, -1, axis=1)
-	barrierSE = numpy.roll(barrierS,  1, axis=1)
-	barrierSW = numpy.roll(barrierS, -1, axis=1)
 	# Use tricky boolean arrays to handle barrier collisions (bounce-back):
 	nN[barrierN] = nS[barrier]
 	nS[barrierS] = nN[barrier]
@@ -176,10 +98,6 @@ def stream():
 	nNW[barrierNW] = nSE[barrier]
 	nSE[barrierSE] = nNW[barrier]
 	nSW[barrierSW] = nNE[barrier]
-        #print("------------------------------")
-        #print nS
-	#print barrier
-        #print nS[barrier]
 		
 # Collide particles within each cell to redistribute velocities (could be optimized a little more):
 def collide():
@@ -203,7 +121,6 @@ def collide():
 	nSW = (1-omega)*nSW + omega * one36th * rho * (omu215 + 3*(-ux-uy) + 4.5*(u2+2*uxuy))
 	# Force steady rightward flow at ends (no need to set 0, N, and S components):
 	nE[:,0] = one9th * (1 + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	#print one9th
 	nW[:,0] = one9th * (1 - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 	nNE[:,0] = one36th * (1 + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 	nSE[:,0] = one36th * (1 + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
@@ -214,95 +131,33 @@ def collide():
 def curl(ux, uy):
 	return numpy.roll(uy,-1,axis=1) - numpy.roll(uy,1,axis=1) - numpy.roll(ux,-1,axis=0) + numpy.roll(ux,1,axis=0)
 
-def curlX(ux):
-	return - numpy.roll(ux,-1,axis=0) + numpy.roll(ux,1,axis=0)
-
-def curlY(uy):
-	return numpy.roll(uy,-1,axis=1) - numpy.roll(uy,1,axis=1)
-
-
 # Here comes the graphics and animation...
 theFig = matplotlib.pyplot.figure(figsize=(8,3))
-fluidImage = matplotlib.pyplot.imshow(
-					curl(ux, uy), 
-					#curlX(ux), 
-					#curlY(uy), 
-					origin='lower', 
-					norm=matplotlib.pyplot.Normalize(-.1,.1), 
-					cmap=matplotlib.pyplot.get_cmap('gray'), interpolation='none')
+fluidImage = matplotlib.pyplot.imshow(curl(ux, uy), origin='lower', norm=matplotlib.pyplot.Normalize(-.1,.1), 
+									cmap=matplotlib.pyplot.get_cmap('jet'), interpolation='none')
 		# See http://www.loria.fr/~rougier/teaching/matplotlib/#colormaps for other cmap options
 bImageArray = numpy.zeros((height, width, 4), numpy.uint8)	# an RGBA image
 bImageArray[barrier,3] = 255								# set alpha=255 only at barrier sites
 barrierImage = matplotlib.pyplot.imshow(bImageArray, origin='lower', interpolation='none')
 
-atualiza=0
-
 # Function called for each successive animation frame:
 startTime = time.clock()
 #frameList = open('frameList.txt','w')		# file containing list of images (to make movie)
-def nextFrame(arg):				# (arg is the frame number, which we don't need)
+def nextFrame(arg):							# (arg is the frame number, which we don't need)
 	global startTime
-	global atualiza
-	global barrier, barrierImage
 	if performanceData and (arg%100 == 0) and (arg > 0):
 		endTime = time.clock()
 		print "%1.1f" % (100/(endTime-startTime)), 'frames per second'
 		startTime = endTime
-	frameName = "frame%04d.png" % arg
+	#frameName = "frame%04d.png" % arg
 	#matplotlib.pyplot.savefig(frameName)
 	#frameList.write(frameName + '\n')
-
-	#mymap = OccupancyGrid();
-	#mymap.info.resolution = 0.05;
-	#mymap.info.width = width;
-	#mymap.info.height = height;
-	#mymap.info.origin.orientation.x = 0;
-	#mymap.info.origin.orientation.y = 0;
-	#mymap.info.origin.orientation.z = 0;
-	#mymap.info.origin.orientation.w = 1;
-#	mymap.data.ones(width * height*4);
-#	bImageList = bImageArray.tolist();
-
-	for step in range(2):					# adjust number of steps for smooth animation
+	for step in range(20):					# adjust number of steps for smooth animation
 		stream()
 		collide()
-	#print ("ux",ux)
 	fluidImage.set_array(curl(ux, uy))
-	atualiza=atualiza+1
-	if (atualiza == 20):
-		atualiza = 0
-		bImageArray = numpy.zeros((height, width, 4), numpy.uint8)
-		bImageArray[barrier,3] = 255
-		barrierImage = matplotlib.pyplot.imshow(bImageArray, origin='lower', interpolation='none')
-		
-#	fluidImage.set_array(curlX(ux))
-#	fluidImage.set_array(curlY(uy))
-
-	#myarray = curl(ux, uy);
-	#mynorm = matplotlib.colors.Normalize(vmin=-0.1,vmax=0.1);
-
-
-	#for x in range(0,height):
-	#	for y in range(0,width):
-	#		value = 127*mynorm(myarray[x][y]);
-	#
-	#		if (value >127):
-	#			value = 127;
-	#		elif (value < 0):
-	#			value = 0;
-	#		mymap.data.append(value);			
-
-	#pub.publish(mymap);
-	
 	return (fluidImage, barrierImage)		# return the figure elements to redraw
 
-if __name__ == '__main__':
-        rospy.init_node('usv_water_current')
-	print "Hello!"
-	animate = matplotlib.animation.FuncAnimation(theFig, nextFrame, interval=1, blit=True)
-	matplotlib.pyplot.show()
-
-
-
-
+animate = matplotlib.animation.FuncAnimation(theFig, nextFrame, interval=1, blit=True)
+matplotlib.pyplot.show()
 

@@ -46,6 +46,7 @@
           <origin xyz="0 0 0.05"/>
           <limit radius="0.1"/>
           <damping rpy="20 500 50" xyz="20 50 50"/>
+	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -75,6 +76,7 @@
           <origin xyz="0 0 0.05"/>
           <limit radius="0.1"/>
           <damping rpy="20 500 50" xyz="20 50 50"/>
+	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -114,6 +116,7 @@
           <origin xyz="0 0 0.05"/>
           <limit radius="0.1"/>
           <damping rpy="20 500 50" xyz="20 50 50"/>
+	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -139,7 +142,10 @@
         </joint>
         
         <link name="${name}">      
-            <buoyancy><compensation>1.0</compensation></buoyancy>
+            <buoyancy>
+		<compensation>1.0</compensation>
+	        <fluidVelocity>local</fluidVelocity>
+	    </buoyancy>
             <visual name="${name}_1">
                 <geometry>
                     <cylinder length="${tl1}" radius="${tr1}"/>

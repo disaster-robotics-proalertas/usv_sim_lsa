@@ -185,7 +185,7 @@ int main(int argc, char **argv)
 
 	if(argc != 2)
 	{
-		ROS_ERROR("%s", "ERROR: Few arguments!");
+		ROS_ERROR("%s", "ERROR: Few arguments! \n Please, inform the filename with water current data.");
 		exit(-1);
 	}
 	std::string filename(argv[1]);

@@ -35,7 +35,7 @@ void FreeFloatingFluidPlugin::ReadVector3(const std::string &_string, math::Vect
 
 void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 {
-std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
+    std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
     ROS_INFO("############### Loading freefloating_fluid plugin");
     this->world_ = _world;
 
@@ -232,13 +232,16 @@ void FreeFloatingFluidPlugin::Update()
 void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
 {
 
-std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
     // define new model structure: name / pointer / publisher to odometry
     model_st* new_model = new model_st();
     new_model->name = _model->GetName();
     new_model->model_ptr = _model;
     new_model->state_publisher = rosnode_->advertise<nav_msgs::Odometry>("/" + _model->GetName() + "/state", 1);
-	std::string topic = "/" + _model->GetName() + "/Surface";
+	//std::string topic = "/" + _model->GetName() + "/Surface";
 
 	/*ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3>(
 		topic, 1,
@@ -301,8 +304,9 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
                         new_buoy_link->link =  sdf_link;    // to apply forces
                         new_buoy_link->limit = .1;
 			std::string topic = "/" + _model->GetName() + "/Surface/" + urdf_node->ToElement()->Attribute("name");
-			new_buoy_link->createSubscriber(rosnode_, topic);
-			//ROS_INFO("+++++++++++++++++++++Creating topic surface to link %s", urdf_node->ToElement()->Attribute("name"));
+			
+			new_buoy_link->createSubscriberWaterSurface(rosnode_, topic);
+			ROS_INFO("+++++++++++++++++++++Creating topic surface to link %s", urdf_node->ToElement()->Attribute("name"));
 
                         // get data from urdf
                         // default values
@@ -321,6 +325,19 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
                                 std::stringstream ss(buoy_node->ToElement()->Attribute("radius"));
                                 ss >> new_buoy_link->limit;
                             }
+			    else if(buoy_node->ValueStr() == "fluidVelocity")
+			    {
+				ROS_WARN(" FOUND localFluidVelocity");
+				if (buoy_node->ToElement()->GetText() == "local")
+				{
+					ROS_WARN(" FOUND localFluidVelocity trueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+					new_buoy_link->usingLocalFluidVelocity = true;
+					std::string topicFluid = "/" + _model->GetName() + "/FluidVelocity/" + urdf_node->ToElement()->Attribute("name");
+					new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
+				}
+				else
+					new_buoy_link->usingLocalFluidVelocity = false;
+			    }
                             else if(buoy_node->ValueStr() == "damping")
                             {
                                 if(buoy_node->ToElement()->Attribute("xyz") != NULL)
