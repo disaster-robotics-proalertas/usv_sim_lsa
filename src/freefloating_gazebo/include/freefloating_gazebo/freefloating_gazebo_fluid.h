@@ -8,6 +8,7 @@
 #include <geometry_msgs/Pose.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Point.h>
+#include <tf/transform_broadcaster.h>
 
 namespace gazebo
 {
@@ -19,22 +20,6 @@ namespace gazebo
         std::string name;
         physics::ModelPtr model_ptr;
         ros::Publisher state_publisher;
-	math::Vector3 waterSurface;
-	ros::Subscriber water_subscriber;
-
-	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
-	{
-		waterSurface.x = pt->x;
-		waterSurface.y = pt->y;
-		waterSurface.z = pt->z;
-
-		//std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
-	}
-
-	void createSubscriber(ros::NodeHandle *nh, std::string topic)
-	{
-		water_subscriber = nh->subscribe(topic, 1, &model_st::processSurfaceData, this);
-	}
     };
 
     class link_st
@@ -131,6 +116,7 @@ private:
     // subscriber to fluid velocity (defined in the world frame)
     ros::Subscriber fluid_velocity_subscriber_;
     math::Vector3 fluid_velocity_;
+    tf::TransformBroadcaster broadcaster;
 
 };
 GZ_REGISTER_WORLD_PLUGIN(FreeFloatingFluidPlugin)

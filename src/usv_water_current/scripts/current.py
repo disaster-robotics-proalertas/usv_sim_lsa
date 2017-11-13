@@ -44,6 +44,8 @@ from scipy import misc
 from scipy import ndimage
 import scipy
 import rospy
+from usv_water_current.srv import *
+from std_msgs.msg import String
 from nav_msgs.msg import Odometry, OccupancyGrid
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist, Point, Quaternion
@@ -135,30 +137,30 @@ def stream():
 	nNW = numpy.roll(nNW, -1, axis=1)
 	nSW = numpy.roll(nSW, -1, axis=1)
 
-	desX=desX+ux[posX,posY]#*1./5.
-        desY=desY+uy[posX,posY]#*1./5.
+#	desX=desX+ux[posX,posY]#*1./5.
+#        desY=desY+uy[posX,posY]#*1./5.
 #	print (ux[posX,posY], uy[posX,posY], " ===== des: ",desX,desY)
-	if (desX>1): 
-		desX=desX-1.0
-		if (barrier[posX+1,posY]==False):
-			barrier[posX,posY]=False
-			posX=posX+1
-	if (desX>-1): 
-		desX=desX+1.0
-		if (barrier[posX-1,posY]==False):
-			barrier[posX,posY]=False
-			posX=posX-1
-	if (desY>1): 
-		desY=desY-1.0
-		if (barrier[posX,posY+1]==False):
-			barrier[posX,posY]=False
-			posY=posY+1
-	if (desY<-1): 
-		desY=desY+1.0
-		if (barrier[posX,posY-1]==False):
-			barrier[posX,posY]=False
-			posY=posY-1
-	barrier[posX,posY]=True
+#	if (desX>1): 
+#		desX=desX-1.0
+#		if (barrier[posX+1,posY]==False):
+#			barrier[posX,posY]=False
+#			posX=posX+1
+#	if (desX>-1): 
+#		desX=desX+1.0
+#		if (barrier[posX-1,posY]==False):
+#			barrier[posX,posY]=False
+#			posX=posX-1
+#	if (desY>1): 
+#		desY=desY-1.0
+#		if (barrier[posX,posY+1]==False):
+#			barrier[posX,posY]=False
+#			posY=posY+1
+#	if (desY<-1): 
+#		desY=desY+1.0
+#		if (barrier[posX,posY-1]==False):
+#			barrier[posX,posY]=False
+#			posY=posY-1
+#	barrier[posX,posY]=True
 	barrierN = numpy.roll(barrier,  1, axis=0)				# sites just north of barriers
 	barrierS = numpy.roll(barrier, -1, axis=0)				# sites just south of barriers
 	barrierE = numpy.roll(barrier,  1, axis=1)				# etc.
@@ -293,12 +295,23 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	#		mymap.data.append(value);			
 
 	#pub.publish(mymap);
+
 	
 	return (fluidImage, barrierImage)		# return the figure elements to redraw
+
+def handleWaterCurrent(req):
+        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
+
+
+def startRosService():
+        s = rospy.Service('waterCurrent', GetSpeed, handleWaterCurrent)
+        print "Ready to answer water current."
+        
 
 if __name__ == '__main__':
         rospy.init_node('usv_water_current')
 	print "Hello!"
+	startRosService();
 	animate = matplotlib.animation.FuncAnimation(theFig, nextFrame, interval=1, blit=True)
 	matplotlib.pyplot.show()
 
