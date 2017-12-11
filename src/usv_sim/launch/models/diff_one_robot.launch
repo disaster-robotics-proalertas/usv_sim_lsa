@@ -5,6 +5,8 @@
     <arg name="init_pose_y"/>
     <arg name="init_pose_a"/>
     <arg name="init_pose" value=""/>
+    <arg name="parse" value="false"/>
+    <arg name="gui" value="false"/>
     
     <!-- TF tree -->
     <node name="patrol" pkg="usv_navigation" type="patrol.py" ns="$(arg robot_name)"/> 
@@ -52,5 +54,16 @@
         <arg name="initial_pose_a" value="$(arg init_pose_a)"/>
         <arg name="robot_namespace" value="$(arg robot_name)"/>
     </include>
+
+    <group if="$(arg parse)">
+        <node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/models/diff_one_robot.launch" output="screen" required="true"/>
+    </group>
+<!-- spawn uwsim -->
+    <group unless="$(arg parse)">
+        <arg name="disableShaders" default="false"/>
+            <!-- launch uwsim -->
+        <node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/boat_diff.xml" respawn="true"/>
+
+    </group>
 
 </launch>

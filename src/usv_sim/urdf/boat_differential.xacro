@@ -39,7 +39,7 @@
                     <cylinder length="${tl1}" radius="${tr1}"/>
                 </geometry>
                 <material name="black">
-                    <color rgba="0 0 0 1"/>
+                    <color rgba="0 0 0 0"/>
                 </material>
             </visual>  
             <visual name="${name}_2">
@@ -48,7 +48,7 @@
                     <cylinder length="${tl2}" radius="${tr2}"/>
                 </geometry>
                 <material name="black">
-                    <color rgba="0 0 0 1"/>
+                    <color rgba="0 0 0 0"/>
                 </material>
                 
             </visual>  

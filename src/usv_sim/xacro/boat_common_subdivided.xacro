@@ -26,7 +26,7 @@
           <geometry>
             <mesh filename="package://usv_sim/meshes/simpleBoat-middle.stl"/>
           </geometry>
-          <material name="blue"/>
+          <material name="white"/>
         </visual>
 
         <collision>
@@ -55,7 +55,7 @@
           <geometry>
             <mesh filename="package://usv_sim/meshes/simpleBoat-back.stl"/>
           </geometry>
-          <material name="blue"/>
+          <material name="white"/>
         </visual>
 
         <collision>
@@ -94,7 +94,7 @@
           <geometry>
             <mesh filename="package://usv_sim/meshes/simpleBoat-front.stl"/>
           </geometry>
-          <material name="blue"/>
+          <material name="white"/>
         </visual>
 
         <collision>
@@ -145,7 +145,7 @@
                     <cylinder length="${tl1}" radius="${tr1}"/>
                 </geometry>
                 <material name="black">
-                    <color rgba="0 0 0 1"/>
+                    <color rgba="255 255 255 1"/>
                 </material>
             </visual>  
 
@@ -155,7 +155,7 @@
                     <cylinder length="${tl2}" radius="${tr2}"/>
                 </geometry>
                 <material name="black">
-                    <color rgba="0 0 0 1"/>
+                    <color rgba="255 255 255 1"/>
                 </material>
             </visual>  
 

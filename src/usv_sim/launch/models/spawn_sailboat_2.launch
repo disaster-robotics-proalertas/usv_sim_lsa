@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="robot_name"/>
+    <arg name="init_pose_x"/>
+    <arg name="init_pose_y"/>
+    <arg name="init_pose_a"/>
+    <arg name="init_pose" value=""/>
 
         <arg name="gui" default="false"/>
         <arg name="parse" default="false"/>    
