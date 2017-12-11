@@ -35,7 +35,7 @@ void FreeFloatingFluidPlugin::ReadVector3(const std::string &_string, math::Vect
 
 void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 {
-std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
+    std::cerr<<"\n ===== FreeFloatingFluidPlugin loading";
     ROS_INFO("############### Loading freefloating_fluid plugin");
     this->world_ = _world;
 
@@ -104,6 +104,35 @@ void FreeFloatingFluidPlugin::Update()
             ParseNewModel(world_->GetModel(i));
     }
 
+/*
+    for(unsigned int model_index = 0; model_index < parsed_models_.size(); model_index++)
+    {
+	physics::ModelPtr _model = parsed_models_[model_index]->model_ptr;
+	    for(unsigned int joint_index = 0; joint_index < _model->GetJoints().size(); ++joint_index)
+	    {
+		physics::LinkPtr parentLink = _model->GetJoints()[joint_index]->GetParent();
+		physics::LinkPtr childLink;
+		unsigned int childCount = _model->GetJoints()[joint_index]->GetChildCount();
+		childLink = _model->GetJoints()[joint_index]->GetChild();
+
+		math::Pose parentPose = parentLink->GetWorldPose();
+		math::Pose linkPose = childLink->GetWorldPose();
+		tf::Vector3 trans(linkPose.pos.x-parentPose.pos.x, linkPose.pos.y-parentPose.pos.y, linkPose.pos.z-parentPose.pos.z);
+		//math::Quaternion quat = linkPose.rot+parentPose.rot;
+		math::Quaternion quat = linkPose.rot;
+		quat.Normalize();
+		//ROS_WARN(" %s -> %s : quat %f %f %f %f", parentLink->GetName().c_str(), childLink->GetName().c_str(), quat.x, quat.y, quat.z, quat.w);
+
+		broadcaster.sendTransform(
+			tf::StampedTransform(
+			tf::Transform(tf::Quaternion(quat.x, quat.y, quat.z, quat.w), trans),
+			//tf::Transform(tf::Quaternion(0, 0, 0, 1), trans), 
+			ros::Time::now(), parentLink->GetName(), _model->GetName()+"/"+childLink->GetName()));
+		
+	    }
+    }
+*/
+
     // look for deleted world models
     model_it = parsed_models_.begin();
     while (model_it != parsed_models_.end())
@@ -169,7 +198,12 @@ void FreeFloatingFluidPlugin::Update()
 
         // get velocity damping
         // linear velocity difference in the link frame
-        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - fluid_velocity_);
+	if ((*link_it)->usingLocalFluidVelocity)
+	{
+	        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - (*link_it)->fluid_velocity_);
+	}
+	else
+	        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - fluid_velocity_);
         // to square
         velocity_difference.x *= fabs(velocity_difference.x);
         velocity_difference.y *= fabs(velocity_difference.y);
@@ -232,13 +266,16 @@ void FreeFloatingFluidPlugin::Update()
 void FreeFloatingFluidPlugin::ParseNewModel(const physics::ModelPtr &_model)
 {
 
-std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
+std::cerr<<"\n ############################################### START FreeFloatingFluidPlugin::ParseNewModel";
     // define new model structure: name / pointer / publisher to odometry
     model_st* new_model = new model_st();
     new_model->name = _model->GetName();
     new_model->model_ptr = _model;
     new_model->state_publisher = rosnode_->advertise<nav_msgs::Odometry>("/" + _model->GetName() + "/state", 1);
-	std::string topic = "/" + _model->GetName() + "/Surface";
+	//std::string topic = "/" + _model->GetName() + "/Surface";
 
 	/*ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3>(
 		topic, 1,
@@ -267,9 +304,13 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
     TiXmlElement* urdf_root = urdf_doc.FirstChildElement();
     TiXmlNode* urdf_node, *link_node, *buoy_node;
     double compensation;
-    unsigned int link_index;
+    unsigned int link_index, joint_index;
     physics::LinkPtr sdf_link;
     bool found;
+
+    
+
+
     for(urdf_node = urdf_root->FirstChild(); urdf_node != 0; urdf_node = urdf_node->NextSibling())
     {
         if(urdf_node->ValueStr() == "link")
@@ -281,6 +322,7 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
             for(link_index = 0; link_index < _model->GetLinks().size(); ++link_index)
             {
 		//ROS_INFO("match %s", _model->GetLinks()[link_index]->GetName().c_str());
+		ROS_WARN(" LINK: %s", _model->GetLinks()[link_index]->GetName().c_str());
                 if(urdf_node->ToElement()->Attribute("name") == _model->GetLinks()[link_index]->GetName())
                 {
                     found = true;
@@ -301,9 +343,8 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
                         new_buoy_link->link =  sdf_link;    // to apply forces
                         new_buoy_link->limit = .1;
 			std::string topic = "/" + _model->GetName() + "/Surface/" + urdf_node->ToElement()->Attribute("name");
-			new_buoy_link->createSubscriber(rosnode_, topic);
-			//ROS_INFO("+++++++++++++++++++++Creating topic surface to link %s", urdf_node->ToElement()->Attribute("name"));
-
+			
+			new_buoy_link->createSubscriberWaterSurface(rosnode_, topic);
                         // get data from urdf
                         // default values
                         new_buoy_link->buoyancy_center = sdf_link->GetInertial()->GetCoG();
@@ -321,17 +362,39 @@ std::cerr<<"\n ### START FreeFloatingFluidPlugin::ParseNewModel";
                                 std::stringstream ss(buoy_node->ToElement()->Attribute("radius"));
                                 ss >> new_buoy_link->limit;
                             }
+			    else if(buoy_node->ValueStr() == "fluidVelocity")
+			    {
+				std::string nameLocal = "local";
+				if (nameLocal.compare(buoy_node->ToElement()->GetText())==0)
+				{
+					new_buoy_link->usingLocalFluidVelocity = true;
+					std::string topicFluid = "/" + _model->GetName() + "/FluidVelocity/" + urdf_node->ToElement()->Attribute("name");
+					new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
+					/*std::string topicList;
+					ros::param::get("/fluidVelocityTopicList", topicList);
+					ROS_WARN(" topicList: %s",topicList.c_str());
+					rosnode_->setParam("/fluidVelocityTopicList", topicList+":"+topicFluid);//*/
+					/*math::Pose parentPose = _model->GetWorldPose();
+					math::Pose linkPose = new_buoy_link->link->GetWorldPose();
+					tf::Vector3 trans(linkPose.pos.x-parentPose.pos.x, linkPose.pos.y-parentPose.pos.y, linkPose.pos.z-parentPose.pos.z);
+					math::Quaternion quat = linkPose.rot-parentPose.rot;
+					broadcaster.sendTransform(
+						tf::StampedTransform(
+						tf::Transform(tf::Quaternion(quat.x, quat.y, quat.z, quat.w), trans),
+						ros::Time::now(), _model->GetName(), _model->GetName()+"/"+urdf_node->ToElement()->Attribute("name")));*/
+				}
+				else
+					new_buoy_link->usingLocalFluidVelocity = false;
+			    }
                             else if(buoy_node->ValueStr() == "damping")
                             {
                                 if(buoy_node->ToElement()->Attribute("xyz") != NULL)
                                 {
                                     ReadVector3((buoy_node->ToElement()->Attribute("xyz")), new_buoy_link->linear_damping);
-                                    ROS_INFO("Found linear damping");
                                 }
                                 if(buoy_node->ToElement()->Attribute("rpy") != NULL)
                                 {
                                     ReadVector3((buoy_node->ToElement()->Attribute("rpy")), new_buoy_link->angular_damping);
-                                 ROS_INFO("Found angular damping");
                                 }
                             }
                             else

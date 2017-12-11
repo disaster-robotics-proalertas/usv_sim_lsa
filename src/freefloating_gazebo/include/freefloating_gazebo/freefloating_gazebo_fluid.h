@@ -8,6 +8,7 @@
 #include <geometry_msgs/Pose.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Point.h>
+#include <tf/transform_broadcaster.h>
 
 namespace gazebo
 {
@@ -19,27 +20,11 @@ namespace gazebo
         std::string name;
         physics::ModelPtr model_ptr;
         ros::Publisher state_publisher;
-	math::Vector3 waterSurface;
-	ros::Subscriber water_subscriber;
-
-	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
-	{
-		waterSurface.x = pt->x;
-		waterSurface.y = pt->y;
-		waterSurface.z = pt->z;
-
-		//std::cerr<<"\n "<<name<<" m estah com z: "<<waterSurface.z;
-	}
-
-	void createSubscriber(ros::NodeHandle *nh, std::string topic)
-	{
-		water_subscriber = nh->subscribe(topic, 1, &model_st::processSurfaceData, this);
-	}
     };
 
     class link_st
     {
-	public: link_st() { std::cerr<<"\n Init link_st()"; waterSurface.Set(0,0,0);};
+	public: link_st() { std::cerr<<"\n Init link_st()"; waterSurface.Set(0,0,0); usingLocalFluidVelocity = false;};
         std::string model_name;
         physics::LinkPtr link;
         math::Vector3 buoyant_force;
@@ -50,6 +35,10 @@ namespace gazebo
 	math::Vector3 waterSurface;
 	ros::Subscriber water_subscriber;
 
+	math::Vector3 fluid_velocity_;
+	bool usingLocalFluidVelocity;
+        ros::Subscriber fluidVelocity_subscriber;
+
         double limit;
 
 	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
@@ -58,12 +47,24 @@ namespace gazebo
 		waterSurface.x = pt->x;
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;
-		//std::cerr<<"\n "<<model_name<<" L estah com z: "<<waterSurface.z;
 	}
 
-	void createSubscriber(ros::NodeHandle *nh, std::string topic)
+	void createSubscriberWaterSurface(ros::NodeHandle *nh, std::string topic)
 	{
 		water_subscriber = nh->subscribe(topic, 1, &link_st::processSurfaceData, this);
+	}
+
+	void processFluidVelocityData(const geometry_msgs::Point::ConstPtr& pt)
+	{
+
+		fluid_velocity_.x = pt->x;
+		fluid_velocity_.y = pt->y;
+		fluid_velocity_.z = pt->z;
+	}
+
+	void createSubscriberLocalFluidVelocity(ros::NodeHandle *nh, std::string topic)
+	{
+		fluidVelocity_subscriber = nh->subscribe(topic, 1, &link_st::processFluidVelocityData, this);
 	}
     };
 
@@ -115,6 +116,7 @@ private:
     // subscriber to fluid velocity (defined in the world frame)
     ros::Subscriber fluid_velocity_subscriber_;
     math::Vector3 fluid_velocity_;
+    tf::TransformBroadcaster broadcaster;
 
 };
 GZ_REGISTER_WORLD_PLUGIN(FreeFloatingFluidPlugin)

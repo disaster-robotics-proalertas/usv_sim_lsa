@@ -14,12 +14,13 @@
 <!ELEMENT dvlSensor (name,relativeTo,position?,orientation?, std?)>
 <!ELEMENT multibeamSensor (name,relativeTo,position?,orientation?, initAngle,finalAngle, angleIncr,range)>
 <!ELEMENT camera (freeMotion?,objectToTrack?,fov?,aspectRatio?,near?,far?,position?,lookAt?) >
-<!ELEMENT object (name,file,position,orientation,offsetp?,offsetr?,physics?)>
+<!ELEMENT object (name,file,position,orientation,scaleFactor?,offsetp?,offsetr?,physics?)>
 <!ELEMENT rosInterfaces ((ROSOdomToPAT*)?, (OceanSurfaceToROSOceanVehicle*)?, (PATToROSOdom*)?, (ArmToROSJointState*)?, (ROSJointStateToArm*)?, (VirtualCameraToROSImage*)?, (ROSImageToHUD*)?,(ROSTwistToPAT*)?, (RangeSensorToROSRange*)?, (ROSPoseToPAT*)?, (ImuToROSImu*)?, (PressureSensorToROS*)?, (GPSSensorToROS*)?, (DVLSensorToROS*)?, (RangeImageSensorToROSImage*)?,(multibeamSensorToLaserScan*)?)>
 
 <!-- elementos comunes -->
 <!ELEMENT position (x,y,z)>
 <!ELEMENT orientation (r,p,y)>
+<!ELEMENT scaleFactor (x,y,z)>
 <!ELEMENT offsetp (x,y,z)>
 <!ELEMENT offsetr (x,y,z)>
 <!ELEMENT lookAt (x,y,z)>
