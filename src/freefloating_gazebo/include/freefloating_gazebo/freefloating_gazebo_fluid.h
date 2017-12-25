@@ -9,6 +9,8 @@
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Point.h>
 #include <tf/transform_broadcaster.h>
+#include "usv_water_current/GetSpeed.h"
+#include <thread>
 
 namespace gazebo
 {
@@ -24,7 +26,11 @@ namespace gazebo
 
     class link_st
     {
-	public: link_st() { std::cerr<<"\n Init link_st()"; waterSurface.Set(0,0,0); usingLocalFluidVelocity = false;};
+	public: link_st()
+		{
+			std::cerr<<"\n Init link_st()"; waterSurface.Set(0,0,0);
+			usingLocalFluidVelocity = false;
+		};
         std::string model_name;
         physics::LinkPtr link;
         math::Vector3 buoyant_force;
@@ -37,9 +43,46 @@ namespace gazebo
 
 	math::Vector3 fluid_velocity_;
 	bool usingLocalFluidVelocity;
-        ros::Subscriber fluidVelocity_subscriber;
+    ros::Subscriber fluidVelocity_subscriber;
+    ros::ServiceClient fluid_velocity_serviceClient_;
+    bool running;
 
         double limit;
+        void initServiceClient(ros::NodeHandle* rosnode)
+        {
+        	std::cerr<<"\n initializing service client";
+        	fluid_velocity_serviceClient_ = rosnode->serviceClient<usv_water_current::GetSpeed>("/waterCurrent");
+        	std::cerr<<" ... done";
+        	running = true;
+        }
+        void stop() { running = false; }
+
+        void operator()() {
+        	ros::Rate r(10);
+				while(running)
+				{
+
+					usv_water_current::GetSpeed srv;
+					srv.request.x = waterSurface.x;
+					srv.request.y = waterSurface.y;
+					if (fluid_velocity_serviceClient_.call(srv))
+					{
+						std::cerr<<"\n response: "<<srv.response.x<<", "<<srv.response.y;
+						fluid_velocity_.x = srv.response.x;
+						fluid_velocity_.y = srv.response.y;
+
+					}
+					else
+					{
+							ROS_ERROR("Failed to call service waterCurrent");
+							return;
+					}
+					//usleep(1000);
+					r.sleep();
+					//sleep(10);
+				}
+				//std::cout << "\nfunctor "<<model_name<<"="<<link->GetName();
+            }
 
 	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
 	{
@@ -54,18 +97,7 @@ namespace gazebo
 		water_subscriber = nh->subscribe(topic, 1, &link_st::processSurfaceData, this);
 	}
 
-	void processFluidVelocityData(const geometry_msgs::Point::ConstPtr& pt)
-	{
 
-		fluid_velocity_.x = pt->x;
-		fluid_velocity_.y = pt->y;
-		fluid_velocity_.z = pt->z;
-	}
-
-	void createSubscriberLocalFluidVelocity(ros::NodeHandle *nh, std::string topic)
-	{
-		fluidVelocity_subscriber = nh->subscribe(topic, 1, &link_st::processFluidVelocityData, this);
-	}
     };
 
 class FreeFloatingFluidPlugin : public  WorldPlugin
@@ -77,6 +109,17 @@ public:
 	ROS_INFO("Closing FreeFloatingFluidPlugin");
         rosnode_->shutdown();
         delete rosnode_;
+        for (int i = 0; i < buoyant_links_.size(); i++)
+		{
+			buoyant_links_[i]->stop();
+			delete buoyant_links_[i];
+		}
+        for (int i = 0; i < water_current_threads.size(); i++)
+        {
+        	water_current_threads[i]->join();
+        	delete water_current_threads[i];
+        }
+
     }
 
     virtual void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf);
@@ -94,8 +137,10 @@ private:
     // removes a deleted model
     void RemoveDeletedModel(std::vector<model_st*>::iterator &_model_it);
     // parse received fluid velocity message
-    void FluidVelocityCallBack(const geometry_msgs::Vector3ConstPtr& _msg);
 
+
+
+    bool getSpeedCallback(usv_water_current::GetSpeed::Request &req, usv_water_current::GetSpeed::Request &res);
 private:
     // plugin options
     bool has_surface_;
@@ -117,6 +162,8 @@ private:
     ros::Subscriber fluid_velocity_subscriber_;
     math::Vector3 fluid_velocity_;
     tf::TransformBroadcaster broadcaster;
+
+    std::vector<std::thread*> water_current_threads;
 
 };
 GZ_REGISTER_WORLD_PLUGIN(FreeFloatingFluidPlugin)

@@ -42,6 +42,7 @@ import numpy, time, matplotlib.pyplot, matplotlib.animation
 from PIL import Image
 from scipy import misc
 from scipy import ndimage
+import math
 import scipy
 import rospy
 from usv_water_current.srv import *
@@ -254,14 +255,14 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	#matplotlib.pyplot.savefig(frameName)
 	#frameList.write(frameName + '\n')
 
-	#mymap = OccupancyGrid();
-	#mymap.info.resolution = 0.05;
-	#mymap.info.width = width;
-	#mymap.info.height = height;
-	#mymap.info.origin.orientation.x = 0;
-	#mymap.info.origin.orientation.y = 0;
-	#mymap.info.origin.orientation.z = 0;
-	#mymap.info.origin.orientation.w = 1;
+	mymap = OccupancyGrid();
+	mymap.info.resolution = 0.05;
+	mymap.info.width = width;
+	mymap.info.height = height;
+	mymap.info.origin.orientation.x = 0;
+	mymap.info.origin.orientation.y = 0;
+	mymap.info.origin.orientation.z = 0;
+	mymap.info.origin.orientation.w = 1;
 #	mymap.data.ones(width * height*4);
 #	bImageList = bImageArray.tolist();
 
@@ -280,27 +281,30 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 #	fluidImage.set_array(curlX(ux))
 #	fluidImage.set_array(curlY(uy))
 
-	#myarray = curl(ux, uy);
-	#mynorm = matplotlib.colors.Normalize(vmin=-0.1,vmax=0.1);
+	myarray = curl(ux, uy);
+	mynorm = matplotlib.colors.Normalize(vmin=-0.1,vmax=0.1);
 
 
-	#for x in range(0,height):
-	#	for y in range(0,width):
-	#		value = 127*mynorm(myarray[x][y]);
-	#
-	#		if (value >127):
-	#			value = 127;
-	#		elif (value < 0):
-	#			value = 0;
-	#		mymap.data.append(value);			
+	for x in range(0,height):
+		for y in range(0,width):
+			value = 127*mynorm(myarray[x][y]);
+#	
+			if (value >127):
+				value = 127;
+			elif (value < 0):
+				value = 0;
+			mymap.data.append(int(value));	
+	#print mymap.data;		
 
-	#pub.publish(mymap);
+	pub.publish(mymap);
 
 	
 	return (fluidImage, barrierImage)		# return the figure elements to redraw
 
 def handleWaterCurrent(req):
-        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
+#	print ("\n Received request",req.x,", ",req.y)
+	return GetSpeedResponse(-2,0)
+#        return GetSpeedResponse(10*ux[req.x][req.y], 10*uy[req.x][req.y])
 
 
 def startRosService():

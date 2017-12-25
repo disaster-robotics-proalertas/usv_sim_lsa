@@ -112,7 +112,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES usv_water_current
+  #LIBRARIES usv_water_current
   CATKIN_DEPENDS message_runtime roscpp std_msgs
   DEPENDS 
     roscpp

@@ -48,6 +48,8 @@ void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sd
     surface_plane_.Set(0,0,1,0); // default ocean surface plane is Z=0
     std::string fluid_topic = "current";
 
+
+
     if(_sdf->HasElement("descriptionParam"))  description_ = _sdf->Get<std::string>("descriptionParam");
     if(_sdf->HasElement("surface"))
     {
@@ -65,13 +67,15 @@ void FreeFloatingFluidPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sd
 
     if(_sdf->HasElement("fluidTopic"))  fluid_topic = _sdf->Get<std::string>("fluidTopic");
 
+
+
     // initialize subscriber to water current
-    ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3>(
+    /*ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3>(
                 fluid_topic, 1,
                 boost::bind(&FreeFloatingFluidPlugin::FluidVelocityCallBack, this, _1),
-                ros::VoidPtr(), &callback_queue_);
+                ros::VoidPtr(), &callback_queue_);*/
     fluid_velocity_.Set(0,0,0);
-    fluid_velocity_subscriber_ = rosnode_->subscribe(ops);
+    //fluid_velocity_subscriber_ = rosnode_->subscribe(ops);
 
     // Register plugin update
     update_event_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&FreeFloatingFluidPlugin::Update, this));
@@ -200,6 +204,7 @@ void FreeFloatingFluidPlugin::Update()
         // linear velocity difference in the link frame
 	if ((*link_it)->usingLocalFluidVelocity)
 	{
+
 	        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - (*link_it)->fluid_velocity_);
 	}
 	else
@@ -369,7 +374,11 @@ std::cerr<<"\n ############################################### START FreeFloatin
 				{
 					new_buoy_link->usingLocalFluidVelocity = true;
 					std::string topicFluid = "/" + _model->GetName() + "/FluidVelocity/" + urdf_node->ToElement()->Attribute("name");
-					new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
+					//new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
+					new_buoy_link->initServiceClient(rosnode_);
+					water_current_threads.push_back(new std::thread(*new_buoy_link));
+
+
 					/*std::string topicList;
 					ros::param::get("/fluidVelocityTopicList", topicList);
 					ROS_WARN(" topicList: %s",topicList.c_str());
@@ -438,11 +447,6 @@ void FreeFloatingFluidPlugin::RemoveDeletedModel(std::vector<model_st*>::iterato
     _model_it = parsed_models_.erase(_model_it);
 }
 
-void FreeFloatingFluidPlugin::FluidVelocityCallBack(const geometry_msgs::Vector3ConstPtr &_msg)
-{
-    // store fluid velocity
-    fluid_velocity_.Set(_msg->x, _msg->y, _msg->z);
-}
 
 
 

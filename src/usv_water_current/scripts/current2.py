@@ -48,6 +48,8 @@ from nav_msgs.msg import Odometry, OccupancyGrid
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist, Point, Quaternion
 
+from usr_water_current.srv import *
+
 # Define constants:
 height = 80				# lattice dimensions
 width = 200
@@ -59,9 +61,14 @@ one9th   = 1.0/9.0
 one36th  = 1.0/36.0
 performanceData = False			# set to True if performance data is desired
 
+
+
+	
+
 obstaculos = scipy.misc.imread("src/usv_water_current/maps/obstaculos2.jpg", True)
 matplotlib.pyplot.imshow(obstaculos, cmap=matplotlib.pyplot.cm.gray)  
 pub = rospy.Publisher('waterflow', OccupancyGrid, queue_size=1)
+
 
 
 # Initialize all the arrays to steady rightward flow:
@@ -78,6 +85,11 @@ rho = n0 + nN + nS + nE + nW + nNE + nSE + nNW + nSW		# macroscopic density
 ux = (nE + nNE + nSE - nW - nNW - nSW) / rho			# macroscopic x velocity
 uy = (nN + nNE + nNW - nS - nSE - nSW) / rho			# macroscopic y velocity
 print(" ux",ux);
+
+def GetFluidVelocityCallback(req):
+	return GetSpeedResponse(ux[req.x, req.y],uy[req.x, req.y])
+
+	serviceServer = rospy.Service('fluid_velocity', GetSpeed, GetFluidVelocityCallback)
 
 def acellerate():
 	global rho, ux, uy, n0, nN, nS, nE, nW, nNE, nNW, nSE, nSW, u0
