@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(uwsim)
 
+
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   image_transport
@@ -81,7 +82,7 @@ link_directories(${orocos_kdl_LIBRARY_DIRS})
 # this disables the warnings that come mostly from osg
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-ignored-qualifiers")
 # Needed for kinetic
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wno-ignored-qualifiers -Wall")
 
 add_library(uwsim 
 src/osgOceanScene.cpp

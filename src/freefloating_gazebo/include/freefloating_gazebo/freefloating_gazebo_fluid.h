@@ -67,7 +67,7 @@ namespace gazebo
 					srv.request.y = waterSurface.y;
 					if (fluid_velocity_serviceClient_.call(srv))
 					{
-						std::cerr<<"\n response: "<<srv.response.x<<", "<<srv.response.y;
+						//std::cerr<<"\n response: "<<srv.response.x<<", "<<srv.response.y;
 						fluid_velocity_.x = srv.response.x;
 						fluid_velocity_.y = srv.response.y;
 

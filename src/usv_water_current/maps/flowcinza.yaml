@@ -1,3 +1,8 @@
 image: /home/paravisi/usv_sim_lsa/src/usv_water_current/maps/flow.jpg
 resolution: 1
-origin: [0.0, 0.0, 0.0]
+origin: [-20.0, 0.0, 0.0]
+simulation:
+   width: 200
+   height: 80
+   obstacleImage: 'src/usv_water_current/maps/obstaculos2.jpg'
+
