@@ -57,7 +57,12 @@ namespace gazebo
         }
         void stop() { running = false; }
 
-        void operator()() {
+        ~link_st(){
+        	running = false;
+			if(the_thread.joinable()) the_thread.join();
+		}
+
+        void ThreadLoop() {
         	ros::Rate r(10);
 				while(running)
 				{
@@ -67,10 +72,8 @@ namespace gazebo
 					srv.request.y = waterSurface.y;
 					if (fluid_velocity_serviceClient_.call(srv))
 					{
-						//std::cerr<<"\n response: "<<srv.response.x<<", "<<srv.response.y;
 						fluid_velocity_.x = srv.response.x;
 						fluid_velocity_.y = srv.response.y;
-
 					}
 					else
 					{
@@ -97,7 +100,11 @@ namespace gazebo
 		water_subscriber = nh->subscribe(topic, 1, &link_st::processSurfaceData, this);
 	}
 
-
+	void Start(){
+		the_thread = std::thread(&link_st::ThreadLoop,this);
+	    }
+	private:
+	    std::thread the_thread;
     };
 
 class FreeFloatingFluidPlugin : public  WorldPlugin
@@ -114,11 +121,7 @@ public:
 			buoyant_links_[i]->stop();
 			delete buoyant_links_[i];
 		}
-        for (int i = 0; i < water_current_threads.size(); i++)
-        {
-        	water_current_threads[i]->join();
-        	delete water_current_threads[i];
-        }
+
 
     }
 
@@ -163,7 +166,6 @@ private:
     math::Vector3 fluid_velocity_;
     tf::TransformBroadcaster broadcaster;
 
-    std::vector<std::thread*> water_current_threads;
 
 };
 GZ_REGISTER_WORLD_PLUGIN(FreeFloatingFluidPlugin)

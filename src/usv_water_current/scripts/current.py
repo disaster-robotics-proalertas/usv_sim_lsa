@@ -54,7 +54,7 @@ from geometry_msgs.msg import Twist, Point, Quaternion
 
 originX = 0
 originY = 0
-resolution = 1
+resolution = 0.5
 obstacle_image = "src/usv_water_current/maps/obstaculos2.jpg"
 
 # Define constants:
@@ -262,17 +262,7 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	#matplotlib.pyplot.savefig(frameName)
 	#frameList.write(frameName + '\n')
 
-	mymap = OccupancyGrid();
-	mymap.info.resolution = resolution;
-	mymap.info.width = width;
-	mymap.info.height = height;
-	mymap.info.origin.position.x = originX;
-	mymap.info.origin.position.y = originY;
-	mymap.info.origin.position.z = 0;
-	mymap.info.origin.orientation.x = 0;
-	mymap.info.origin.orientation.y = 0;
-	mymap.info.origin.orientation.z = 0;
-	mymap.info.origin.orientation.w = 1;
+
 
 	for step in range(2):					# adjust number of steps for smooth animation
 		stream()
@@ -282,9 +272,9 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	atualiza=atualiza+1
 	if (atualiza == 20):
 		atualiza = 0
-		bImageArray = numpy.zeros((height, width, 4), numpy.uint8)
-		bImageArray[barrier,3] = 255
-		barrierImage = matplotlib.pyplot.imshow(bImageArray, origin='lower', interpolation='none')
+		#bImageArray = numpy.zeros((height, width, 4), numpy.uint8)
+		#bImageArray[barrier,3] = 255
+		#barrierImage = matplotlib.pyplot.imshow(bImageArray, origin='lower', interpolation='none')
 		
 #	fluidImage.set_array(curlX(ux))
 #	fluidImage.set_array(curlY(uy))
@@ -293,30 +283,49 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	mynorm = matplotlib.colors.Normalize(vmin=-0.1,vmax=0.1);
 
 
-	for x in range(0,height):
-		for y in range(0,width):
-			value = 127*mynorm(myarray[x][y]);
-#	
-			if (value >127):
-				value = 127;
-			elif (value < 0):
-				value = 0;
-			mymap.data.append(int(value));	
-	#print mymap.data;		
+	if (arg%100 == 0):
+		mymap = OccupancyGrid();
+		mymap.info.resolution = resolution;
+		mymap.info.width = width;
+		mymap.info.height = height;
+		mymap.info.origin.position.x = originX;
+		mymap.info.origin.position.y = originY;
+		mymap.info.origin.position.z = 0;
+		mymap.info.origin.orientation.x = 0;
+		mymap.info.origin.orientation.y = 0;
+		mymap.info.origin.orientation.z = 0;
+		mymap.info.origin.orientation.w = 1;
+		for x in range(0,height):
+			for y in range(0,width):
+				value = 127*mynorm(myarray[x][y]);
+	#	
+				if (value >127):
+					value = 127;
+				elif (value < 0):
+					value = 0;
+				mymap.data.append(int(value));			
 
-	pub.publish(mymap);
-
+		pub.publish(mymap);
+		print (ux[20][25],",",uy[20][25])
 	
 	return (fluidImage, barrierImage)		# return the figure elements to redraw
 
 def handleWaterCurrent(req):
 	global originX, originY
 #	print ("\n Received request",req.x,", ",req.y)
-	return GetSpeedResponse(-2,0)
 	x = req.x-originX
+	if (x < 0):
+		x = 0
+	if (x >= height):
+		x = height-1
 	y = req.y-originY
-	return  GetSpeedResponse(10*ux[x][y], 10*uy[x][y])
-#        return GetSpeedResponse(10*ux[req.x][req.y], 10*uy[req.x][req.y])
+	if (y < 0):
+		y = 0
+	if (y >= width):
+		y = width-1
+	print "\n[",x,",",y,"]: (",ux[x][y],",",uy[x][y],")"
+	return  GetSpeedResponse(ux[x][y], uy[x][y])
+#        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
 
 
 def startRosService():

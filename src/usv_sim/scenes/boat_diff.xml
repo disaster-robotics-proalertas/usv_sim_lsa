@@ -80,14 +80,14 @@
   
    <object>
     <name>terrain</name>
-    <file>terrain/shipwreck/terrain.ive</file>
+    <file>/home/paravisi/usv_sim_lsa/src/usv_sim/terrain/diluvio5/novo3.obj</file>
     <position>
       <x> 0</x>
       <y> 0 </y>
       <z> 0 </z>
     </position>
     <orientation>
-      <r>0</r>
+      <r>-1.57</r>
       <p>0 </p>
       <y>0 </y>
     </orientation>

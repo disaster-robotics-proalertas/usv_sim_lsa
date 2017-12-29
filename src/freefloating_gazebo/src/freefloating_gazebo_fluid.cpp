@@ -204,12 +204,11 @@ void FreeFloatingFluidPlugin::Update()
         // linear velocity difference in the link frame
 	if ((*link_it)->usingLocalFluidVelocity)
 	{
-		std::cerr<<"\n using local velocity ";
 	        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - (*link_it)->fluid_velocity_);
 	}
 	else
 	        velocity_difference = (*link_it)->link->GetWorldPose().rot.RotateVectorReverse((*link_it)->link->GetWorldLinearVel() - fluid_velocity_);
-	std::cerr<<"\n ("<<velocity_difference.x<<", "<<velocity_difference.y<<" )";
+
         // to square
         velocity_difference.x *= fabs(velocity_difference.x);
         velocity_difference.y *= fabs(velocity_difference.y);
@@ -377,7 +376,8 @@ std::cerr<<"\n ############################################### START FreeFloatin
 					std::string topicFluid = "/" + _model->GetName() + "/FluidVelocity/" + urdf_node->ToElement()->Attribute("name");
 					//new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
 					new_buoy_link->initServiceClient(rosnode_);
-					water_current_threads.push_back(new std::thread(*new_buoy_link));
+
+					new_buoy_link->Start();
 
 
 					/*std::string topicList;
