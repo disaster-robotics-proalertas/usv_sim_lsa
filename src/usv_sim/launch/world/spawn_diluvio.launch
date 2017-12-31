@@ -13,6 +13,6 @@
 
     <!-- spawn terrain -->
     <param name="terrain_description" command="$(find xacro)/xacro $(find usv_sim)/terrain/diluvio5/novo3.sdf"/>
-    <node name="terrain_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-sdf -model terrain -param terrain_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+    <node name="terrain_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-sdf -model terrain -param terrain_description -x 0 -y 558 -z 0 -R 0 -P 0 -Y 0"/>
 
 </launch>

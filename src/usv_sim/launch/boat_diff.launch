@@ -5,8 +5,16 @@
 	<arg name="parse" default="false"/>
 	<!-- spawn world -->
 	<include file="$(find usv_sim)/launch/world/spawn_diluvio.launch"  unless="$(arg parse)" />
+	
+	
+	
+	
+	
+	
+	
 	<!-- spawn robot -->
 	<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
+	<node name="usv_water_current" pkg="usv_water_current" type="parserTiff.py"  unless="$(arg parse)" args="$(find usv_water_current)/maps/river.yaml" />
 
 	<!-- parse launch file -->
 	<group if="$(arg parse)">
