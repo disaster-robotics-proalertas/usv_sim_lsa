@@ -26,6 +26,11 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `sudo rosdep init`
         `rosdep update`
         `sudo apt-get install python-lxml python-pathlib`
+        `sudo apt-get install ros-kinetic-control-*`
+        `sudo apt-get install ros-kinetic-osg-markers`
+        `sudo apt-get install libfftw3-*`
+        `sudo apt-get install libxml++2.6-*`
+        
 
 ### Installing
 
