@@ -70,7 +70,6 @@ namespace gazebo
 					usv_water_current::GetSpeed srv;
 					srv.request.x = waterSurface.x;
 					srv.request.y = waterSurface.y;
-
 					if (fluid_velocity_serviceClient_.call(srv))
 					{
 						fluid_velocity_.x = srv.response.x;

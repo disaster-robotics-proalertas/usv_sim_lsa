@@ -36,36 +36,17 @@ def handleWaterCurrent(req):
 		x = 0
 	if (x >= height):
 		x = height-1
-	y = height-req.y-originY
+	y = req.y-originY
+
 	if (y < 0):
 		y = 0
 	if (y >= width):
 		y = width-1
 	rospy.logerr ("\n Received request %d, %d - (%d, %d) = %f",req.x,req.y,x,y,array[x][y])
 	print "\n[",x,",",y,"]: (",array[x][y],",",array[x][y],")"
-	mymap.data = []
-	delta = maxSpeed - minSpeed
-	for x2 in xrange(height-1, -1, -1):
-		for y2 in range(0, width):
-
-			value = 55*array[x2][y2]/delta;
-			if (value >55):
-				value = 55;
-			elif (value < 0):
-				value = 0;
-			if (x==y2 and y==x2):
-				print array[x2][y2]
-				print "N: ",array[y+1][x]
-				print "E: ",array[y][x-1]," C: ", array[y][x]," W: ",array[y][x+1]
-				print "S: ",array[y-1][x]
-				print array[y][x]
-				value = 127
-			mymap.data.append(int(value));			
-
-
-	if (array[y][x] < minSpeed):
+	if (array[x][y] < -100):
 		return GetSpeedResponse(0, 0)
-	return  GetSpeedResponse(array[y][x], array[y][x])
+	return  GetSpeedResponse(array[x][y], array[x][y])
 #        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
 
 
@@ -105,10 +86,6 @@ def parse_config_file(config_file_name):
 	print "max: ", maxSpeed
 	print "scale: ", srcband.GetScale()
 	print "unit_type: ", srcband.GetUnitType()
-	geotransform = dataset.GetGeoTransform()
-	if geotransform:
-	    print("Origin = ({}, {})".format(geotransform[0], geotransform[3]))
-	    print("Pixel Size = ({}, {})".format(geotransform[1], geotransform[5]))
 
 
 
