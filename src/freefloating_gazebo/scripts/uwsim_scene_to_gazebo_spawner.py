@@ -259,7 +259,11 @@ def process_vehicles(vehicles, datapath):
 		print mesh_file
                 # if mesh in dae, try to find corresponding osg
                 if '.dae' in mesh_file:
-                    mesh_osg, datadir_osg = uwsim_to_abspath(mesh_file.replace('.dae','.osg'), datapath)
+                    mesh_osg, datadir_osg = uwsim_to_abspath(mesh_file.replace('.dae','.obj'), datapath)
+                    if datadir_osg != '':
+                        mesh_file, datadir = abspath_to_uwsim(mesh_osg, datapath)
+                if '.stl' in mesh_file:
+                    mesh_osg, datadir_osg = uwsim_to_abspath(mesh_file.replace('.stl','.obj'), datapath)
                     if datadir_osg != '':
                         mesh_file, datadir = abspath_to_uwsim(mesh_osg, datapath)
                 if datadir == '':
@@ -283,7 +287,7 @@ def process_objects(objcts, datapath):
     Creates Gazebo spawner for these objects
     '''
     
-    gazebo_mesh_ext = ['.stl', '.dae']
+    gazebo_mesh_ext = ['.stl', '.dae', '.obj']
     object_nodes = []
     for obj in scene_xml.findall('object'):
         name = obj.findtext('name')

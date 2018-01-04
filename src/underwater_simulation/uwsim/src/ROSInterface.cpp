@@ -571,11 +571,11 @@ PATToROSOdom::~PATToROSOdom()
 }
 
 
-OceanSurfaceToROSOceanVehicle::OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string linkName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean):
+OceanSurfaceToROSOceanVehicle::OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string linkName, std::string topic, int rate, osgOcean::OceanScene* ptrOcean):
 ROSPublisherInterface(topic, rate)
 {
 	std::cerr<<"\n --------------- new OceanSurfaceToROSOceanVehicle. vehicle: " << vehicleName;
-	_oceanTechnique = ptrOcean;
+	_oceanScene = ptrOcean;
 	findNodeVisitor findNode(vehicleName);
 	rootNode->accept(findNode);
 	vehicleNode = findNode.getFirst();
@@ -617,12 +617,13 @@ void OceanSurfaceToROSOceanVehicle::publish()
 
 	    	osg::Matrixd mat = transform->getMatrix();
 		osg::Vec3d pos = mat.getTrans();
-
-		pos = osg::Vec3f(pos.x(), pos.y(), _oceanTechnique->getSurfaceHeightAt(pos.x(), pos.y(), &normal));
+		//std::cerr<<"\n pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
+		pos = osg::Vec3f(pos.x(), pos.y(), _oceanScene->getOceanSurfaceHeightAt(pos.x(), pos.y(), &normal));
 		geometry_msgs::Point surface;
 		surface.x = pos.x();
 		surface.y = pos.y();
 		surface.z = pos.z();
+		//std::cerr<<" -> pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
 
 		pub_.publish(surface);
 	}

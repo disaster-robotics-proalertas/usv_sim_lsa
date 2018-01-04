@@ -286,9 +286,9 @@ class OceanSurfaceToROSOceanVehicle : public ROSPublisherInterface
 protected:
   osg::ref_ptr<osg::MatrixTransform> transform;
   osg::Node *vehicleNode;
-  osg::ref_ptr<osgOcean::OceanTechnique> _oceanTechnique;
+  osg::ref_ptr<osgOcean::OceanScene> _oceanScene;
 public:
-  OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string linkName, std::string topic, int rate, osgOcean::OceanTechnique* ptrOcean);
+  OceanSurfaceToROSOceanVehicle(osg::Group *rootNode, std::string vehicleName, std::string linkName, std::string topic, int rate, osgOcean::OceanScene* ptrOcean);
 
   void createPublisher(ros::NodeHandle &nh);
 

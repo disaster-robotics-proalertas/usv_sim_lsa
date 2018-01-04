@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   nav_msgs
   geometry_msgs
+  rosgraph_msgs
   message_generation
 )
 
@@ -79,6 +80,7 @@ generate_messages(
   DEPENDENCIES
   roscpp
   std_msgs
+  rosgraph_msgs
 )
 
 ################################################
@@ -111,13 +113,14 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES usv_water_current
+  #INCLUDE_DIRS include
+  #LIBRARIES usv_water_current
   CATKIN_DEPENDS message_runtime roscpp std_msgs
   DEPENDS 
     roscpp
     nav_msgs
     geometry_msgs
+    rosgraph_msgs
 )
 
 

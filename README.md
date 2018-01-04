@@ -22,7 +22,7 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc`
         `source ~/.bashrc`
         `sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential`
-        `sudo apt install python-rosdep`
+        `sudo apt install python-rosdep python-wxtools`
         `sudo rosdep init`
         `rosdep update`
         `sudo apt-get install python-lxml python-pathlib`

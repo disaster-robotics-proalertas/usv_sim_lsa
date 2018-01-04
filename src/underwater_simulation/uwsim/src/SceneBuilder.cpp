@@ -283,7 +283,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
           > (new ROSTwistToPAT(root, rosInterface.topic, rosInterface.targetName));
 
     if (rosInterface.type == ROSInterfaceInfo::OceanSurfaceToROSOceanVehicle)
-      iface = boost::shared_ptr < OceanSurfaceToROSOceanVehicle > (new OceanSurfaceToROSOceanVehicle(root, rosInterface.targetName, rosInterface.linkName, rosInterface.topic, rosInterface.rate, scene->getOceanSurface()));
+      iface = boost::shared_ptr < OceanSurfaceToROSOceanVehicle > (new OceanSurfaceToROSOceanVehicle(root, rosInterface.targetName, rosInterface.linkName, rosInterface.topic, rosInterface.rate, scene->getOceanScene()));
 
     if (rosInterface.type == ROSInterfaceInfo::PATToROSOdom)
       iface = boost::shared_ptr < PATToROSOdom

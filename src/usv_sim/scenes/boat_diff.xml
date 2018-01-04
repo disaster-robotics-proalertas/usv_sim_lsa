@@ -13,7 +13,7 @@
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -2.5 </choppyFactor>
     <crestFoamHeight> 2.2 </crestFoamHeight>
-    <oceanSurfaceHeight> 0 </oceanSurfaceHeight>
+    <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
     <fog>
       <density> 0.1 </density>
       <color>
@@ -23,13 +23,13 @@
       </color>
     </fog>
     <color>
-        <r>0.017</r>
-        <g>0.027</g>
-        <b>0.079</b>
+        <r>0.55</r>
+        <g>0.45</g>
+        <b>0.33</b>
     </color>
     <attenuation>
       <r>0.015</r>
-      <g>0.0075 </g>
+      <g>0.015 </g>
       <b> 0.005 </b>
     </attenuation>
   </oceanState>
@@ -80,14 +80,14 @@
   
    <object>
     <name>terrain</name>
-    <file>terrain/shipwreck/terrain.ive</file>
+    <file>/home/lsa/usv_sim_lsa/src/usv_sim/terrain/diluvio5/novo3.obj</file>
     <position>
       <x> 0</x>
-      <y> 0 </y>
+      <y> 558 </y>
       <z> 0 </z>
     </position>
     <orientation>
-      <r>0</r>
+      <r>-1.57</r>
       <p>0 </p>
       <y>0 </y>
     </orientation>
@@ -122,6 +122,12 @@
 	<topic>/boat_diff/Surface/fwd_left</topic>
 	<vehicleName>boat_diff</vehicleName>
 	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/fwd_right</topic>
+	<vehicleName>boat_diff</vehicleName>
+	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
    

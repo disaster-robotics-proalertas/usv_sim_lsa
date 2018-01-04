@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(freefloating_gazebo)
 set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   gazebo_ros
@@ -13,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_toolbox
   rostime
   nav_msgs
+  usv_water_current
 )
 
 find_package(gazebo REQUIRED)
@@ -43,11 +45,13 @@ catkin_package(
 )
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
-include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
+include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS} )
 
 # world plugin to simulate buoyancy and viscous force
+
 add_library(freefloating_gazebo_fluid src/freefloating_gazebo_fluid.cpp include/freefloating_gazebo/freefloating_gazebo_fluid.h)
 target_link_libraries(freefloating_gazebo_fluid ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+add_dependencies(freefloating_gazebo_fluid ${catkin_EXPORTED_TARGETS})
 
 # model plugin subscribes to body and joint efforts and applies them in Gazebo
 add_library(freefloating_gazebo_control src/freefloating_gazebo_control.cpp include/freefloating_gazebo/freefloating_gazebo_control.h)

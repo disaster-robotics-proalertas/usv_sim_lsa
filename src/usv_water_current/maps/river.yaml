@@ -1,0 +1,7 @@
+image: /home/paravisi/usv_sim_lsa/src/usv_water_current/maps/diluvio_00_36_00.tif
+resolution: 1
+origin: [0, 0, 0.0]
+simulation:
+   width: 1341
+   height: 558
+
