@@ -36,8 +36,8 @@
   
   <simParams>
     <disableShaders> 0 </disableShaders>
-    <resw> 800 </resw>
-    <resh> 600 </resh>
+    <resw> 1152 </resw>
+    <resh> 864 </resh>
   </simParams>
 
   <camera>
@@ -48,14 +48,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>-5</x>
-      <y>4 </y>
-      <z>-7 </z>
+      <x>-10</x>
+      <y>0 </y>
+      <z>5 </z>
     </position> 
     <lookAt>
-      <x>5</x>
-      <y>7 </y>
-      <z>-10 </z>
+      <x>0</x>
+      <y>2 </y>
+      <z>3 </z>
     </lookAt>
   </camera>
 
@@ -141,6 +141,11 @@
 	<vehicleName>boat_sea_angler</vehicleName>
 	<linkName>fwd</linkName>
     </OceanSurfaceToROSOceanVehicle> 
+    
+    <ROSJointStateToArm> 
+        <topic>/boat_sea_angler/joint_states</topic>
+        <vehicleName>boat_sea_angler</vehicleName>
+    </ROSJointStateToArm>
 
    
   </rosInterfaces>

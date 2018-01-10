@@ -372,7 +372,7 @@ void FreeFloatingControlPlugin::Update() {
 			double norm_ratio = 1;
 			unsigned int i;
 			for (i = 0; i < thruster_fixed_idx_.size(); ++i) {
-				std::cerr<<"\n link z: "<< link_water_surface[i]->waterSurface.z ;
+				//std::cerr<<"\n link z: "<< link_water_surface[i]->waterSurface.z ;
 				if (body_->GetWorldCoGPose().pos.z < link_water_surface[i]->waterSurface.z)
 				{
 					norm_ratio = std::max(norm_ratio,
@@ -408,7 +408,7 @@ void FreeFloatingControlPlugin::Update() {
 			if (thruster_steer_idx_.size()) {
 				for (unsigned int i = 0; i < thruster_steer_idx_.size(); ++i)
 					if (body_->GetWorldCoGPose().pos.z	< link_water_surface[i]->waterSurface.z) {
-						std::cerr<<"\n ["<<i<<"] UNDER WATER "<<thruster_command_(thruster_steer_idx_[i])<<" . max: "<<thruster_max_command_[i];
+						//std::cerr<<"\n ["<<i<<"] UNDER WATER "<<thruster_command_(thruster_steer_idx_[i])<<" . max: "<<thruster_max_command_[i];
 						if (thruster_command_(thruster_steer_idx_[i])	< -thruster_max_command_[i]) {
 							thruster_links_[i]->AddRelativeForce(
 									math::Vector3(0, 0,
@@ -425,7 +425,7 @@ void FreeFloatingControlPlugin::Update() {
 						}
 					} else {
 						double v = thruster_command_(thruster_steer_idx_[i]);
-						std::cerr<<"\n ["<<i<<"]"<<thruster_overWater_max_command_.size()<<" OVER WATER "<<v<<" > "<<thruster_overWater_max_command_[i];
+						//std::cerr<<"\n ["<<i<<"]"<<thruster_overWater_max_command_.size()<<" OVER WATER "<<v<<" > "<<thruster_overWater_max_command_[i];
 						if (thruster_command_(thruster_steer_idx_[i])
 								< -thruster_overWater_max_command_[i]) {
 							thruster_links_[i]->AddRelativeForce(
