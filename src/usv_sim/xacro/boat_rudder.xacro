@@ -36,13 +36,13 @@
             <updateRate>100</updateRate>
             <link>fwd</link>
             <thruster>
-                <effort>30</effort>
+                <effort>300</effort>
                 <name>fwd</name>
             </thruster>
         </plugin>
     </gazebo>  
                 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd" xyz="-0.77 0 -0.03" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
+    <xacro:thruster_link name="fwd" xyz="-0.77 0 -0.03" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}" />
             
 </robot>

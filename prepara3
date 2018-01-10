@@ -1,4 +1,4 @@
 catkin_make_isolated --install --pkg usv_sim usv_water_current freefloating_gazebo
 roslaunch usv_sim boat_sea_angler.launch parse:=true
 catkin_make_isolated --install --pkg usv_sim usv_water_current freefloating_gazebo
-roslaunch usv_sim boat_sea_angler.launch parse:=false
+roslaunch usv_sim boat_sea_angler.launch parse:=false gui:=true

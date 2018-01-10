@@ -356,7 +356,9 @@ osg::Node * UWSimGeometry::loadGeometry(boost::shared_ptr<Geometry> geom)
         osgDB::Registry::instance()->getDataFilePathList().push_back(
             std::string(UWSIM_ROOT_PATH) + std::string("/data/shaders"));
       }
-      node = osgDB::readNodeFile(geom->file);
+  osgDB::ReaderWriter::ReaderWriter::Options* options = new osgDB::ReaderWriter::ReaderWriter::Options; 
+  options->setOptionString("noRotation");
+      node = osgDB::readNodeFile(geom->file, options);
 
       if (node == NULL)
       {
