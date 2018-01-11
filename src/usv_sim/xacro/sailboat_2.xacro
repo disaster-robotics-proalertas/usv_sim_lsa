@@ -2,7 +2,7 @@
 
 <robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided.xacro" />
     <xacro:rudder_xacro/>
 
     <!-- Defining sail model -->

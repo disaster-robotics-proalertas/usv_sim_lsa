@@ -81,7 +81,7 @@
    <object>
     <name>terrain</name>
 
-    <file>/home/lsa/usv_sim_lsa/src/usv_sim/terrain/diluvio5/novo3.obj</file>
+    <file>/terrain/diluvio5/novo3.obj</file>
     <position>
       <x> 0</x>
       <y> 558 </y>
@@ -107,17 +107,35 @@
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/back_link</topic>
+<OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/center_r_link</topic>
 	<vehicleName>boat_diff</vehicleName>
-	<linkName>back_link</linkName>
+	<linkName>center_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/front_link</topic>
+	<topic>/boat_diff/Surface/back_r_link</topic>
 	<vehicleName>boat_diff</vehicleName>
-	<linkName>front_link</linkName>
+	<linkName>back_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/back_l_link</topic>
+	<vehicleName>boat_diff</vehicleName>
+	<linkName>back_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/front_r_link</topic>
+	<vehicleName>boat_diff</vehicleName>
+	<linkName>front_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_diff/Surface/front_l_link</topic>
+	<vehicleName>boat_diff</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
 
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/boat_diff/Surface/fwd_left</topic>
@@ -131,6 +149,10 @@
 	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
+   <ROSJointStateToArm> 
+        <topic>/boat_diff/joint_states</topic>
+        <vehicleName>boat_diff</vehicleName>
+    </ROSJointStateToArm>
    
   </rosInterfaces>
 </UWSimScene>

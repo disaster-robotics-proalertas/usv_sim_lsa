@@ -80,7 +80,7 @@
   
    <object>
     <name>terrain</name>
-    <file>/home/lsa/usv_sim_lsa/src/usv_sim/terrain/diluvio5/novo3.obj</file>
+    <file>terrain/diluvio5/novo3.obj</file>
     <position>
       <x> 0</x>
       <y> 558 </y>

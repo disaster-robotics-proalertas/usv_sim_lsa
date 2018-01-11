@@ -2,7 +2,7 @@
 
 <robot name="boat_rudder" xmlns:xacro="http://www.ros.org/wiki/xacro">
                       
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided.xacro" />
         
     <xacro:rudder_xacro/> 
 
@@ -24,7 +24,7 @@
             <cda_stall>-0.3233984055</cda_stall>
 
             <cp>-0.5 0 0</cp>
-            <area>0.03</area>
+            <area>0.06</area>
             <air_density>1000</air_density>
             <forward>1 0 0</forward>
             <upward>0 1 0</upward>
@@ -43,6 +43,6 @@
     </gazebo>  
                 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd" xyz="-0.77 0 -0.03" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}" />
+    <xacro:thruster_link name="fwd" xyz="-0.8 0.22 -0.5" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" />
             
 </robot>
