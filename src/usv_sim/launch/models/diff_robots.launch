@@ -3,7 +3,7 @@
 
 <group ns="boat_diff">
     <param name="tf_prefix" value="boat_diff_tf" />
-    <param name="robot_description" textfile="$(find usv_sim)/urdf/boat_diff.urdf" />
+<!--    <param name="robot_description" textfile="$(find usv_sim)/urdf/boat_diff.urdf" />-->
 </group>
 <include file="$(find usv_sim)/launch/models/diff_one_robot.launch" >
     <arg name="init_pose_x" value="0" />
@@ -22,7 +22,7 @@
     <arg name="robot_name" value="diff2" />
 </include>-->
 
-<!--<group ns="sailboat1">
+<group ns="sailboat1">
     <param name="tf_prefix" value="sailboat1_tf" />
 </group>
 <include file="$(find usv_sim)/launch/models/sailboat_one_robot.launch" >
@@ -30,7 +30,17 @@
     <arg name="init_pose_y" value="0" />
     <arg name="init_pose_a" value="0" />
     <arg name="robot_name" value="sailboat1" />
-</include>-->
+</include>
+
+<group ns="airboat1">
+    <param name="tf_prefix" value="airboat1_tf" />
+</group>
+<include file="$(find usv_sim)/launch/models/airboat_one_robot.launch" >
+    <arg name="init_pose_x" value="-3" />
+    <arg name="init_pose_y" value="0" />
+    <arg name="init_pose_a" value="0" />
+    <arg name="robot_name" value="airboat1" />
+</include>
 
 <group ns="rudder1">
     <param name="tf_prefix" value="rudder1_tf" />

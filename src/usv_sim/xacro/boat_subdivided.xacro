@@ -13,6 +13,7 @@
     <xacro:property name="back_water_displaced_mass" value="40"/>
     <xacro:property name="middle_water_displaced_mass" value="60"/>
     <xacro:property name="front_water_displaced_mass" value="25"/>
+    <xacro:property name="scale" value="0.3"/>
 
     <!-- Thruster constants -->
     <xacro:property name="tr1" value=".02" />
@@ -25,50 +26,51 @@
         <visual>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.obj"/>
+            <mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.obj" scale="${scale} ${scale} ${scale}"/>
             
           </geometry>
           <material name="white"/>
         </visual>
         <collision>
-          <origin rpy="0 0 1.57" xyz="0 0.44 0.1"/>
+          <origin rpy="0 0 1.57" xyz="0 ${0.44*scale} ${0.1*scale}"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull/centerLeft.stl"/>
+            <mesh filename="package://usv_sim/meshes/simpleHull/centerLeft.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="0 0.44 0.1"/>
+            <origin rpy="0 0 0" xyz="0 ${0.44*scale} ${0.1*scale}"/>
           <mass value="${middle_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
-          <origin xyz="0 0.44 0.15"/>
+          <origin xyz="0 ${0.44*scale} ${0.15*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
+
     
     
     <link name="center_r_link">
         <collision>
-          <origin rpy="0 0 1.57"  xyz="0 -0.22 0.05"/>
+          <origin rpy="0 0 1.57"  xyz="0 ${-0.22*scale} ${0.05*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/centerRight.stl"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull/centerRight.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="0 -0.22 0.05"/>
+            <origin rpy="0 0 0" xyz="0 ${-0.22*scale} ${0.05*scale}"/>
           <mass value="${middle_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
-          <origin xyz="0 -0.22 0.1"/>
+          <origin xyz="0 ${-0.22*scale} ${0.1*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
@@ -78,30 +80,29 @@
     <joint name="center_r_joint" type="revolute">
         <parent link="base_link"/>
         <child link="center_r_link"/>
-        <origin rpy="0 0 0" xyz="0 -0.22 0"/>
+        <origin rpy="0 0 0" xyz="0 ${-0.22*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
     </joint>
 
 
-
     <link name="back_l_link">
         <collision>
-          <origin rpy="0 0 1.57"  xyz="-0.85 0.205 -0.2"/>
+          <origin rpy="0 0 1.57"  xyz="${-0.85*scale} ${0.205*scale} ${-0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/backLeft.stl"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull/backLeft.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="-0.85 0.205 -0.2"/>
+            <origin rpy="0 0 0" xyz="${-0.85*scale} ${0.205*scale} ${-0.2*scale}"/>
           <mass value="${back_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-          <origin xyz="-0.85 0.205 -0.15"/>
+          <origin xyz="${-0.85*scale} ${0.205*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
@@ -111,28 +112,28 @@
     <joint name="back_l_joint" type="revolute">
         <parent link="base_link"/>
         <child link="back_l_link"/>
-        <origin rpy="0 0 0" xyz="-0.85 0.205 0"/>
+        <origin rpy="0 0 0" xyz="${-0.85*scale} ${0.205*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
     </joint>
-    
+
     <link name="back_r_link">
         <collision>
-          <origin rpy="0 0 1.57"  xyz="-0.85 -0.205 -0.2"/>
+          <origin rpy="0 0 1.57"  xyz="${-0.85*scale} ${-0.205*scale} ${-0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/backRight.stl"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull/backRight.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="-0.85 -0.205 -0.2"/>
+            <origin rpy="0 0 0" xyz="${-0.85*scale} ${-0.205*scale} ${-0.2*scale}"/>
           <mass value="${back_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-          <origin xyz="-0.85 -0.205 -0.15"/>
+          <origin xyz="${-0.85*scale} ${-0.205*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
@@ -142,28 +143,29 @@
     <joint name="back_r_joint" type="revolute">
         <parent link="base_link"/>
         <child link="back_r_link"/>
-        <origin rpy="0 0 0" xyz="-0.85 -0.205 0"/>
+        <origin rpy="0 0 0" xyz="${-0.85*scale} ${-0.205*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
     </joint>
-    
+
+
     <link name="front_l_link">
         <collision>
-          <origin rpy="0 0 1.57"  xyz="0.85 0.17 0.2"/>
+          <origin rpy="0 0 1.57"  xyz="${0.85*scale} ${0.17*scale} ${0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/frontLeft.stl"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull/frontLeft.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="0.85 0.17 -0.1"/>
+            <origin rpy="0 0 0" xyz="${0.85*scale} ${0.17*scale} ${-0.1*scale}"/>
           <mass value="${front_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="0.85 0.17 -0.05"/>
+          <origin xyz="${0.85*scale} ${0.17*scale} ${-0.05*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
@@ -173,7 +175,7 @@
     <joint name="front_l_joint" type="revolute">
         <parent link="base_link"/>
         <child link="front_l_link"/>
-        <origin rpy="0 0 0" xyz="0.85 0.17 0"/>
+        <origin rpy="0 0 0" xyz="${0.85*scale} ${0.17*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
@@ -181,20 +183,20 @@
     
     <link name="front_r_link">
         <collision>
-          <origin rpy="0 0 1.57"  xyz="0.85 -0.17 0.2"/>
+          <origin rpy="0 0 1.57"  xyz="${0.85*scale} ${-0.17*scale} ${0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/frontRight.stl"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull/frontRight.stl" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="0.85 -0.17 -0.1"/>
+            <origin rpy="0 0 0" xyz="${0.85*scale} ${-0.17*scale} ${-0.1*scale}"/>
           <mass value="${front_body_mass}"/>
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
           <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="0.85 -0.17 -0.05"/>
+          <origin xyz="${0.85*scale} ${-0.17*scale} ${-0.05*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 20 50"/>
 	  <fluidVelocity>local</fluidVelocity>
@@ -204,12 +206,11 @@
     <joint name="front_r_joint" type="revolute">
         <parent link="base_link"/>
         <child link="front_r_link"/>
-        <origin rpy="0 0 0" xyz="0.85 -0.17 0"/>
+        <origin rpy="0 0 0" xyz="${0.85*scale} ${-0.17*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
     </joint>
-    
 
     <!-- Thruster link -->
     <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=back_r_link">
@@ -230,14 +231,14 @@
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>
           		<geometry>
-          			<box size="tl1 tl1 tl2" />
+          			<box size="${tl1} ${tl1} ${tl2}" />
           		</geometry>
         	</collision>
 
             <visual name="${name}">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.obj"/>
+                    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.obj" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
                 <material name="black">
                     <color rgba="255 255 255 1"/>
@@ -286,23 +287,23 @@
 
             <collision name="collision">
                 <geometry>
-                  <box size="0.2 0.02 0.3" />
+                  <box size="${0.2*scale} ${0.02*scale} ${0.3*scale}" />
                 </geometry>
-                <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+                <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
             </collision>
 
             <visual name="visual">
                 <geometry>
-                  <box size="0.1 0.02 0.3" />
+                  <box size="${0.2*scale} ${0.02*scale} ${0.3*scale}" />
                 </geometry>
-                <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+                <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
             </visual>
         </link>
 
         <joint name="rudder_joint" type="revolute">
             <parent link="back_r_link"/>
             <child link="rudder"/>
-            <origin rpy="0 0 0" xyz="-1.2 0.22 -0.5"/>
+            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.22*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
             <axis xyz="0 0 1"/>
             <limit effort="50" velocity="5" lower="-${PI/3}" upper="${PI/3}" />
@@ -314,24 +315,24 @@
     <!-- Hokuyo Laser -->
     <joint name="hokuyo_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="0.7 0 0.1" rpy="0 0 0"/>
+        <origin xyz="0.7 0 0.2" rpy="0 0 0"/>
         <parent link="base_link"/>
         <child link="hokuyo_link"/>
     </joint>
 
     <link name="hokuyo_link">
-        <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-        <box size="0.1 0.1 0.1"/>
-        </geometry>
+        <collision name="collision">
+	        <origin xyz="0 0 0" rpy="0 0 0"/>
+	        <geometry>
+	        	<box size="0.1 0.1 0.1"/>
+	        </geometry>
         </collision>
 
-        <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-        <mesh filename="package://usv_sim/meshes/hokuyo.stl"/>
-        </geometry>
+        <visual name="visual">
+        	<origin xyz="0 0 0" rpy="0 0 0"/>
+        	<geometry>
+        		<mesh filename="package://usv_sim/meshes/hokuyo.stl"/>
+        	</geometry>
         </visual>
 
         <inertial>
