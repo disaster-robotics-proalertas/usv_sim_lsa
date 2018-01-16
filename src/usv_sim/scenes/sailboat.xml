@@ -100,23 +100,58 @@
       <vehicleName> sailboat </vehicleName>
     </ROSOdomToPAT>
 
-    <OceanSurfaceToROSOceanVehicle>
+<OceanSurfaceToROSOceanVehicle>
 	<topic>/sailboat/Surface/base_link</topic>
 	<vehicleName>sailboat</vehicleName>
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface/back_link</topic>
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/center_r_link</topic>
 	<vehicleName>sailboat</vehicleName>
-	<linkName>back_link</linkName>
+	<linkName>center_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/sailboat/Surface/front_link</topic>
+	<topic>/sailboat/Surface/back_r_link</topic>
 	<vehicleName>sailboat</vehicleName>
-	<linkName>front_link</linkName>
+	<linkName>back_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/back_l_link</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>back_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/front_r_link</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>front_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/front_l_link</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/fwd_left</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/fwd_right</topic>
+	<vehicleName>sailboat</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <ROSJointStateToArm> 
+        <topic>/sailboat/joint_states</topic>
+        <vehicleName>sailboat</vehicleName>
+    </ROSJointStateToArm>
    
   </rosInterfaces>
 </UWSimScene>

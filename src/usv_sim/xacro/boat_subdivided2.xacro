@@ -26,15 +26,16 @@
         <visual>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.obj" scale="${scale} ${scale} ${scale}"/>
-            
+            <!--<mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.obj" scale="${scale} ${scale} ${scale}"/>-->
+            <box size="1.2 0.4 0.2" />
           </geometry>
           <material name="white"/>
         </visual>
         <collision>
           <origin rpy="0 0 1.57" xyz="0 ${0.44*scale} ${0.1*scale}"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull/centerLeft.stl" scale="${scale} ${scale} ${scale}"/>
+           <!-- <mesh filename="package://usv_sim/meshes/simpleHull/centerLeft.stl" scale="${scale} ${scale} ${scale}"/>-->
+           <box size="0.1 0.1 0.1" />
           </geometry>
         </collision>
 
@@ -59,7 +60,8 @@
         <collision>
           <origin rpy="0 0 1.57"  xyz="0 ${-0.22*scale} ${0.05*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/centerRight.stl" scale="${scale} ${scale} ${scale}"/>
+           <!--	<mesh filename="package://usv_sim/meshes/simpleHull/centerRight.stl" scale="${scale} ${scale} ${scale}"/>-->
+           <box size="0.1 0.1 0.1" />
           </geometry>
         </collision>
 
@@ -91,7 +93,8 @@
         <collision>
           <origin rpy="0 0 1.57"  xyz="${-0.85*scale} ${0.205*scale} ${-0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/backLeft.stl" scale="${scale} ${scale} ${scale}"/>
+         <!--  	<mesh filename="package://usv_sim/meshes/simpleHull/backLeft.stl" scale="${scale} ${scale} ${scale}"/>-->
+         <box size="0.1 0.1 0.1" />
           </geometry>
         </collision>
 
@@ -122,7 +125,8 @@
         <collision>
           <origin rpy="0 0 1.57"  xyz="${-0.85*scale} ${-0.205*scale} ${-0.2*scale}"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/backRight.stl" scale="${scale} ${scale} ${scale}"/>
+           <!--	<mesh filename="package://usv_sim/meshes/simpleHull/backRight.stl" scale="${scale} ${scale} ${scale}"/>-->
+           <box size="0.1 0.1 0.1" />
           </geometry>
         </collision>
 
@@ -150,67 +154,6 @@
     </joint>
 
 
-    <link name="front_l_link">
-        <collision>
-          <origin rpy="0 0 1.57"  xyz="${0.85*scale} ${0.17*scale} ${0.2*scale}"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/frontLeft.stl" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${0.85*scale} ${0.17*scale} ${-0.1*scale}"/>
-          <mass value="${front_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="${0.85*scale} ${0.17*scale} ${-0.05*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
-	  <fluidVelocity>local</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="front_l_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="front_l_link"/>
-        <origin rpy="0 0 0" xyz="${0.85*scale} ${0.17*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
-    
-    <link name="front_r_link">
-        <collision>
-          <origin rpy="0 0 1.57"  xyz="${0.85*scale} ${-0.17*scale} ${0.2*scale}"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull/frontRight.stl" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${0.85*scale} ${-0.17*scale} ${-0.1*scale}"/>
-          <mass value="${front_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="${0.85*scale} ${-0.17*scale} ${-0.05*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
-	  <fluidVelocity>local</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="front_r_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="front_r_link"/>
-        <origin rpy="0 0 0" xyz="${0.85*scale} ${-0.17*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
 
     <!-- Thruster link -->
     <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=back_r_link">
@@ -231,7 +174,7 @@
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>
           		<geometry>
-          		    <box size="${tl1} ${tl1} ${tl2}" />
+          			<box size="${tl1} ${tl1} ${tl2}" />
           		</geometry>
         	</collision>
 
@@ -354,10 +297,9 @@
 
             <visual name="visual">
                 <geometry>
-                  <mesh filename="package://usv_sim/meshes/simpleHull/box.obj" scale="${0.2*scale} ${0.02*scale} ${0.3*scale}"/>
+                  <box size="${0.2*scale} ${0.02*scale} ${0.3*scale}" />
                 </geometry>
                 <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
-                <material name="blue"/>
             </visual>
         </link>
 
@@ -385,16 +327,16 @@
         <collision name="collision">
 	        <origin xyz="0 0 0" rpy="0 0 0"/>
 	        <geometry>
-	        	<box size="0.1 0.1 0.1"/>
+	        	<box size="0.05 0.05 0.05"/>
 	        </geometry>
         </collision>
 
         <visual name="visual">
         	<origin xyz="0 0 0" rpy="0 0 0"/>
         	<geometry>
-        		<mesh filename="package://usv_sim/meshes/simpleHull/box.obj" scale="0.1 0.1 0.1"/>
+        		<!--<mesh filename="package://usv_sim/meshes/hokuyo.stl"/>-->
+        		<box size="0.05 0.05 0.05"/>
         	</geometry>
-        	<material name="blue"/>
         </visual>
 
         <inertial>

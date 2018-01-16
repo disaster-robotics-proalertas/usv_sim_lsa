@@ -7,7 +7,7 @@
         <group ns="boat_rudder" unless="$(arg parse)">
 
             	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/boat_rudder.xacro"/>
-            	<node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_rudder -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+            	<node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_rudder -param robot_description -x 0 -y 5 -z 0 -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
 		<rosparam file="$(find usv_sim)/config/boat_rudder.yaml" command="load"/>

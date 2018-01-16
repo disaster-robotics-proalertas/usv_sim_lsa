@@ -100,29 +100,58 @@
       <vehicleName> airboat </vehicleName>
     </ROSOdomToPAT>
 
-    <OceanSurfaceToROSOceanVehicle>
+	<OceanSurfaceToROSOceanVehicle>
 	<topic>/airboat/Surface/base_link</topic>
 	<vehicleName>airboat</vehicleName>
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/back_link</topic>
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/center_r_link</topic>
 	<vehicleName>airboat</vehicleName>
-	<linkName>back_link</linkName>
+	<linkName>center_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/front_link</topic>
+	<topic>/airboat/Surface/back_r_link</topic>
 	<vehicleName>airboat</vehicleName>
-	<linkName>front_link</linkName>
+	<linkName>back_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/back_l_link</topic>
+	<vehicleName>airboat</vehicleName>
+	<linkName>back_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/fwd</topic>
+	<topic>/airboat/Surface/front_r_link</topic>
 	<vehicleName>airboat</vehicleName>
-	<linkName>fwd</linkName>
+	<linkName>front_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/front_l_link</topic>
+	<vehicleName>airboat</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/fwd_left</topic>
+	<vehicleName>airboat</vehicleName>
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/airboat/Surface/fwd_right</topic>
+	<vehicleName>airboat</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+   <ROSJointStateToArm> 
+        <topic>/airboat/joint_states</topic>
+        <vehicleName>airboat</vehicleName>
+    </ROSJointStateToArm>
    
   </rosInterfaces>
 </UWSimScene>

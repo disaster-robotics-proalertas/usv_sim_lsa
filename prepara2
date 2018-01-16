@@ -1,2 +1,3 @@
-catkin_make_isolated --install
-roslaunch usv_sim robots_start_world.launch
+catkin_make_isolated --install --pkg usv_sim usv_water_current freefloating_gazebo sail_plugin
+roslaunch usv_sim sailboat.launch parse:=true
+roslaunch usv_sim sailboat.launch parse:=false gui:=true

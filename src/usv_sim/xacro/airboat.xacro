@@ -2,7 +2,7 @@
 
 <robot name="boat_rudder" xmlns:xacro="http://www.ros.org/wiki/xacro">
                       
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided.xacro" />
 
     <!-- Plugin list -->
 
@@ -15,13 +15,16 @@
             <link>fwd</link>
             <thruster>
                 <effortUnderWater>20</effortUnderWater>
-		<effortOverWater>30</effortOverWater>
+				<effortOverWater>30</effortOverWater>
                 <name>fwd</name>
             </thruster>
         </plugin>
     </gazebo>  
                 
     <!-- Define one steering thruster, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd" xyz="-0.5 0 0.2" rpy="0 ${-PI/2} 0" effort="50" velocity="20" rotationAxis="1 0 0" lowerLimit="-${PI}" upperLimit="${PI}"/>
+    <!--<xacro:thruster_link name="fwd" xyz="0 0 0.2" rpy="0 ${-PI/2} 0" effort="50" velocity="20" rotationAxis="1 0 0" lowerLimit="-${PI/4}" upperLimit="${PI/4}"/>
+    -->
+    <xacro:airthruster_link name="fwd" xyz="0 0.05 0.3" rpy="0 ${-PI/2} 0" effort="50" velocity="20" rotationAxis="1 0 0" lowerLimit="-${PI/4}" upperLimit="${PI/4}"/>
+    
             
 </robot>

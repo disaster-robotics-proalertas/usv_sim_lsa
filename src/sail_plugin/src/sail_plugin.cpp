@@ -140,6 +140,7 @@ void SailPlugin::Init()
 /////////////////////////////////////////////////
 void SailPlugin::OnUpdate()
 {
+
 //  this->joint->SetLowerLimit(0, gazebo::math::Angle(-this->angle));
 //  this->joint->SetUpperLimit(0, gazebo::math::Angle(this->angle));
   this->joint->SetLowStop(0, gazebo::math::Angle(-this->angle));
@@ -176,6 +177,7 @@ void SailPlugin::OnUpdate()
 
   // get direction of moment
   math::Vector3 momentDirection = ldNormal;
+
 
   double cosAlpha = math::clamp(
     forwardI.Dot(velInLDPlane) /
