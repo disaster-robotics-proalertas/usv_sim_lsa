@@ -576,6 +576,8 @@ ROSPublisherInterface(topic, rate)
 {
 	std::cerr<<"\n --------------- new OceanSurfaceToROSOceanVehicle. vehicle: " << vehicleName;
 	_oceanScene = ptrOcean;
+	_vehicleName = vehicleName;
+	_linkName = linkName;
 	findNodeVisitor findNode(vehicleName);
 	rootNode->accept(findNode);
 	vehicleNode = findNode.getFirst();
@@ -592,10 +594,18 @@ ROSPublisherInterface(topic, rate)
 		osg::Node * vehicleNode2 = findNode.getFirst();
 		if (vehicleNode2 != NULL)
 		{
-			osg::Matrixd mat = transform->getMatrix();
+			/*osg::Matrixd mat = transform->getMatrix();
 			osg::Vec3d pos = mat.getTrans();
-			std::cerr<<"\n ----- pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
-			transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);
+			std::cerr<<"\n ----- "<<_vehicleName<<"["<<_linkName<<"] pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
+			transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);*/
+
+			//getWorldCoordOfNodeVisitor findPos;
+			//vehicleNode2->accept(findPos);
+			//boost::shared_ptr<osg::Matrix> mat2 = findPos.giveUpDaMat();
+			boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(vehicleNode2);
+			osg::Vec3d pos = mat2->getTrans();
+			std::cerr<<"\n ----- "<<_vehicleName<<"["<<_linkName<<"] pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
+			transform  = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);
 		}
 	}
 	publish_rate =100;
@@ -613,17 +623,20 @@ void OceanSurfaceToROSOceanVehicle::publish()
 //std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHING "<<topic;
 	if (transform != NULL)
 	{
+
+		boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(transform);
+		osg::Vec3d pos = mat2->getTrans();
 		osg::Vec3f normal(0,0,1);
 
-	    	osg::Matrixd mat = transform->getMatrix();
-		osg::Vec3d pos = mat.getTrans();
-		//std::cerr<<"\n pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
+	    //osg::Matrixd mat = transform->getMatrix();
+		//osg::Vec3d pos = mat.getTrans();
+		std::cerr<<"\n "<<_vehicleName<<"["<<_linkName<<"] pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
 		pos = osg::Vec3f(pos.x(), pos.y(), _oceanScene->getOceanSurfaceHeightAt(pos.x(), pos.y(), &normal));
 		geometry_msgs::Point surface;
 		surface.x = pos.x();
 		surface.y = pos.y();
 		surface.z = pos.z();
-		//std::cerr<<" -> pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
+		std::cerr<<" -> pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
 
 		pub_.publish(surface);
 	}

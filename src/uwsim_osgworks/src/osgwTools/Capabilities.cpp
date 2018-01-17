@@ -124,6 +124,7 @@ CapabilitiesSingleton::CapabilitiesSingleton()
             traits->height = 1;
             traits->pbuffer = true;
 
+
             _gc = osg::GraphicsContext::createGraphicsContext(traits.get());
 
             if (!_gc)

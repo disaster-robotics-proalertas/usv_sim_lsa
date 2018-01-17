@@ -13,8 +13,14 @@
 	
 	
 	<!-- spawn robot -->
-	<include file="$(find usv_sim)/launch/models/spawn_sea_angler.launch" pass_all_args="true"/>
-	
+	<group>
+		<arg name="namespace" default="boat_sea_angler"/>  
+		<arg name="posX" default="0"/>
+    	<arg name="posY" default="2"/>
+    	<arg name="posZ" default="0"/>
+		<include file="$(find usv_sim)/launch/models/spawn_sea_angler.launch" pass_all_args="true" />
+	</group>
+
 <!--
 	<node name="usv_water_current" pkg="usv_water_current" type="parser.py"  unless="$(arg parse)" args="$(find usv_water_current)/maps/diluvio.yaml" />	
 	<node name="usv_water_current" pkg="usv_water_current" type="parserTiff.py"  unless="$(arg parse)" args="$(find usv_water_current)/maps/river.yaml" />

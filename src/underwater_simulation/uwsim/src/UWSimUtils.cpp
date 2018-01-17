@@ -47,7 +47,7 @@ findNodeVisitor::findNodeVisitor(const std::string &searchName) :
 //If the strings match, add this node to our list
 void findNodeVisitor::apply(osg::Node &searchNode)
 {
-  //std::cerr << "Compare " << searchForName << " to "  << searchNode.getName() << std::endl;
+  std::cerr << "Compare " << searchForName << " to "  << searchNode.getName() << std::endl;
   if (searchNode.getName() == searchForName)
   {
     foundNodeList.push_back(&searchNode);
