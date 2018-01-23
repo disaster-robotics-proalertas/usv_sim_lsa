@@ -27,9 +27,7 @@
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
             <mesh filename="package://usv_sim/meshes/simpleHull2/base_link.obj" scale="${scale} ${scale} ${scale}"/>
-            
           </geometry>
-          <material name="white"/>
         </visual>
         <collision>
           <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -96,13 +94,13 @@
 
     <link name="back_l_link">
         <visual>
-          <origin rpy="0 0 0"  xyz="${0.5*scale} ${-0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/backLeft.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </visual>
         <collision>
-          <origin rpy="0 0 0"  xyz="${0.5*scale} ${-0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/backLeft.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
@@ -125,7 +123,7 @@
     <joint name="back_l_joint" type="revolute">
         <parent link="base_link"/>
         <child link="back_l_link"/>
-        <origin rpy="0 0 0" xyz="${-0.5*scale} ${0.4*scale} 0"/>
+        <origin rpy="0 0 0" xyz="${-0.5*scale} ${0.39*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
@@ -133,13 +131,13 @@
 
     <link name="back_r_link">
     	<visual>
-          <origin rpy="0 0 0"  xyz="${0.5*scale} ${0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/backRight.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
     	</visual>
         <collision>
-          <origin rpy="0 0 0"  xyz="${0.5*scale} ${0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/backRight.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
@@ -162,7 +160,7 @@
     <joint name="back_r_joint" type="revolute">
         <parent link="base_link"/>
         <child link="back_r_link"/>
-        <origin rpy="0 0 0" xyz="${-0.5*scale} ${-0.4*scale} 0"/>
+        <origin rpy="0 0 0" xyz="${-0.5*scale} ${-0.39*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
@@ -171,13 +169,13 @@
 
     <link name="front_l_link">
     	<visual>
-    	<origin rpy="0 0 0"  xyz="${-1.3*scale} ${-0.4*scale} 0"/>
+    	<origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/frontLeft.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
     	</visual>
         <collision>
-          <origin rpy="0 0 0"  xyz="${-1.3*scale} ${-0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="0 0 0"/>
           <geometry>
            	<mesh filename="package://usv_sim/meshes/simpleHull2/frontLeft.obj" scale="${scale} ${scale} ${scale}"/>
           </geometry>
@@ -200,7 +198,7 @@
     <joint name="front_l_joint" type="revolute">
         <parent link="base_link"/>
         <child link="front_l_link"/>
-        <origin rpy="0 0 0" xyz="${1.3*scale} ${0.4*scale} 0"/>
+        <origin rpy="0 0 0" xyz="${1.3*scale} ${0.2*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
@@ -214,9 +212,9 @@
           </geometry>
         </visual>
         <collision>
-          <origin rpy="0 0 0"  xyz="${-1.3*scale} ${0.4*scale} 0"/>
+          <origin rpy="0 0 0"  xyz="${0*scale} ${0*scale} 0"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull2/frontRight.obj" scale="${scale} ${scale} ${scale}"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull2/frontRight.obj" scale="${2*scale} ${2*scale} ${2*scale}"/>
           </geometry>
         </collision>
 
@@ -237,7 +235,7 @@
     <joint name="front_r_joint" type="revolute">
         <parent link="base_link"/>
         <child link="front_r_link"/>
-        <origin rpy="0 0 0" xyz="1 0 0"/>
+        <origin rpy="0 0 0" xyz="${1.3*scale} ${-0.2*scale} 0"/>
 	<limit effort="50" velocity="5" lower="0" upper="0" />
             <dynamics damping="1.0"/>
             <axis xyz="1 0 0"/>
@@ -332,9 +330,6 @@
                 <geometry>
                     <mesh filename="package://usv_sim/meshes/simpleHull/airPropeller.obj" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
-                <material name="black">
-                    <color rgba="255 255 255 1"/>
-                </material>
             </visual>  
 
             <inertial>

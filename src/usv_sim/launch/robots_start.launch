@@ -11,7 +11,7 @@
 	<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
 	<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 	<include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch" pass_all_args="true"/>
-	<!--<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>-->
+	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
 	
 
 	<!-- parse launch file -->

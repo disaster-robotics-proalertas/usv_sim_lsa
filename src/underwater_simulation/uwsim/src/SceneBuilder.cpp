@@ -173,6 +173,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
   for (int i = 0; i < nvehicle; i++)
   {
     Vehicle vehicle = config.vehicles.front();
+    std::cerr<<"\n ------------> vehicle "<<i<<" / "<< nvehicle<< " links.size: "<<vehicle.nlinks;
     boost::shared_ptr < SimulatedIAUV > siauv(new SimulatedIAUV(this, vehicle));
     iauvFile.push_back(siauv);
     config.vehicles.pop_front();

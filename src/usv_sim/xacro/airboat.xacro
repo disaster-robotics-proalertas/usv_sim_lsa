@@ -2,7 +2,7 @@
 
 <robot name="boat_rudder" xmlns:xacro="http://www.ros.org/wiki/xacro">
                       
-    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided3.xacro" />
 
     <!-- Plugin list -->
 

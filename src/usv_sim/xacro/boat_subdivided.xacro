@@ -26,7 +26,7 @@
         <visual>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.obj" scale="${scale} ${scale} ${scale}"/>
+            <mesh filename="package://usv_sim/meshes/simpleHull/simpleHull.dae" scale="${scale} ${scale} ${scale}"/>
             
           </geometry>
           <material name="white"/>

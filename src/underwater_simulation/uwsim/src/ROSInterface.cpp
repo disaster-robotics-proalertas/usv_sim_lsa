@@ -588,24 +588,20 @@ ROSPublisherInterface(topic, rate)
 	else
 	{
 		osg::Vec3f normal(0,0,1);
-		transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode);
-		findNodeVisitor findNode2(linkName);
-		vehicleNode->accept(findNode2);
-		osg::Node * vehicleNode2 = findNode.getFirst();
-		if (vehicleNode2 != NULL)
-		{
-			/*osg::Matrixd mat = transform->getMatrix();
-			osg::Vec3d pos = mat.getTrans();
-			std::cerr<<"\n ----- "<<_vehicleName<<"["<<_linkName<<"] pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
-			transform = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);*/
 
-			//getWorldCoordOfNodeVisitor findPos;
-			//vehicleNode2->accept(findPos);
-			//boost::shared_ptr<osg::Matrix> mat2 = findPos.giveUpDaMat();
-			boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(vehicleNode2);
+		findNodeVisitor findLinkNode(linkName);
+		vehicleNode->accept(findLinkNode);
+		linkNode_= findLinkNode.getFirst();
+		if (linkNode_ != NULL)
+		{
+
+			boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(linkNode_);
 			osg::Vec3d pos = mat2->getTrans();
-			std::cerr<<"\n ----- "<<_vehicleName<<"["<<_linkName<<"] pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
-			transform  = dynamic_cast<osg::MatrixTransform*>(vehicleNode2);
+			std::cerr<<"\n ----- "<<_vehicleName<<"["<<_linkName<<"]"<<linkNode_<<" pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") linkNode_"<<linkNode_;
+		}
+		else
+		{
+			std::cerr<<"\n ----- ERROR ERROR: VEHICLE NODE NOT FOUND!!!!";
 		}
 	}
 	publish_rate =100;
@@ -621,25 +617,27 @@ void OceanSurfaceToROSOceanVehicle::createPublisher(ros::NodeHandle &nh)
 void OceanSurfaceToROSOceanVehicle::publish()
 {
 //std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHING "<<topic;
-	if (transform != NULL)
+	if (linkNode_ != NULL)
 	{
 
-		boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(transform);
+		boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(linkNode_);
 		osg::Vec3d pos = mat2->getTrans();
 		osg::Vec3f normal(0,0,1);
 
 	    //osg::Matrixd mat = transform->getMatrix();
 		//osg::Vec3d pos = mat.getTrans();
-		std::cerr<<"\n "<<_vehicleName<<"["<<_linkName<<"] pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
+		//std::cerr<<"\n "<<_vehicleName<<"["<<_linkName<<"] pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
 		pos = osg::Vec3f(pos.x(), pos.y(), _oceanScene->getOceanSurfaceHeightAt(pos.x(), pos.y(), &normal));
 		geometry_msgs::Point surface;
 		surface.x = pos.x();
 		surface.y = pos.y();
 		surface.z = pos.z();
-		std::cerr<<" -> pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
+		//std::cerr<<" -> pos "<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<")";
 
 		pub_.publish(surface);
 	}
+	//else
+		//std::cerr<<"\n OceanSurfaceToROSOceanVehicle with linkNode_ NULL";
 }
 
 OceanSurfaceToROSOceanVehicle::~OceanSurfaceToROSOceanVehicle()
