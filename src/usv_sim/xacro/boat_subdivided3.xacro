@@ -258,7 +258,7 @@
 	        	<fluidVelocity>local</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
-          		<origin xyz="0 0 0" rpy="{-0.15*scale} 0 ${0.3*scale}"/>
+          		<origin xyz="0 0 0" rpy="${-0.15*scale} 0 ${0.3*scale}"/>
           		<geometry>
           		    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.obj" scale="${scale} ${scale} ${scale}"/>
           		</geometry>
