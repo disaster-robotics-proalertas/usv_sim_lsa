@@ -45,7 +45,7 @@
           <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
           <origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -77,7 +77,7 @@
           <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
           <origin xyz="${0.35*scale} ${-0.44*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -115,7 +115,7 @@
           <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
           <origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -152,7 +152,7 @@
           <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
           <origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -190,7 +190,7 @@
           <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
           <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -227,7 +227,7 @@
           <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
           <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 20 50"/>
+          <damping rpy="20 20 20" xyz="20 40 50"/>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
