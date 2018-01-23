@@ -5,13 +5,13 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
 
     <!-- Body properties -->
-    <xacro:property name="front_body_mass" value="15"/>
+    <xacro:property name="front_body_mass" value="5"/>
     <xacro:property name="back_body_mass" value="15"/>
     <xacro:property name="middle_body_mass" value="10"/>
     <xacro:property name="rear_body_mass" value="5"/>
     <xacro:property name="front_body_mass" value="2"/>
     <xacro:property name="back_water_displaced_mass" value="40"/>
-    <xacro:property name="middle_water_displaced_mass" value="60"/>
+    <xacro:property name="middle_water_displaced_mass" value="40"/>
     <xacro:property name="front_water_displaced_mass" value="25"/>
     <xacro:property name="scale" value="0.3"/>
 
@@ -254,11 +254,11 @@
         
         <link name="${name}">      
             <buoyancy>
-				<compensation>1.0</compensation>
+				<compensation>0.8</compensation>
 	        	<fluidVelocity>local</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
-          		<origin xyz="0 0 0" rpy="0 0 0"/>
+          		<origin xyz="0 0 0" rpy="{-0.15*scale} 0 ${0.3*scale}"/>
           		<geometry>
           		    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.obj" scale="${scale} ${scale} ${scale}"/>
           		</geometry>
@@ -276,7 +276,7 @@
 
             <inertial>
                 <mass value="5"/>
-                <origin xyz="${0.2*scale} 0 ${0.2*scale}" rpy="0 0 0" />
+                <origin xyz="${-0.2*scale} 0 ${0.3*scale}" rpy="0 0 0" />
                 <inertia
                     ixx=".1"
                     ixy="0.0"

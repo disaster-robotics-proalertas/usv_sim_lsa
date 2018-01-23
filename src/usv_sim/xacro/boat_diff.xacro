@@ -11,11 +11,11 @@
             <updateRate>100</updateRate>
             <link>fwd_left</link>
             <thruster>
-                <effort>30</effort>
+                <effort>100</effort>
                 <name>fwd_left</name>
             </thruster>
    	    <thruster>
-	        <effort>30</effort>
+	        <effort>100</effort>
 	        <name>fwd_right</name>
 	    </thruster>    
         </plugin>

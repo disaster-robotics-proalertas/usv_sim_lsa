@@ -8,10 +8,22 @@
 	
 	
 	<!-- spawn robot -->
-	<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
+	<group>
+		<arg name="namespace" default="boat_diff"/>  
+		<arg name="posX" default="480"/>
+    	<arg name="posY" default="110"/>
+    	<arg name="posZ" default="2"/>
+		<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
+	</group>	
 	<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 	<include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch" pass_all_args="true"/>
-	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
+	<group>
+		<arg name="namespace" default="sailboat"/>  
+		<arg name="posX" default="-1"/>
+    	<arg name="posY" default="0"/>
+    	<arg name="posZ" default="0"/>
+		<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
+	</group>
 	
 
 	<!-- parse launch file -->

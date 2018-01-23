@@ -137,14 +137,14 @@
   
    <object>
     <name>terrain</name>
-    <file>terrain/diluvio5/novo3.obj</file>
+    <file>terrain/diluvio5/novo4.obj</file>
     <position>
       <x> 0</x>
       <y> 558 </y>
       <z> 0 </z>
     </position>
     <orientation>
-      <r>-1.57</r>
+      <r>0</r>
       <p>0 </p>
       <y>0 </y>
     </orientation>
