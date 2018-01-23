@@ -30,6 +30,7 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `sudo apt-get install ros-kinetic-osg-markers`
         `sudo apt-get install libfftw3-*`
         `sudo apt-get install libxml++2.6-*`
+        `sudo apt-get install libsdl-image1.2-dev`        
         
 
 ### Installing
