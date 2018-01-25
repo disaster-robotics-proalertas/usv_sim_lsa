@@ -212,39 +212,39 @@ void SailPlugin::OnUpdate()
 //std::cerr<<"\n alpha: "<<alpha;
   // compute cl at cp, check for stall, correct for sweep
 
-  double cl;
+	double cl;
 
-  cl = 1.5*sin(2*this->alpha);
-  // compute lift force at cp
-  math::Vector3 lift = cl * q * this->area * liftDirection;
+	cl = 1.5*sin(2*this->alpha);
+	// compute lift force at cp
+	math::Vector3 lift = cl * q * this->area * liftDirection;
 
-  // compute cd at cp, check for stall, correct for sweep
-  double cd;
-  // make sure drag is positive
-  //cd = fabs(cd);
+	// compute cd at cp, check for stall, correct for sweep
+	double cd;
+	// make sure drag is positive
+	//cd = fabs(cd);
 
-  cd = 0.5*(1-cos(2*this->alpha));
-  // drag at cp
-  math::Vector3 drag = cd * q * this->area * dragDirection;
+	cd = 0.5*(1-cos(2*this->alpha));
+	// drag at cp
+	math::Vector3 drag = cd * q * this->area * dragDirection;
 
-  // compute cm at cp, check for stall, correct for sweep
-  double cm;
-  // reset cm to zero, as cm needs testing
-  cm = 0.0;
+	// compute cm at cp, check for stall, correct for sweep
+	double cm;
+	// reset cm to zero, as cm needs testing
+	cm = 0.0;
 
-  // compute moment (torque) at cp
-  math::Vector3 moment = cm * q * this->area * momentDirection;
+	// compute moment (torque) at cp
+	math::Vector3 moment = cm * q * this->area * momentDirection;
 
-  // moment arm from cg to cp in inertial plane
-  math::Vector3 momentArm = pose.rot.RotateVector(
-    this->cp - this->link->GetInertial()->GetCoG());
-  // std::cerr << this->cp << " : " << this->link->GetInertial()->GetCoG() << "\n";
+	// moment arm from cg to cp in inertial plane
+	math::Vector3 momentArm = pose.rot.RotateVector(
+	this->cp - this->link->GetInertial()->GetCoG());
+	// std::cerr << this->cp << " : " << this->link->GetInertial()->GetCoG() << "\n";
 
-  // force and torque about cg in inertial frame
-  math::Vector3 force = lift + drag;
-  // + moment.Cross(momentArm);
+	// force and torque about cg in inertial frame
+	math::Vector3 force = lift + drag;
+	// + moment.Cross(momentArm);
 
-  math::Vector3 torque = moment;
+	math::Vector3 torque = moment;
 
 
   if (0) {
@@ -258,17 +258,7 @@ void SailPlugin::OnUpdate()
     << cd << "\n";
     std::cerr << "force: " << force << "\n\n";
   }
-//std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
-//std::cerr<<"\n"<<this->link->GetName()<<" lift: "<<lift<<" drag: "<<drag<< "total: "<<force;
-//std::cerr<<"\n "<<this->link->GetName()<<" total: "<<force;
-  // - lift.Cross(momentArm) - drag.Cross(momentArm);
 
-  // debug
-  //
-  // if ((this->link->GetName() == "wing_1" ||
-  //      this->link->GetName() == "wing_2") &&
-  //     (vel.GetLength() > 50.0 &&
-  //      vel.GetLength() < 50.0))
 
   if (0)
   {

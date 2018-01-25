@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+
+    <!-- Launch Gazebo with empty world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="use_sim_time" value="true" />
+        <arg name="debug" value="false" />
+        <arg name="gui" value="true" />
+        <arg name="paused" value="true"/>
+        <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+    </include>
+
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/cenario1.launch" output="screen" required="true"/>
+	</group>
+        <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/cenario1.xml" respawn="true"/>
+
+
+		<!-- using parser  -->
+	    <include file="$(find usv_sim)/launch/cenario1_spawner.launch"/>
+	    
+	</group>
+	<group unless="$(arg parse)">
+			<arg name="namespace" default="boat_diff"/>  
+	    	<arg name="spawnerUsed" default="true"/>
+			<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
+	</group>
+
+</launch>

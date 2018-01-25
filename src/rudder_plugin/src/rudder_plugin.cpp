@@ -15,7 +15,7 @@
 using namespace gazebo;
 
 
-  GZ_REGISTER_MODEL_PLUGIN(Rudderplugin)
+GZ_REGISTER_MODEL_PLUGIN(Rudderplugin)
 
 /////////////////////////////////////////////////
 Rudderplugin::Rudderplugin() : cla(1.0), cda(0.01), cma(0.01), rho(1.2041)
