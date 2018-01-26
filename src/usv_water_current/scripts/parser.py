@@ -131,7 +131,7 @@ def handleWaterCurrent2(req):
 def startRosService():
 	preprocessDataset2()
         s = rospy.Service('waterCurrent', GetSpeed, handleWaterCurrent2)
-        print "Ready to answer water current."
+        print "\nReady to answer water current.\n"
 
 
 def loadMap():
@@ -206,8 +206,15 @@ if __name__ == '__main__':
       		fid=h5py.h5f.open(filename,flags=h5py.h5f.ACC_RDONLY)
 	except IOError as e:
 		sys.stderr.write('Unable to open File: '+filename+'\n')
+		print(e.errno)
+		print(e)
+		exit()
+	except:
+    		print "Unexpected error:", sys.exc_info()[0]
+		raise
     	else:
       		print "Fim"
+
 
 
 	t=type(fid)

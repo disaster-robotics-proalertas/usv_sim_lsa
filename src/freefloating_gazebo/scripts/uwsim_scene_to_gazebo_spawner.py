@@ -287,7 +287,7 @@ def process_objects(objcts, datapath):
     Creates Gazebo spawner for these objects
     '''
     
-    gazebo_mesh_ext = ['.stl', '.dae', '.obj']
+    gazebo_mesh_ext = ['.stl', '.dae']
     object_nodes = []
     for obj in scene_xml.findall('object'):
         name = obj.findtext('name')

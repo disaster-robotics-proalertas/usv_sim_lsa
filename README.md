@@ -25,7 +25,7 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `sudo apt install python-rosdep python-wxtools`
         `sudo rosdep init`
         `rosdep update`
-        `sudo apt-get install python-lxml python-pathlib`
+        `sudo apt-get install python-lxml python-pathlib python-h5py`
         `sudo apt-get install ros-kinetic-control-*`
         `sudo apt-get install ros-kinetic-osg-markers`
         `sudo apt-get install libfftw3-*`
