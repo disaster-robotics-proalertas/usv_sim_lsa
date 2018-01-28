@@ -25,7 +25,7 @@
 
 
 		<!-- using parser  -->
-	    <include file="$(find usv_sim)/launch/scenario1_spawner.launch"/>
+		<include file="$(find usv_sim)/launch/scenario1_spawner.launch"/>
 	    
 	</group>
 	<group unless="$(arg parse)">

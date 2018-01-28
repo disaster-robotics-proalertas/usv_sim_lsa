@@ -2,7 +2,7 @@
 
 <robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided3.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
 
     <xacro:rudder_xacro/>
 
@@ -23,7 +23,7 @@
 
 	    <collision name="collision">
             <geometry>
-              <mesh filename="package://usv_sim/meshes/simpleHull/sail.obj" scale="0.5 0.5 0.5"/>
+              <mesh filename="package://usv_sim/meshes/simpleHull/sail.dae" scale="0.5 0.5 0.5"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0"/>
 	    </collision>
@@ -32,7 +32,7 @@
             
             <geometry>
               
-              <mesh filename="package://usv_sim/meshes/simpleHull/sail.obj" scale="0.5 0.5 0.5"/>
+              <mesh filename="package://usv_sim/meshes/simpleHull/sail.dae" scale="0.5 0.5 0.5"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0"/>
 	    </visual>
@@ -89,7 +89,62 @@
     <!-- Plugin list -->
     
   <gazebo>
+
+	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+		<linkType>sail</linkType>
+		<a0>0</a0>
+		<cla>4.752798721</cla>
+		<cda>0.6417112299</cda>
+		<cma>-1.8</cma>
+		<alpha_stall>0.785</alpha_stall>
+		<cla_stall>-3.85</cla_stall>
+		<cda_stall>-0.9233984055</cda_stall>
+		<cma_stall>0</cma_stall>
+		<cp>0 0 0</cp>
+		<joint_name>sail_joint</joint_name>
+		<area>1.44</area>
+		<air_density>1.2041</air_density>
+		<forward>1 0 0</forward>
+		<upward>0 1 0</upward>
+		<link_name>sail</link_name>
+      </plugin>
       
+      
+  
+      <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+		  <linkType>keel</linkType>
+		  <a0>0</a0>
+		  <cla>0.752798721</cla>
+		  <cda>0.3417112299</cda>
+		  <alpha_stall>0.785</alpha_stall>
+		  <cla_stall>-0.85</cla_stall>
+		  <cda_stall>-0.3233984055</cda_stall>
+		  <cp>0 0 0</cp>
+		  <area>0.1</area>
+		  <air_density>1000</air_density>
+		  <forward>1 0 0</forward>
+		  <upward>0 1 0</upward>
+		  <link_name>keel</link_name>
+    </plugin>
+    
+
+    <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+		<linkType>rudder</linkType>
+		<a0>0</a0>
+		<cla>0.752798721</cla>
+		<cda>0.3417112299</cda>
+		<alpha_stall>0.785</alpha_stall>
+		<cla_stall>-0.85</cla_stall>
+		<cda_stall>-0.3233984055</cda_stall>
+
+		<cp>0 0 0</cp>
+		<area>0.1</area>
+		<air_density>1000</air_density>
+		<forward>1 0 0</forward>
+		<upward>0 1 0</upward>
+		<link_name>rudder</link_name>
+      </plugin>
+      <!--
         <plugin name="sail_plugin" filename="libsail_plugin.so">
             <a0>0</a0>
             <cla>4.752798721</cla>
@@ -117,7 +172,6 @@
           <alpha_stall>0.785</alpha_stall>
           <cla_stall>-0.85</cla_stall>
           <cda_stall>-0.3233984055</cda_stall>
-
           <cp>0 0 0</cp>
           <area>0.1</area>
           <air_density>1000</air_density>
@@ -143,6 +197,8 @@
           <upward>0 1 0</upward>
           <link_name>rudder</link_name>
       </plugin>
+
+-->
 
       <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
           <switchService>switch</switchService>
