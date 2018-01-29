@@ -199,20 +199,11 @@
 	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
      
-  
-        
-
 	<ROSJointStateToArm> 
         <topic>/boat_diff/joint_states</topic>
         <vehicleName>boat_diff</vehicleName>
     </ROSJointStateToArm>
 
-   
-    
-        
-    
-
-   
   </rosInterfaces>
 </UWSimScene>
 

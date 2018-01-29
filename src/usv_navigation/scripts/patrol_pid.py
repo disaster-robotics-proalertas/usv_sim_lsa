@@ -19,12 +19,14 @@ waypoints = [
 ]
 result = Float64()
 result.data = 0
+x_offset = 300.
+y_offset = 100.
 
 def goal_pose(pose):
     goal_pose = Odometry()
     goal_pose.header.stamp = rospy.Time.now()
     goal_pose.header.frame_id = 'world'
-    goal_pose.pose.pose.position = Point(pose[0][0], pose[0][1], 0.)
+    goal_pose.pose.pose.position = Point(pose[0][0]+300, pose[0][1]+100, 0.)
     return goal_pose
 
 def get_result(result_aux):

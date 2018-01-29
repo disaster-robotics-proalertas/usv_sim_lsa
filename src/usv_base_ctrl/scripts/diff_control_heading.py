@@ -67,10 +67,10 @@ def angle_saturation(sensor):
     return sensor
 
 def sensor_saturation(sensor):
-    if sensor > 30:
-        sensor = 30
-    if sensor < -30:
-        sensor = -30
+    if sensor > 100:
+        sensor = 100
+    if sensor < -100:
+        sensor = -100
     return sensor
 
 def talker_ctrl():
@@ -154,7 +154,7 @@ def rudder_ctrl():
    # rudder_angle = 90 *(-err/180)
     rudder_angle = -err
 
-    log_msg = "sp: {0}; actual_angle: {1}; erro: {2}; rudder_angle: {3}; left: {4}; right: {5}; target_distance: {6}".format(sp_angle, target_angle, err, rudder_angle, left, right, target_distance)
+    log_msg = "sp: {0}; actual_angle: {1}; erro: {2}; rudder_angle: {3}; left: {4}; right: {5}; target_distance: {6}; x_sp: {7}; y_sp: {8}".format(sp_angle, target_angle, err, rudder_angle, left, right, target_distance, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y)
     #log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}; rudder_angle: {7}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle)
     rospy.loginfo(log_msg)
     return rudder_angle
