@@ -219,9 +219,6 @@
 	<vehicleName>boat_diff</vehicleName>
 	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
-
-    
-        
     
         <OceanSurfaceToROSOceanVehicle>
 	<topic>/boat_rudder/Surface/base_link</topic>

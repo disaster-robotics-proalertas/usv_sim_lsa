@@ -1,12 +1,18 @@
-	<?xml version="1.0"?>
-	<launch>
+<?xml version="1.0"?>
+<launch>
 
 		<arg name="gui" default="false"/>
 		<arg name="parse" default="false"/>   
+ 	<arg name="namespace" default="airboat"/>  
+ <arg name="posX" default="0"/>
+    <arg name="posY" default="0"/>
+    <arg name="posZ" default="0"/>
+    <arg name="spawnerUsed" default="false"/>
+
 		<!-- spawn in Gazebo with GUI -->
-        <group ns="airboat" unless="$(arg parse)">
-            	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/airboat.xacro"/>
-            	<node name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model airboat -param robot_description -x 0 -y 3 -z 0 -R 0 -P 0 -Y 0"/>
+        <group ns="$(arg namespace)" unless="$(arg parse)">
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/airboat.xacro"/>
+		<node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model airboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
 		<rosparam file="$(find usv_sim)/config/airboat.yaml" command="load"/>
