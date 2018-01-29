@@ -1,3 +1,3 @@
 catkin_make_isolated --install --pkg usv_sim usv_base_ctrl usv_navigation freefloating_gazebo
-roslaunch usv_sim scenario1.launch parse:=true
-roslaunch usv_sim scenario1.launch parse:=false gui:=true
+roslaunch usv_sim diff_diluvio.launch parse:=true
+roslaunch usv_sim diff_diluvio.launch parse:=false gui:=true

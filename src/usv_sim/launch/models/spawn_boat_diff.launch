@@ -32,10 +32,6 @@
 
 
 		<!-- GUI interface to control joints -->
-			<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
-				<param name="use_gui" value="True"/>
-				<remap from="joint_states" to="joint_setpoint" />        
-			</node>
 			<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
 		<!-- GUI interface to control thrusters -->
 			<group ns="thrusters">
