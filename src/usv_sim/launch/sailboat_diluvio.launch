@@ -15,24 +15,24 @@
 
 	<!-- parse launch file -->
 	<group if="$(arg parse)">
-		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/scenario1.launch" output="screen" required="true"/>
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/sailboat_diluvio.launch" output="screen" required="true"/>
 	</group>
         <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
 		<arg name="disableShaders" default="false"/>
 		<!-- launch uwsim -->
-		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/boat_rudder.xml" respawn="true"/>
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/sailboat.xml" respawn="true"/>
 
 
 		<!-- using parser  -->
-	    <include file="$(find usv_sim)/launch/scenario1_spawner.launch"/>
+	    <include file="$(find usv_sim)/launch/sailboat_diluvio_spawner.launch"/>
 	    
 	</group>
 
 	<group unless="$(arg parse)">
 		<arg name="spawnerUsed" default="true"/>
 	<!--<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>-->
-	<include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch" pass_all_args="true"/>
+	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
 	</group>
 
 </launch>
