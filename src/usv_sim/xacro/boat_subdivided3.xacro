@@ -394,7 +394,7 @@
             <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.22*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
             <axis xyz="0 0 1"/>
-            <limit effort="50" velocity="5" lower="-${PI/3}" upper="${PI/3}" />
+            <limit effort="100" velocity="5" lower="-${1.309}" upper="${1.309}" />
         </joint>
     </xacro:macro> 
 

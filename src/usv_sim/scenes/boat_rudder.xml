@@ -185,10 +185,16 @@
     </OceanSurfaceToROSOceanVehicle> 
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_rudder/Surface/fwd</topic>
+	<topic>/boat_rudder/Surface/fwd_left</topic>
 	<vehicleName>boat_rudder</vehicleName>
-	<linkName>fwd</linkName>
-    </OceanSurfaceToROSOceanVehicle> 
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/boat_rudder/Surface/fwd_right</topic>
+	<vehicleName>boat_rudder</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
 
 	<ROSJointStateToArm> 
         <topic>/boat_rudder/joint_states</topic>
@@ -197,4 +203,3 @@
    
   </rosInterfaces>
 </UWSimScene>
-
