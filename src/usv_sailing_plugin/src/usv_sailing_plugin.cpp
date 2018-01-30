@@ -109,16 +109,36 @@ void USV_Sailing_Plugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 		sdf::ElementPtr elem = _sdf->GetElement("link_type");
 		this->linkType = elem->Get<std::string>();
 	}
+	if (_sdf->HasElement("joint_name"))
+	{
+		sdf::ElementPtr elem = _sdf->GetElement("joint_name");
+		this->jointName = elem->Get<std::string>();
+		this->joint = this->model->GetJoint(this->jointName);
+		std::cerr << "Joint name: [" << this->jointName << "\n";
+		std::cerr << "Joint: [" << this->joint->GetName() << "\n";
+	}
 	waterCurrent = math::Vector3(0,0,0);
+	float wind_value_x;  
+	float wind_value_y;
+	float wind_value_z;
+	if (rosnode_.getParam("/uwsim/wind/x", wind_value_x) & rosnode_.getParam("/uwsim/wind/y", wind_value_y))
+	{
+		this->wind = math::Vector3(wind_value_x, wind_value_y, 0);
+	}
+	else
+	{
+		ROS_INFO("Sail plugin error: Cant find value of /uwsim/wind in param server");
+	}
 }
 
 /////////////////////////////////////////////////
 void USV_Sailing_Plugin::Init()
 {
+	std::cerr<<"\n ----------- USV_Sailing_Plugin::init: type: "<<this->linkType<<" linkName: "<<this->linkName;
 	current_subscriber_ = rosnode_.subscribe("/gazebo/current", 1, &USV_Sailing_Plugin::ReadWaterCurrent, this);
 	this->updateConnection = event::Events::ConnectWorldUpdateBegin(boost::bind(&USV_Sailing_Plugin::OnUpdate, this));
 
-
+	std::cerr<<"\n compare to sail: "<<this->linkType.compare("sail");
 	if (this->linkType.compare("sail")==0)
 	{
 		std::string topic = "/" + this->model->GetName() + "/angleLimits";
@@ -438,6 +458,7 @@ void USV_Sailing_Plugin::OnUpdateKeel()
 
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition(force, this->cp);
+
 }
 
 void USV_Sailing_Plugin::OnUpdateSail()

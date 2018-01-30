@@ -5,7 +5,7 @@
 	<arg name="parse" default="false"/>
 
     <!-- Launch Gazebo with empty world -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" unless="$(arg parse)">
         <arg name="use_sim_time" value="true" />
         <arg name="debug" value="false" />
         <arg name="gui" value="true" />

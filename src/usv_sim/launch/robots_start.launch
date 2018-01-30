@@ -4,11 +4,12 @@
 	<arg name="gui" default="false"/>
 	<arg name="parse" default="false"/>
 	<!-- spawn gazebo -->
-	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	<include file="$(find gazebo_ros)/launch/empty_world.launch" unless="$(arg parse)">
 		<arg name="use_sim_time" value="true" />
 		<arg name="debug" value="false" />
 		<arg name="gui" value="true" />
 		<arg name="paused" value="true"/>
+		<arg name="verbose" value="true"/>
 		<arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
 	</include>
 	

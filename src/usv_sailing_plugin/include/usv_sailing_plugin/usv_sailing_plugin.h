@@ -126,6 +126,7 @@ namespace gazebo
 
     /// \brief Names of allowed target links, specified in sdf parameters.
     protected: std::string linkName;
+    protected: std::string jointName;
 	
     /// \briedf Type of link: rudder, sail, keel
     protected: std::string linkType;

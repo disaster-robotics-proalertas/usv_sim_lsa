@@ -10,7 +10,7 @@
     
     <link name="sail">
 		<inertial>
-		    <origin rpy="0 0 0" xyz="-0.3 0 0.4"/>
+		    	<origin rpy="0 0 0" xyz="-0.3 0 0.4"/>
 			<mass value="0.1" />
 			<inertia
 			  ixx="0.4708"
@@ -69,7 +69,7 @@
 
 	<visual name="visual">
 		<geometry>
-			<mesh filename="package://usv_sim/meshes/simpleHull/box.obj" scale="0.25 0.02 0.5"/>
+			<mesh filename="package://usv_sim/meshes/simpleHull3/box.dae" scale="0.25 0.02 0.5"/>
 		</geometry>
 		<origin rpy="0 0 0" xyz="0 0 0"/>
 	</visual>
@@ -83,7 +83,7 @@
         <axis xyz="0 0 1"/>
         <limit effort="30" velocity="5" lower="0" upper="0" />
     </joint>
-    
+       
     
 
     <!-- Plugin list -->
@@ -91,7 +91,7 @@
   <gazebo>
 
 	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
-		<linkType>sail</linkType>
+		<link_type>sail</link_type>
 		<a0>0</a0>
 		<cla>4.752798721</cla>
 		<cda>0.6417112299</cda>
@@ -112,7 +112,7 @@
       
   
       <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
-		  <linkType>keel</linkType>
+		  <link_type>keel</link_type>
 		  <a0>0</a0>
 		  <cla>0.752798721</cla>
 		  <cda>0.3417112299</cda>
@@ -129,7 +129,7 @@
     
 
     <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
-		<linkType>rudder</linkType>
+		<link_type>rudder</link_type>
 		<a0>0</a0>
 		<cla>0.752798721</cla>
 		<cda>0.3417112299</cda>
@@ -138,7 +138,7 @@
 		<cda_stall>-0.3233984055</cda_stall>
 
 		<cp>0 0 0</cp>
-		<area>0.1</area>
+		<area>0.5</area>
 		<air_density>1000</air_density>
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>

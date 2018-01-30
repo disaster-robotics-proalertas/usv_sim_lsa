@@ -14,13 +14,9 @@
     <xacro:property name="middle_water_displaced_mass" value="40"/>
     <xacro:property name="front_water_displaced_mass" value="25"/>
     <xacro:property name="scale" value="0.3"/>
-
-    <!-- Thruster constants -->
-    <xacro:property name="tr1" value=".02" />
-    <xacro:property name="tl1" value=".1" />
-    <xacro:property name="tr2" value=".05" />
-    <xacro:property name="tl2" value=".03" />
-    <xacro:property name="eps" value="0.00000001"/>
+    <xacro:property name="bl1" value=".1" />
+    <xacro:property name="bl2" value=".1" />
+    
 
     <link name="base_link">
         <visual>
@@ -260,14 +256,14 @@
 	    	<collision>
           		<origin xyz="0 0 0" rpy="${-0.15*scale} 0 ${0.3*scale}"/>
           		<geometry>
-          		    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.dae" scale="${scale} ${scale} ${scale}"/>
+          		    <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
           		</geometry>
         	</collision>
 
             <visual name="${name}">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.dae" scale="${scale} ${scale} ${scale}"/>
+                    <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
                 <material name="black">
                     <color rgba="255 255 255 1"/>
@@ -321,14 +317,14 @@
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>
           		<geometry>
-          			<box size="${tl1} ${tl1} ${tl2}" />
+          			<box size="${bl1} ${bl1} ${bl2}" />
           		</geometry>
         	</collision>
 
             <visual name="${name}">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://usv_sim/meshes/simpleHull/airPropeller.dae" scale="${scale} ${scale} ${scale}"/>
+                    	<mesh filename="package://usv_sim/meshes/simpleHull/airPropeller.dae" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
             </visual>  
 
@@ -381,10 +377,12 @@
 
             <visual name="visual">
                 <geometry>
-                  <mesh filename="package://usv_sim/meshes/simpleHull/box.dae" scale="${0.2*scale} ${0.02*scale} ${0.3*scale}"/>
+                
+                  <mesh filename="package://usv_sim/meshes/simpleHull3/box.dae" scale="${0.2*scale} ${0.02*scale} ${0.3*scale}"/>
+                  
                 </geometry>
                 <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
-                <material name="blue"/>
+                
             </visual>
         </link>
 
@@ -419,9 +417,10 @@
         <visual name="visual">
         	<origin xyz="0 0 0" rpy="0 0 0"/>
         	<geometry>
-        		<mesh filename="package://usv_sim/meshes/simpleHull/box.dae" scale="0.1 0.1 0.1"/>
+        		<mesh filename="package://usv_sim/meshes/simpleHull3/box.dae" scale="0.1 0.1 0.1"/>
+        		
         	</geometry>
-        	<material name="blue"/>
+        	
         </visual>
 
         <inertial>
