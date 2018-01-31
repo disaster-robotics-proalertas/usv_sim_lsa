@@ -11,6 +11,7 @@ from std_msgs.msg import String
 from nav_msgs.msg import Odometry, OccupancyGrid
 from rosgraph_msgs.msg import Clock
 from std_msgs.msg import Float64
+from std_msgs.msg import Int64
 from geometry_msgs.msg import Twist, Point, Quaternion
 import math
 
@@ -38,23 +39,6 @@ indexMap = []
 
 pub = rospy.Publisher('waterflow', OccupancyGrid, queue_size=1)
 mymap = OccupancyGrid();
-
-
-def UpdateTime(data):
-	global time, startTime, endTime, interval, repeat
-	bkpTime = time
-	resto = (startTime + data.clock.secs/interval)%(endTime-startTime)
-	inteiro = (startTime + data.clock.secs/interval)/(endTime-startTime)
-	if (repeat==-1):
-		time = resto
-	elif (repeat>=0):
-		if (inteiro>repeat):
-			time = endTime
-		else:				
-			time = resto
-	if (bkpTime != time):
-		loadMap()
-	print data.clock.secs
 
 def PrintHierarchy(gid, level, text):
 	global nodeNameX, nodeNameY, datasetX, datasetY, nodeCoordinate, datasetCoord
@@ -127,11 +111,17 @@ def handleWaterCurrent2(req):
 	return GetSpeedResponse(datasetX[time][i], datasetY[time][i])
 #	return GetSpeedResponse(arrayX[req.x][req.y], arrayY[req.x][req.y])
 
+def defineTime(data):
+	global time
+	time = data.data
+	print "\n New time defined: ", time
 
 def startRosService():
+	rospy.Subscriber("waterCurrentTime", Int64, defineTime)
 	preprocessDataset2()
         s = rospy.Service('waterCurrent', GetSpeed, handleWaterCurrent2)
         print "\nReady to answer water current.\n"
+
 
 
 def loadMap():
@@ -149,7 +139,7 @@ def loadMap():
 	mymap.info.origin.orientation.z = 0;
 	mymap.info.origin.orientation.w = 1;
 	delta = 1.2
-	rospy.logerr ("################### Preparing map. Size (%d, %d) origin(%d, %d)", width, height, 0, 0)
+	rospy.logerr ("################### Preparing map to rviz. Size (%d, %d) origin(%d, %d)", width, height, 0, 0)
 #	for y in xrange(height-1, -1, -1):
 	mymap.data = []
 	for y in range(0, height):
@@ -189,9 +179,6 @@ def parse_config_file(config_file_name):
 	height = data_loaded['height']
 	filename = data_loaded['filename']
 	time = data_loaded['startTime']
-#	endTime = data_loaded['endTime']
-#	repeat = data_loaded['repeat']
-#	interval = data_loaded['interval']
 
 
 
@@ -234,11 +221,11 @@ if __name__ == '__main__':
 	print "datasetX: ",len(datasetX), ", ", len(datasetX[0])
 	print "datasetY: ",len(datasetY), ", ", len(datasetY[0])
 	print "datasetCoord: ",len(datasetCoord), ", ", len(datasetCoord[0])
+	print "time interval: 0 - ",(len(datasetX)-1)
 	minX =datasetCoord[0][0]
 	maxX =datasetCoord[0][0]
 	minY =datasetCoord[0][1]
 	maxY =datasetCoord[0][1]
-	#sub = rospy.Subscriber('/clock', Clock, UpdateTime)
 	startRosService();
 	loadMap()
 	rate = rospy.Rate(1) # 10hz

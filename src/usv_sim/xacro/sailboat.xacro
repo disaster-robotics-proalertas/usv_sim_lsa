@@ -11,7 +11,7 @@
     <link name="sail">
 		<inertial>
 		    	<origin rpy="0 0 0" xyz="-0.3 0 0.4"/>
-			<mass value="0.1" />
+			<mass value="1" />
 			<inertia
 			  ixx="0.4708"
 			  ixy="0.0"
@@ -87,7 +87,6 @@
     
 
     <!-- Plugin list -->
-    
   <gazebo>
 
 	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">

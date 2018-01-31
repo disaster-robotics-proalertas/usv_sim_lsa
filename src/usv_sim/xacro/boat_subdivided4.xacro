@@ -6,8 +6,8 @@
 
     <!-- Body properties -->
     <xacro:property name="front_body_mass" value="5"/>
-    <xacro:property name="back_body_mass" value="15"/>
-    <xacro:property name="middle_body_mass" value="10"/>
+    <xacro:property name="back_body_mass" value="5"/>
+    <xacro:property name="middle_body_mass" value="5"/>
     <xacro:property name="rear_body_mass" value="5"/>
     <xacro:property name="front_body_mass" value="2"/>
     <xacro:property name="back_water_displaced_mass" value="40"/>
@@ -433,7 +433,7 @@
     <gazebo reference="hokuyo_link">
         <sensor type="gpu_ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <update_rate>40</update_rate>
         <ray>
         <scan>
