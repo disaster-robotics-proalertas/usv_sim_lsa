@@ -85,15 +85,15 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
 
 On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
-- scenario1
-- scenario2
-- scenario3
-- scenario4
+- ``scenario1``: boat should navigate through two lines of buoys. 
+- ``scenario2``: boat should avoid colision with 3 buoys.
+- ``scenario3``: boat should execute zigzag to cover an area.
+- ``scenario4``: boat should stay inside a circular area.
 
 To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
 
 <p align="center">
-  <img src="./images/SCENARIOS2.png" width="800" alt="Scenarios to test boats"/>
+  <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
 </p>
 
 
