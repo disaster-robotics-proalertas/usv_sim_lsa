@@ -116,7 +116,11 @@ There are 4 boat models preconfigured in package usv_sim:
   <img src="./images/barcos4.png" width="800" alt="4 boat models"/>
 </p>
 
-The hull of all models above has been subdivided in 3 parts, so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_common_subdivided). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
+The hull of all models above has been subdivided in 6 parts (see image above), so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_subdivided4.xacro). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
+
+<p align="center">
+  <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
+</p>
 
 ## Contributing
 
