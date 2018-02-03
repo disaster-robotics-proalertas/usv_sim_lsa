@@ -84,10 +84,18 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `roslaunch usv_sim airboat.launch parse:=true`  
         `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
 
+## System Architecture 
+
+The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
+
+<p align="center">
+  <img src="./images/DiagramaTopicosServicos.png" width="650" alt="System Architecture"/>
+</p>
+
 ## Models
 
 
-There are 4 models preconfigured in package usv_sim:
+There are 4 boat models preconfigured in package usv_sim:
 - airboat: composed by one thruster above the hull. This model has greater advantaged to navigate on shallow waters.
 <p align="center">
   <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png" width="650" alt="Structure of airboat"/>
