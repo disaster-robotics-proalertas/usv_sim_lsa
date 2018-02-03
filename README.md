@@ -84,12 +84,25 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         `roslaunch usv_sim airboat.launch parse:=true`  
         `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
 
+On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
+	scenario1
+	scenario2
+	scenario3
+	scenario4
+
+To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
+
+<p align="center">
+  <img src="./images/SCENARIOS2.png" width="800" alt="Scenarios to test boats"/>
+</p>
+
+
 ## System Architecture 
 
 The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
 
 <p align="center">
-  <img src="./images/DiagramaTopicosServicos.png" width="650" alt="System Architecture"/>
+  <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
 </p>
 
 ## Models
@@ -97,23 +110,12 @@ The main system architecture is composed of UWSIM and Gazebo. With some plugins,
 
 There are 4 boat models preconfigured in package usv_sim:
 - airboat: composed by one thruster above the hull. This model has greater advantaged to navigate on shallow waters.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png" width="650" alt="Structure of airboat"/>
-</p>
-
 - differential boat: two thruster under water surface. This model has the simplest maneuverability.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_diff.png" width="650" alt="Structure of differential boat"/>
-</p>
-
 - rudder boat: one thruster and one rudder. One of the most common configuration presented in boats.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png" width="650" alt="Structure of rudder boat"/>
-</p>
-
 - sailboat: one sail and one rudder.
+
 <p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png" width="650" alt="Structure of sailboat"/>
+  <img src="./images/barcos4.png" width="800" alt="4 boat models"/>
 </p>
 
 The hull of all models above has been subdivided in 3 parts, so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_common_subdivided). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
