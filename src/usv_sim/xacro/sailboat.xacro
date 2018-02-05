@@ -23,7 +23,7 @@
 
 	    <collision name="collision">
             <geometry>
-              <mesh filename="package://usv_sim/meshes/simpleHull/sail.dae" scale="0.5 0.5 0.5"/>
+              <mesh filename="package://usv_sim/meshes/simpleHull3/sail.dae" scale="0.5 0.5 0.5"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0"/>
 	    </collision>
@@ -32,7 +32,7 @@
             
             <geometry>
               
-              <mesh filename="package://usv_sim/meshes/simpleHull/sail.dae" scale="0.5 0.5 0.5"/>
+              <mesh filename="package://usv_sim/meshes/simpleHull3/sail.dae" scale="0.5 0.5 0.5"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0 0 0"/>
 	    </visual>
