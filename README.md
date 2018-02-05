@@ -143,9 +143,9 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 |------------|------------------|---------|-----------|---------|--------------|--------|
 |<sub>xacro/airboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  |<sub> fwd </sub> |  | |  
 |<sub>xacro/boat_diff.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  | <sub>fwd_left fwd_right</sub> |  | |
-|<sub>xacro/boat_rudder.xacro| xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  |<sub> fwd</sub> |  | |
+|<sub>xacro/boat_rudder.xacro| xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  |<sub> fwd</sub> |  | <sub>rudder</sub> |
 |<sub>xacro/sailboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  <sub>meshes/simpleHull/sail.daemeshes/simpleHull3/box.dae</sub> | | | |
-|<sub>xacro/boat_subdivided4.xacro</sub> | - |<sub>libgazebo_ros_gpu_laser</sub> |  <sub>meshes/simpleHull3/base_link.dae meshes/simpleHull3/centerRight.dae meshes/simpleHull3/backLeft.dae meshes/simpleHull3/backRight.dae meshes/simpleHull3/frontLeft.dae meshes/simpleHull3/frontRight.dae meshes/simpleHull3/thruster.dae meshes/simpleHull/airPropeller.dae meshes/simpleHull3/box.dae</sub> |  <sub>xacro:macro:thruster_link</sub> |  <sub>xacro:macro:airthruster_link</sub> |  |
+|<sub>xacro/boat_subdivided4.xacro</sub> | - |<sub>libgazebo_ros_gpu_laser</sub> |  <sub>meshes/simpleHull3/base_link.dae meshes/simpleHull3/centerRight.dae meshes/simpleHull3/backLeft.dae meshes/simpleHull3/backRight.dae meshes/simpleHull3/frontLeft.dae meshes/simpleHull3/frontRight.dae meshes/simpleHull3/thruster.dae meshes/simpleHull/airPropeller.dae meshes/simpleHull3/box.dae</sub> |  <sub>macro:thruster_link</sub> |  <sub>macro:airthruster_link</sub> |  <sub>macro:rudder_xacro</sub>|
 
 
 ## Contributing
