@@ -136,7 +136,7 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 |models/spawn_airboat.launch | xacro/airboat.xacro | config/airboat.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_vel_airboat.py | usv_tf::world_tf_broadcaster.py | Yes | 
 |models/spawn_boat_diff.launch | xacro/boat_diff.xacro | config/boat_diff.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_diff_vel_ctrl.py | usv_tf::world_tf_broadcaster.py | Yes | 
 |models/spawn_boat_rudder.launch | xacro/boat_rudder.xacro | config/boat_rudder.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::boat_rudder_vel_ctrl.py | usv_tf::world_tf_broadcaster.py | Yes | 
-|models/spawn_sailboat.launch | xacro/sailboat.xacro	config/sailboat.yaml	freefloating_gazebo::pid_control	usv_base_ctrl::control_??_ctrl.py | 	usv_tf::world_tf_broadcaster.py | Yes | 
+|models/spawn_sailboat.launch | xacro/sailboat.xacro | config/sailboat.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_??_ctrl.py | 	usv_tf::world_tf_broadcaster.py | Yes | 
 
 
 
