@@ -40,48 +40,6 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
 ## Running the tests
 
-6. launchs:
-
-    6.1 for heading control:   
-        `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`  
-        `publish the desired location on topic /barco_auv/usv_postion_setpoint`  
-
-    6.2 for velocity control:    
-        `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
-        `publish the desired location on topic /barco_auv/cmd_vel`  
-
-    6.3 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
-
-    6.4 for differential boat with heading control:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
-
-    6.5 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
-
-    6.6 for rudder boat with heading control:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
-
-    6.7 for sailboat with user interface to define joints positions:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
-
-    6.8 for sailboat with heading control:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
-
-    6.9 for airboat with user interface to define joints positions:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
-
-    6.10 for airboat with heading control:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
-
 On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
 - ``scenario1``: boat should navigate through two lines of buoys. 
 - ``scenario2``: boat should avoid colision with 3 buoys.
