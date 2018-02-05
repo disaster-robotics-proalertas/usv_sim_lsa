@@ -1,5 +1,5 @@
 .markdown-preview.markdown-preview {
-  td { font-size: 1em; }
+  td { font-size: 10px; }
 }
 
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
