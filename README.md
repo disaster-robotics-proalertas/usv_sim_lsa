@@ -140,6 +140,15 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 
 
 
+|XACRO FILES |	HULL SUBDIVISION	| plugins |	DAE FILES | 	OBJ FILES |	THRUSTERS |	AIR_THRUSTER |	RUDDER |
+|------------|----------------------|---------|-----------|---------------|-----------|--------------|---------|
+|xacro/airboat.xacro    |	xacro/boat_subdivided4.xacro |	libfreefloating_gazebo_control | | |	fwd 			| | |	
+|xacro/boat_diff.xacro  |	xacro/boat_subdivided4.xacro |	libfreefloating_gazebo_control | | | fwd_left fwd_right | | |		
+|xacro/boat_rudder.xacro| xacro/boat_subdivided4.xacro   |libfreefloating_gazebo_control libusv_sailing_plugin | | | fwd |	 | |
+|xacro/sailboat.xacro	| xacro/boat_subdivided4.xacro   |libfreefloating_gazebo_control libusv_sailing_plugin |	meshes/simpleHull/sail.dae	meshes/simpleHull3/box.dae			
+|xacro/boat_subdivided4.xacro | - |libgazebo_ros_gpu_laser |	meshes/simpleHull3/base_link.dae meshes/simpleHull3/centerRight.dae meshes/simpleHull3/backLeft.dae meshes/simpleHull3/backRight.dae meshes/simpleHull3/frontLeft.dae meshes/simpleHull3/frontRight.dae meshes/simpleHull3/thruster.dae meshes/simpleHull/airPropeller.dae meshes/simpleHull3/box.dae		| | xacro:macro:thruster_link |	xacro:macro:airthruster_link |	|
+
+
 ## Contributing
 
 TODO
