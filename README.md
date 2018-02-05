@@ -1,7 +1,3 @@
-.markdown-preview.markdown-preview {
-  td { font-size: 10px; }
-}
-
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
 This simulator uses a combination of multiple physics packages to build a test enviroment for Unmanned Surface Vehicles (USV). We curently use UWsim for water surface modeling and ... . Our goal is to build a simulator for distater scenarios, such as floods, ... . We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats and sailboats. You can find their xacros in packacge usv_sim.
 
@@ -137,7 +133,7 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 
 |boat launch file | Robot description | controller configurations | PID control	velocity control | TF broadcasters | GUI Support | 
 |-----------------|-------------------|---------------------------|------------------------------|-----------------|-------------|
-|models/spawn_airboat.launch | xacro/airboat.xacro | config/airboat.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_vel_airboat.py | usv_tf::world_tf_broadcaster.py | Yes | 
+|<sub>models/spawn_airboat.launch</sub> | xacro/airboat.xacro | config/airboat.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_vel_airboat.py | usv_tf::world_tf_broadcaster.py | Yes | 
 |models/spawn_boat_diff.launch | xacro/boat_diff.xacro | config/boat_diff.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_diff_vel_ctrl.py | usv_tf::world_tf_broadcaster.py | Yes | 
 |models/spawn_boat_rudder.launch | xacro/boat_rudder.xacro | config/boat_rudder.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::boat_rudder_vel_ctrl.py | usv_tf::world_tf_broadcaster.py | Yes | 
 |models/spawn_sailboat.launch | xacro/sailboat.xacro | config/sailboat.yaml | freefloating_gazebo::pid_control | usv_base_ctrl::control_??_ctrl.py | 	usv_tf::world_tf_broadcaster.py | Yes | 
