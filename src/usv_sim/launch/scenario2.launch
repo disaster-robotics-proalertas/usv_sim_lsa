@@ -10,6 +10,7 @@
         <arg name="debug" value="false" />
         <arg name="gui" value="true" />
         <arg name="paused" value="true"/>
+		<arg name="verbose" value="true"/>
         <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
     </include>
 

@@ -48,14 +48,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>290</x>
-      <y>100 </y>
-      <z>5 </z>
+      <x>220</x>
+      <y>95 </y>
+      <z>20 </z>
     </position> 
     <lookAt>
-      <x>300</x>
-      <y>102 </y>
-      <z>3 </z>
+      <x>240</x>
+      <y>95 </y>
+      <z>5 </z>
     </lookAt>
   </camera>
 
@@ -67,8 +67,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 100 </y>
+      <x> 240</x>
+      <y> 95 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -79,6 +79,156 @@
   </vehicle>
   
 
+
+   <vehicle>
+    <name>buoy1</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 250</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <vehicle>
+    <name>buoy2</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 255</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy3</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 260</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy4</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 265</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+  <vehicle>
+    <name>buoy5</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 270</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+<vehicle>
+    <name>buoy6</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 250</x>
+      <y> 90 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <vehicle>
+    <name>buoy7</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 255</x>
+      <y> 90 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy8</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 260</x>
+      <y> 90 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy9</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 265</x>
+      <y> 90 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+  <vehicle>
+    <name>buoy10</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 270</x>
+      <y> 90 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
 	
   
    <object>
@@ -97,58 +247,62 @@
   </object>
   
 
-   <object>
-    <name>buoy1</name>
-    <file>meshes/buoy.obj</file>
-    <position>
-      <x> 305</x>
-      <y> 100 </y>
-      <z> 1 </z>
-    </position>
-    <orientation>
-      <r>0</r>
-      <p>0</p>
-      <y>0</y>
-    </orientation>
-  </object>
-  
-   <object>
-    <name>buoy2</name>
-    <file>meshes/buoy.obj</file>
-    <position>
-      <x> 310</x>
-      <y> 100 </y>
-      <z> 1 </z>
-    </position>
-    <orientation>
-      <r>0</r>
-      <p>0</p>
-      <y>0</y>
-    </orientation>
-  </object>
-
-   <object>
-    <name>buoy3</name>
-    <file>meshes/buoy.obj</file>
-
-    <position>
-      <x> 315</x>
-      <y> 100 </y>
-      <z> 1 </z>
-    </position>
-    <orientation>
-      <r>0</r>
-      <p>0</p>
-      <y>0</y>
-    </orientation>
-  </object>
-
   <rosInterfaces>   
   
     <ROSOdomToPAT>
       <topic> /boat_diff/state </topic>
       <vehicleName> boat_diff </vehicleName>
     </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy1/state </topic>
+      <vehicleName> buoy1 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy2/state </topic>
+      <vehicleName> buoy2 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy3/state </topic>
+      <vehicleName> buoy3 </vehicleName>
+    </ROSOdomToPAT> 
+    
+        <ROSOdomToPAT>
+      <topic> /buoy4/state </topic>
+      <vehicleName> buoy4 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy5/state </topic>
+      <vehicleName> buoy5 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy6/state </topic>
+      <vehicleName> buoy6 </vehicleName>
+    </ROSOdomToPAT> 
+    
+        <ROSOdomToPAT>
+      <topic> /buoy7/state </topic>
+      <vehicleName> buoy7 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy8/state </topic>
+      <vehicleName> buoy8 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy9/state </topic>
+      <vehicleName> buoy9 </vehicleName>
+    </ROSOdomToPAT>
+    
+    <ROSOdomToPAT>
+      <topic> /buoy10/state </topic>
+      <vehicleName> buoy10 </vehicleName>
+    </ROSOdomToPAT>  
 
 
     <OceanSurfaceToROSOceanVehicle>
@@ -199,7 +353,65 @@
 	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
      
-  
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy1/Surface/link</topic>
+	<vehicleName>buoy1</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy2/Surface/link</topic>
+	<vehicleName>buoy2</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy3/Surface/link</topic>
+	<vehicleName>buoy3</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy4/Surface/link</topic>
+	<vehicleName>buoy4</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy5/Surface/link</topic>
+	<vehicleName>buoy5</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy6/Surface/link</topic>
+	<vehicleName>buoy6</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+        <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy7/Surface/link</topic>
+	<vehicleName>buoy7</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy8/Surface/link</topic>
+	<vehicleName>buoy8</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy9/Surface/link</topic>
+	<vehicleName>buoy9</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy10/Surface/link</topic>
+	<vehicleName>buoy10</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>    
         
 
 	<ROSJointStateToArm> 

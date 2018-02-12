@@ -1,0 +1,1 @@
+rosrun usv_wind_current wind.py src/usv_wind_current/maps/river3.yaml

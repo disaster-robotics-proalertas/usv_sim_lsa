@@ -124,8 +124,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 0</x>
-      <y> 0 </y>
+      <x> 270</x>
+      <y> 46 </y>
       <z> 0 </z>
     </position>
     <orientation>

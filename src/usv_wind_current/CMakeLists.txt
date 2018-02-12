@@ -1,25 +1,28 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(usv_sailing_plugin)
+project(usv_wind_current)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
-set(CMAKE_CXX_FLAGS "-std=c++11")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
+  geometry_msgs
+  message_generation
+  nav_msgs
+  rospy
   std_msgs
-  gazebo_ros
-  usv_wind_current
-  usv_water_current
 )
+
+find_package(SDL REQUIRED)
+find_package(SDL_image REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(YAMLCPP yaml-cpp REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-find_package(gazebo REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -58,11 +61,10 @@ find_package(gazebo REQUIRED)
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+    GetSpeed.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -72,10 +74,10 @@ find_package(gazebo REQUIRED)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,30 +109,28 @@ find_package(gazebo REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES usv_sailing_plugin
-  CATKIN_DEPENDS roscpp std_msgs
-#  DEPENDS system_lib
+#  INCLUDE_DIRS include
+#  LIBRARIES usv_wind_current
+  CATKIN_DEPENDS message_runtime std_msgs
+  DEPENDS 
+    nav_msgs
+    geometry_msgs
 )
-
-
 
 ###########
 ## Build ##
 ###########
 
-
-link_directories(${GAZEBO_LIBRARY_DIRS})
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- include
-  ${catkin_INCLUDE_DIRS}  ${GAZEBO_INCLUDE_DIRS} 
+# include
+  ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/usv_sailing_plugin.cpp
+#   src/${PROJECT_NAME}/usv_wind_current.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -141,7 +141,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/usv_sailing_plugin_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/usv_wind_current_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -157,9 +157,6 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
-add_library(usv_sailing_plugin SHARED src/usv_sailing_plugin.cpp include/usv_sailing_plugin/usv_sailing_plugin.h)
-target_link_libraries(usv_sailing_plugin ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 #############
 ## Install ##
@@ -196,12 +193,16 @@ target_link_libraries(usv_sailing_plugin ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-install(
-  TARGETS
-    usv_sailing_plugin
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+
+install(DIRECTORY maps/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/maps)
+
+install(DIRECTORY scripts/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/scripts
+   FILES_MATCHING PATTERN "*" 
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+               GROUP_READ GROUP_EXECUTE
+               WORLD_READ WORLD_EXECUTE
 )
 
 #############
@@ -209,7 +210,7 @@ install(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_usv_sailing_plugin.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_usv_wind_current.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

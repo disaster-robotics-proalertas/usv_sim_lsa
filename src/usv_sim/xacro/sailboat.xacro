@@ -106,6 +106,7 @@
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>sail</link_name>
+		<fluidVelocity>local</fluidVelocity>
       </plugin>
       
       
@@ -124,6 +125,7 @@
 		  <forward>1 0 0</forward>
 		  <upward>0 1 0</upward>
 		  <link_name>keel</link_name>
+		  <fluidVelocity>local</fluidVelocity>
     </plugin>
     
 
@@ -142,6 +144,7 @@
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>rudder</link_name>
+		<fluidVelocity>local</fluidVelocity>
       </plugin>
       
 

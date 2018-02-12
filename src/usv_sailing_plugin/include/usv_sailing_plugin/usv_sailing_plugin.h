@@ -17,6 +17,7 @@
 
 #include <string>
 #include <vector>
+#include <thread>
 
 #include <gazebo/gazebo.hh>
 #include <gazebo/common/Plugin.hh>
@@ -25,6 +26,8 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Vector3.h>
 #include <std_msgs/Float32.h>
+#include "usv_water_current/GetSpeed.h"
+#include "usv_wind_current/GetSpeed.h"
 
 namespace gazebo
 {
@@ -145,12 +148,18 @@ namespace gazebo
     protected: ros::NodeHandle rosnode_;
     protected: math::Vector3 wind;
     protected: float angle;
+    protected: ros::ServiceClient velocity_serviceClient_;
+    protected: bool running;
+    protected: std::string fluidVelocity;
 
     protected: ros::Subscriber angleLimits_subscriber;
+    std::thread the_thread;
 
     public: void ropeSimulator(const std_msgs::Float32::ConstPtr& _angle){
         this->angle = _angle->data;
     }
+    public: void WaterThreadLoop();
+    public: void WindThreadLoop();
   };
 
 }

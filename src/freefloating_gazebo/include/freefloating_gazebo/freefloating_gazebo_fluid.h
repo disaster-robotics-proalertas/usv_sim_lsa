@@ -43,6 +43,7 @@ namespace gazebo
 
 	math::Vector3 fluid_velocity_;
 	bool usingLocalFluidVelocity;
+	bool usingNoneFluidVelocity;
     ros::Subscriber fluidVelocity_subscriber;
     ros::ServiceClient fluid_velocity_serviceClient_;
     bool running;
@@ -74,17 +75,17 @@ namespace gazebo
 					{
 						fluid_velocity_.x = srv.response.x;
 						fluid_velocity_.y = srv.response.y;
+						//std::cout << "\n ============== fluidWater "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
 					}
 					else
 					{
-							ROS_ERROR("Failed to call service waterCurrent");
-							return;
+							ROS_WARN("Failed to call service waterCurrent %s::%s", model_name.c_str(), link->GetName().c_str());
+
+							ros::Rate s(1);
+							s.sleep();
 					}
-					//usleep(1000);
 					r.sleep();
-					//sleep(10);
 				}
-				//std::cout << "\nfunctor "<<model_name<<"="<<link->GetName();
             }
 
 	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
@@ -142,6 +143,8 @@ private:
     // parse received fluid velocity message
 
 
+    // parse received fluid velocity message
+    void FluidVelocityCallBack(const geometry_msgs::Vector3ConstPtr& _msg);
 
     bool getSpeedCallback(usv_water_current::GetSpeed::Request &req, usv_water_current::GetSpeed::Request &res);
 private:
