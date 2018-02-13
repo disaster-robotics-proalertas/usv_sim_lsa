@@ -2,7 +2,7 @@
 
 <robot name="boat_diff" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find usv_sim)/xacro/boat_common_subdivided.xacro" />
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
 
     <!-- Plugin list -->
     <gazebo>
@@ -11,18 +11,18 @@
             <updateRate>100</updateRate>
             <link>fwd_left</link>
             <thruster>
-                <effort>30</effort>
+                <effort>100</effort>
                 <name>fwd_left</name>
             </thruster>
    	    <thruster>
-	        <effort>30</effort>
+	        <effort>100</effort>
 	        <name>fwd_right</name>
 	    </thruster>    
         </plugin>
     </gazebo>  
 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd_left" xyz="-0.77 0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
-    <xacro:thruster_link name="fwd_right" xyz="-0.77 -0.1 0" rpy="0 ${-PI/2} 0" rotationAxis="0 1 0" lowerLimit="-${PI/2}" upperLimit="${PI/2}"/>
+    <xacro:thruster_link name="fwd_left"  xyz="-0.4 0 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_l_link"/>
+    <xacro:thruster_link name="fwd_right" xyz="-0.4 0 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_r_link"/>
        
 </robot>

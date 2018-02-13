@@ -1,2 +1,0 @@
-catkin_make_isolated --install
-roslaunch usv_sim robots_start_world.launch

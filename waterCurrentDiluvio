@@ -1,0 +1,2 @@
+rosrun usv_water_current parser.py src/usv_water_current/maps/diluvio.yaml 
+

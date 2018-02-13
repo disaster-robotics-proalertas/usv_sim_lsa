@@ -47,10 +47,15 @@ findNodeVisitor::findNodeVisitor(const std::string &searchName) :
 //If the strings match, add this node to our list
 void findNodeVisitor::apply(osg::Node &searchNode)
 {
-  //std::cerr << "Compare " << searchForName << " to "  << searchNode.getName() << std::endl;
+
   if (searchNode.getName() == searchForName)
   {
+	std::cerr << std::endl << "Compare " << searchForName << " to "  << searchNode.getName();
     foundNodeList.push_back(&searchNode);
+    std::cerr<<". <---- found!!! "<<&searchNode;
+	boost::shared_ptr<osg::Matrix> mat2 = getWorldCoords(&searchNode);
+	osg::Vec3f pos = mat2->getTrans();
+	std::cerr<<" pos link: ("<<pos.x()<<", "<<pos.y()<<", "<<pos.z()<<") ";
   }
   traverse(searchNode);
 }

@@ -29,4 +29,4 @@ controllers:
         position: {p: 10.0, i: 1, d: 0}
     sail_joint:
         velocity: {p: 5.0, i: 1, d: 0.0}
-        position: {p: 10.0, i: 1, d: 0}
+        position: {p: 0, i: 0, d: 0}

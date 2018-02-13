@@ -1,0 +1,3 @@
+catkin_make_isolated --install --pkg usv_sim usv_water_current freefloating_gazebo
+roslaunch usv_sim robots_start.launch parse:=true
+roslaunch usv_sim robots_start.launch parse:=false gui:=true

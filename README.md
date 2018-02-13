@@ -13,25 +13,23 @@ The main files to configure your simulations are:
 
 You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
 
-        `sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-        `sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116`
-        `sudo apt-get update`
-        `sudo apt-get install ros-kinetic-desktop-full`
-        `sudo apt-get install ros-kinetic-move-base`
-        `sudo rosdep init`
-        `rosdep update`
-        `sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc`
-        `source ~/.bashrc`
-        `sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential`
-        `sudo apt install python-rosdep python-wxtools`
-        `sudo rosdep init`
-        `rosdep update`
-        `sudo apt-get install python-lxml python-pathlib`
-        `sudo apt-get install ros-kinetic-control-*`
-        `sudo apt-get install ros-kinetic-osg-markers`
-        `sudo apt-get install libfftw3-*`
-        `sudo apt-get install libxml++2.6-*`
-        `sudo apt-get install libsdl-image1.2-dev`        
+
+        sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+        sudo apt-get update
+        sudo apt-get install ros-kinetic-desktop-full
+        sudo rosdep init
+        rosdep update
+        sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+        source ~/.bashrc
+        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
+        sudo apt install python-rosdep python-wxtools
+        sudo apt-get install python-lxml python-pathlib python-h5py ros-kinetic-control-* ros-kinetic-osg-markers
+        sudo apt-get install libfftw3-* libxml++2.6-* python-scipy python-geolinks python-gdal
+        sudo rosdep init
+        rosdep update
+
+
         
 
 ### Installing
@@ -44,73 +42,73 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
 ## Running the tests
 
-6. launchs:
+On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
+- ``scenario1``: boat should navigate through two lines of buoys. 
+- ``scenario2``: boat should avoid colision with 3 buoys.
+- ``scenario3``: boat should execute zigzag to cover an area.
+- ``scenario4``: boat should stay inside a circular area.
 
-    6.1 for heading control:   
-        `roslaunch freefloating_gazebo_demo barco_ctrl_heading.launch`  
-        `publish the desired location on topic /barco_auv/usv_postion_setpoint`  
+To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
 
-    6.2 for velocity control:    
-        `roslaunch freefloating_gazebo_demo barco_ctrl_vel.launch`
-        `publish the desired location on topic /barco_auv/cmd_vel`  
+<p align="center">
+  <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
+</p>
 
-    6.3 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=true`  
 
-    6.4 for differential boat with heading control:  
-        `roslaunch usv_sim boat_diff.launch parse:=true`  
-        `roslaunch usv_sim boat_diff.launch parse:=false gui:=false`  
+## System Architecture 
 
-    6.5 for differential boat with user interface to define joints positions:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=true`  
+The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
 
-    6.6 for rudder boat with heading control:  
-        `roslaunch usv_sim boat_rudder.launch parse:=true`  
-        `roslaunch usv_sim boat_rudder.launch parse:=false gui:=false`  
-
-    6.7 for sailboat with user interface to define joints positions:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=true`  
-
-    6.8 for sailboat with heading control:  
-        `roslaunch usv_sim sailboat.launch parse:=true`  
-        `roslaunch usv_sim sailboat.launch parse:=false gui:=false`  
-
-    6.9 for airboat with user interface to define joints positions:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=true`  
-
-    6.10 for airboat with heading control:  
-        `roslaunch usv_sim airboat.launch parse:=true`  
-        `roslaunch usv_sim airboat.launch parse:=false gui:=false` 
+<p align="center">
+  <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
+</p>
 
 ## Models
 
 
-There are 4 models preconfigured in package usv_sim:
+There are 4 boat models preconfigured in package usv_sim:
 - airboat: composed by one thruster above the hull. This model has greater advantaged to navigate on shallow waters.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/airboat.png" width="650" alt="Structure of airboat"/>
-</p>
-
 - differential boat: two thruster under water surface. This model has the simplest maneuverability.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_diff.png" width="650" alt="Structure of differential boat"/>
-</p>
-
 - rudder boat: one thruster and one rudder. One of the most common configuration presented in boats.
-<p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/boat_rudder.png" width="650" alt="Structure of rudder boat"/>
-</p>
-
 - sailboat: one sail and one rudder.
+
 <p align="center">
-  <img src="https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/images/sailboat.png" width="650" alt="Structure of sailboat"/>
+  <img src="./images/barcos4.png" width="800" alt="4 boat models"/>
 </p>
 
-The hull of all models above has been subdivided in 3 parts, so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_common_subdivided). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
+The hull of all models above has been subdivided in 6 parts (see image above), so waves affects buoyancy of model in such way that boats present more realistic movement. If you want greater realism, you can subdivided the hull in more parts. To do that, you have to use geometric tools like Blender to model each part of hull. After that, you should configure links and joints in xacro files (like usv_sim/xacro/boat_subdivided4.xacro). As gazebo simulator combine fixed joints, you should define the joints of hull as of type revolution, but with zero value to upper and lower limits. 
+
+<p align="center">
+  <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
+</p>
+
+## LAUNCH FILES STRUCTURE
+
+Each launch file was designed to include others files type in a way to customize your simulation. Above it is presented 3 tables that describe the relation between each launch file with xacro, xml, collada file (.dae).
+
+|<sub> Launch File</sub> | <sub>Gazebo World File</sub> | <sub>UWSIM XML File</sub> | <sub>Autogenerated UWSIM File</sub> | <sub>Boat Launch File |
+|-------------|-------------------|----------------|--------------------------|------------------|
+|<sub>robots_start.launch</sub> | <sub>world/empty.world</sub> | <sub>robots_start.xml</sub> | <sub>robots_start_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch<br> models/spawn_airboat.launch <br>models/spawn_boat_rudder.launch <br>models/spawn_sailboat.launch</sub> |
+|<sub>scenario1.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario1.xml</sub> | <sub>scenario1_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
+|<sub>scenario2.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario2.xml</sub> | <sub>scenario2_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
+|<sub>scenario3.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario3.xml</sub> | <sub>scenario3_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
+
+|<sub> Boat Launch File</sub> | <sub>Robot Description</sub> | <sub>Controller Configurations</sub> | <sub>PID Control</sub> | <sub>Velocity Control</sub> | <sub>TF Broadcasters</sub> | <sub>GUI Support</sub> | 
+|-----------------|-------------------|-----------|----------------|------------------------------|-----------------|-------------|
+|<sub>models/spawn_airboat.launch</sub></sub> | <sub>xacro/airboat.xacro</sub> | <sub>config/airboat.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_vel_airboat.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
+|<sub>models/spawn_boat_diff.launch</sub> | <sub>xacro/boat_diff.xacro</sub> | <sub>config/boat_diff.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_diff_vel_ctrl.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
+|<sub>models/spawn_boat_rudder.launch</sub> | <sub>xacro/boat_rudder.xacro</sub> | <sub>config/boat_rudder.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::boat_rudder_vel_ctrl.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
+|<sub>models/spawn_sailboat.launch</sub> | <sub>xacro/sailboat.xacro</sub> | <sub>config/sailboat.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_??_ctrl.py</sub> | <sub>	usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> | 
+
+
+|<sub>Xacro Files</sub> |  <sub>Hull Subdivision</sub> |  <sub>Plugins</sub> |  <sub>DAE File</sub> |  <sub>Thruster</sub> |  <sub>Air thruster</sub> |  <sub>Rudder</sub> |
+|------------|------------------|---------|-----------|---------|--------------|--------|
+|<sub>xacro/airboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  |<sub> fwd </sub> |  | |  
+|<sub>xacro/boat_diff.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  | <sub>fwd_left fwd_right</sub> |  | |
+|<sub>xacro/boat_rudder.xacro</sub> | <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  |<sub> fwd</sub> |  | <sub>rudder</sub> |
+|<sub>xacro/sailboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  <sub>meshes/simpleHull3/sail.dae meshes/simpleHull3/box.dae</sub> | | | |
+|<sub>xacro/boat_subdivided4.xacro</sub> | - |<sub>libgazebo_ros_gpu_laser</sub> |  <sub>meshes/simpleHull3/base_link.dae meshes/simpleHull3/centerRight.dae meshes/simpleHull3/backLeft.dae meshes/simpleHull3/backRight.dae meshes/simpleHull3/frontLeft.dae meshes/simpleHull3/frontRight.dae meshes/simpleHull3/thruster.dae meshes/simpleHull3/airPropeller.dae meshes/simpleHull3/box.dae</sub> |  <sub>macro:thruster_link</sub> |  <sub>macro:airthruster_link</sub> |  <sub>macro:rudder_xacro</sub>|
+
 
 ## Contributing
 
