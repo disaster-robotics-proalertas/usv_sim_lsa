@@ -1,9 +1,9 @@
 heightMap: /home/paravisi/usv_sim_lsa/src/usv_wind_current/maps/diluvio2.tif
 autodraw:
-  minColisionHeight: 3
-  maxColisionHeight: 3.1
-resolution: 0.1
-windSpeed: 4.0
+  minColisionHeight: 20
+  maxColisionHeight: 20.1
+resolution: 0.2
+windSpeed: 1.0
 origin: [0, 0, 0.0]
-obstacleImage: '/home/paravisi/usv_sim_lsa/src/usv_wind_current/maps/clean.jpg'
+obstacleImage: '/home/paravisi/usv_sim_lsa/src/usv_wind_current/maps/river2m-edited.png'
 

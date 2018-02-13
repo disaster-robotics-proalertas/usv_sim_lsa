@@ -31,7 +31,6 @@ USV_Sailing_Plugin::USV_Sailing_Plugin () :
 
 	this->cdaStall = 1.0;
 	this->cmaStall = 0.0;
-	this->wind = 0.0;
 }
 
 /////////////////////////////////////////////////
@@ -130,9 +129,11 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 	running = false;
 	if (fluidVelocity.compare ("global") == 0)
 	{
+
 		if (rosnode_.getParam ("/uwsim/wind/x", wind_value_x) & rosnode_.getParam ("/uwsim/wind/y", wind_value_y))
 		{
 			this->wind = math::Vector3 (wind_value_x, wind_value_y, 0);
+			ROS_WARN("\n WIND TYPE IS GLOBAL wind %f, %f, %f", this->wind.x, this->wind.y, this->wind.z);
 		}
 		else
 		{
@@ -143,7 +144,7 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 	{
 		if (this->linkType.compare ("sail") == 0)
 		{
-			std::cerr << "\n initializing service client";
+			std::cerr << "\n initializing wind service client";
 			velocity_serviceClient_ = rosnode_.serviceClient < usv_wind_current::GetSpeed > ("/windCurrent");
 			std::cerr << " ... done";
 			running = true;
@@ -151,7 +152,7 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 		}
 		else
 		{
-			std::cerr << "\n initializing service client";
+			std::cerr << "\n initializing WATER service client";
 			velocity_serviceClient_ = rosnode_.serviceClient < usv_water_current::GetSpeed > ("/waterCurrent");
 			std::cerr << " ... done";
 			running = true;
@@ -473,7 +474,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
 	this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
-	math::Vector3 aw = wind - this->link->GetWorldLinearVel (this->cp);
+	math::Vector3 aw = this->wind - this->link->GetWorldLinearVel (this->cp);
 
 	if (aw.GetLength () <= 0.01)
 		return;
@@ -555,6 +556,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	math::Vector3 torque = moment;
 
+
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
 }
@@ -609,6 +611,7 @@ USV_Sailing_Plugin::WindThreadLoop ()
 			wind.x = srv.response.x;
 			wind.y = srv.response.y;
 			//std::cout << "\n ============== fluidWind "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
+			ROS_ERROR("\N GETTING LOCAL WIND!!!");
 		}
 		else
 		{

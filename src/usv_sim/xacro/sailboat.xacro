@@ -2,6 +2,7 @@
 
 <robot name="sailboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:property name="windType" value="global"/>
     <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
 
     <xacro:rudder_xacro/>
@@ -106,7 +107,7 @@
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>sail</link_name>
-		<fluidVelocity>local</fluidVelocity>
+		<fluidVelocity>${windType}</fluidVelocity>
       </plugin>
       
       
