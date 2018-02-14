@@ -1,14 +1,6 @@
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim) -- 0.0.0
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV). We currently use UWsim for water surface modeling and ...  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats and sailboats. You can find their xacros in package usv_sim.
 
-## Getting Started
-
-The main files to configure your simulations are:
-
-1. XML files located into folder scenes of package usv_sim. In those files, you can configure UWSIM to run water simulation and some other world properties (current, waves and wind).
-2. Launch files located into folder launch of package usv_sim. In those files, you can configure gazebo to run the simulation.
-3. Xacro files located into folder xacro of package usv_sim. In those files, you can define the structure of your robot. You can use the available models (diferential boat, rudder boat, airboat and sailboat) as template to build your own model.
-
 ### Prerequisites
 
 You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
@@ -83,6 +75,12 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 </p>
 
 ## LAUNCH FILES STRUCTURE
+
+The main files to configure your simulations are:
+
+1. XML files located into folder scenes of package usv_sim. In those files, you can configure UWSIM to run water simulation and some other world properties (current, waves and wind).
+2. Launch files located into folder launch of package usv_sim. In those files, you can configure gazebo to run the simulation.
+3. Xacro files located into folder xacro of package usv_sim. In those files, you can define the structure of your robot. You can use the available models (diferential boat, rudder boat, airboat and sailboat) as template to build your own model.
 
 Each launch file was designed to include others files type in a way to customize your simulation. Above it is presented 3 tables that describe the relation between each launch file with xacro, xml, collada file (.dae).
 
