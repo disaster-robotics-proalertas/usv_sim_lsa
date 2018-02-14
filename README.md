@@ -121,6 +121,7 @@ TODO
 * **Alexandre Amory**
 * **Davi Henrique** 
 * **Marcelo Paravisi** 
+* **Vitor Augusto Machado Jorge**
 
 ## License
 
@@ -131,3 +132,4 @@ TODO
 * freefloating_gazebo
 * UWsim
 * LiftDrag 
+* CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
