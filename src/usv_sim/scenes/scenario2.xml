@@ -79,6 +79,7 @@
   </vehicle>
   
 
+<<<<<<< HEAD:src/usv_sim/scenes/scenario2.xml
 
    <vehicle>
     <name>buoy1</name>
@@ -125,6 +126,8 @@
       <y>0</y>
     </orientation>
   </vehicle>
+=======
+>>>>>>> develControl:src/usv_sim/scenes/boat_diff.xml
 	
   
    <object>
@@ -143,12 +146,62 @@
   </object>
   
 
+<<<<<<< HEAD:src/usv_sim/scenes/scenario2.xml
+=======
+   <object>
+    <name>buoy1</name>
+    <file>meshes/buoy.obj</file>
+    <position>
+      <x> 305</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </object>
+  
+   <object>
+    <name>buoy2</name>
+    <file>meshes/buoy.obj</file>
+    <position>
+      <x> 310</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </object>
+
+   <object>
+    <name>buoy3</name>
+    <file>meshes/buoy.obj</file>
+
+    <position>
+      <x> 315</x>
+      <y> 100 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </object>
+
+>>>>>>> develControl:src/usv_sim/scenes/boat_diff.xml
   <rosInterfaces>   
   
     <ROSOdomToPAT>
       <topic> /boat_diff/state </topic>
       <vehicleName> boat_diff </vehicleName>
     </ROSOdomToPAT> 
+<<<<<<< HEAD:src/usv_sim/scenes/scenario2.xml
     
     <ROSOdomToPAT>
       <topic> /buoy1/state </topic>
@@ -164,6 +217,8 @@
       <topic> /buoy3/state </topic>
       <vehicleName> buoy3 </vehicleName>
     </ROSOdomToPAT> 
+=======
+>>>>>>> develControl:src/usv_sim/scenes/boat_diff.xml
 
 
     <OceanSurfaceToROSOceanVehicle>
@@ -214,6 +269,7 @@
 	<linkName>fwd_right</linkName>
     </OceanSurfaceToROSOceanVehicle>  
      
+<<<<<<< HEAD:src/usv_sim/scenes/scenario2.xml
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy1/Surface/link</topic>
 	<vehicleName>buoy1</vehicleName>
@@ -233,17 +289,22 @@
     </OceanSurfaceToROSOceanVehicle>  
         
 
+=======
+>>>>>>> develControl:src/usv_sim/scenes/boat_diff.xml
 	<ROSJointStateToArm> 
         <topic>/boat_diff/joint_states</topic>
         <vehicleName>boat_diff</vehicleName>
     </ROSJointStateToArm>
 
+<<<<<<< HEAD:src/usv_sim/scenes/scenario2.xml
    
     
         
     
 
    
+=======
+>>>>>>> develControl:src/usv_sim/scenes/boat_diff.xml
   </rosInterfaces>
 </UWSimScene>
 

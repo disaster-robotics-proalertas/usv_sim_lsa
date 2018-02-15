@@ -1,3 +1,0 @@
-catkin_make_isolated --install --pkg usv_sim usv_water_current freefloating_gazebo sail_plugin uwsim
-roslaunch usv_sim scenario1.launch parse:=true
-roslaunch usv_sim scenario1.launch parse:=false gui:=true

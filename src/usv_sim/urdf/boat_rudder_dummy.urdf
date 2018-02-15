@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <robot name="thrusters">
   <joint name="fwd">
+<<<<<<< HEAD
     <limit lower="-300" upper="300"/>
+=======
+    <limit lower="-100" upper="100"/>
+>>>>>>> develControl
   </joint>
 </robot>
