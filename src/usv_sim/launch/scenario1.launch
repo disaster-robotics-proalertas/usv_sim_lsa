@@ -32,6 +32,7 @@
 	<group unless="$(arg parse)">
 			<arg name="namespace" default="boat_diff"/>  
 	    	<arg name="spawnerUsed" default="true"/>
+            <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="boat_diff" unless="$(arg gui)"/>
 			<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
 	</group>
 
