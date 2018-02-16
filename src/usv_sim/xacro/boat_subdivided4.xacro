@@ -38,11 +38,15 @@
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
-          <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
-          <origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-	  <fluidVelocity>local</fluidVelocity>
+			<compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
+			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
+			<limit radius="0.1"/>
+			<damping rpy="20 20 20" xyz="20 40 50"/>
+         	<windVelocity>global</windVelocity>
+			<frontal_area>0.0</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
+	  		<fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -74,6 +78,10 @@
           <origin xyz="${0.35*scale} ${-0.44*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
+			<windVelocity>global</windVelocity>
+			<frontal_area>0.0</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
@@ -108,11 +116,15 @@
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
-          <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-          <origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-	  <fluidVelocity>local</fluidVelocity>
+			<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
+			<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
+			<limit radius="0.1"/>
+			<damping rpy="20 20 20" xyz="20 40 50"/>
+			<windVelocity>global</windVelocity>
+			<frontal_area>0.04</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
+	  		<fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -145,11 +157,15 @@
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
-          <compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-          <origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-	  <fluidVelocity>local</fluidVelocity>
+          	<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
+          	<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
+          	<limit radius="0.1"/>
+          	<damping rpy="20 20 20" xyz="20 40 50"/>
+          	<windVelocity>global</windVelocity>
+			<frontal_area>0.04</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
+	  		<fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -183,11 +199,15 @@
           <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
         </inertial>
         <buoyancy>
-          <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-	  <fluidVelocity>local</fluidVelocity>
+          	<compensation>${front_water_displaced_mass/front_body_mass}</compensation>
+          	<origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
+          	<limit radius="0.1"/>
+          	<damping rpy="20 20 20" xyz="20 40 50"/>
+          	<windVelocity>global</windVelocity>
+			<frontal_area>0.04</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
+	  		<fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -224,6 +244,7 @@
           <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
+          <windVelocity>global</windVelocity>
 	  <fluidVelocity>local</fluidVelocity>
         </buoyancy>
     </link>

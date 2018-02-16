@@ -11,6 +11,7 @@
 #include <tf/transform_broadcaster.h>
 #include "usv_water_current/GetSpeed.h"
 #include <thread>
+#include <cmath>
 
 namespace gazebo
 {
@@ -44,18 +45,34 @@ namespace gazebo
 	math::Vector3 fluid_velocity_;
 	bool usingLocalFluidVelocity;
 	bool usingNoneFluidVelocity;
+	bool usingLocalWindVelocity;
+	bool usingNoneWindVelocity;
     ros::Subscriber fluidVelocity_subscriber;
     ros::ServiceClient fluid_velocity_serviceClient_;
+    ros::ServiceClient wind_velocity_serviceClient_;
+	math::Vector3 wind;
+	double frontal_area;
+	double lateral_area;
+	double lateral_length;
     bool running;
 
         double limit;
         void initServiceClient(ros::NodeHandle* rosnode)
         {
-        	std::cerr<<"\n initializing service client";
+        	std::cerr<<"\n initializing water service client";
         	fluid_velocity_serviceClient_ = rosnode->serviceClient<usv_water_current::GetSpeed>("/waterCurrent");
         	std::cerr<<" ... done";
         	running = true;
         }
+
+        void initWindServiceClient(ros::NodeHandle* rosnode)
+		{
+
+			std::cerr<<"\n initializing wind service client";
+			wind_velocity_serviceClient_ = rosnode->serviceClient<usv_water_current::GetSpeed>("/windCurrent");
+			std::cerr<<" ... done";
+			running = true;
+		}
         void stop() { running = false; }
 
         ~link_st(){
@@ -71,15 +88,27 @@ namespace gazebo
 					usv_water_current::GetSpeed srv;
 					srv.request.x = waterSurface.x;
 					srv.request.y = waterSurface.y;
-					if (fluid_velocity_serviceClient_.call(srv))
+					if (usingLocalFluidVelocity && fluid_velocity_serviceClient_.call(srv))
 					{
 						fluid_velocity_.x = srv.response.x;
 						fluid_velocity_.y = srv.response.y;
 						//std::cout << "\n ============== fluidWater "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
 					}
-					else
+					else if (usingLocalFluidVelocity)
 					{
 							ROS_WARN("Failed to call service waterCurrent %s::%s", model_name.c_str(), link->GetName().c_str());
+
+							ros::Rate s(1);
+							s.sleep();
+					}
+					if (usingLocalWindVelocity && wind_velocity_serviceClient_.call(srv))
+					{
+						wind.x = srv.response.x;
+						wind.y = srv.response.y;
+					}
+					else if (usingLocalWindVelocity)
+					{
+							ROS_WARN("Failed to call service windCurrent %s::%s", model_name.c_str(), link->GetName().c_str());
 
 							ros::Rate s(1);
 							s.sleep();
