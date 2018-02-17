@@ -67,6 +67,7 @@ namespace gazebo
 		if (_sdf->HasElement ("fluidTopic"))
 			fluid_topic = _sdf->Get < std::string > ("fluidTopic");
 
+
 		// initialize subscriber to water current
 		ros::SubscribeOptions ops = ros::SubscribeOptions::create<geometry_msgs::Vector3> (
 		    fluid_topic, 1, boost::bind (&FreeFloatingFluidPlugin::FluidVelocityCallBack, this, _1), ros::VoidPtr (),
@@ -177,24 +178,99 @@ namespace gazebo
 				    - surface_plane_.y * cob_position.y - surface_plane_.z * cob_position.z;
 
 				//if ((*link_it)->model_name.compare("barcoDiferencial")==0)
-				//    std::cerr<<"\n "<<(*link_it)->model_name<<" delta: "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
+				//std::cerr<<"\n "<<(*link_it)->model_name<<"  : "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
 				//std::cerr<<"\n "<<(*link_it)->model_name<<" estah com z: "<<(*link_it)->waterSurface.z;
 				if (signed_distance_to_surface > -(*link_it)->limit)
 				{
 					if (signed_distance_to_surface > (*link_it)->limit)
 					{
 						actual_force *= 0;
-						// if ((*link_it)->model_name.compare("barcoDiferencial")==0)
-						//	    std::cerr<<" ---> ZERAR";
 					}
 					else
 					{
 						actual_force *= cos (
 						M_PI / 4. * (signed_distance_to_surface / (*link_it)->limit + 1));
-						// if ((*link_it)->model_name.compare("barcoDiferencial")==0)
-						//	    std::cerr<<" ---> reduzir Delta > "<<(*link_it)->limit<<" R: "<<cos(M_PI/4.*(signed_distance_to_surface/(*link_it)->limit + 1));
 					}
 				}
+			}
+
+			// calc wind forces and moments (See Chapter 8 of Handbook of Marine Craft Hydrodynamics and Motion Control - Thor I. Fossen)
+			// Vw is the wind Speed; Bw is the angle of wind
+			// Yrw angle of attack
+
+			if ((*link_it)->usingNoneWindVelocity != true)
+			{
+				double mult = (cob_position.z + (*link_it)->limit - surface_plane_.w)/(2.0 * (*link_it)->limit);
+				if (mult > 1.0)
+					mult = 1.0;
+				if (mult < 0.0)
+					mult = 0.0;
+
+				math::Vector3 Vw  = (*link_it)->wind;
+				double Afw = (*link_it)->frontal_area*mult; // frontal area
+				double Alw = (*link_it)->lateral_area*mult; // lateral area
+				double Hlw = signed_distance_to_surface; // height of centroid lateral area
+				double Hfw = signed_distance_to_surface; // height of centroid frontal area
+				double Loa = (*link_it)->lateral_length; // length overall
+				//double urw = u - Vw * cos(Bw - W);
+				double urw = (*link_it)->link->GetWorldLinearVel ().x - Vw.x;
+				//double vrw = v - Vw * sin(Bw - W);
+				double vrw = (*link_it)->link->GetWorldLinearVel ().y - Vw.y;
+				vrw = vrw * 1.94;
+				urw = urw * 1.94;// convert from m/s to knots
+				double Pa = 1.184;
+				double Sl = 0.1;
+
+				// speed boat values
+				double CDt = 0.90;
+				double CDlaf0 = 0.55;  // coefficient to front wind
+				double CDlafPI = 0.60; // coefficient to tail wind
+				double tetha = 0.60;
+				double k = 1.1;
+				// fishing vessel values
+				/*double CDt = 0.95;
+				double CDlaf0 = 0.70;
+				double CDlafPI = 0.70;
+				double tetha = 0.40;
+				double k = 1.1;*/
+
+
+
+				double Yrw = - std::atan2(vrw, urw);
+				double Vrw = std::sqrt(urw*urw + vrw *vrw);
+				double sin2 = std::sin(2*Yrw);
+
+
+				double CDlaf = CDlaf0;
+				if (Yrw >= 1.57)
+					CDlaf = CDlafPI;
+				double CDl = CDlaf * Afw / Alw;
+				if (Alw < 0.01)
+					CDl = 0.0;
+				double denominator = 1-0.5*tetha*(1-CDl/CDt)*sin2;
+				double Cx = - CDl * (Alw/Afw) * std::cos(Yrw)/ denominator;
+				if (Afw < 0.01)
+					Cx = 0.0;
+				double Cy = CDt * std::sin(Yrw) / denominator;
+				//double Cz = 0; // as Fossen said: "only Cx, Cy and Cn are needed"
+				double Ck = k*Cy;
+				//double Cm;
+				double Cn = (Sl/Loa - 0.18*(Yrw-3.1415/2.0))*Cy;
+				double Xw = 0.5 * Pa * Vrw * Vrw * Cx * Afw;
+				double Yw = 0.5 * Pa * Vrw * Vrw * Cy * Alw;
+				//double Zw = 0.5 * Pa * Vrw * Vrw * Cz * Afw;
+				double Zw = 0.0;
+				double Kw = 0.5 * Pa * Vrw * Vrw * Ck * Alw * Hlw;
+				//double Kw = 0.0;
+				//double Mw = 0.5 * Pa * Vrw * Vrw * Cm * Afw * Hfw;
+				double Mw = 0.0;
+				double Nw = 0.5 * Pa * Vrw * Vrw * Cn * Alw * Loa;
+
+
+				//std::cerr<<"\n "<<(*link_it)->model_name<<" mult: "<<mult<<" signed_distance_to_surface: "<<signed_distance_to_surface<< " w: "<< surface_plane_.z<<" z: "<< cob_position.z;
+				//std::cerr<<"\n "<<(*link_it)->model_name<<" "<<Xw<<", "<<Yw<<", "<<Zw<<") Vw ("<<Vw.x<<", "<<Vw.y<<", "<<Vw.z<<") M ("<<Kw<<", "<<Mw<<", "<<Nw<<") CN: "<<Cn<<" CY: "<<Cy<<" Yrw: "<<Yrw<<" speed ("<<urw<<", "<<vrw<<") linSpeed: "<<(*link_it)->link->GetWorldLinearVel ().x<<", "<<(*link_it)->link->GetWorldLinearVel ().y<<")";
+				(*link_it)->link->AddRelativeTorque (math::Vector3(Kw, Mw, Nw) );
+				(*link_it)->link->AddForceAtWorldPosition (math::Vector3(Xw, Yw, Zw), cob_position);
 			}
 
 			// get velocity damping
@@ -349,6 +425,9 @@ namespace gazebo
 							new_buoy_link->link = sdf_link;    // to apply forces
 							new_buoy_link->limit = .1;
 							std::string topic = "/" + _model->GetName () + "/Surface/" + urdf_node->ToElement ()->Attribute ("name");
+							new_buoy_link->frontal_area = 0.04;
+							new_buoy_link->lateral_area = 0.06;
+							new_buoy_link->lateral_length = 1.2;
 
 							new_buoy_link->createSubscriberWaterSurface (rosnode_, topic);
 							// get data from urdf
@@ -369,6 +448,21 @@ namespace gazebo
 									std::stringstream ss (buoy_node->ToElement ()->Attribute ("radius"));
 									ss >> new_buoy_link->limit;
 								}
+								else if (buoy_node->ValueStr () == "frontal_area")
+								{
+									std::stringstream ss (buoy_node->ToElement ()->GetText ());
+									ss >> new_buoy_link->frontal_area;
+								}
+								else if (buoy_node->ValueStr () == "lateral_area")
+								{
+									std::stringstream ss (buoy_node->ToElement ()->GetText ());
+									ss >> new_buoy_link->lateral_area;
+								}
+								else if (buoy_node->ValueStr () == "lateral_length")
+								{
+									std::stringstream ss (buoy_node->ToElement ()->GetText ());
+									ss >> new_buoy_link->lateral_length;
+								}
 								else if (buoy_node->ValueStr () == "fluidVelocity")
 								{
 									std::string nameLocal = "local";
@@ -377,9 +471,6 @@ namespace gazebo
 									if (nameLocal.compare (buoy_node->ToElement ()->GetText ()) == 0)
 									{
 										new_buoy_link->usingLocalFluidVelocity = true;
-										std::string topicFluid = "/" + _model->GetName () + "/FluidVelocity/"
-										    + urdf_node->ToElement ()->Attribute ("name");
-										//new_buoy_link->createSubscriberLocalFluidVelocity(rosnode_, topicFluid);
 										new_buoy_link->initServiceClient (rosnode_);
 
 										new_buoy_link->Start ();
@@ -390,9 +481,38 @@ namespace gazebo
 										new_buoy_link->usingNoneFluidVelocity = true;
 										fluid_velocity_.Set (0, 0, 0);
 									}
-									else
+									else if (nameGlobal.compare (buoy_node->ToElement ()->GetText ()) == 0)
 									{
 										new_buoy_link->usingLocalFluidVelocity = false;
+										new_buoy_link->usingNoneFluidVelocity = false;
+									}
+								}
+								else if (buoy_node->ValueStr () == "windVelocity")
+								{
+									std::string nameLocal = "local";
+									std::string nameGlobal = "global";
+									std::string nameNone = "none";
+									if (nameLocal.compare (buoy_node->ToElement ()->GetText ()) == 0)
+									{
+										new_buoy_link->usingLocalWindVelocity = true;
+										new_buoy_link->initWindServiceClient (rosnode_);
+
+										new_buoy_link->Start ();
+									}
+									else if (nameNone.compare (buoy_node->ToElement ()->GetText ()) == 0)
+									{
+										new_buoy_link->usingLocalWindVelocity = false;
+										new_buoy_link->usingNoneWindVelocity = true;
+										new_buoy_link->wind.Set (0, 0, 0);
+									}
+									else if (nameGlobal.compare (buoy_node->ToElement ()->GetText ()) == 0)
+									{
+										new_buoy_link->usingLocalWindVelocity = false;
+										new_buoy_link->usingNoneWindVelocity = false;
+										double x, y;
+										rosnode_->getParam ("/uwsim/wind/x", x);
+										rosnode_->getParam ("/uwsim/wind/y", y);
+										new_buoy_link->wind.Set (x, y, 0);
 									}
 								}
 								else if (buoy_node->ValueStr () == "damping")
