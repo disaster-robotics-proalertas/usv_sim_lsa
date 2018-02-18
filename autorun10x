@@ -1,0 +1,16 @@
+#!/bin/bash
+source install_isolated/setup.bash
+echo "--- Inicializando batch script ---" > saida.txt
+rosservice call /gazebo/unpause_physics "{}"
+for i in $(seq 10); do
+	echo "Simulacao numero $i"         
+	echo "Simulacao $i - inicio:  $(date)" >> saida.txt
+	for j in $(seq 10); do
+		sleep 1
+		echo "Aguarde... $j"
+	done
+	rosservice call /gazebo/reset_simulation "{}" 
+	echo "Simulacao $i - termino: $(date)" >> saida.txt
+done
+echo "Parando a simulação"
+rosservice call /gazebo/pause_physics
