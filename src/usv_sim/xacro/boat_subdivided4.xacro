@@ -320,7 +320,7 @@
     
     
     <!-- Thruster link -->
-    <xacro:macro name="airthruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=back_r_link">
+    <xacro:macro name="airthruster_link" params="name xyz rpy rotationAxis effort:=100 velocity:=20 lowerLimit upperLimit parentLink:=back_r_link">
         <joint name="${name}_joint" type="revolute">
             <parent link="${parentLink}"/>
             <child link="${name}"/>

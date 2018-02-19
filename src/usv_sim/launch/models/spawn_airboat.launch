@@ -11,7 +11,7 @@
 
 		<!-- spawn in Gazebo with GUI -->
         <group ns="$(arg namespace)" unless="$(arg parse)">
-                <node name="patrol" pkg="usv_navigation" type="patrol_pid.py" unless="$(arg gui)"/>
+            <!--<node name="patrol" pkg="usv_navigation" type="patrol_pid.py" unless="$(arg gui)"/>-->
 		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/airboat.xacro"/>
 		<node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model airboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
