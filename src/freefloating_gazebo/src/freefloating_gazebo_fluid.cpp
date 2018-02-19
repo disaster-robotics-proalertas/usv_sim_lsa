@@ -216,10 +216,8 @@ namespace gazebo
 				double urw = (*link_it)->link->GetWorldLinearVel ().x - Vw.x;
 				//double vrw = v - Vw * sin(Bw - W);
 				double vrw = (*link_it)->link->GetWorldLinearVel ().y - Vw.y;
-				vrw = vrw * 1.94;
-				urw = urw * 1.94;// convert from m/s to knots
 				double Pa = 1.184;
-				double Sl = 0.1;
+				double Sl = 0.01;
 
 				// speed boat values
 				double CDt = 0.90;
