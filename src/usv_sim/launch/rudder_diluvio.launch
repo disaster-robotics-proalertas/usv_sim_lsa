@@ -21,7 +21,8 @@
 	<group unless="$(arg parse)">
 		<arg name="disableShaders" default="false"/>
 		<!-- launch uwsim -->
-		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/scenario1_boat_rudder.xml" respawn="true"/>
+        <?ignore <node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/scenario1_boat_rudder.xml" respawn="true"/> ?>
+        <node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/scenario2_boat_rudder.xml" respawn="true"/>
 
 
 		<!-- using parser  -->
@@ -32,7 +33,7 @@
 	<group unless="$(arg parse)">
 		<arg name="spawnerUsed" default="true"/>
 
-    <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="boat_rudder" unless="$(arg gui)"/>
+    <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="boat_rudder" unless="$(arg gui)"/>
 
 	<include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch" pass_all_args="true"/>
 	</group>

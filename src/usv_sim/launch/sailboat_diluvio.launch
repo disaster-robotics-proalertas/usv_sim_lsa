@@ -26,17 +26,14 @@
 
 
 		<!-- using parser  -->
-<<<<<<< HEAD:src/usv_sim/launch/scenario1.launch
-		<include file="$(find usv_sim)/launch/scenario1_spawner.launch"/>
-=======
 	    <include file="$(find usv_sim)/launch/sailboat_diluvio_spawner.launch"/>
->>>>>>> develControl:src/usv_sim/launch/sailboat_diluvio.launch
-	    
 	</group>
 
 	<group unless="$(arg parse)">
 		<arg name="spawnerUsed" default="true"/>
 	<!--<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>-->
+    <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="sailboat" unless="$(arg gui)"/>
+
 	<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
 	</group>
 

@@ -21,6 +21,9 @@ Kp = 10
 Ki = 0 
 result = Float64()
 result.data = 0
+sail_min = -math.pi/3
+sail_max = math.pi/3
+curent_heading = 0
 
 
 def get_pose(initial_pose_tmp):
@@ -62,7 +65,7 @@ def talker_ctrl():
     rospy.init_node('usv_simple_ctrl', anonymous=True)
     rate = rospy.Rate(rate_value) # 10h
     # publishes to thruster and rudder topics
-    pub_motor = rospy.Publisher('thruster_command', JointState, queue_size=10)
+    pub_sail = rospy.Publisher('thruster_command', JointState, queue_size=10)
     pub_rudder = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
     pub_result = rospy.Publisher('move_usv/result', Float64, queue_size=10)
     
@@ -71,8 +74,8 @@ def talker_ctrl():
     rospy.Subscriber("move_usv/goal", Odometry, get_target)  # get target position
 
     while not rospy.is_shutdown():
-        pub_motor.publish(thruster_ctrl_msg())
         pub_rudder.publish(rudder_ctrl_msg())
+        pub_sail.publish(sail_ctrl_msg())
         pub_result.publish(verify_result())
         rate.sleep()
 
@@ -91,7 +94,15 @@ def I(erro):
     return Ianterior
 
 def sail_ctrl():
-    # receber posição do vento (no ref do veleiro)
+    global curent_heading
+    # receber posicaoo do vento (no ref do veleiro)
+    x = rospy.get_param('/uwsim/wind/x')
+    y = rospy.get_param('/uwsim/wind/y')
+    global_dir = math.atan2(y,x)
+    rospy.loginfo("valor de theta = %f", global_dir)
+    rospy.loginfo("valor de current_theta = %f", curent_heading)
+    wind_dir = global_dir - curent_heading
+    return sail_min + (sail_max - sail_min) * (wind_dir/math.pi/2)
 
 def rudder_ctrl():
     # erro = sp - atual
@@ -103,6 +114,7 @@ def rudder_ctrl():
     global actuator_vel
     global Ianterior
     global rate_value
+    global curent_heading
 
     x1 = initial_pose.pose.pose.position.x
     y1 = initial_pose.pose.pose.position.y
@@ -128,6 +140,8 @@ def rudder_ctrl():
 
     sp_angle = angle_saturation(sp_angle)
     target_angle = angle_saturation(target_angle)
+
+    curent_heading = target_angle
     
     err = sp_angle - target_angle
     err = P(err) + I(err)

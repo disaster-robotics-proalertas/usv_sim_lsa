@@ -4,6 +4,7 @@
 	<arg name="gui" default="false"/>
 	<arg name="parse" default="false"/>
 
+
     <!-- Launch Gazebo with empty world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="use_sim_time" value="true" />
@@ -35,6 +36,7 @@
 	<!--<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>-->
     <!--<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="airboat" unless="$(arg gui)"/>-->
     <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="airboat" unless="$(arg gui)"/>
+
 	<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 	</group>
 
