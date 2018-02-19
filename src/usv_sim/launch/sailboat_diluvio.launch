@@ -26,11 +26,8 @@
 
 
 		<!-- using parser  -->
-<<<<<<< HEAD:src/usv_sim/launch/scenario1.launch
-		<include file="$(find usv_sim)/launch/scenario1_spawner.launch"/>
-=======
 	    <include file="$(find usv_sim)/launch/sailboat_diluvio_spawner.launch"/>
->>>>>>> develControl:src/usv_sim/launch/sailboat_diluvio.launch
+
 	    
 	</group>
 
