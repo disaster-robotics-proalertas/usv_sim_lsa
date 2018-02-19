@@ -65,7 +65,7 @@ def talker_ctrl():
     rospy.init_node('usv_simple_ctrl', anonymous=True)
     rate = rospy.Rate(rate_value) # 10h
     # publishes to thruster and rudder topics
-    pub_sail = rospy.Publisher('thruster_command', JointState, queue_size=10)
+    pub_sail = rospy.Publisher('angleLimits', Float64, queue_size=10)
     pub_rudder = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
     pub_result = rospy.Publisher('move_usv/result', Float64, queue_size=10)
     
@@ -75,7 +75,7 @@ def talker_ctrl():
 
     while not rospy.is_shutdown():
         pub_rudder.publish(rudder_ctrl_msg())
-        pub_sail.publish(sail_ctrl_msg())
+        pub_sail.publish(sail_ctrl())
         pub_result.publish(verify_result())
         rate.sleep()
 
@@ -99,10 +99,19 @@ def sail_ctrl():
     x = rospy.get_param('/uwsim/wind/x')
     y = rospy.get_param('/uwsim/wind/y')
     global_dir = math.atan2(y,x)
-    rospy.loginfo("valor de theta = %f", global_dir)
-    rospy.loginfo("valor de current_theta = %f", curent_heading)
+    rospy.loginfo("valor de wind_dir = %f", math.degrees(global_dir))
+    rospy.loginfo("valor de current_heading = %f", math.degrees(curent_heading))
     wind_dir = global_dir - curent_heading
-    return sail_min + (sail_max - sail_min) * (wind_dir/math.pi/2)
+    
+    rospy.loginfo("valor de wind_dir = %f", math.degrees(wind_dir))
+    #rospy.loginfo("valor de pi/2 = %f", math.pi/2)
+    #rospy.loginfo("valor de wind_dir/pi/2 = %f", wind_dir/math.pi/2)
+    #rospy.loginfo("valor de sail_max - sail_min = %f", sail_max - sail_min)
+    #rospy.loginfo("valor de (sail_max - sail_min) * (wind_dir/(math.pi/2)) = %f", (sail_max - sail_min) * (wind_dir/(math.pi/2)))
+    #rospy.loginfo("valor de sail_min = %f", sail_min)
+    sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/(math.pi/2))
+    rospy.loginfo("valor de result = %f", sail_angle)
+    return sail_angle
 
 def rudder_ctrl():
     # erro = sp - atual
@@ -141,7 +150,7 @@ def rudder_ctrl():
     sp_angle = angle_saturation(sp_angle)
     target_angle = angle_saturation(target_angle)
 
-    curent_heading = target_angle
+    curent_heading = math.radians(target_angle)
     
     err = sp_angle - target_angle
     err = P(err) + I(err)
@@ -156,9 +165,9 @@ def rudder_ctrl():
 
     rudder_angle = 90 * (-err/180)
 
-    log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
+    #log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    rospy.loginfo(log_msg)
+    #rospy.loginfo(log_msg)
 
     return rudder_angle
 
