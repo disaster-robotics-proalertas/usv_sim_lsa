@@ -21,7 +21,10 @@ Kp = 10
 Ki = 0 
 result = Float64()
 result.data = 0
-f_distance = 2
+f_distance = 4
+rudder_min = -math.pi/3
+rudder_max = math.pi/3
+rudder_med = (rudder_min + rudder_max)/2
 
 
 def get_pose(initial_pose_tmp):
@@ -131,17 +134,25 @@ def rudder_ctrl():
     target_angle = angle_saturation(target_angle)
     
     err = sp_angle - target_angle
+    err = angle_saturation(err)
     err = P(err) + I(err)
 
-    teste = 5
     if target_distance < f_distance+1 and target_distance > f_distance:
-        actuator_vel = 20 
+        actuator_vel = 100 
     elif target_distance < f_distance:
         actuator_vel = 0 
     else:
-	actuator_vel = 100
+	actuator_vel = 200
+        
+    if err > 180:
+        err = 180
+    if err < -180:
+        err = -180
 
-    rudder_angle = 90 * (-err/180)
+    if err < 0:
+        rudder_angle = rudder_med + (rudder_min - rudder_med) * ((err) / 180)
+    else:
+        rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
@@ -153,7 +164,7 @@ def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
     msg.name = ['rudder_joint']
-    msg.position = [math.radians(rudder_ctrl())]
+    msg.position = [rudder_ctrl()]
     msg.velocity = []
     msg.effort = []
     return msg

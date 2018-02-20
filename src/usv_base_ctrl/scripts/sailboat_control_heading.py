@@ -21,9 +21,13 @@ Kp = 10
 Ki = 0 
 result = Float64()
 result.data = 0
+f_distance = 4
 sail_min = -math.pi/3
 sail_max = math.pi/3
 curent_heading = 0
+rudder_min = -math.pi/3
+rudder_max = math.pi/3
+rudder_med = (rudder_min + rudder_max)/2
 
 
 def get_pose(initial_pose_tmp):
@@ -47,9 +51,10 @@ def sail_ctrl_msg():
 def verify_result():
     global target_distance
     global result
-    if target_distance < 5:
+    global f_distance
+    if target_distance < f_distance:
         result.data = 1
-    if target_distance >= 5:    
+    if target_distance >= f_distance:    
         result.data = 0
     return result
 
@@ -102,14 +107,22 @@ def sail_ctrl():
     rospy.loginfo("valor de wind_dir = %f", math.degrees(global_dir))
     rospy.loginfo("valor de current_heading = %f", math.degrees(curent_heading))
     wind_dir = global_dir - curent_heading
+    wind_dir = angle_saturation(math.degrees(wind_dir))
+
+    if wind_dir > 180:
+        wind_dir = 180
+    if wind_dir < -180:
+        wind_dir = -180
     
-    rospy.loginfo("valor de wind_dir = %f", math.degrees(wind_dir))
+    rospy.loginfo("valor de wind_dir = %f", wind_dir)
     #rospy.loginfo("valor de pi/2 = %f", math.pi/2)
     #rospy.loginfo("valor de wind_dir/pi/2 = %f", wind_dir/math.pi/2)
     #rospy.loginfo("valor de sail_max - sail_min = %f", sail_max - sail_min)
     #rospy.loginfo("valor de (sail_max - sail_min) * (wind_dir/(math.pi/2)) = %f", (sail_max - sail_min) * (wind_dir/(math.pi/2)))
     #rospy.loginfo("valor de sail_min = %f", sail_min)
-    sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/(math.pi/2))
+    sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
+    if sail_angle < 0:
+        sail_angle = -sail_angle
     rospy.loginfo("valor de result = %f", sail_angle)
     return sail_angle
 
@@ -153,17 +166,25 @@ def rudder_ctrl():
     curent_heading = math.radians(target_angle)
     
     err = sp_angle - target_angle
+    err = angle_saturation(err)
     err = P(err) + I(err)
 
-    teste = 5
-    if target_distance < 8 and target_distance > 5:
-        actuator_vel = 20 
-    elif target_distance < 5:
+    if target_distance < f_distance+1 and target_distance > f_distance:
+        actuator_vel = 100 
+    elif target_distance < f_distance:
         actuator_vel = 0 
     else:
-	actuator_vel = 100
+	actuator_vel = 200
+        
+    if err > 180:
+        err = 180
+    if err < -180:
+        err = -180
 
-    rudder_angle = 90 * (-err/180)
+    if err < 0:
+        rudder_angle = rudder_med + (rudder_min - rudder_med) * ((err) / 180)
+    else:
+        rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
 
     #log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
@@ -175,7 +196,7 @@ def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
     msg.name = ['rudder_joint']
-    msg.position = [math.radians(rudder_ctrl())]
+    msg.position = [rudder_ctrl()]
     msg.velocity = []
     msg.effort = []
     return msg
