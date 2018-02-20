@@ -31,10 +31,10 @@
 	</group>
 
 	<group unless="$(arg parse)">
-			<arg name="namespace" default="rudderboat"/>  
+		<arg name="namespace" default="rudderboat"/>  
 	    	<arg name="spawnerUsed" default="true"/>
-            <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="rudderboat" unless="$(arg gui)"/>
-			<include file="$(find usv_sim)/launch/models/spawn_rudderboat.launch" pass_all_args="true"/>
+	        <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="rudderboat" unless="$(arg gui)"/>
+		<include file="$(find usv_sim)/launch/models/spawn_rudderboat.launch" pass_all_args="true"/>
 	</group>
 
 </launch>
