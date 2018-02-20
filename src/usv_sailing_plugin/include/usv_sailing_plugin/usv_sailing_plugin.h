@@ -25,7 +25,7 @@
 #include <gazebo/transport/TransportTypes.hh>
 #include <ros/ros.h>
 #include <geometry_msgs/Vector3.h>
-#include <std_msgs/Float32.h>
+#include <std_msgs/Float64.h>
 #include "usv_water_current/GetSpeed.h"
 #include "usv_wind_current/GetSpeed.h"
 
@@ -155,7 +155,7 @@ namespace gazebo
     protected: ros::Subscriber angleLimits_subscriber;
     std::thread the_thread;
 
-    public: void ropeSimulator(const std_msgs::Float32::ConstPtr& _angle){
+    public: void ropeSimulator(const std_msgs::Float64::ConstPtr& _angle){
         this->angle = _angle->data;
     }
     public: void WaterThreadLoop();
