@@ -102,6 +102,7 @@ def parse_launch_file(launch_file):
     # now we have the uwsim node, let's substitute and parse its args
     # we cannot substitute $(arg XXX) outside the launchfile, so we just remove it
     uwsim_args = substitution_args.resolve_args(uwsim_node[0].get('args').replace('$(arg', '')).split(' ')
+    print "uwsim_args: ",uwsim_args
     
     # look for configfile and additional datapath in uwsim args
     configfile = ''
@@ -336,11 +337,9 @@ if __name__ == '__main__':
     # parse launch file to get uwsim info
     launch_file = sys.argv[1]
     print "Parsing launch file: ", launch_file
+    for i in range(0, len(sys.argv)):
+	print "Argument[",i,"]: ",sys.argv[i]
     datapath, scene_file = parse_launch_file(launch_file)
-    print "----------------- Scene file"
-    print "----------------- Scene file"
-    print "----------------- Scene file"
-    print "----------------- Scene file"
     print "----------------- Scene file"
     print "----------------- Scene file ", scene_file;
     print "----------------- datapath ", datapath;

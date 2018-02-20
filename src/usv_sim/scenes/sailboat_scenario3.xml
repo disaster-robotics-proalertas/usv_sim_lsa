@@ -42,33 +42,33 @@
 
   <camera>
     <freeMotion> 1 </freeMotion>
-    <objectToTrack>boat_sea_angler/base_link</objectToTrack>
+    <objectToTrack>sailboat/base_link</objectToTrack>
     <fov> 60 </fov>
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>290</x>
-      <y>100 </y>
-      <z>5 </z>
+      <x>220</x>
+      <y>95 </y>
+      <z>20 </z>
     </position> 
     <lookAt>
-      <x>300</x>
-      <y>102 </y>
-      <z>3 </z>
+      <x>240</x>
+      <y>95 </y>
+      <z>5 </z>
     </lookAt>
   </camera>
 
   <vehicle>
-    <name>boat_diff</name>
-    <file>urdf/boat_diff_uwsim.urdf</file>
+    <name>sailboat</name>
+    <file>urdf/sailboat_uwsim.urdf</file>
     <jointValues>
       <joint> 0 </joint>
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 100 </y>
+      <x> 250</x>
+      <y> 95 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -84,9 +84,9 @@
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 305</x>
+      <x> 250</x>
       <y> 100 </y>
-      <z> 0.5</z>
+      <z> 1 </z>
     </position>
     <orientation>
       <r>0</r>
@@ -99,7 +99,7 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 310</x>
+      <x> 300</x>
       <y> 100 </y>
       <z> 1 </z>
     </position>
@@ -115,9 +115,9 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 315</x>
-      <y> 100 </y>
-      <z> 0 </z>
+      <x> 250</x>
+      <y> 50 </y>
+      <z> 1 </z>
     </position>
     <orientation>
       <r>0</r>
@@ -125,9 +125,25 @@
       <y>0</y>
     </orientation>
   </vehicle>
-	
-  
-   <object>
+
+   <vehicle>
+    <name>buoy4</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+
+    <position>
+      <x> 300</x>
+      <y> 50 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+
+	<object>
     <name>terrain</name>
     <file>terrain/diluvio5/novo4.obj</file>
     <position>
@@ -141,15 +157,14 @@
       <y>0 </y>
     </orientation>
   </object>
-  
 
   <rosInterfaces>   
-  
+
     <ROSOdomToPAT>
-      <topic> /boat_diff/state </topic>
-      <vehicleName> boat_diff </vehicleName>
-    </ROSOdomToPAT> 
-    
+      <topic> /sailboat/state </topic>
+      <vehicleName> sailboat </vehicleName>
+    </ROSOdomToPAT>
+
     <ROSOdomToPAT>
       <topic> /buoy1/state </topic>
       <vehicleName> buoy1 </vehicleName>
@@ -163,56 +178,49 @@
     <ROSOdomToPAT>
       <topic> /buoy3/state </topic>
       <vehicleName> buoy3 </vehicleName>
+    </ROSOdomToPAT>    
+    
+    <ROSOdomToPAT>
+      <topic> /buoy4/state </topic>
+      <vehicleName> buoy4 </vehicleName>
     </ROSOdomToPAT> 
 
-
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/base_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/sailboat/Surface/base_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
 	<OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/center_r_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<topic>/sailboat/Surface/center_r_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>center_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/back_r_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<topic>/sailboat/Surface/back_r_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>back_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
     
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/back_l_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<topic>/sailboat/Surface/back_l_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>back_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/front_r_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<topic>/sailboat/Surface/front_r_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>front_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
     
     <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/front_l_link</topic>
-	<vehicleName>boat_diff</vehicleName>
+	<topic>/sailboat/Surface/front_l_link</topic>
+	<vehicleName>sailboat</vehicleName>
 	<linkName>front_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle> 
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/fwd_left</topic>
-	<vehicleName>boat_diff</vehicleName>
-	<linkName>fwd_left</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
-    
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/boat_diff/Surface/fwd_right</topic>
-	<vehicleName>boat_diff</vehicleName>
-	<linkName>fwd_right</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
      
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy1/Surface/link</topic>
@@ -231,19 +239,19 @@
 	<vehicleName>buoy3</vehicleName>
 	<linkName>link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
-        
 
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy4/Surface/link</topic>
+	<vehicleName>buoy4</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+        
 	<ROSJointStateToArm> 
-        <topic>/boat_diff/joint_states</topic>
-        <vehicleName>boat_diff</vehicleName>
-    </ROSJointStateToArm>
+   		<topic>/sailboat/joint_states</topic>
+   		<vehicleName>sailboat</vehicleName>
+   	</ROSJointStateToArm>
 
-   
-    
-        
-    
-
-   
   </rosInterfaces>
 </UWSimScene>
 

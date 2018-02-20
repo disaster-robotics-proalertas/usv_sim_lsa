@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <launch>
 
-        <arg name="gui" default="false"/>
-        <arg name="parse" default="false"/>   
-    <arg name="namespace" default="sailboat"/>  
-    <arg name="posX" default="0"/>
-    <arg name="posY" default="0"/>
-    <arg name="posZ" default="0"/>
-    <arg name="spawnerUsed" default="false"/>
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>   
+	<arg name="namespace" default="sailboat"/>  
+	<arg name="posX" default="0"/>
+	<arg name="posY" default="0"/>
+	<arg name="posZ" default="0"/>
+	<arg name="spawnerUsed" default="false"/>
         
          
     	<!-- spawn in Gazebo with GUI -->

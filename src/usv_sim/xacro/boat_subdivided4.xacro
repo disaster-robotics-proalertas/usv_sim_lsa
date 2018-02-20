@@ -230,7 +230,7 @@
         <collision>
           <origin rpy="0 0 0"  xyz="${0*scale} ${0*scale} 0"/>
           <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontRight.dae" scale="${2*scale} ${2*scale} ${2*scale}"/>
+           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontRight.dae" scale="${scale} ${scale} ${scale}"/>
           </geometry>
         </collision>
 
@@ -275,14 +275,14 @@
 	        	<fluidVelocity>local</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
-          		<origin xyz="0 0 0" rpy="${-0.15*scale} 0 ${0.3*scale}"/>
+          		<origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0"/>
           		<geometry>
           		    <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
           		</geometry>
         	</collision>
 
             <visual name="${name}">
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0" />
                 <geometry>
                     <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
@@ -410,7 +410,7 @@
         <joint name="rudder_joint" type="revolute">
             <parent link="back_r_link"/>
             <child link="rudder"/>
-            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.22*scale} ${-0.5*scale}"/>
+            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.35*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
             <axis xyz="0 0 1"/>
             <limit effort="50" velocity="5" lower="-${PI/3}" upper="${PI/3}" />

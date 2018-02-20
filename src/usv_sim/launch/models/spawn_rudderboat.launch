@@ -11,7 +11,7 @@
 
    	<!-- spawn in Gazebo with GUI -->
         <group ns="$(arg namespace)" unless="$(arg parse)">
-            	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/boat_rudder.xacro"/>
+            	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/rudderboat.xacro"/>
 		<node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_rudder -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
@@ -35,7 +35,7 @@
 			<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
 		<!-- GUI interface to control thrusters -->
 			<group ns="thrusters">
-			     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/boat_rudder_dummy.urdf"/>                         
+			     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/rudderboat_dummy.urdf"/>                         
 			     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
 			     <param name="use_gui" value="True"/>
 			     <remap from="joint_states" to="/boat_rudder/thruster_command" />

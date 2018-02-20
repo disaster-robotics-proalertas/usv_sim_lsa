@@ -42,7 +42,7 @@
 
   <camera>
     <freeMotion> 1 </freeMotion>
-    <objectToTrack>boat_sea_angler/base_link</objectToTrack>
+    <objectToTrack>airboat/base_link</objectToTrack>
     <fov> 60 </fov>
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
@@ -246,12 +246,12 @@
 
   <rosInterfaces>   
 
-     <ROSOdomToPAT>
+    <ROSOdomToPAT>
       <topic> /airboat/state </topic>
       <vehicleName> airboat </vehicleName>
     </ROSOdomToPAT>
 
-    
+
     <ROSOdomToPAT>
       <topic> /buoy1/state </topic>
       <vehicleName> buoy1 </vehicleName>
@@ -337,12 +337,6 @@
 	<vehicleName>airboat</vehicleName>
 	<linkName>front_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle> 
-
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/fwd_left</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>fwd_left</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
     
      <OceanSurfaceToROSOceanVehicle>
 	<topic>/airboat/Surface/fwd</topic>
@@ -350,11 +344,6 @@
 	<linkName>fwd</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/fwd_right</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>fwd_right</linkName>
-    </OceanSurfaceToROSOceanVehicle> 
      
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy1/Surface/link</topic>
@@ -391,8 +380,8 @@
 	<vehicleName>buoy6</vehicleName>
 	<linkName>link</linkName>
     </OceanSurfaceToROSOceanVehicle>
-    
-        <OceanSurfaceToROSOceanVehicle>
+   
+    <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy7/Surface/link</topic>
 	<vehicleName>buoy7</vehicleName>
 	<linkName>link</linkName>
@@ -416,10 +405,10 @@
 	<linkName>link</linkName>
     </OceanSurfaceToROSOceanVehicle>    
         
-   <ROSJointStateToArm> 
-   <topic>/airboat/joint_states</topic>
-   <vehicleName>airboat</vehicleName>
-   </ROSJointStateToArm>
+	<ROSJointStateToArm> 
+   		<topic>/airboat/joint_states</topic>
+   		<vehicleName>airboat</vehicleName>
+   	</ROSJointStateToArm>
 
   </rosInterfaces>
 </UWSimScene>
