@@ -48,12 +48,12 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>220</x>
+      <x>230</x>
       <y>95 </y>
-      <z>20 </z>
+      <z>15 </z>
     </position> 
     <lookAt>
-      <x>240</x>
+      <x>245</x>
       <y>95 </y>
       <z>5 </z>
     </lookAt>
