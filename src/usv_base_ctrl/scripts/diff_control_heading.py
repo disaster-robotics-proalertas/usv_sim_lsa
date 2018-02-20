@@ -43,8 +43,8 @@ def thruster_ctrl_msg():
     msg.name = ['fwd_left', 'fwd_right']
     aux = rudder_ctrl()
 
-    left = aux + 70.
-    right = -aux + 70. 
+    left = aux + 100.
+    right = -aux + 100. 
 
     msg.position = [left, right]
     msg.velocity = []
