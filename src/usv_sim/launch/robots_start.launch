@@ -28,23 +28,8 @@
 	</group>
 
 	<group unless="$(arg parse)">
-		<arg name="namespace" default="boat_diff"/>  
-	    	<arg name="spawnerUsed" default="true"/>
-		<include file="$(find usv_sim)/launch/models/spawn_boat_diff.launch" pass_all_args="true"/>
-	</group>
-	<group unless="$(arg parse)">
-		<arg name="namespace" default="airboat"/>  
-	    	<arg name="spawnerUsed" default="true"/>
-		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
-	</group>
-	<group unless="$(arg parse)">
-		<arg name="namespace" default="boat_rudder"/>  
-	    	<arg name="spawnerUsed" default="true"/>
-		<include file="$(find usv_sim)/launch/models/spawn_boat_rudder.launch" pass_all_args="true"/>
-	</group>
-	<group unless="$(arg parse)">
-		<arg name="namespace" default="sailboat"/>  
-	    	<arg name="spawnerUsed" default="true"/>
-		<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
+		<arg name="namespace" default="diffboat1"/>  
+	   	<arg name="spawnerUsed" default="true"/>
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch" pass_all_args="true"/>
 	</group>
 </launch>

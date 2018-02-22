@@ -41,6 +41,7 @@ namespace gazebo
 
 	math::Vector3 waterSurface;
 	ros::Subscriber water_subscriber;
+	ros::Subscriber waterCurrent_subscriber;
 
 	math::Vector3 fluid_velocity_;
 	bool usingLocalFluidVelocity;
@@ -128,6 +129,18 @@ namespace gazebo
 	void createSubscriberWaterSurface(ros::NodeHandle *nh, std::string topic)
 	{
 		water_subscriber = nh->subscribe(topic, 1, &link_st::processSurfaceData, this);
+	}
+
+	void processWaterCurrentData(const geometry_msgs::Vector3::ConstPtr& pt)
+		{
+			fluid_velocity_.x = pt->x;
+			fluid_velocity_.y = pt->y;
+			fluid_velocity_.z = pt->z;
+		}
+
+	void createSubscriberWaterCurrent(ros::NodeHandle *nh, std::string topic)
+	{
+		waterCurrent_subscriber = nh->subscribe(topic, 1, &link_st::processWaterCurrentData, this);
 	}
 
 	void Start(){

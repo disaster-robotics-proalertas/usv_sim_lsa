@@ -3,7 +3,7 @@
 
 	<arg name="gui" default="false"/>
     <arg name="parse" default="false"/>  
- 	<arg name="namespace" default="boat_diff"/>  
+ 	<arg name="namespace" default="diffboat"/>  
     <arg name="posX" default="0"/>
     <arg name="posY" default="0"/>
     <arg name="posZ" default="0"/>
@@ -12,10 +12,10 @@
 	<!-- spawn in Gazebo with GUI -->
 	<group ns="$(arg namespace)" unless="$(arg parse)">
 		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/diffboat.xacro"/>
-		<node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat_diff -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
+		<node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model diffboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
-		<rosparam file="$(find usv_sim)/config/boat_diff.yaml" command="load"/>
+		<rosparam file="$(find usv_sim)/config/diffboat.yaml" command="load"/>
 
 		<!-- Launch control -->
 		<node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
@@ -35,7 +35,7 @@
 			     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/diffboat_dummy.urdf"/>                         
 			     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
 			     <param name="use_gui" value="True"/>
-			     <remap from="joint_states" to="/boat_diff/thruster_command" />
+			     <remap from="joint_states" to="/diffboat/thruster_command" />
 			     </node>             
 			</group>
 

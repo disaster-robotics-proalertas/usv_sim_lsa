@@ -6,13 +6,13 @@
   <oceanState>
     <windx> 1.0 </windx>
     <windy> 1.0 </windy>
-    <windSpeed> 6 </windSpeed>
-    <depth> 10000 </depth>
+    <windSpeed> 0 </windSpeed>
+    <depth> 100 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <waveScale> 1e-8 </waveScale>
+    <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
-    <choppyFactor> -2.5 </choppyFactor>
-    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <choppyFactor> -1.5 </choppyFactor>
+    <crestFoamHeight> 1.2 </crestFoamHeight>
     <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
     <fog>
       <density> 0.1 </density>
@@ -69,7 +69,7 @@
      <position>
       <x> 240</x>
       <y> 95 </y>
-      <z> 1 </z>
+      <z> 1.13 </z>
     </position>
     <orientation>
       <r>0 </r>

@@ -217,7 +217,7 @@ namespace gazebo
 				//double vrw = v - Vw * sin(Bw - W);
 				double vrw = (*link_it)->link->GetWorldLinearVel ().y - Vw.y;
 				double Pa = 1.184;
-				double Sl = 0.01;
+				double Sl = 0.1;
 
 				// speed boat values
 				double CDt = 0.90;
@@ -483,6 +483,7 @@ namespace gazebo
 									{
 										new_buoy_link->usingLocalFluidVelocity = false;
 										new_buoy_link->usingNoneFluidVelocity = false;
+										new_buoy_link->createSubscriberWaterCurrent(rosnode_, "\gazebo\current");
 									}
 								}
 								else if (buoy_node->ValueStr () == "windVelocity")

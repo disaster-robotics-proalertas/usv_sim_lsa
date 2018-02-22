@@ -79,10 +79,15 @@ def talker_ctrl():
     rospy.Subscriber("move_usv/goal", Odometry, get_target)  # get target position
 
     while not rospy.is_shutdown():
-        pub_rudder.publish(rudder_ctrl_msg())
-        pub_sail.publish(sail_ctrl())
-        pub_result.publish(verify_result())
-        rate.sleep()
+        try:
+            pub_rudder.publish(rudder_ctrl_msg())
+            pub_sail.publish(sail_ctrl())
+            pub_result.publish(verify_result())
+            rate.sleep()
+        except rospy.ROSInterruptException:
+	    rospy.logerr("ROS Interrupt Exception! Just ignore the exception!")
+        except rospy.ROSTimeMovedBackwardsException:
+	    rospy.logerr("ROS Time Backwards! Just ignore the exception!")
 
 def P(erro):
     global Kp

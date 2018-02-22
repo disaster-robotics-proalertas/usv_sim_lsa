@@ -14,6 +14,7 @@
         <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
     </include>
 
+
 	<!-- parse launch file -->
 	<group if="$(arg parse)">
 		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/airboat_scenario1.launch" output="screen" required="true"/>
@@ -31,10 +32,12 @@
 	</group>
 
 	<group unless="$(arg parse)">
-			<arg name="namespace" default="airboat"/>  
+		<arg name="namespace" default="airboat"/>  
 	    	<arg name="spawnerUsed" default="true"/>
-            <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="airboat" unless="$(arg gui)"/>
-			<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
+		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="airboat" unless="$(arg gui)"/>
+		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
+			
+		<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/usv_sim_lsa/bags/airboat_scenario1_noDisturbs.bag /airboat/state" output="screen"/>
+			
 	</group>
-
 </launch>

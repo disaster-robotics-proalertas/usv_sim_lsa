@@ -46,7 +46,7 @@
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>local</fluidVelocity>
+	  		<fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -82,7 +82,7 @@
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  <fluidVelocity>local</fluidVelocity>
+	  <fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -124,7 +124,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>local</fluidVelocity>
+	  		<fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -165,7 +165,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>local</fluidVelocity>
+	  		<fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -207,7 +207,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>local</fluidVelocity>
+	  		<fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -245,7 +245,7 @@
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
           <windVelocity>global</windVelocity>
-	  <fluidVelocity>local</fluidVelocity>
+	  <fluidVelocity>global</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -272,7 +272,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>0.8</compensation>
-	        	<fluidVelocity>local</fluidVelocity>
+	        	<fluidVelocity>global</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0"/>
@@ -333,7 +333,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>1.0</compensation>
-	        	<fluidVelocity>local</fluidVelocity>
+	        	<fluidVelocity>global</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>
