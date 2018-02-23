@@ -35,6 +35,7 @@
 	    	<arg name="spawnerUsed" default="true"/>
             <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="diffboat" unless="$(arg gui)"/>
 			<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch" pass_all_args="true"/>
+			<node pkg="rosbag" type="record" name="record_diffboat" args="-O /home/paravisi/usv_sim_lsa/bags/diffboat_scenario2alto.bag /diffboat/state" output="screen"/>
 	</group>
 
 </launch>

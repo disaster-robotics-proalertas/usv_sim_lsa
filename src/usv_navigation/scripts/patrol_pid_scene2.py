@@ -10,18 +10,18 @@ import subprocess
 import os
 
 waypoints = [
-    [(305.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(307.5, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(310.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(312.5, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(315.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(320.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+    [(250.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(255.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(260.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(265.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(270.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(275.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
 result = Float64()
 result.data = 0
 x_offset = 0 
 y_offset = 0
-maxSimulations = 1
+maxSimulations = 10
 
 def goal_pose(pose):
     goal_pose = Odometry()
@@ -69,6 +69,7 @@ if __name__ == '__main__':
                 pause() 
 	    else:
                 resetSimulation()
+		rate.sleep()
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:

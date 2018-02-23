@@ -462,8 +462,12 @@ namespace gazebo
 
 		// publish joint states anyway
 		double t = ros::Time::now ().toSec ();
+
+		if (t < t_prev_)
+			t_prev_ = t;
 		if ((t - t_prev_) > update_T_ && joints_.size () != 0)
 		{
+
 			t_prev_ = t;
 			joint_states_.header.stamp = ros::Time::now ();
 
@@ -472,6 +476,7 @@ namespace gazebo
 				joint_states_.position[i] = joints_[i]->GetAngle (0).Radian ();
 				joint_states_.velocity[i] = joints_[i]->GetVelocity (0);
 			}
+
 			joint_state_publisher_.publish (joint_states_);
 		}
 	}

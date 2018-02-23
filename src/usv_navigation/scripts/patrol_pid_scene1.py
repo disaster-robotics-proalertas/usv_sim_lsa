@@ -65,6 +65,7 @@ if __name__ == '__main__':
                 pause() 
 	    else:
                 resetSimulation()
+		rate.sleep()
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:

@@ -17,7 +17,7 @@ simNumber = 0
 #meanTime, stdTime, meanDist, stdDist, meanError, stdError
 referenceTime = 0
 referenceTravelDistance = 0.0
-for topic, msg, t in rosbag.Bag('./bags2/rudderboat_scenario1_noDisturbs.bag').read_messages():
+for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1_noDisturbs.bag').read_messages():
 	timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
 	referenceTime = float(msg.header.stamp.secs + msg.header.stamp.nsecs/1000000000.0)
 
@@ -48,7 +48,7 @@ dist = [0]
 oldX =0
 oldY =0
 first=True
-for topic, msg, t in rosbag.Bag('./bags2/rudderboat_scenario1alto.bag').read_messages():
+for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1alto.bag').read_messages():
 
 #	print int(msg.pose.pose.position.x*100), ", ",msg.pose.pose.position.y
 	#posY[simNumber][int(msg.pose.pose.position.x*100)] = msg.pose.pose.position.y
@@ -82,13 +82,11 @@ for topic, msg, t in rosbag.Bag('./bags2/rudderboat_scenario1alto.bag').read_mes
 		timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
 		posX[simNumber].append(msg.pose.pose.position.x)
 		posY[simNumber].append(msg.pose.pose.position.y)
-		oldX= (msg.pose.pose.position.x*100)
-		oldY= (msg.pose.pose.position.y*100)
 		if (msg.header.stamp.secs-oldStime == 1):
 			print "dist[",simNumber,"]: ",dist, oldX, oldY, " time: ", msg.header.stamp.secs, oldStime
-		if (dist[simNumber] > 10000):
-			print "Distance too big! Verify your bag file! Dist: ",dist[simNumber]
-			break
+
+		oldX= (msg.pose.pose.position.x*100)
+		oldY= (msg.pose.pose.position.y*100)
 	oldNtime = msg.header.stamp.nsecs
 	oldStime = msg.header.stamp.secs
 
@@ -117,12 +115,16 @@ preparedRefX = []
 preparedRefY = []
 meanErrorX = []
 meanErrorY = []
+meanError = []
+stdError = []
+distance = []
 for n in range(0, simNumber):
 	print "-----------Simulation ",n
 	print " len posY: ",len(posX[n])
 	print " len posY: ",len(posY[n])
 	preparedRefX.append([])
 	preparedRefY.append([])
+	distance.append([])
 	for t in range(0, len(posX[n])):
 		if (t < len(posRefX)):
 			preparedRefX[n].append(posRefX[t])		
@@ -130,17 +132,22 @@ for n in range(0, simNumber):
 		else:
 			preparedRefX[n].append(posRefX[len(posRefX)-1])
 			preparedRefY[n].append(posRefY[len(posRefY)-1])
+		distance[n].append(  sqrt( (posX[n][t]-preparedRefX[n][t])*(posX[n][t]-preparedRefX[n][t])+ (posY[n][t]-preparedRefY[n][t])*(posY[n][t]-preparedRefY[n][t]) ) )
 	meanErrorX.append( sqrt(mean_squared_error(posX[n], preparedRefX[n])) )
 	meanErrorY.append( sqrt(mean_squared_error(posY[n], preparedRefY[n])) )
-	#stdError = sqrt(std_squared_error(posY[n], posRef))
-	print "meanError[",n,"]: ",meanErrorX[n], meanErrorY[n]
+	meanError.append( numpy.mean(distance[n], axis=0) )
+	stdError.append( numpy.std(distance[n], axis=0) )
+	print "meanError[",n,"]: x: ",meanErrorX[n]," y: ", meanErrorY[n]
+	print "meanError[",n,"]: ",meanError[n]," std: ", meanErrorY[n]
 	#print "stdError[",n,"]: ",stdError
 meanMeanErrorX = numpy.mean(meanErrorX, axis=0)
 stdMeanErrorX = numpy.std(meanErrorX, axis=0)
 meanMeanErrorY = numpy.mean(meanErrorY, axis=0)
 stdMeanErrorY = numpy.std(meanErrorY, axis=0)
+meanMeanError = numpy.mean(meanError, axis=0)
+stdMeanError  = numpy.std(meanError, axis=0)
 print "meanMeanErrorX: ", meanMeanErrorX, " stdX: ", stdMeanErrorX
 print "meanMeanErrorY: ", meanMeanErrorY, " stdY: ", stdMeanErrorY
-
+print "final meanError: ", meanMeanError, " std: ", stdMeanError
 
 
