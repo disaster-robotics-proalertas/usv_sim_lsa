@@ -4,6 +4,10 @@ from sklearn.metrics import mean_squared_error
 from math import sqrt
 import numpy
 import time as tempo
+import os
+import locale
+
+locale.setlocale(locale.LC_ALL, "")
 
 oldNtime =0
 oldStime =0
@@ -17,7 +21,11 @@ simNumber = 0
 #meanTime, stdTime, meanDist, stdDist, meanError, stdError
 referenceTime = 0
 referenceTravelDistance = 0.0
-for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1_noDisturbs.bag').read_messages():
+prefix = "diff"
+scenario = "1"
+disturbType = "medio"
+
+for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+'_noDisturbs.bag').read_messages():
 	timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
 	referenceTime = float(msg.header.stamp.secs + msg.header.stamp.nsecs/1000000000.0)
 
@@ -29,6 +37,18 @@ for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1_noDisturbs.bag').rea
 		posRefX[timeNow] = msg.pose.pose.position.x
 		posRefY[timeNow] = msg.pose.pose.position.y
 #	posRefY[timeNow] = msg.pose.pose.position.y
+
+
+refFile = open("bags2/processado/referencia", "w")
+for t in range(0, len(posRefX)):
+	refFile.write(str(t))
+	refFile.write(";")
+	refFile.write(locale.format("%1.2f",posRefX[t],0) )
+	refFile.write(";")
+	refFile.write(locale.format("%1.2f",posRefY[t],0) )
+	refFile.write(";\n")
+refFile.close()
+
 
 for i in range(1, len(posRefY)):
 	delta = sqrt((posRefX[i]*100-posRefX[i-1]*100)*(posRefX[i]*100-posRefX[i-1]*100)+(posRefY[i]*100-posRefY[i-1]*100)*(posRefY[i]*100-posRefY[i-1]*100))
@@ -48,7 +68,7 @@ dist = [0]
 oldX =0
 oldY =0
 first=True
-for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1alto.bag').read_messages():
+for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+disturbType+'.bag').read_messages():
 
 #	print int(msg.pose.pose.position.x*100), ", ",msg.pose.pose.position.y
 	#posY[simNumber][int(msg.pose.pose.position.x*100)] = msg.pose.pose.position.y
@@ -80,8 +100,9 @@ for topic, msg, t in rosbag.Bag('./bags2/diffboat_scenario1alto.bag').read_messa
 			else:
 				dist[simNumber]=dist[simNumber]+delta
 		timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
-		posX[simNumber].append(msg.pose.pose.position.x)
-		posY[simNumber].append(msg.pose.pose.position.y)
+		if (timeNow >= len(posX[simNumber])):	
+			posX[simNumber].append(msg.pose.pose.position.x)
+			posY[simNumber].append(msg.pose.pose.position.y)
 		if (msg.header.stamp.secs-oldStime == 1):
 			print "dist[",simNumber,"]: ",dist, oldX, oldY, " time: ", msg.header.stamp.secs, oldStime
 
@@ -146,8 +167,63 @@ meanMeanErrorY = numpy.mean(meanErrorY, axis=0)
 stdMeanErrorY = numpy.std(meanErrorY, axis=0)
 meanMeanError = numpy.mean(meanError, axis=0)
 stdMeanError  = numpy.std(meanError, axis=0)
-print "meanMeanErrorX: ", meanMeanErrorX, " stdX: ", stdMeanErrorX
-print "meanMeanErrorY: ", meanMeanErrorY, " stdY: ", stdMeanErrorY
+#print "meanMeanErrorX: ", meanMeanErrorX, " stdX: ", stdMeanErrorX
+#print "meanMeanErrorY: ", meanMeanErrorY, " stdY: ", stdMeanErrorY
+#print "final meanError: ", meanMeanError, " std: ", stdMeanError
+
+print "---- PREPARING OUTPUT DATA FILE ---"
+
+
+#for n in range(0, simNumber):
+	#print "preparedRefX[",n,"]: ",len(preparedRefX[n]), len(preparedRefY[n]), "pos : ", len(posX[n]), len(posY[n])
+output = []
+for n in range(0, simNumber):
+	output.append([])
+	for t in range(0, len(preparedRefX[n])):
+		if (t ==0):
+			output[n].append(t)
+			output[n].append(preparedRefX[n][t])
+			output[n].append(preparedRefY[n][t])
+		output[n].append(posX[n][t])
+		output[n].append(posY[n][t])
+
+texto = []
+#for l in range(0, len(output)):
+#	linha = " "
+#	for c in range(0, len(output[l])):
+#		linha += str(output[l][c])+";"
+#	texto.append(linha+"\n")
+#	print linha
+print len(texto)
+for n in range(0, simNumber):
+	outFile = open("bags2/processado/output"+prefix+scenario+disturbType+"sim"+str(n)+".txt","w") 
+	for t in range(0, len(posX[n])):
+		outFile.write(str(t))
+		outFile.write(";")
+		outFile.write(locale.format("%1.2f",posX[n][t],0) )
+		outFile.write(";")
+		outFile.write(locale.format("%1.2f",posY[n][t],0) )
+		outFile.write(";\n")
+	outFile.close()
+
+
+print "size posRef: ", len(posRefX), len(posRefY)
+arrayTotalDist = []
+for n in range(0, simNumber):
+	print "----------simulation: ",n, " size pos: ", len(posX[n]), len(posY[n])
+	totalDist = 0
+	allDistances = []
+	for t in range(0, len(posX[n])):
+		deltaX = posX[n][t]-posRefX[t]
+		deltaY = posY[n][t]-posRefY[t]
+		delta = sqrt(deltaX*deltaX + deltaY*deltaY)
+		allDistances.append(delta)
+		totalDist += delta
+	arrayTotalDist.append(totalDist/len(posX[n]))
+	print ----------n," mean: ",numpy.mean(allDistances, axis=0)
+	print ----------n," std: ", numpy.std(allDistances, axis=0)	
+	print ----------n," media: ",arrayTotalDist[n]
+
+meanMeanError = numpy.mean(arrayTotalDist, axis=0)
+stdMeanError  = numpy.std(arrayTotalDist, axis=0)
 print "final meanError: ", meanMeanError, " std: ", stdMeanError
-
-

@@ -6,7 +6,7 @@
   <oceanState>
     <windx> 1.0 </windx>
     <windy> 1.0 </windy>
-    <windSpeed> 0 </windSpeed>
+    <windSpeed> 3.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
     <waveScale> 1e-7 </waveScale>
@@ -48,13 +48,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>85 </y>
-      <z>20 </z>
+      <x>240</x>
+      <y>82.5 </y>
+      <z>25 </z>
     </position> 
     <lookAt>
-      <x>240</x>
-      <y>85 </y>
+      <x>260</x>
+      <y>82.5 </y>
       <z>5 </z>
     </lookAt>
   </camera>
