@@ -6,6 +6,7 @@ import numpy
 import time as tempo
 import os
 import locale
+import matplotlib.pyplot as plt
 
 locale.setlocale(locale.LC_ALL, "")
 
@@ -23,7 +24,7 @@ referenceTime = 0
 referenceTravelDistance = 0.0
 prefix = "diff"
 scenario = "1"
-disturbType = "medio"
+disturbType = "alto"
 
 for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+'_noDisturbs.bag').read_messages():
 	timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
@@ -68,43 +69,51 @@ dist = [0]
 oldX =0
 oldY =0
 first=True
+detectedRestart = False
 for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+disturbType+'.bag').read_messages():
-
+	
 #	print int(msg.pose.pose.position.x*100), ", ",msg.pose.pose.position.y
 	#posY[simNumber][int(msg.pose.pose.position.x*100)] = msg.pose.pose.position.y
 
-	if (oldStime > msg.header.stamp.secs): 
-		time.extend( [float(oldStime + oldNtime/1000000000.0)] )
-		simNumber+=1
+	if (oldStime > msg.header.stamp.secs or detectedRestart): 
+		detectedRestart = False
+		time.extend( [float(oldStime + oldNtime/1000000000.0)] )		
 		first=True
-		print "################################################################################################"
-		print "################################################################################################"
-		print "\nDetected end of Simulation at ", oldStime,".",oldNtime,". New simulation started at ", msg.header.stamp.secs,".",msg.header.stamp.nsecs
-		print "time: ",time
-		print "\n"
+
 		posX.append([])
 		posY.append([])
 		dist.append(0)
+		simNumber+=1
+
+		print "################################################################################################"
+		print "################################################################################################"
+		print "\nDetected end of Simulation at ", oldStime,".",oldNtime,". New simulation started at ", msg.header.stamp.secs,".",msg.header.stamp.nsecs
+		print "pos: ",msg.pose.pose.position.x*100, msg.pose.pose.position.y*100," old: ",oldX, oldY
+		print "time: ",time
+		print "\n"
 	else:
 		if (msg.header.stamp.secs-oldStime > 1):
 			continue;
 		if (first):
 			first = False
+			
 		else:
 			delta = sqrt((msg.pose.pose.position.x*100-oldX)*(msg.pose.pose.position.x*100-oldX)+(msg.pose.pose.position.y*100-oldY)*(msg.pose.pose.position.y*100-oldY))
 			#### remove publications after restart... No robot will move 1 cm in that time
 			if (delta > 100):
 				print "Delta: ",delta,"pos: ",msg.pose.pose.position.x*100, msg.pose.pose.position.y*100," old: ",oldX, oldY
-				print msg.header.stamp.secs,msg.header.stamp.nsecs
+				print "now: ",msg.header.stamp.secs,msg.header.stamp.nsecs
+#				detectedRestart = True
 				tempo.sleep(1)
+				continue;
 			else:
 				dist[simNumber]=dist[simNumber]+delta
-		timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
-		if (timeNow >= len(posX[simNumber])):	
-			posX[simNumber].append(msg.pose.pose.position.x)
-			posY[simNumber].append(msg.pose.pose.position.y)
-		if (msg.header.stamp.secs-oldStime == 1):
-			print "dist[",simNumber,"]: ",dist, oldX, oldY, " time: ", msg.header.stamp.secs, oldStime
+				timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
+				if (timeNow >= len(posX[simNumber])):	
+					posX[simNumber].append(msg.pose.pose.position.x)
+					posY[simNumber].append(msg.pose.pose.position.y)
+				if (msg.header.stamp.secs-oldStime == 1):
+					print "dist[",simNumber,"]: ",dist, oldX, oldY, " time: ", msg.header.stamp.secs, oldStime
 
 		oldX= (msg.pose.pose.position.x*100)
 		oldY= (msg.pose.pose.position.y*100)
@@ -209,13 +218,20 @@ for n in range(0, simNumber):
 
 print "size posRef: ", len(posRefX), len(posRefY)
 arrayTotalDist = []
+lastRefX = posRefX[len(posRefX)-1]
+lastRefY = posRefY[len(posRefY)-1]
 for n in range(0, simNumber):
 	print "----------simulation: ",n, " size pos: ", len(posX[n]), len(posY[n])
 	totalDist = 0
 	allDistances = []
 	for t in range(0, len(posX[n])):
-		deltaX = posX[n][t]-posRefX[t]
-		deltaY = posY[n][t]-posRefY[t]
+		rfX = lastRefX
+		rfY = lastRefY
+		if (len(posRefX) > t):
+			rfX = posRefX[t]
+			rfY = posRefY[t]
+		deltaX = posX[n][t]-rfX
+		deltaY = posY[n][t]-rfY
 		delta = sqrt(deltaX*deltaX + deltaY*deltaY)
 		allDistances.append(delta)
 		totalDist += delta
@@ -227,3 +243,30 @@ for n in range(0, simNumber):
 meanMeanError = numpy.mean(arrayTotalDist, axis=0)
 stdMeanError  = numpy.std(arrayTotalDist, axis=0)
 print "final meanError: ", meanMeanError, " std: ", stdMeanError
+
+plt.plot(posRefX, posRefY, 'r--')
+#plt.plot(posX[0], posY[0], 'b--')
+#plt.plot(posX[1], posY[1], 'bs')
+#plt.plot(posX[2], posY[2], 'b^')
+#plt.plot(posX[3], posY[3], 'g--')
+#plt.plot(posX[4], posY[4], 'gs')
+#plt.plot(posX[5], posY[5], 'g^')
+#plt.plot(posX[6], posY[6], 'r--')
+#plt.plot(posX[7], posY[7], 'rs')
+#plt.plot(posX[8], posY[8], 'r^')
+#plt.plot(posX[9], posY[9], 'r^')
+
+#plt.plot(posX[0], posY[0], 'b--')
+#plt.plot(posX[1], posY[1], 'b--')
+#plt.plot(posX[2], posY[2], 'b--')
+#plt.plot(posX[3], posY[3], 'b--')
+#plt.plot(posX[4], posY[4], 'b--')
+#plt.plot(posX[5], posY[5], 'b--')
+#plt.plot(posX[6], posY[6], 'b--')
+#plt.plot(posX[7], posY[7], 'b--')
+#plt.plot(posX[8], posY[8], 'b--')
+#plt.plot(posX[9], posY[9], 'b--')
+for n in range(0, len(posX)):
+	print "plotting ",n
+	plt.plot(posX[n], posY[n], 'b--')
+plt.show()
