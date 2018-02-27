@@ -19,6 +19,7 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         sudo apt install python-rosdep python-wxtools
         sudo apt-get install python-lxml python-pathlib python-h5py ros-kinetic-control-* ros-kinetic-osg-markers
         sudo apt-get install libfftw3-* libxml++2.6-* python-scipy python-geolinks python-gdal
+        sudo apt-get instal ros-kinetic-move-base libsdl-image1.2-dev libsdl-dev
         sudo rosdep init
         rosdep update
 
