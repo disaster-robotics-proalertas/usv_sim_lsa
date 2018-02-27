@@ -10,13 +10,13 @@ import subprocess
 import os
 
 waypoints = [
-    [(250.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(255.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(260.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(265.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(270.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(275.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+    [(480.0, 110.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(440.0, 110.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(230.0, 110.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(205.0, 200.0, 0.0), (0.0, 0.0, 0.63, 0.78)],
+    [(205.0, 300.0, 0.0), (0.0, 0.0, 0.63, 0.78)]
 ]
+
 result = Float64()
 result.data = 0
 x_offset = 0 
@@ -56,12 +56,12 @@ if __name__ == '__main__':
                 goal = goal_pose(pose)
                 pub.publish(goal)
                 rate.sleep()
-		if (rospy.get_time() > 2 *60):
+		if (rospy.get_time() > 12 *60):
 			break;
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > 2 *60):
+		    if (rospy.get_time() > 12 *60):
 			break;
             simulationNumber = simulationNumber + 1
             if (simulationNumber > maxSimulations):
@@ -69,7 +69,7 @@ if __name__ == '__main__':
                 pause() 
 	    else:
                 resetSimulation()
-		rate.sleep()
+                rate.sleep()
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:

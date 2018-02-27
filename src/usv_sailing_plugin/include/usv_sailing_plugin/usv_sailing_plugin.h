@@ -48,6 +48,7 @@ namespace gazebo
     protected: virtual void OnUpdateRudder();
     protected: virtual void OnUpdateKeel();
     protected: virtual void OnUpdateSail();
+    protected: virtual void OnUpdateSail2();
 
     // Read topic gazebo/current to get water current
     protected: void ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg);

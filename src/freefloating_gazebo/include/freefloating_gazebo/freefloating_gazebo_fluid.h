@@ -77,35 +77,41 @@ namespace gazebo
         void stop() { running = false; }
 
         ~link_st(){
+        	std::cerr<<"\n called link destructor!";
         	running = false;
 			if(the_thread.joinable()) the_thread.join();
 		}
 
         void ThreadLoop() {
         	ros::Rate r(10);
+        	r.sleep();
 				while(running)
 				{
 
 					usv_water_current::GetSpeed srv;
 					srv.request.x = waterSurface.x;
 					srv.request.y = waterSurface.y;
+					//std::cerr<<"\n calling services 1! water: "<<usingLocalFluidVelocity;
 					if (usingLocalFluidVelocity && fluid_velocity_serviceClient_.call(srv))
 					{
 						fluid_velocity_.x = srv.response.x;
 						fluid_velocity_.y = srv.response.y;
-						//std::cout << "\n ============== fluidWater "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
+						//std::cerr << "\n ============== fluidWater "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
 					}
 					else if (usingLocalFluidVelocity)
 					{
 							ROS_WARN("Failed to call service waterCurrent %s::%s", model_name.c_str(), link->GetName().c_str());
 
+
 							ros::Rate s(1);
 							s.sleep();
 					}
+					//std::cerr<<"\n calling services 2! wind: "<<usingLocalWindVelocity;
 					if (usingLocalWindVelocity && wind_velocity_serviceClient_.call(srv))
 					{
 						wind.x = srv.response.x;
 						wind.y = srv.response.y;
+						//std::cerr << "\n ============== wind "<<model_name<<"="<<link->GetName()<<" ("<<wind.x<<", "<<wind.y<<")";
 					}
 					else if (usingLocalWindVelocity)
 					{
@@ -114,6 +120,7 @@ namespace gazebo
 							ros::Rate s(1);
 							s.sleep();
 					}
+					//std::cerr<<"\n all services called!";
 					r.sleep();
 				}
             }

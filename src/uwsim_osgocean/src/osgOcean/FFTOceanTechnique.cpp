@@ -20,6 +20,7 @@
 #include <osg/io_utils>
 #include <osg/Material>
 #include <osg/Timer>
+#include <ros/ros.h>
 
 using namespace osgOcean;
 
@@ -340,7 +341,8 @@ void FFTOceanTechnique::EventHandler::getUsage(osg::ApplicationUsage& usage) con
 
 void FFTOceanTechnique::OceanAnimationCallback::operator()(osg::Node* node, osg::NodeVisitor* nv)
 {
-    update(node, nv, -1.0);
+    update(node, nv, ros::Time::now().toSec());
+//    update(node, nv, -1.0);
 
     traverse(node, nv); 
 }

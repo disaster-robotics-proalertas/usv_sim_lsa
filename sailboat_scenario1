@@ -5,4 +5,5 @@ catkin_make_isolated --install -q --pkg usv_sim usv_water_current usv_wind_curre
 echo "Parsing files for scenario 1. Please wait...";
 roslaunch usv_sim sailboat_scenario1.launch parse:=true  
 echo "Starting simulation of scenario 1";
-roslaunch usv_sim sailboat_scenario1.launch parse:=false 
+roslaunch usv_sim sailboat_scenario1.launch parse:=false
+

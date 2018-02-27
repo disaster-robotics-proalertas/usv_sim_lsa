@@ -196,7 +196,7 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 	frameName = "frame%04d.png" % arg
 	#matplotlib.pyplot.savefig(frameName)
 	#frameList.write(frameName + '\n')
-	print arg
+	#print arg
 
 
 
@@ -225,7 +225,7 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 def handleWindCurrent(req):
 	global originX, originY, ux, uy, windSpeed, resolution
 	global barrierN, barrierS, barrierE, barrierW, barrierNE, barrierNW, barrierSE, barrierSW, barrier
-#	print ("\n Received request",req.x,", ",req.y)
+	print ("\n Received request",req.x,", ",req.y)
 	x = (req.x-originX)*resolution
 	if (x < 0):
 		x = 0
@@ -247,6 +247,8 @@ def handleWindCurrent(req):
 	#barrierSE = numpy.roll(barrierS,  1, axis=1)
 	#barrierSW = numpy.roll(barrierS, -1, axis=1)
 
+	x = int(x)
+	y = int(y)
 	print "\n[",x,",",y,"]: (",ux[x][y]/resolution,",",uy[x][y]/resolution,")"
 	return  GetSpeedResponse(ux[x][y]/resolution, uy[x][y]/resolution)
 #        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
@@ -334,10 +336,10 @@ def loadColisions():
 	data[:] = [255,255,255]
 	for y in range(0,len(obstaculos)):
 		for x in range(0,len(obstaculos[y])):
-			scaledX = math.floor(x*resolution)
+			scaledX = int(math.floor(x*resolution))
 			if (scaledX >= len(barrier[0])):
 				scaledX = len(barrier[0])-1
-			scaledY = math.floor(y*resolution)
+			scaledY = int(math.floor(y*resolution))
 			if (scaledY >= len(barrier)):
 				scaledY = len(barrier)-1
 			if (obstaculos[y][x] < 100):

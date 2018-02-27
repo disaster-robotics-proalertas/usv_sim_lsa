@@ -51,7 +51,7 @@
 
     <link name="keel">
 	<inertial>
-		<mass value="20" />
+		<mass value="5" />
 		<inertia
 		  ixx="0.4708"
 		  ixy="0.0"
@@ -93,8 +93,8 @@
 	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
 		<link_type>sail</link_type>
 		<a0>0</a0>
-		<cla>4.752798721</cla>
-		<cda>0.6417112299</cda>
+		<cla>3.0</cla>
+		<cda>3.0</cda>
 		<cma>-1.8</cma>
 		<alpha_stall>0.785</alpha_stall>
 		<cla_stall>-3.85</cla_stall>
@@ -104,24 +104,23 @@
 		<joint_name>sail_joint</joint_name>
 		<area>1.44</area>
 		<air_density>1.2041</air_density>
-		<forward>1 0 0</forward>
+		<forward>-1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>sail</link_name>
 		<fluidVelocity>${windType}</fluidVelocity>
       </plugin>
       
-      
   
       <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
 		  <link_type>keel</link_type>
 		  <a0>0</a0>
-		  <cla>0.752798721</cla>
-		  <cda>0.3417112299</cda>
+		  <cla>10.0</cla>
+		  <cda>8.0</cda>
 		  <alpha_stall>0.785</alpha_stall>
-		  <cla_stall>-0.85</cla_stall>
-		  <cda_stall>-0.3233984055</cda_stall>
+		  <cla_stall>-10.0</cla_stall>
+		  <cda_stall>-5.0</cda_stall>
 		  <cp>0 0 0</cp>
-		  <area>0.1</area>
+		  <area>1.0</area>
 		  <air_density>1000</air_density>
 		  <forward>1 0 0</forward>
 		  <upward>0 1 0</upward>
@@ -133,8 +132,8 @@
     <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
 		<link_type>rudder</link_type>
 		<a0>0</a0>
-		<cla>0.752798721</cla>
-		<cda>0.3417112299</cda>
+		<cla>0.8</cla>
+		<cda>0.3</cda>
 		<alpha_stall>0.785</alpha_stall>
 		<cla_stall>-0.85</cla_stall>
 		<cda_stall>-0.3233984055</cda_stall>

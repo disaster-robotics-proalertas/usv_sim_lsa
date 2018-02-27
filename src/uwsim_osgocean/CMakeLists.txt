@@ -46,6 +46,10 @@ include_directories(${OPENTHREADS_INCLUDE_DIR})
 find_package (osgShadow REQUIRED)
 include_directories (${OSGSHADOW_INCLUDE_DIR})
 
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+)
+
 IF (NOT WIN32)
   IF (NOT OSG_LIBRARY_DEBUG)
     SET(OSG_LIBRARY_DEBUG ${OSG_LIBRARY})
@@ -72,6 +76,10 @@ ENDIF()
 
 find_package (OpenGL REQUIRED)
 include_directories (${OPENGL_INCLUDE_DIR})
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
 
 OPTION(USE_FFTW3 "Use FFTW3 (double-precision) (GPL) as FFT library." OFF)
 OPTION(USE_FFTW3F "Use FFTW3 (single-precision) (GPL) as FFT library." ON)

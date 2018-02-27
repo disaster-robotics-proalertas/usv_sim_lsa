@@ -22,11 +22,21 @@ simNumber = 0
 #meanTime, stdTime, meanDist, stdDist, meanError, stdError
 referenceTime = 0
 referenceTravelDistance = 0.0
-prefix = "rudder"
-scenario = "1"
-disturbType = "alto"
+prefixList = []
+prefixList.append("air")
+prefixList.append("diff")
+prefixList.append("rudder")
+#scenario = "3"
+disturbTypeList.append("medio")
+disturbTypeList.append("alto")
 
-for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+'_noDisturbs.bag').read_messages():
+for prefix in prefix: 
+	for scenario in ["0","1","2"]:
+		for disturbType in disturbTypeList:
+			print prefix+scenario+disturbType
+exit()
+
+for topic, msg, t in rosbag.Bag('./'+prefix+'boat_scenario'+scenario+'_noDisturbs.bag').read_messages():
 	timeNow = int(msg.header.stamp.secs*100+msg.header.stamp.nsecs/10000000)
 	referenceTime = float(msg.header.stamp.secs + msg.header.stamp.nsecs/1000000000.0)
 
@@ -40,7 +50,7 @@ for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+'_noD
 #	posRefY[timeNow] = msg.pose.pose.position.y
 
 
-refFile = open("bags2/processado/referencia", "w")
+refFile = open("./processado/referencia"+prefix+scenario+disturbType+".txt", "w")
 for t in range(0, len(posRefX)):
 	refFile.write(str(t))
 	refFile.write(";")
@@ -70,7 +80,7 @@ oldX =0
 oldY =0
 first=True
 detectedRestart = False
-for topic, msg, t in rosbag.Bag('./bags2/'+prefix+'boat_scenario'+scenario+disturbType+'.bag').read_messages():
+for topic, msg, t in rosbag.Bag('./'+prefix+'boat_scenario'+scenario+disturbType+'.bag').read_messages():
 	
 #	print int(msg.pose.pose.position.x*100), ", ",msg.pose.pose.position.y
 	#posY[simNumber][int(msg.pose.pose.position.x*100)] = msg.pose.pose.position.y
@@ -125,7 +135,7 @@ simNumber+=1
 
 print "time: ",time
 print "time: ",dist
-print "########### RESULT ###########"
+print "############################# RESULT ###########",prefix,scenario,disturbType
 print "Number of Simulations:", simNumber
 print "Reference boat - total time: ",referenceTime
 print "Reference boat - traveled distance: ",referenceTravelDistance
@@ -205,7 +215,7 @@ texto = []
 #	print linha
 print len(texto)
 for n in range(0, simNumber):
-	outFile = open("bags2/processado/output"+prefix+scenario+disturbType+"sim"+str(n)+".txt","w") 
+	outFile = open("./processado/output"+prefix+scenario+disturbType+"sim"+str(n)+".txt","w") 
 	for t in range(0, len(posX[n])):
 		outFile.write(str(t))
 		outFile.write(";")
@@ -270,3 +280,5 @@ for n in range(0, len(posX)):
 	print "plotting ",n
 	plt.plot(posX[n], posY[n], 'b--')
 plt.show()
+fig = plt.figure()
+fig.savefig("imagens/graf"+prefix+scenario+disturbType+".png", dpi=fig.dpi)

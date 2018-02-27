@@ -471,7 +471,7 @@ namespace gazebo
 										new_buoy_link->usingLocalFluidVelocity = true;
 										new_buoy_link->initServiceClient (rosnode_);
 
-										new_buoy_link->Start ();
+										//new_buoy_link->Start ();
 									}
 									else if (nameNone.compare (buoy_node->ToElement ()->GetText ()) == 0)
 									{
@@ -496,7 +496,7 @@ namespace gazebo
 										new_buoy_link->usingLocalWindVelocity = true;
 										new_buoy_link->initWindServiceClient (rosnode_);
 
-										new_buoy_link->Start ();
+										//new_buoy_link->Start ();
 									}
 									else if (nameNone.compare (buoy_node->ToElement ()->GetText ()) == 0)
 									{
@@ -529,7 +529,8 @@ namespace gazebo
 									ROS_WARN("Unknown tag <%s/> in buoyancy node for model %s", buoy_node->ValueStr ().c_str (),
 									         _model->GetName ().c_str ());
 							}
-
+							if (new_buoy_link->usingLocalFluidVelocity || new_buoy_link->usingLocalWindVelocity)
+								new_buoy_link->Start ();
 							new_buoy_link->buoyant_force = -compensation * sdf_link->GetInertial ()->GetMass () * WORLD_GRAVITY;
 
 							// store this link

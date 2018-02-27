@@ -5,5 +5,5 @@ autodraw:
 resolution: 0.1
 windSpeed: 4.0
 origin: [0, 0, 0.0]
-obstacleImage: '/home/paravisi/usv_sim_lsa/src/usv_wind_current/maps/river2m-edited.png'
+obstacleImage: '/home/paravisi/usv_sim_lsa/src/usv_wind_current/maps/river3m.png'
 

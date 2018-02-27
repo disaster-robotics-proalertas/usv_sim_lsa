@@ -76,6 +76,21 @@
       <p>0 </p>
       <y>0 </y>
     </orientation>
+        <imu>
+      <name>diffboatImu</name>
+      <relativeTo>base_link</relativeTo>
+      <position>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </position>  
+      <orientation>
+        <r>0</r>
+        <p>0</p>
+        <y>3</y>
+      </orientation>
+      <std>0.00000001</std>
+    </imu>
   </vehicle>
   
 
@@ -236,7 +251,11 @@
    		<topic>/diffboat/joint_states</topic>
    		<vehicleName>diffboat</vehicleName>
    	</ROSJointStateToArm>
-
+   	<ImuToROSImu>
+   		<name>diffboatImu</name>
+   		<topic>/diffboat/Imu</topic>
+   		<rate>20</rate>
+   	</ImuToROSImu>
   </rosInterfaces>
 </UWSimScene>
 

@@ -16,6 +16,8 @@
     <xacro:property name="scale" value="0.3"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
+    <xacro:property name="windType" value="none" />
+    <xacro:property name="waterType" value="none" />
     
 
     <link name="base_link">
@@ -42,11 +44,11 @@
 			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
 			<limit radius="0.1"/>
 			<damping rpy="20 20 20" xyz="20 40 50"/>
-         	<windVelocity>global</windVelocity>
+         	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>global</fluidVelocity>
+	  		<fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -78,11 +80,11 @@
           <origin xyz="${0.35*scale} ${-0.44*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
-			<windVelocity>global</windVelocity>
+			<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  <fluidVelocity>global</fluidVelocity>
+	  <fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -120,11 +122,11 @@
 			<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
 			<limit radius="0.1"/>
 			<damping rpy="20 20 20" xyz="20 40 50"/>
-			<windVelocity>global</windVelocity>
+			<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>global</fluidVelocity>
+	  		<fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -161,11 +163,11 @@
           	<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
           	<limit radius="0.1"/>
           	<damping rpy="20 20 20" xyz="20 40 50"/>
-          	<windVelocity>global</windVelocity>
+          	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>global</fluidVelocity>
+	  		<fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -203,11 +205,11 @@
           	<origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           	<limit radius="0.1"/>
           	<damping rpy="20 20 20" xyz="20 40 50"/>
-          	<windVelocity>global</windVelocity>
+          	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>global</fluidVelocity>
+	  		<fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -244,8 +246,8 @@
           <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
-          <windVelocity>global</windVelocity>
-	  <fluidVelocity>global</fluidVelocity>
+          <windVelocity>${windType}</windVelocity>
+	  <fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
 
@@ -272,7 +274,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>0.8</compensation>
-	        	<fluidVelocity>global</fluidVelocity>
+	        	<fluidVelocity>${windType}</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0"/>
@@ -333,7 +335,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>1.0</compensation>
-	        	<fluidVelocity>global</fluidVelocity>
+	        	<fluidVelocity>${waterType}</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>

@@ -9,7 +9,9 @@
   <license>LGPL</license>
 
   <buildtool_depend>cmake</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
   
+  <build_depend>roscpp</build_depend>
   <build_depend>boost</build_depend>
   <build_depend>libopenscenegraph</build_depend>
   <build_depend>libfftw3</build_depend>
@@ -19,6 +21,7 @@
   <run_depend>boost</run_depend>
   <run_depend>libopenscenegraph</run_depend>
   <run_depend>libfftw3</run_depend>
+  <run_depend>roscpp</run_depend>
   <run_depend>opengl</run_depend>
 
   <export>
