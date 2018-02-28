@@ -338,8 +338,11 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
-	//this->link->AddTorque(torque);
+	this->link->AddTorque(torque);
 }
+
+
+
 
 void
 USV_Sailing_Plugin::OnUpdateKeel ()
