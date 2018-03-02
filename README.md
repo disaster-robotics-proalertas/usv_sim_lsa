@@ -129,8 +129,4 @@ TODO
 
 ## Acknowledgments
 
-* freefloating_gazebo
-* UWsim
-* LiftDrag 
-* HEC-RAS - https://en.wikipedia.org/wiki/HEC-RAS 
-* CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
+This project is supported by CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
