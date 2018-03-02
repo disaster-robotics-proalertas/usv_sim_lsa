@@ -64,8 +64,12 @@ if __name__ == '__main__':
 		rospy.logerr("All simulations have been done. Pausing gazebo")
                 pause() 
 	    else:
+                pause() 
+		rate.sleep()
                 resetSimulation()
 		rate.sleep()
+		unpause()
+		rospy.logerr("Continue simulation!") 
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:

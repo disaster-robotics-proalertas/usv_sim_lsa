@@ -48,7 +48,6 @@ namespace gazebo
     protected: virtual void OnUpdateRudder();
     protected: virtual void OnUpdateKeel();
     protected: virtual void OnUpdateSail();
-    protected: virtual void OnUpdateSail2();
 
     // Read topic gazebo/current to get water current
     protected: void ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg);
@@ -68,39 +67,6 @@ namespace gazebo
     /// \brief Name of model containing plugin.
     protected: std::string modelName;
 
-    /// \brief Coefficient of Lift / alpha slope.
-    /// Lift = C_L * q * S
-    /// where q (dynamic pressure) = 0.5 * rho * v^2
-    protected: double cla;
-
-    /// \brief Coefficient of Drag / alpha slope.
-    /// Drag = C_D * q * S
-    /// where q (dynamic pressure) = 0.5 * rho * v^2
-    protected: double cda;
-
-    /// \brief Coefficient of Moment / alpha slope.
-    /// Moment = C_M * q * S
-    /// where q (dynamic pressure) = 0.5 * rho * v^2
-    protected: double cma;
-
-    /// \brief angle of attach when airfoil stalls
-    protected: double alphaStall;
-
-    /// \brief Cl-alpha rate after stall
-    protected: double claStall;
-
-    /// \brief Cd-alpha rate after stall
-    protected: double cdaStall;
-
-    /// \brief Cm-alpha rate after stall
-    protected: double cmaStall;
-
-    /// \brief: \TODO: make a stall velocity curve
-    protected: double velocityStall;
-
-    /// \brief air density
-    /// at 25 deg C it's about 1.1839 kg/m^3
-    /// At 20 °C and 101.325 kPa, dry air has a density of 1.2041 kg/m3.
     protected: double rho;
 
     /// \brief effective planeform surface area
@@ -109,11 +75,11 @@ namespace gazebo
     /// \brief angle of sweep
     protected: double sweep;
 
-    /// \brief initial angle of attack
-    protected: double alpha0;
-
     /// \brief angle of attack
     protected: double alpha;
+
+    protected: double mult_lift;
+    protected: double mult_drag;
 
     /// \brief center of pressure in link local coordinates
     protected: math::Vector3 cp;
@@ -124,9 +90,6 @@ namespace gazebo
     /// \brief A vector in the lift/drag plane, anything orthogonal to it
     /// is considered wing sweep.
     protected: math::Vector3 upward;
-
-    /// \brief Smooth velocity
-    protected: math::Vector3 velSmooth;
 
     /// \brief Names of allowed target links, specified in sdf parameters.
     protected: std::string linkName;
@@ -155,6 +118,7 @@ namespace gazebo
 
     protected: ros::Subscriber angleLimits_subscriber;
     std::thread the_thread;
+    protected: ros::Time oldTime;
 
     public: void ropeSimulator(const std_msgs::Float64::ConstPtr& _angle){
         this->angle = _angle->data;

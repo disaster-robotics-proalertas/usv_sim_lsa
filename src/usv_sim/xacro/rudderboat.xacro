@@ -14,20 +14,16 @@
 
 	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
 		<link_type>rudder</link_type>
-		<a0>0</a0>
-		<cla>0.752798721</cla>
-		<cda>0.3417112299</cda>
-		<alpha_stall>0.785</alpha_stall>
-		<cla_stall>-0.85</cla_stall>
-		<cda_stall>-0.3233984055</cda_stall>
-
-		<cp>-0.5 0 0</cp>
-		<area>0.06</area>
-		<air_density>1000</air_density>
+		<mult_lift>1.5</mult_lift>
+		<mult_drag>1</mult_drag>
+		<cp>-0.2 0 0</cp>
+		<area>0.02</area>
+		<fluid_density>1000</fluid_density>
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>rudder</link_name>
 	</plugin>
+	
 
         <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
             <switchService>switch</switchService>
@@ -41,6 +37,6 @@
     </gazebo>  
                 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
-    <xacro:thruster_link name="fwd" xyz="-0.45 0.10 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" />
+    <xacro:thruster_link name="fwd" xyz="-0.45 0.117 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" />
             
 </robot>

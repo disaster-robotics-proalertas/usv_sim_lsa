@@ -16,8 +16,8 @@
     <xacro:property name="scale" value="0.3"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
-    <xacro:property name="windType" value="none" />
-    <xacro:property name="waterType" value="none" />
+    <xacro:property name="windType" value="global" />
+    <xacro:property name="waterType" value="global" />
     
 
     <link name="base_link">
@@ -381,7 +381,7 @@
     <xacro:macro name="rudder_xacro">
         <link name="rudder">
             <inertial>
-                <mass value="0.05" />
+                <mass value="1" />
                 <inertia
                   ixx="0.05"
                   ixy="0.0"
@@ -407,12 +407,13 @@
                 <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
                 
             </visual>
+
         </link>
 
         <joint name="rudder_joint" type="revolute">
             <parent link="back_r_link"/>
             <child link="rudder"/>
-            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.35*scale} ${-0.5*scale}"/>
+            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.39*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
             <axis xyz="0 0 1"/>
             <limit effort="100" velocity="5" lower="-${PI/2}" upper="${PI/2}" />

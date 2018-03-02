@@ -15,22 +15,16 @@ using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN (USV_Sailing_Plugin)
 
 /////////////////////////////////////////////////
-USV_Sailing_Plugin::USV_Sailing_Plugin () :
-		cla (1.0), cda (0.01), cma (0.01), rho (1.2041)
+USV_Sailing_Plugin::USV_Sailing_Plugin () : rho (1000.1)
 {
 	ROS_INFO ("------------------------------USV_Sailing_Plugin OBJECT CREATED!!!!");
 	this->cp = math::Vector3 (0, 0, 0);
 	this->forward = math::Vector3 (1, 0, 0);
 	this->upward = math::Vector3 (0, 0, 1);
 	this->area = 1.0;
-	this->alpha0 = 0.0;
-
-	// 90 deg stall
-	this->alphaStall = 0.5 * M_PI;
-	this->claStall = 0.0;
-
-	this->cdaStall = 1.0;
-	this->cmaStall = 0.0;
+	this->mult_lift = 1.5;
+	this->mult_drag = 1.0;
+	this->oldTime = ros::Time::now();
 }
 
 /////////////////////////////////////////////////
@@ -54,29 +48,6 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
 	GZ_ASSERT (_sdf, "USV_Sailing_Plugin _sdf pointer is NULL");
 
-	if (_sdf->HasElement ("a0"))
-		this->alpha0 = _sdf->Get<double> ("a0");
-
-	if (_sdf->HasElement ("cla"))
-		this->cla = _sdf->Get<double> ("cla");
-
-	if (_sdf->HasElement ("cda"))
-		this->cda = _sdf->Get<double> ("cda");
-
-	if (_sdf->HasElement ("cma"))
-		this->cma = _sdf->Get<double> ("cma");
-
-	if (_sdf->HasElement ("alpha_stall"))
-		this->alphaStall = _sdf->Get<double> ("alpha_stall");
-
-	if (_sdf->HasElement ("cla_stall"))
-		this->claStall = _sdf->Get<double> ("cla_stall");
-
-	if (_sdf->HasElement ("cda_stall"))
-		this->cdaStall = _sdf->Get<double> ("cda_stall");
-
-	if (_sdf->HasElement ("cma_stall"))
-		this->cmaStall = _sdf->Get<double> ("cma_stall");
 
 	if (_sdf->HasElement ("cp"))
 		this->cp = _sdf->Get < math::Vector3 > ("cp");
@@ -92,8 +63,14 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 	if (_sdf->HasElement ("area"))
 		this->area = _sdf->Get<double> ("area");
 
-	if (_sdf->HasElement ("air_density"))
-		this->rho = _sdf->Get<double> ("air_density");
+	if (_sdf->HasElement ("mult_lift"))
+			this->mult_lift = _sdf->Get<double> ("mult_lift");
+
+	if (_sdf->HasElement ("mult_drag"))
+				this->mult_lift = _sdf->Get<double> ("mult_drag");
+
+	if (_sdf->HasElement ("fluid_density"))
+		this->rho = _sdf->Get<double> ("fluid_density");
 
 	if (_sdf->HasElement ("link_name"))
 	{
@@ -180,12 +157,18 @@ USV_Sailing_Plugin::Init ()
 void
 USV_Sailing_Plugin::OnUpdate ()
 {
+	if (oldTime > ros::Time::now())
+	{
+		oldTime = ros::Time::now();
+		return;
+	}
 	if (this->linkType.compare ("rudder") == 0)
 		this->OnUpdateRudder ();
 	else if (this->linkType.compare ("keel") == 0)
 		this->OnUpdateKeel ();
 	else if (this->linkType.compare ("sail") == 0)
 		this->OnUpdateSail ();
+	oldTime = ros::Time::now();
 }
 
 /////////////////////////////////////////////////
@@ -197,38 +180,24 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	if (vel.GetLength () <= 0.01)
 		return;
-
+	if (vel.GetLength () > 5)
+	{
+		std::cerr<<"\n vel: "<<vel<<" lengtH: "<<vel.GetLength()<<" oldTime: "<<oldTime<<" > "<<ros::Time::now();
+		return;
+	}
 	// pose of body
 	math::Pose pose = this->link->GetWorldPose ();
 
 	// rotate forward and upward vectors into inertial frame
 	math::Vector3 forwardI = pose.rot.RotateVector (this->forward);
 	math::Vector3 upwardI = pose.rot.RotateVector (this->upward);
-	//std::cerr<<"\n pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI;
+	//std::cerr<<"pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI<<"\n";
 
 	// ldNormal vector to lift-drag-plane described in inertial frame
 	math::Vector3 ldNormal = forwardI.Cross (upwardI).Normalize ();
 
-	// check sweep (angle between vel and lift-drag-plane)
-	double sinSweepAngle = ldNormal.Dot (vel) / vel.GetLength ();
 
-	// get cos from trig identity
-	double cosSweepAngle2 = (1.0 - sinSweepAngle * sinSweepAngle);
-	this->sweep = asin (sinSweepAngle);
-
-	// truncate sweep to within +/-90 deg
-	while (fabs (this->sweep) > 0.5 * M_PI)
-		this->sweep = this->sweep > 0 ? this->sweep - M_PI : this->sweep + M_PI;
-
-	// angle of attack is the angle between 
-	// vel projected into lift-drag plane
-	//  and
-	// forward vector
-	//
-	// projected = ldNormal Xcross ( vector Xcross ldNormal)
-	//
-	// so,
-	// velocity in lift-drag plane (expressed in inertial frame) is:
+	// angle of attack
 	math::Vector3 velInLDPlane = ldNormal.Cross (vel.Cross (ldNormal));
 
 	// get direction of drag
@@ -238,7 +207,7 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 	// get direction of lift
 	math::Vector3 liftDirection = ldNormal.Cross (velInLDPlane);
 	liftDirection.Normalize ();
-	//std::cerr<<"\n liftDirection: "<<liftDirection;
+	//std::cerr<<"vel: "<<vel<<"("<<vel.GetLength()<<") liftDirection: "<<liftDirection<<" dragDirection: "<<dragDirection<<"\n";
 
 	// get direction of moment
 	math::Vector3 momentDirection = ldNormal;
@@ -253,13 +222,9 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	// double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
 	if (alphaSign > 0.0)
-		this->alpha = this->alpha0 + acos (cosAlpha);
+		this->alpha =  acos (cosAlpha);
 	else
-		this->alpha = this->alpha0 - acos (cosAlpha);
-
-	// normalize to within +/-90 deg
-	while (fabs (this->alpha) > 0.5 * M_PI)
-		this->alpha = this->alpha > 0 ? this->alpha - M_PI : this->alpha + M_PI;
+		this->alpha = - acos (cosAlpha);
 
 	// compute dynamic pressure
 	double speedInLDPlane = velInLDPlane.GetLength ();
@@ -267,78 +232,33 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
-	if (this->alpha > this->alphaStall)
-	{
-		cl = (this->cla * this->alphaStall + this->claStall * (this->alpha - this->alphaStall)) * cosSweepAngle2;
-		// make sure cl is still great than 0
-		cl = std::max (0.0, cl);
-	}
-	else if (this->alpha < -this->alphaStall)
-	{
-		cl = (-this->cla * this->alphaStall + this->claStall * (this->alpha + this->alphaStall)) * cosSweepAngle2;
-		// make sure cl is still less than 0
-		cl = std::min (0.0, cl);
-	}
-	else
-		cl = this->cla * this->alpha * cosSweepAngle2;
-
+	cl = this->mult_lift * sin (2*this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
 	// compute cd at cp, check for stall, correct for sweep
 	double cd;
-	if (this->alpha > this->alphaStall)
-	{
-		cd = (this->cda * this->alphaStall + this->cdaStall * (this->alpha - this->alphaStall)) * cosSweepAngle2;
-	}
-	else if (this->alpha < -this->alphaStall)
-	{
-		cd = (-this->cda * this->alphaStall + this->cdaStall * (this->alpha + this->alphaStall)) * cosSweepAngle2;
-	}
-	else
-		cd = (this->cda * this->alpha) * cosSweepAngle2;
 
+	cd =  this->mult_drag * (1 - cos (2 * this->alpha));
 	// make sure drag is positive
 	cd = fabs (cd);
 
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 
-	// compute cm at cp, check for stall, correct for sweep
-	double cm;
-	if (this->alpha > this->alphaStall)
-	{
-		cm = (this->cma * this->alphaStall + this->cmaStall * (this->alpha - this->alphaStall)) * cosSweepAngle2;
-		// make sure cm is still great than 0
-		cm = std::max (0.0, cm);
-	}
-	else if (this->alpha < -this->alphaStall)
-	{
-		cm = (-this->cma * this->alphaStall + this->cmaStall * (this->alpha + this->alphaStall)) * cosSweepAngle2;
-		// make sure cm is still less than 0
-		cm = std::min (0.0, cm);
-	}
-	else
-		cm = this->cma * this->alpha * cosSweepAngle2;
-
-	// reset cm to zero, as cm needs testing
-	cm = 0.0;
-
-	// compute moment (torque) at cp
-	math::Vector3 moment = cm * q * this->area * momentDirection;
-
-	// moment arm from cg to cp in inertial plane
-	math::Vector3 momentArm = pose.rot.RotateVector (this->cp - this->link->GetInertial ()->GetCoG ());
-	// gzerr << this->cp << " : " << this->link->GetInertial()->GetCoG() << "\n";
-
 	// force and torque about cg in inertial frame
 	math::Vector3 force = lift + drag;
+	ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
+	ROS_ERROR("a: %f inputCL: %f inputCD: %f v: %f", this->alpha, sin (2*this->alpha), (1 - cos (2 * this->alpha)), speedInLDPlane);
+	std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
+	std::cerr<<"\n rho: "<<this->rho<<" Area: "<<this->area;
+	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";
 
-	math::Vector3 torque = moment;
+	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
 
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
-	this->link->AddTorque(torque);
+	//this->link->AddTorque(torque);
 }
 
 
@@ -407,9 +327,9 @@ USV_Sailing_Plugin::OnUpdateKeel ()
 
 	// double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
 	if (alphaSign > 0.0)
-		this->alpha = this->alpha0 + acos (cosAlpha);
+		this->alpha = + acos (cosAlpha);
 	else
-		this->alpha = this->alpha0 - acos (cosAlpha);
+		this->alpha = - acos (cosAlpha);
 
 	// normalize to within +/-90 deg
 	while (fabs (this->alpha) > M_PI)
@@ -436,20 +356,6 @@ USV_Sailing_Plugin::OnUpdateKeel ()
 
 	// compute cm at cp, check for stall, correct for sweep
 	double cm;
-	if (this->alpha > this->alphaStall)
-	{
-		cm = (this->cma * this->alphaStall + this->cmaStall * (this->alpha - this->alphaStall)) * cosSweepAngle2;
-		// make sure cm is still great than 0
-		cm = std::max (0.0, cm);
-	}
-	else if (this->alpha < -this->alphaStall)
-	{
-		cm = (-this->cma * this->alphaStall + this->cmaStall * (this->alpha + this->alphaStall)) * cosSweepAngle2;
-		// make sure cm is still less than 0
-		cm = std::min (0.0, cm);
-	}
-	else
-		cm = this->cma * this->alpha * cosSweepAngle2;
 
 	// reset cm to zero, as cm needs testing
 	cm = 0.0;
