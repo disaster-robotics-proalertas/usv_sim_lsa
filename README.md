@@ -1,10 +1,9 @@
-# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.0.0
-This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
-Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
+# Simulated environment for Unmanned Surface Vehicles (usv_sim) -- 0.0.1
+This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  It is developed to test control and trajectory strategies for USVs, but it can be easily adapted to other applications. It contains multiple robot models such as propelled boats(rudder boat, differential boat, airboat) and sailboat. Boats are affected by waves, wind and water currents, implemented by UWsim for water surface modeling, HEC-RAS for water speed of river and channel simulations, and Lattice Boltzmann in a 2D grid for wind current. All those features allow to modelling the movement of boats in a realistic way.
 
 ### Prerequisites
 
-You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
+You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic, run the following commands:
 
 
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -36,11 +35,10 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
 ## Running the tests
 
-On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
+On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Porto Alegre, Brazil. Each scenario is configured to test the boat control on executing some common maneuveurs (see image below). Besides that, you can run the following scripts:
 - ``scenario1``: boat should navigate through two lines of buoys. 
 - ``scenario2``: boat should avoid colision with 3 buoys.
 - ``scenario3``: boat should execute zigzag to cover an area.
-- ``scenario4``: boat should stay inside a circular area.
 
 To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
 
@@ -51,7 +49,7 @@ To execute water simulation to those scenarios, you should run the script named 
 
 ## System Architecture 
 
-The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
+The main system architecture is composed of UWSIM and Gazebo, including plugins for realistic  waves, wind and water current simulation on several boat types. Above is presented the topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
 
 <p align="center">
   <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
@@ -112,19 +110,19 @@ Each launch file was designed to include others files type in a way to customize
 
 ## Contributing
 
-TODO
+One can contribute to this project by deteting bugs, future features, and pull requests. 
 
 ## Versioning
 
-TODO
+v0.0.1 – Initial version submitted to IROS 2018
 
 ## Authors
 
-* **Alexandre Amory**
-* **Davi Henrique** 
-* **Marcelo Paravisi** 
-* **Vitor Augusto Machado Jorge**
-
+* Alexandre Amory (PUCRS University, Porto Alegre, Brazil)
+* Davi Henrique (UFRN University, Natal, Brazil)
+* Luiz Marcos Gonçalves (UFRN University, Natal, Brazil)
+* Marcelo Paravisi (IFRS, Osorio, Brazil; PUCRS University, Porto Alegre, Brazil)
+* Vitor Augusto Machado Jorge (PUCRS University, Porto Alegre, Brazil)
 ## License
 
 TODO
