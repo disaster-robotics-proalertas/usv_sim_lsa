@@ -144,9 +144,19 @@ int main(int argc, char *argv[])
   view.getViewer()->getWindows(windows);
   windows[0]->setWindowName("UWSim");
 
+  std::cerr<<"\n camera: "<<view.getViewer()->getCamera()->getName();
+  std::cerr<<"\n ds: "<<view.getViewer()->getCamera()->getDisplaySettings();
+  osg::DisplaySettings::instance()->setNumMultiSamples( 0 );
+  if (view.getViewer()->getCamera()->getDisplaySettings() != 0)
+  {
+	  std::cerr<<"\n numMultiSamples: "<<view.getViewer()->getCamera()->getDisplaySettings()->getNumMultiSamples();
+	  std::cerr<<"\n bool: "<<view.getViewer()->getCamera()->getDisplaySettings()->getMultiSamples();
+  }
   double prevSimTime = 0.;
   while (!view.getViewer()->done() && ros::ok())
   {
+
+//	  std::cerr<<"\n num: "<<view.getViewer()->getCamera()->getDisplaySettings()->getNumMultiSamples();
     ROSInterface::setROSTime(ros::Time::now());
     ros::spinOnce();
 

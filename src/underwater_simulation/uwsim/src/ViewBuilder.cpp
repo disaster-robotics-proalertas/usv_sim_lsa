@@ -134,6 +134,15 @@ bool ViewBuilder::init(ConfigFile &config, SceneBuilder *scene_builder)
   viewer->addEventHandler(new osgViewer::HelpHandler);
   viewer->getCamera()->setName("MainCamera");
 
+  std::cerr<<"\n-------------------------------------------------------------------------";
+  std::cerr<<"\n\n\n\n--------- camera: "<<viewer->getCamera();
+
+  osg::DisplaySettings* ptrDS = new osg::DisplaySettings();
+  ptrDS->setNumMultiSamples (16);
+  viewer->getCamera()->setDisplaySettings(ptrDS);
+
+  //std::cerr<<"\n MULTISAMPLES: "<<viewer->getCamera()->get->getMultiSamples();
+  //viewer->getCamera()->setDisplaySettings(ds);
   //Main camera projection parameters: view angle (fov), aspect ratio, fustrum near and far
   if (config.camNear != -1 && config.camFar != -1)
   {

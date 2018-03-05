@@ -379,6 +379,11 @@ osg::Node * UWSimGeometry::loadGeometry(boost::shared_ptr<Geometry> geom)
       node = new osg::Group();
       node->asGroup()->addChild(aux);
     }
+    osg::StateSet * stateset = node->getOrCreateStateSet();
+    //stateset->setMode(GL_POLYGON_SMOOTH, osg::StateAttribute::ON);
+    //stateset->setMode(GL_EDGE_SMOOTH, osg::StateAttribute::ON);
+    stateset->setMode(GL_BLEND, osg::StateAttribute::ON);
+    //stateset->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
     return node;
   }
   else if (geom->type == 1)

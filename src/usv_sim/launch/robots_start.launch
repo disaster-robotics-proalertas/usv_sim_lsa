@@ -21,7 +21,7 @@
 	<group unless="$(arg parse)">
 		<arg name="disableShaders" default="false"/>
 		<!-- launch uwsim -->
-		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/robots_start.xml" respawn="true"/>
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/robots_start.xml" respawn="false"/>
 
 		<!-- using parser  -->
 		<include file="$(find usv_sim)/launch/robots_start_spawner.launch"/>

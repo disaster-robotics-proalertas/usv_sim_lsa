@@ -34,6 +34,7 @@
 #include <osg/ClipNode>
 #include <osg/ClipPlane>
 #include <osgGA/GUIEventHandler>
+#include <osg/PositionAttitudeTransform>
 
 #include <map>
 
@@ -51,6 +52,9 @@ namespace osgOcean
 
     private:
         osg::ref_ptr<OceanTechnique> _oceanSurface;
+	std::vector<osg::Node*> _floatingObjects;
+	std::vector<double> _floatingObjectsHeight;
+	
 
         bool _isDirty;
 
