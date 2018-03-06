@@ -433,6 +433,22 @@ void OceanScene::init( void )
             _reflectionClipNode->addClipPlane( reflClipPlane );
 
             addChild( _reflectionClipNode.get() );
+
+		for (unsigned int i = 0; i< getNumChildren(); i++)
+		{
+			std::cerr<<"\n child["<<i<<"]: "<<getChild(i)->getName();
+			if (getChild(i)->getName().compare("localizedWorld")==0)
+			{
+				osg::Node* localizedWorld = getChild(i);
+				for (unsigned int j = 0; j< localizedWorld->asGroup()->getNumChildren(); j++)
+				{
+					std::cerr<<"\n child["<<i<<"]: "<<localizedWorld->asGroup()->getChild(j)->getName()<<", mask: "<<localizedWorld->asGroup()->getChild(j)->getNodeMask();
+					_floatingObjects.push_back(localizedWorld->asGroup()->getChild(j));
+					_floatingObjectsHeight.push_back(0.0);
+				}				
+				break;
+			}
+		}
         }
 
         if( _enableGodRays )
@@ -886,8 +902,82 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
                 bool surfaceVisible = _oceanSurface->isVisible(*cv, eyeAboveWater);
 
                 (*_oceanSurface->getCullCallback())(_oceanSurface.get(), &nv);
+		osg::Vec3f normal = osg::Vec3f(0,0,1);
+
+
+		//prepare position of USV  to reflection
+		for (unsigned int i =0; i< _floatingObjects.size();i++)
+		{
+			//std::cerr<<"\n _floatingObjects: "<<_floatingObjects[i]->getName();
+			osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
+			if ((ptrTransform!=NULL) && _floatingObjects[i]->getName().length()>0)
+			{
+/*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+				if (ptrMT != NULL)
+				{				
+					osg::Matrixd	m = ptrMT->getMatrix();
+					_floatingObjectsHeight[i] = m.getTrans().z();
+					if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+					else
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+					m.preMultTranslate(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
+
+					ptrMT->setMatrix(m);
+				}*/
+				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+				if (ptrMT != NULL)
+				{
+					osg::Matrixd	m = ptrMT->getMatrix();
+					_floatingObjectsHeight[i] = m.getTrans().z();
+					if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+					else
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+					m.setTrans(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
+					ptrMT->setMatrix(m);
+				}
+/*				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+std::cerr<<"\n ptrPAT: "<<ptrPAT;
+				if (ptrPAT != NULL)
+				{
+					std::cerr<<"\n z: "<<ptrPAT->getPosition().z()<<" >= "<<(_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal));
+					if (ptrPAT->getPosition().z() >= (_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)))
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+					else
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+					_floatingObjectsHeight[i] = ptrPAT->getPosition().z();
+					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
+
+				}*/
+			}
+
+		}
 
                 preRenderCull(*cv, eyeAboveWater, surfaceVisible);     // reflections/refractions
+
+		//return position of USV  after reflection
+		for (unsigned int i =0; i< _floatingObjects.size();i++)
+		{
+			osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
+
+			if (ptrTransform!=NULL)
+			{
+				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+				if (ptrMT != NULL)
+				{				
+					osg::Matrixd	m = ptrMT->getMatrix();
+					m.setTrans (osg::Vec3f(m.getTrans().x(), m.getTrans().y(), _floatingObjectsHeight[i]));
+					ptrMT->setMatrix(m);
+				}
+				/*osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+				if (ptrPAT != NULL)
+				{
+					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
+				}*/
+			}
+
+		}
                 
                 // Above water
                 if( eyeAboveWater )
