@@ -81,7 +81,9 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 
 [![Differential boat - Scenario 1](https://img.youtube.com/vi/9R6wtGL7XMU/0.jpg)](https://www.youtube.com/watch?v=9R6wtGL7XMU)
 
-[![Rudder boat - Scenario 1](https://img.youtube.com/vi/uduGP2FkSmU/0.jpg)](https://www.youtube.com/watch?v=uduGP2FkSmU)
+[![Rudder boat - Scenario 1](
+<img src="https://img.youtube.com/vi/uduGP2FkSmU/0.jpg" width="256" height="256" title="Rudder boat - Scenario 1">
+)](https://www.youtube.com/watch?v=uduGP2FkSmU)
 
 
 ## LAUNCH FILES STRUCTURE
