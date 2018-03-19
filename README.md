@@ -77,13 +77,15 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 ## VIDEOS
 
 
-[![Airboat - Scenario 1](https://img.youtube.com/vi/2QfyyYbm6Zk/0.jpg)](https://www.youtube.com/watch?v=2QfyyYbm6Zk)
-
-[![Differential boat - Scenario 1](https://img.youtube.com/vi/9R6wtGL7XMU/0.jpg)](https://www.youtube.com/watch?v=9R6wtGL7XMU)
-
-[![Rudder boat - Scenario 1](
-<img src="https://img.youtube.com/vi/uduGP2FkSmU/0.jpg" width="256" height="256" title="Rudder boat - Scenario 1">
-)](https://www.youtube.com/watch?v=uduGP2FkSmU)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=2QfyyYbm6Zk" target="_blank">
+ <img src="http://img.youtube.com/vi/2QfyyYbm6Zk/0.jpg" alt="Airboat - Scenario 1" width="240" height="180" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=9R6wtGL7XMU" target="_blank">
+ <img src="http://img.youtube.com/vi/9R6wtGL7XMU/0.jpg" alt="Differential boat - Scenario 1" width="240" height="180" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=uduGP2FkSmU" target="_blank">
+ <img src="http://img.youtube.com/vi/uduGP2FkSmU/0.jpg" alt="Rudder boat - Scenario 1" width="240" height="180" border="10" />
+</a>
 
 
 ## LAUNCH FILES STRUCTURE
