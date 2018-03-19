@@ -74,6 +74,14 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
   <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
 </p>
 
+## VIDEOS
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2QfyyYbm6Zk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9R6wtGL7XMU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uduGP2FkSmU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## LAUNCH FILES STRUCTURE
 
 The main files to configure your simulations are:
