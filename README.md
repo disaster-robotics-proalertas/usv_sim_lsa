@@ -46,6 +46,21 @@ To execute water simulation to those scenarios, you should run the script named 
   <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
 </p>
 
+## VIDEOS
+
+Scenario 1
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=2QfyyYbm6Zk" target="_blank">
+ <img src="http://img.youtube.com/vi/2QfyyYbm6Zk/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=9R6wtGL7XMU" target="_blank">
+ <img src="http://img.youtube.com/vi/9R6wtGL7XMU/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=uduGP2FkSmU" target="_blank">
+ <img src="http://img.youtube.com/vi/uduGP2FkSmU/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+
+Scenario 2
 
 ## System Architecture 
 
@@ -74,18 +89,7 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
   <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
 </p>
 
-## VIDEOS
 
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=2QfyyYbm6Zk" target="_blank">
- <img src="http://img.youtube.com/vi/2QfyyYbm6Zk/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=9R6wtGL7XMU" target="_blank">
- <img src="http://img.youtube.com/vi/9R6wtGL7XMU/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=uduGP2FkSmU" target="_blank">
- <img src="http://img.youtube.com/vi/uduGP2FkSmU/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
-</a>
 
 
 ## LAUNCH FILES STRUCTURE
