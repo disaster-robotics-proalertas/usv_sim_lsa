@@ -76,7 +76,8 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 
 ## VIDEOS
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2QfyyYbm6Zk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+[![Airboat - Scenario 1](https://img.youtube.com/vi/2QfyyYbm6Zk/0.jpg)](https://www.youtube.com/watch?v=2QfyyYbm6Zk)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9R6wtGL7XMU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
