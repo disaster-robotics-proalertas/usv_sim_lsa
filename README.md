@@ -71,6 +71,7 @@ Scenario 2
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=1V33dut5HRg" target="_blank">
  <img src="http://img.youtube.com/vi/1V33dut5HRg/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
 </a>
+
 ## System Architecture 
 
 The main system architecture is composed of UWSIM and Gazebo, including plugins for realistic  waves, wind and water current simulation on several boat types. Above is presented the topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
