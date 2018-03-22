@@ -49,23 +49,17 @@ The videos below show the control strategies described above woking at different
 
 .. raw:: html
 
-    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
-        <iframe src="https://www.youtube.com/embed/eFy0dBdKnTg" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-    </div>
-
-.. raw:: html
-
     <a href="http://www.youtube.com/watch?feature=player_embedded&v=eFy0dBdKnTg" target="_blank">
      <img src="http://img.youtube.com/vi/eFy0dBdKnTg/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
     </a>
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Fx0n8Vdzoj8" target="_blank">
- <img src="http://img.youtube.com/vi/Fx0n8Vdzoj8/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
-</a>
+    <a href="http://www.youtube.com/watch?feature=player_embedded&v=Fx0n8Vdzoj8" target="_blank">
+     <img src="http://img.youtube.com/vi/Fx0n8Vdzoj8/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
+    </a>
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=1V33dut5HRg" target="_blank">
- <img src="http://img.youtube.com/vi/1V33dut5HRg/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
-</a>
+    <a href="http://www.youtube.com/watch?feature=player_embedded&v=1V33dut5HRg" target="_blank">
+     <img src="http://img.youtube.com/vi/1V33dut5HRg/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
+    </a>
 
 
 .. WARNING::
