@@ -18,19 +18,19 @@ The control strategy describe above is currently running in all platforms. We ch
 
 All of the controllers bellow use the same strategy to find the heading to be followed (preprossessing). First the it gets information about odometry (curent position) the the target position and it uses these information to find the heading to be followed. Then finds the error between the curent heading and the desired heading and uses the sign and absolute value of this error (with the PI gain) to find the apropriate action to correct it and bring the platform to the desired heading. For each platform:
 
-Heading control of the airboat: Uses the heading error to find suitable fan orientation. Publishes the fan angle to /airboat/jointSetpoint.
+**Heading control of the airboat**: Uses the heading error to find suitable fan orientation. Publishes the fan angle to /airboat/jointSetpoint.
 
-Forward propulsion control of the airboat: We implemented this behavior as a set of conditions. If the distance to target is greater than 10 meters the propulsion (fan power) is 100%. If the distance is between 2 and 10 meters then the propusion is 50%. If the distance is less than 2 meters then the propusion is set to 0%.
+**Forward propulsion control of the airboat**: We implemented this behavior as a set of conditions. If the distance to target is greater than 10 meters the propulsion (fan power) is 100%. If the distance is between 2 and 10 meters then the propusion is 50%. If the distance is less than 2 meters then the propusion is set to 0%.
 
-Heading control of the boat rudder and sailboat: These platforms use the same rudder control, wich consists of using the heading error to find suitable rudder angles. The rudder angle is published in /boat_rudder/jointSetpoint for the boat rudder and /sailboat/jointSetpoint for the saiboat.
+**Heading control of the boat rudder and sailboat**: These platforms use the same rudder control, wich consists of using the heading error to find suitable rudder angles. The rudder angle is published in /boat_rudder/jointSetpoint for the boat rudder and /sailboat/jointSetpoint for the saiboat.
 
-Forward propulsion control of the Boat Rudder: Similar to the Airboat.
+**Forward propulsion control of the Boat Rudder**: Similar to the Airboat.
 
-Forward propulsion control of the Sailboat: Ajusts the sail position according to the wind direction.Open and closes the sail according to the wind direction on the sailboats frame: head to wind (in irons) -> close sail (0 degrees). rear to wind (running) -> open sail (90 degrees). wind betweens these positions -> sail position chosen linearly between 0 and 90 degrees.
+**Forward propulsion control of the Sailboat**: Ajusts the sail position according to the wind direction.Open and closes the sail according to the wind direction on the sailboats frame: head to wind (in irons) -> close sail (0 degrees). rear to wind (running) -> open sail (90 degrees). wind betweens these positions -> sail position chosen linearly between 0 and 90 degrees.
 
-Heading controle of the Differential Boat: Uses the heading error to find suitable velocities for both thrusters (left and right). The diferential boat rotates acording to the power of both thrusters. So, for example, to rotate clockwise (on its axis) a diferential boat must use oposite power values on each thruster, for example, 10% on the right and -10% on the left thurster. So the controller check the error sign, chose a suitable direction of rotation and, acording to the error absolute value, chose the thuster velocity.  For example, a positive error means that the platform must rotate clockwise to reach the desired heading and a negative error means the platform must rotate counter clockwise (these relations depends of the defined frames). 
+**Heading control of the Differential Boat**: Uses the heading error to find suitable velocities for both thrusters (left and right). The diferential boat rotates acording to the power of both thrusters. So, for example, to rotate clockwise (on its axis) a diferential boat must use oposite power values on each thruster, for example, 10% on the right and -10% on the left thurster. So the controller check the error sign, chose a suitable direction of rotation and, acording to the error absolute value, chose the thuster velocity.  For example, a positive error means that the platform must rotate clockwise to reach the desired heading and a negative error means the platform must rotate counter clockwise (these relations depends of the defined frames). 
 
-Forward propulsion control of the Differential Boat: Uses a set of condition to decide if the boat should go forward. Use a similar set of condition describe on the Airboat forward control. To get forward velocity in the Diferential Boat it must set the same power in both thrusters.
+**Forward propulsion control of the Differential Boat**: Uses a set of condition to decide if the boat should go forward. Use a similar set of condition describe on the Airboat forward control. To get forward velocity in the Diferential Boat it must set the same power in both thrusters.
 
 +-------------------+-------------------------------------------------------------------+
 | Heading Control   | File                                                              |
@@ -46,14 +46,18 @@ Forward propulsion control of the Differential Boat: Uses a set of condition to 
 
 The videos below show the control strategies described above woking at different levels of disturbance (water curent and wind).
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
-    <iframe src="https://www.youtube.com/embed/eFy0dBdKnTg" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-</div>
 
+.. raw:: html
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=eFy0dBdKnTg" target="_blank">
- <img src="http://img.youtube.com/vi/eFy0dBdKnTg/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
-</a>
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/eFy0dBdKnTg" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+
+.. raw:: html
+
+    <a href="http://www.youtube.com/watch?feature=player_embedded&v=eFy0dBdKnTg" target="_blank">
+     <img src="http://img.youtube.com/vi/eFy0dBdKnTg/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
+    </a>
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Fx0n8Vdzoj8" target="_blank">
  <img src="http://img.youtube.com/vi/Fx0n8Vdzoj8/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
