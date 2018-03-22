@@ -32,26 +32,17 @@ Heading controle of the Differential Boat: Uses the heading error to find suitab
 
 Forward propulsion control of the Differential Boat: Uses a set of condition to decide if the boat should go forward. Use a similar set of condition describe on the Airboat forward control. To get forward velocity in the Diferential Boat it must set the same power in both thrusters.
 
-+------------+------------+
-| Header 1   | Header 2   |
-+============+============+
-| body row 1 | column 2   |
-+------------+------------+
-| body row 2 | Cells may s|
-+------------+------------+
-| body row 3 | Cells may  |
-+------------+------------|
-| body row 4 |            |
-+------------+------------+
-
-
-| Heading Control   | File |
-|-------------------|------|
-| Airboat           | tst  |
-| Differential Boat | tst  |
-| Rudder Boat       | tst  |
-| Sailboat          | tst  |
-
++-------------------+-------------------------------------------------------------------+
+| Heading Control   | File                                                              |
++===================+===================================================================+
+| Airboat           | usv_sim_lsa/src/usv_base_ctrl/scripts/airboat_control_heading.py  |
++-------------------+-------------------------------------------------------------------+
+| Differential Boat | usv_sim_lsa/src/usv_base_ctrl/scripts/diff_control_heading.py     |
++-------------------+-------------------------------------------------------------------+
+| Rudder Boat       | usv_sim_lsa/src/usv_base_ctrl/scripts/rudder_control_heading.py   |
++-------------------+-------------------------------------------------------------------+
+| Sailboat          | usv_sim_lsa/src/usv_base_ctrl/scripts/sailboat_control_heading.py |
++-------------------+-------------------------------------------------------------------+
 
 | Heading Control | File |
 | --- | --- |
