@@ -9,10 +9,10 @@
   <oceanState>
     <windx> 1.0 </windx>
     <windy> 1.0 </windy>
-    <windSpeed> 4 </windSpeed>
+    <windSpeed> 3.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <waveScale> 1e-8 </waveScale>
+    <waveScale> 1e-7</waveScale>
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -2.5 </choppyFactor>
     <crestFoamHeight> 2.2 </crestFoamHeight>
@@ -70,15 +70,31 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 0</x>
-      <y> 0 </y>
-      <z> 0 </z>
+      <x> 6</x>
+      <y> 4 </y>
+      <z> 1 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
       <y>0 </y>
     </orientation>
+    <virtualCamera>
+    	<name>diffboatCamera</name>
+    	<relativeTo>front_r_link</relativeTo>
+    	<resw>1280</resw>
+    	<resh>1024</resh>
+    	<position>
+        	<x>0</x>
+        	<y> 0 </y>
+        	<z> 1.5 </z>
+      </position>
+      <orientation>
+        <r>1.57</r>
+        <p>0</p>
+        <y>-1.57</y>
+      </orientation>
+    </virtualCamera>
   </vehicle>
   
     <vehicle>
@@ -325,6 +341,11 @@
         <vehicleName>airboat</vehicleName>
     </ROSJointStateToArm>
     
+    <VirtualCameraToROSImage> 
+      <cameraName>diffboatCamera</cameraName>
+      <imageTopic> /diffboat/camera1 </imageTopic>
+      <infoTopic> /diffboat/camera1_info </infoTopic>
+    </VirtualCameraToROSImage>
     
     
     

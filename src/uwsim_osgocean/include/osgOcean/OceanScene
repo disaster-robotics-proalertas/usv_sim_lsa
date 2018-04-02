@@ -208,6 +208,7 @@ namespace osgOcean
 
         ViewData * initViewDependentData( osgUtil::CullVisitor *cv, OceanScene::ViewData * vd );
 
+	bool printCameraData;
         // NOTE: Remember to add new variables to the copy constructor.
     public:
         OceanScene( void );
@@ -217,6 +218,8 @@ namespace osgOcean
         virtual const char* libraryName() const { return "osgOcean"; }
         virtual const char* className() const { return "OceanScene"; }
         virtual bool isSameKindAs(const osg::Object* obj) const { return dynamic_cast<const OceanScene*>(obj) != 0; }
+	void printCamera() {      printCameraData =true;
+};
 
         /// Sets up statesets and render passes based on current settings
         /// Called in the update traversal if dirty flag is set.

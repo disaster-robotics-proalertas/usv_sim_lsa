@@ -219,19 +219,24 @@ void VirtualCamera::createCamera()
   trackNode->setEventCallback(node_tracker);
 
   //Uniforms for independence from main camera (underwater effects on shaders)
-  osg::Uniform* u = new osg::Uniform("osgOcean_EyeUnderwater", true);
+  osg::Uniform* u = new osg::Uniform("osgOcean_EyeUnderwater", false);
   u->setUpdateCallback(new UpdateUnderWater(textureCamera));
 
-  textureCamera->getOrCreateStateSet()->addUniform(u);
+
+//  textureCamera->getOrCreateStateSet()->addUniform(u);
   osg::Vec3d eye, center, up;
   textureCamera->getViewMatrixAsLookAt(eye, center, up);
   osg::Uniform* u2 = new osg::Uniform("osgOcean_Eye", eye);
+  //osg::Uniform* u2 = new osg::Uniform("osgOcean_Eye", osg::Vec3f());
+
   u2->setUpdateCallback(new UpdateEye(textureCamera));
   textureCamera->getOrCreateStateSet()->addUniform(u2);
 
   osg::Uniform* u3 = new osg::Uniform(osg::Uniform::FLOAT_MAT4,"osg_ViewMatrixInverse");
   u3->setUpdateCallback(new UpdateVMI(textureCamera));
   textureCamera->getOrCreateStateSet()->addUniform(u3);
+  /*textureCamera->getOrCreateStateSet()->setMode( GL_LIGHTING, osg::StateAttribute::OFF|osg::StateAttribute::OVERRIDE );*/
+
 }
 
 void VirtualCamera::loadShaders(SceneBuilder *oscene)
@@ -241,6 +246,7 @@ void VirtualCamera::loadShaders(SceneBuilder *oscene)
   {
     static const char model_vertex[] = "default_scene.vert";
     static const char model_fragment[] = "default_scene.frag";
+    ///*
     osg::Program* program = osgOcean::ShaderManager::instance().createProgram("object_shader", model_vertex,model_fragment, "", "");
 
     textureCamera->getOrCreateStateSet()->setAttributeAndModes(program, osg::StateAttribute::ON);
@@ -261,21 +267,25 @@ void VirtualCamera::loadShaders(SceneBuilder *oscene)
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_DOF_Far",  oscene->scene->getOceanScene()->getDOFFar() ) );
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_DOF_Focus",  oscene->scene->getOceanScene()->getDOFFocalDistance() ) );
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_DOF_Clamp",  oscene->scene->getOceanScene()->getDOFFarClamp() ) );
-
+/*
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_WaterHeight", float(oscene->scene->getOceanScene()->getOceanSurfaceHeight()) ) );
 
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_UnderwaterAttenuation", oscene->scene->getOceanScene()->getUnderwaterAttenuation() ) );
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_UnderwaterDiffuse", oscene->scene->getOceanScene()->getUnderwaterDiffuse() ) );
-
+*/
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableHeightmap", false));
-    textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableReflections", false));
-    textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableRefractions", false));
+    textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableReflections", true));
+    textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableRefractions", true));
     textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_EnableCrestFoam", false));
-    /*textureCamera->getStateSet()->addUniform(new osg::Uniform("uOverlayMap", 1));
+    textureCamera->getStateSet()->addUniform( new osg::Uniform("osgOcean_Eye", osg::Vec3f() ) );
+
+    ///*
+    textureCamera->getStateSet()->addUniform(new osg::Uniform("uOverlayMap", 1));
     textureCamera->getStateSet()->addUniform(new osg::Uniform("uNormalMap", 2));
     textureCamera->getStateSet()->addUniform(new osg::Uniform("SLStex", 3));
-    textureCamera->getStateSet()->addUniform(new osg::Uniform("SLStex2", 4));*/
-
+    textureCamera->getStateSet()->addUniform(new osg::Uniform("SLStex2", 4));
+    //*/
+///*
     osg::Uniform* u = new osg::Uniform("offsets", osg::Vec4f(1,2,3,4));
     u->setUpdateCallback(new UpdateNoiseSeed());
     textureCamera->getStateSet()->addUniform(u);
