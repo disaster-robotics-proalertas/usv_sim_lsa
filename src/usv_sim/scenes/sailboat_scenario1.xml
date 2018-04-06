@@ -69,12 +69,12 @@
      <position>
       <x> 240</x>
       <y> 95 </y>
-      <z> 1 </z>
+      <z> 2 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.0 </y>
     </orientation>
   </vehicle>
 

@@ -46,7 +46,7 @@
         <origin rpy="0 0 0" xyz="0.2 0 0.1"/>
         <dynamics damping="1.0"/>
         <axis xyz="0 0 1"/>
-        <limit effort="50" velocity="5" lower="-1.5" upper="1.5" />
+        <limit effort="500000" velocity="5" lower="-${PI}" upper="${PI}" />
     </joint>
 
     <link name="keel">

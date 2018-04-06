@@ -149,8 +149,8 @@ USV_Sailing_Plugin::Init ()
 	std::cerr << "\n compare to sail: " << this->linkType.compare ("sail");
 	if (this->linkType.compare ("sail") == 0)
 	{
-		std::string topic = "/" + this->model->GetName () + "/angleLimits";
-		this->angleLimits_subscriber = rosnode_.subscribe (topic, 1, &USV_Sailing_Plugin::ropeSimulator, this);
+	//	std::string topic = "/" + this->model->GetName () + "/angleLimits";
+	//	this->angleLimits_subscriber = rosnode_.subscribe (topic, 1, &USV_Sailing_Plugin::ropeSimulator, this);
 	}
 }
 
@@ -381,8 +381,8 @@ void
 USV_Sailing_Plugin::OnUpdateSail ()
 {
 
-	this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
-	this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
+	//this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
+	//this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
 	math::Vector3 aw = this->wind - this->link->GetWorldLinearVel (this->cp);
 
 	if (aw.GetLength () <= 0.01)
@@ -435,7 +435,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	double cl;
 
-	cl = 1.5 * sin (2 * this->alpha);
+	cl = 8 * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -444,7 +444,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 0.5 * (1 - cos (2 * this->alpha));
+	cd = 2 * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 

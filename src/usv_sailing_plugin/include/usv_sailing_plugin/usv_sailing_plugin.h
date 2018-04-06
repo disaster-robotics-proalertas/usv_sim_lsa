@@ -111,18 +111,18 @@ namespace gazebo
 
     protected: ros::NodeHandle rosnode_;
     protected: math::Vector3 wind;
-    protected: float angle;
+    //protected: float angle;
     protected: ros::ServiceClient velocity_serviceClient_;
     protected: bool running;
     protected: std::string fluidVelocity;
 
-    protected: ros::Subscriber angleLimits_subscriber;
+    //protected: ros::Subscriber angleLimits_subscriber;
     std::thread the_thread;
     protected: ros::Time oldTime;
 
-    public: void ropeSimulator(const std_msgs::Float64::ConstPtr& _angle){
-        this->angle = _angle->data;
-    }
+   // public: void ropeSimulator(const std_msgs::Float64::ConstPtr& _angle){
+   //     this->angle = _angle->data;
+   // }
     public: void WaterThreadLoop();
     public: void WindThreadLoop();
   };
