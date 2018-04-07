@@ -16,19 +16,22 @@ target_pose = Odometry()
 target_distance = 0
 actuator_vel = 15
 Ianterior = 0
-rate_value = 10
+rate_value = 1
 Kp = 10 
 Ki = 0 
 result = Float64()
 result.data = 0
-f_distance = 4
-sail_min = -math.pi/2
+windDir= Float64()
+windDir.data = 1.5 
+currentHeading= Float64()
+currentHeading.data = 0
+f_distance = 1 
+sail_min = 0 
 sail_max = math.pi/2
-curent_heading = 0
+current_heading = 0
 rudder_min = -math.pi/3
 rudder_max = math.pi/3
 rudder_med = (rudder_min + rudder_max)/2
-
 
 def get_pose(initial_pose_tmp):
     global initial_pose 
@@ -67,12 +70,17 @@ def angle_saturation(sensor):
 
 def talker_ctrl():
     global rate_value
+    global currentHeading
+    global windDir 
     rospy.init_node('usv_simple_ctrl', anonymous=True)
     rate = rospy.Rate(rate_value) # 10h
     # publishes to thruster and rudder topics
-    pub_sail = rospy.Publisher('angleLimits', Float64, queue_size=10)
+    #pub_sail = rospy.Publisher('angleLimits', Float64, queue_size=10)
     pub_rudder = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
     pub_result = rospy.Publisher('move_usv/result', Float64, queue_size=10)
+    pub_heading= rospy.Publisher('currentHeading', Float64, queue_size=10)
+    pub_windDir= rospy.Publisher('windDirection', Float64, queue_size=10)
+
     
     # subscribe to state and targer point topics
     rospy.Subscriber("state", Odometry, get_pose)  # get usv position (add 'gps' position latter)
@@ -81,8 +89,10 @@ def talker_ctrl():
     while not rospy.is_shutdown():
         try:
             pub_rudder.publish(rudder_ctrl_msg())
-            pub_sail.publish(sail_ctrl())
+            #pub_sail.publish(sail_ctrl())
             pub_result.publish(verify_result())
+            pub_heading.publish(currentHeading)
+            pub_windDir.publish(windDir)
             rate.sleep()
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS Interrupt Exception! Just ignore the exception!")
@@ -104,30 +114,28 @@ def I(erro):
     return Ianterior
 
 def sail_ctrl():
-    global curent_heading
+    global current_heading
+    global windDir
     # receber posicaoo do vento (no ref do veleiro)
     x = rospy.get_param('/uwsim/wind/x')
     y = rospy.get_param('/uwsim/wind/y')
     global_dir = math.atan2(y,x)
     rospy.loginfo("valor de wind_dir = %f", math.degrees(global_dir))
-    rospy.loginfo("valor de current_heading = %f", math.degrees(curent_heading))
-    wind_dir = global_dir - curent_heading
-    wind_dir = angle_saturation(math.degrees(wind_dir))
+    rospy.loginfo("valor de current_heading = %f", math.degrees(current_heading))
+    wind_dir = global_dir - current_heading
+    wind_dir = angle_saturation(math.degrees(wind_dir)+180)
+    windDir.data = math.radians(wind_dir)
 
-    if wind_dir > 180:
-        wind_dir = 180
-    if wind_dir < -180:
-        wind_dir = -180
-    
     rospy.loginfo("valor de wind_dir = %f", wind_dir)
     #rospy.loginfo("valor de pi/2 = %f", math.pi/2)
     #rospy.loginfo("valor de wind_dir/pi/2 = %f", wind_dir/math.pi/2)
     #rospy.loginfo("valor de sail_max - sail_min = %f", sail_max - sail_min)
     #rospy.loginfo("valor de (sail_max - sail_min) * (wind_dir/(math.pi/2)) = %f", (sail_max - sail_min) * (wind_dir/(math.pi/2)))
     #rospy.loginfo("valor de sail_min = %f", sail_min)
-    sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
-    if sail_angle < 0:
-        sail_angle = -sail_angle
+    #sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
+    sail_angle = math.radians(wind_dir)/3;
+    #if sail_angle < 0:
+    #    sail_angle = -sail_angle
     rospy.loginfo("valor de result = %f", sail_angle)
     return sail_angle
 
@@ -141,7 +149,8 @@ def rudder_ctrl():
     global actuator_vel
     global Ianterior
     global rate_value
-    global curent_heading
+    global current_heading
+    global currentHeading
 
     x1 = initial_pose.pose.pose.position.x
     y1 = initial_pose.pose.pose.position.y
@@ -153,7 +162,6 @@ def rudder_ctrl():
     sp_angle = math.degrees(myradians)
 
     target_distance = math.hypot(x2-x1, y2-y1) 
-
 
     # encontra angulo atual
     # initial_pose.pose.pose.orientation = nav_msgs.msg.Quaternion(*tf_conversions.transformations.quaternion_from_euler(roll, pitch, yaw))
@@ -168,7 +176,8 @@ def rudder_ctrl():
     sp_angle = angle_saturation(sp_angle)
     target_angle = angle_saturation(target_angle)
 
-    curent_heading = math.radians(target_angle)
+    current_heading = math.radians(target_angle)
+    currentHeading.data = current_heading
     
     err = sp_angle - target_angle
     err = angle_saturation(err)
@@ -191,17 +200,17 @@ def rudder_ctrl():
     else:
         rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
 
-    #log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
+    log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    #rospy.loginfo(log_msg)
+    rospy.loginfo(log_msg)
 
     return rudder_angle
 
 def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
-    msg.name = ['rudder_joint']
-    msg.position = [rudder_ctrl()]
+    msg.name = ['rudder_joint', 'sail_joint']
+    msg.position = [rudder_ctrl(), sail_ctrl()]
     msg.velocity = []
     msg.effort = []
     return msg

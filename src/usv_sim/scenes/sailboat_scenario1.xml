@@ -4,7 +4,7 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1 </windx>
+    <windx> 1.0 </windx>
     <windy> 1.0 </windy>
     <windSpeed> 2.2 </windSpeed>
     <depth> 10000 </depth>
@@ -74,7 +74,7 @@
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>1.0 </y>
+      <y>0 </y>
     </orientation>
   </vehicle>
 
