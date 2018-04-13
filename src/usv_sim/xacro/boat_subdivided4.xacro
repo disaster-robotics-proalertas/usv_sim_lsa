@@ -16,7 +16,7 @@
     <xacro:property name="scale" value="0.3"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
-    <xacro:property name="windType" value="global" />
+    <xacro:property name="windType" value="local" />
     <xacro:property name="waterType" value="local" />
     
 
