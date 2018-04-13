@@ -384,7 +384,6 @@ USV_Sailing_Plugin::OnUpdateSail ()
 	//this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
 	//this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
 	math::Vector3 aw = this->wind - this->link->GetWorldLinearVel (this->cp);
-
 	if (aw.GetLength () <= 0.01)
 		return;
 
@@ -435,6 +434,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	double cl;
 
+	//cl = 8 * sin (2 * this->alpha);
 	cl = 8 * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
@@ -468,6 +468,12 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
+//std::cerr<<"\n force: "<<force;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<", position: "<<this->cp;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" force: "<<force.GetLength();
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift<<" drag: "<<drag;
+std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift.GetLength ()<<" drag: "<<drag.GetLength ()<<" cl: "<<cl<<" area: "<<this->area<<" q: "<<q<<" rho: "<<this->rho<<" speedInLDPlane: "<<speedInLDPlane;
+//std::cerr<<"\n aw: "<<aw;
 }
 
 void

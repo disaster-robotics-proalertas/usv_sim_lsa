@@ -88,6 +88,7 @@ namespace gazebo
 	void
 	FreeFloatingFluidPlugin::Update ()
 	{
+		//std::cerr<<"\n FreeFloatingFluidPlugin::Update ()";
 		// activate callbacks
 		callback_queue_.callAvailable ();
 
@@ -164,6 +165,7 @@ namespace gazebo
 			    + (*link_it)->link->GetWorldPose ().rot.RotateVector ((*link_it)->buoyancy_center);
 			// start from the theoretical buoyancy force
 			actual_force = (*link_it)->buoyant_force;
+
 			if (has_surface_)
 			{
 				//surface_plane_.Set(0, 0, 1, (*link_it)->waterSurface.z);
@@ -176,7 +178,7 @@ namespace gazebo
 				// adjust force depending on distance to surface (very simple model)
 				signed_distance_to_surface = surface_plane_.w - surface_plane_.x * cob_position.x
 				    - surface_plane_.y * cob_position.y - surface_plane_.z * cob_position.z;
-
+				//std::cerr<<"\n signed_distance_to_surface: "<<signed_distance_to_surface<<" z: "<<(*link_it)->waterSurface.z;
 				//if ((*link_it)->model_name.compare("barcoDiferencial")==0)
 				//std::cerr<<"\n "<<(*link_it)->model_name<<"  : "<<signed_distance_to_surface<<" b.z: "<<cob_position.z<<" w.z: "<<surface_plane_.w;
 				//std::cerr<<"\n "<<(*link_it)->model_name<<" estah com z: "<<(*link_it)->waterSurface.z;
