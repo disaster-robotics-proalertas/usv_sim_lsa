@@ -13,7 +13,7 @@
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -2.5 </choppyFactor>
     <crestFoamHeight> 2.2 </crestFoamHeight>
-    <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
+    <oceanSurfaceHeight> 8 </oceanSurfaceHeight>
     <fog>
       <density> 0.1 </density>
       <color>

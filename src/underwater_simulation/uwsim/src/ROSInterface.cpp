@@ -39,7 +39,8 @@ ROSSubscriberInterface::ROSSubscriberInterface(std::string topic) :
 /* Thread code */
 void ROSSubscriberInterface::run()
 {
-  ros::Duration(2).sleep();
+  //ros::Duration(2).sleep();
+  ros::Duration(0.01).sleep();
   createSubscriber (nh_);
 }
 
@@ -484,13 +485,15 @@ ROSPublisherInterface::ROSPublisherInterface(std::string topic, int publish_rate
   OSG_DEBUG << "ROSPublisherInterface Thread starting..." << topic << std::endl;
   startThread();
   OSG_DEBUG << "ROSPublisherInterface Thread created" << std::endl;
+
 }
 
 /* Thread code */
 void ROSPublisherInterface::run()
 {
-std::cerr<<"\n++++++++++++++++++++++++++ called run into ROSPublisherInterface!";
-  ros::Duration(2).sleep();
+//std::cerr<<"\n\n\n++++++++++++++++++++++++++ called run into ROSPublisherInterface! ++++++ \n\n\n";
+  //ros::Duration(2).sleep();
+  ros::Duration(0.01).sleep();
   createPublisher (nh_);
 
   ros::Rate rate(publish_rate);
@@ -609,8 +612,8 @@ ROSPublisherInterface(topic, rate)
 
 void OceanSurfaceToROSOceanVehicle::createPublisher(ros::NodeHandle &nh)
 {
-	std::cerr<<"\n ======== OceanSurfaceToROSOceanVehicle PUBLISHER on topic"<<topic.c_str();
-	ROS_INFO("======== OceanSurfaceToROSOceanVehicle PUBLISHER on topic %s", topic.c_str());
+	//std::cerr<<"\n ==================================================== OceanSurfaceToROSOceanVehicle PUBLISHER on topic"<<topic.c_str();
+	//ROS_ERROR("\n\n\n============================================================ OceanSurfaceToROSOceanVehicle PUBLISHER on topic %s", topic.c_str());
 	pub_ = nh.advertise < geometry_msgs::Point > (topic, 1);
 }
 

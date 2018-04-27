@@ -1,0 +1,2 @@
+source install_isolated/setup.bash
+rosrun usv_wind_current wind.py src/usv_wind_current/maps/diluvioFlooding.yaml
