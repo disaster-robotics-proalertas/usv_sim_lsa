@@ -472,7 +472,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 //std::cerr<<"\n aw:"<<aw.GetLength ()<<", position: "<<this->cp;
 //std::cerr<<"\n aw:"<<aw.GetLength ()<<" force: "<<force.GetLength();
 //std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift<<" drag: "<<drag;
-std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift.GetLength ()<<" drag: "<<drag.GetLength ()<<" cl: "<<cl<<" area: "<<this->area<<" q: "<<q<<" rho: "<<this->rho<<" speedInLDPlane: "<<speedInLDPlane;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift.GetLength ()<<" drag: "<<drag.GetLength ()<<" cl: "<<cl<<" area: "<<this->area<<" q: "<<q<<" rho: "<<this->rho<<" speedInLDPlane: "<<speedInLDPlane;
 //std::cerr<<"\n aw: "<<aw;
 }
 
