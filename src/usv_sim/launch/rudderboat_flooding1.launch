@@ -35,8 +35,9 @@
 	    	<arg name="spawnerUsed" default="true"/>
             <node name="patrol" pkg="usv_navigation" type="patrol_pid_flooding1.py" ns="rudderboat" unless="$(arg gui)"/>
 			<include file="$(find usv_sim)/launch/models/spawn_rudderboat.launch" pass_all_args="true"/>
-			
+			<!--
 			<node pkg="rosbag" type="record" name="record_rudderboat" args="-O /home/lsa/usv_sim_lsa/bags/rudderboat_flooding1_noDisturbs.bag /rudderboat/state" output="screen"/>
+			-->
 			
 	</group>
 

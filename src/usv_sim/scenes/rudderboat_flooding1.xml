@@ -6,10 +6,10 @@
   <oceanState>
     <windx> -1.0 </windx>
     <windy> 0 </windy>
-    <windSpeed> 0 </windSpeed>
-    <depth> 100 </depth>
+    <windSpeed> 4 </windSpeed>
+    <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <waveScale> 1e-7 </waveScale>
+    <waveScale> 5e-8 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -2.5 </choppyFactor>
     <crestFoamHeight> 2.2 </crestFoamHeight>
@@ -93,7 +93,52 @@
       <y>0 </y>
     </orientation>
   </object>
+  
+  	<object>
+    <name>tree1</name>
+    <file>meshes/trees/model1.obj</file>
+    <position>
+      <x> 2600</x>
+      <y> 455 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
+  
+  <object>
+    <name>tree2</name>
+    <file>meshes/trees/model1.obj</file>
+    <position>
+      <x> 2593</x>
+      <y> 462 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
 
+
+  <object>
+    <name>tree3</name>
+    <file>meshes/trees/model1.obj</file>
+    <position>
+      <x> 2597</x>
+      <y> 430 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
 	
   
     	<object>

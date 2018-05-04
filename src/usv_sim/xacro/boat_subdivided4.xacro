@@ -17,7 +17,7 @@
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
     <xacro:property name="windType" value="none" />
-    <xacro:property name="waterType" value="none" />
+    <xacro:property name="waterType" value="local" />
     
 
     <link name="base_link">
