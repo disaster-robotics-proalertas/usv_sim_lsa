@@ -444,7 +444,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 2 * (1 - cos (2 * this->alpha));
+	cd = 4 * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 

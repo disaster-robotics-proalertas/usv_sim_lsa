@@ -51,7 +51,8 @@
 
     <link name="keel">
 	<inertial>
-		<mass value="5" />
+		<mass value="15" />
+		<origin rpy="0 0 0" xyz="0 0 -0.2"/>
 		<inertia
 		  ixx="0.4708"
 		  ixy="0.0"
@@ -102,7 +103,7 @@
 		<cma_stall>0</cma_stall>
 		<cp>0 0 0</cp>
 		<joint_name>sail_joint</joint_name>
-		<area>1.44</area>
+		<area>2</area>
 		<fluid_density>1.2041</fluid_density>
 		<forward>-1 0 0</forward>
 		<upward>0 1 0</upward>
