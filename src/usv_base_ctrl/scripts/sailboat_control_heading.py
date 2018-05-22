@@ -17,7 +17,7 @@ target_distance = 0
 actuator_vel = 15
 Ianterior = 0
 rate_value = 1
-Kp = 10 
+Kp = 2.5 
 Ki = 0 
 result = Float64()
 result.data = 0
@@ -67,6 +67,7 @@ def angle_saturation(sensor):
     if sensor < -180:
         sensor = sensor + 360
     return sensor
+    
 
 def talker_ctrl():
     global rate_value
@@ -120,7 +121,8 @@ def sail_ctrl():
     x = rospy.get_param('/uwsim/wind/x')
     y = rospy.get_param('/uwsim/wind/y')
     global_dir = math.atan2(y,x)
-    rospy.loginfo("valor de wind_dir = %f", math.degrees(global_dir))
+    #rospy.loginfo("valor de wind_dir = %f", math.degrees(windDir))
+    rospy.loginfo("valor de global_dir = %f", math.degrees(global_dir))
     rospy.loginfo("valor de current_heading = %f", math.degrees(current_heading))
     wind_dir = global_dir - current_heading
     wind_dir = angle_saturation(math.degrees(wind_dir)+180)
@@ -133,6 +135,7 @@ def sail_ctrl():
     #rospy.loginfo("valor de (sail_max - sail_min) * (wind_dir/(math.pi/2)) = %f", (sail_max - sail_min) * (wind_dir/(math.pi/2)))
     #rospy.loginfo("valor de sail_min = %f", sail_min)
     #sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
+    
     sail_angle = math.radians(wind_dir)/3;
     #if sail_angle < 0:
     #    sail_angle = -sail_angle
@@ -172,6 +175,7 @@ def rudder_ctrl():
 
     # target_angle = initial_pose.pose.pose.orientation.yaw
     target_angle = math.degrees(euler[2])
+    rospy.loginfo("euler %f angle %f", euler[2], target_angle)
 
     sp_angle = angle_saturation(sp_angle)
     target_angle = angle_saturation(target_angle)
@@ -189,6 +193,7 @@ def rudder_ctrl():
         actuator_vel = 0 
     else:
 	actuator_vel = 200
+        
         
     if err > 180:
         err = 180
