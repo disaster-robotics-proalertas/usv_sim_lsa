@@ -25,7 +25,7 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
 
         
 
-### Downloading and installing usv_sim
+### Downloading and compiling usv_sim
 
         cd ~
         git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
