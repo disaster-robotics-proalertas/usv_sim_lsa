@@ -25,13 +25,16 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
 
         
 
-### Installing usv_sim
+### Downloading and installing usv_sim
 
-1. cd ~
-2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-3. cd ~/usv_sim_lsa
-4. catkin_make_isolated --install
-5. source ~/usv_sim_lsa/install_isolated/setup.bash
+        cd ~
+        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+        cd ~/usv_sim_lsa
+        catkin_make_isolated --install
+        source ~/usv_sim_lsa/install_isolated/setup.bash
+
+
+
 
 ## Running the tests
 
