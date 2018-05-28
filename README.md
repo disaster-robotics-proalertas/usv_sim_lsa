@@ -1,9 +1,9 @@
-# Simulated environment for Unmanned Surface Vehicles (usv_sim) -- 0.0.1
+# Simulated Environment for Unmanned Surface Vehicles (usv_sim) -- 0.0.1
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  It is developed to test control and trajectory strategies for USVs, but it can be easily adapted to other applications. It contains multiple robot models such as propelled boats(rudder boat, differential boat, airboat) and sailboat. Boats are affected by waves, wind and water currents, implemented by UWsim for water surface modeling, HEC-RAS for water speed of river and channel simulations, and Lattice Boltzmann in a 2D grid for wind current. All those features allow to modelling the movement of boats in a realistic way.
 
 ### Prerequisites
 
-You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic, run the following commands:
+You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic and some additional packages, run the following commands:
 
 
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -25,7 +25,7 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
 
         
 
-### Installing
+### Installing usv_sim
 
 1. cd ~
 2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
