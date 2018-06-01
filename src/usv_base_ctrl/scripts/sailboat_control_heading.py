@@ -16,8 +16,8 @@ target_pose = Odometry()
 target_distance = 0
 actuator_vel = 15
 Ianterior = 0
-rate_value = 1
-Kp = 2.5 
+rate_value = 10
+Kp = 1 
 Ki = 0 
 result = Float64()
 result.data = 0
@@ -122,13 +122,13 @@ def sail_ctrl():
     y = rospy.get_param('/uwsim/wind/y')
     global_dir = math.atan2(y,x)
     #rospy.loginfo("valor de wind_dir = %f", math.degrees(windDir))
-    rospy.loginfo("valor de global_dir = %f", math.degrees(global_dir))
-    rospy.loginfo("valor de current_heading = %f", math.degrees(current_heading))
+    #rospy.loginfo("global_dir = %f", math.degrees(global_dir))
+    #rospy.loginfo("current_heading = %f", math.degrees(current_heading))
     wind_dir = global_dir - current_heading
     wind_dir = angle_saturation(math.degrees(wind_dir)+180)
     windDir.data = math.radians(wind_dir)
 
-    rospy.loginfo("valor de wind_dir = %f", wind_dir)
+    rospy.loginfo("wind_dir = %f", wind_dir)
     #rospy.loginfo("valor de pi/2 = %f", math.pi/2)
     #rospy.loginfo("valor de wind_dir/pi/2 = %f", wind_dir/math.pi/2)
     #rospy.loginfo("valor de sail_max - sail_min = %f", sail_max - sail_min)
@@ -136,10 +136,10 @@ def sail_ctrl():
     #rospy.loginfo("valor de sail_min = %f", sail_min)
     #sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
     
-    sail_angle = math.radians(wind_dir)/3;
+    sail_angle = math.radians(wind_dir)/2;
     #if sail_angle < 0:
     #    sail_angle = -sail_angle
-    rospy.loginfo("valor de result = %f", sail_angle)
+    rospy.loginfo("sail angle = %f", math.degrees(sail_angle))
     return sail_angle
 
 def rudder_ctrl():
@@ -175,7 +175,7 @@ def rudder_ctrl():
 
     # target_angle = initial_pose.pose.pose.orientation.yaw
     target_angle = math.degrees(euler[2])
-    rospy.loginfo("euler %f angle %f", euler[2], target_angle)
+    #rospy.loginfo("target_angle %f", target_angle)
 
     sp_angle = angle_saturation(sp_angle)
     target_angle = angle_saturation(target_angle)
@@ -187,29 +187,28 @@ def rudder_ctrl():
     err = angle_saturation(err)
     err = P(err) + I(err)
 
-    if target_distance < f_distance+1 and target_distance > f_distance:
-        actuator_vel = 100 
-    elif target_distance < f_distance:
-        actuator_vel = 0 
-    else:
-	actuator_vel = 200
-        
-        
-    if err > 180:
-        err = 180
-    if err < -180:
-        err = -180
+    rudder_angle = -err/2
 
-    if err < 0:
-        rudder_angle = rudder_med + (rudder_min - rudder_med) * ((err) / 180)
-    else:
-        rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
+    if err > 60:
+        err = 60
+    if err < -60:
+        err = -60
+
+#    if err > 180:
+#        err = 180
+#    if err < -180:
+#        err = -180
+#
+#    if err < 0:
+#        rudder_angle = rudder_med + (rudder_min - rudder_med) * ((err) / 180)
+#    else:
+#        rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
     rospy.loginfo(log_msg)
 
-    return rudder_angle
+    return math.radians(rudder_angle)
 
 def rudder_ctrl_msg():
     msg = JointState()

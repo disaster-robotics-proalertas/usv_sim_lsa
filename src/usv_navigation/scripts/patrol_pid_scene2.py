@@ -15,13 +15,19 @@ waypoints = [
     [(260.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
     [(265.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
     [(270.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(275.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+    [(275.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(270.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(265.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(260.0, 95.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(255.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(250.0, 105.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(245.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
 result = Float64()
 result.data = 0
 x_offset = 0 
 y_offset = 0
-maxSimulations = 1
+maxSimulations = 1000000000
 
 def goal_pose(pose):
     goal_pose = Odometry()
@@ -56,13 +62,13 @@ if __name__ == '__main__':
                 goal = goal_pose(pose)
                 pub.publish(goal)
                 rate.sleep()
-		if (rospy.get_time() > 2 *60):
-			break;
+#		if (rospy.get_time() > 2 *60):
+#			break;
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > 2 *60):
-			break;
+#		    if (rospy.get_time() > 2 *60):
+#			break;
             simulationNumber = simulationNumber + 1
             if (simulationNumber > maxSimulations):
 		rospy.logerr("All simulations have been done. Pausing gazebo")

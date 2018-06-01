@@ -248,11 +248,11 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	// force and torque about cg in inertial frame
 	math::Vector3 force = lift + drag;
-	/*ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
-	ROS_ERROR("a: %f inputCL: %f inputCD: %f v: %f", this->alpha, sin (2*this->alpha), (1 - cos (2 * this->alpha)), speedInLDPlane);
-	std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
-	std::cerr<<"\n rho: "<<this->rho<<" Area: "<<this->area;
-	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";*/
+ //ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
+//	ROS_ERROR("a: %f inputCL: %f inputCD: %f v: %f", this->alpha, sin (2*this->alpha), (1 - cos (2 * this->alpha)), speedInLDPlane);
+//	std::cerr<<"\n Lift: "<<lift<<" Drag: "<<drag;
+//	std::cerr<<"\n rho: "<<this->rho<<" Area: "<<this->area;
+//	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";
 
 	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
 
