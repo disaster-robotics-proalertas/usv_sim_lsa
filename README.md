@@ -1,10 +1,9 @@
-# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.0.0
-This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
-Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
+# Simulated Environment for Unmanned Surface Vehicles (usv_sim) -- 0.0.1
+This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  It is developed to test control and trajectory strategies for USVs, but it can be easily adapted to other applications. It contains multiple robot models such as propelled boats(rudder boat, differential boat, airboat) and sailboat. Boats are affected by waves, wind and water currents, implemented by UWsim for water surface modeling, HEC-RAS for water speed of river and channel simulations, and Lattice Boltzmann in a 2D grid for wind current. All those features allow to modelling the movement of boats in a realistic way.
 
 ### Prerequisites
 
-You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
+You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic and some additional packages, run the following commands:
 
 
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -26,21 +25,23 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
 
         
 
-### Installing
+### Downloading and compiling usv_sim
 
-1. cd ~
-2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-3. cd ~/usv_sim_lsa
-4. catkin_make_isolated --install
-5. source ~/usv_sim_lsa/install_isolated/setup.bash
+        cd ~
+        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+        cd ~/usv_sim_lsa
+        catkin_make_isolated --install
+        source ~/usv_sim_lsa/install_isolated/setup.bash
+
+
+
 
 ## Running the tests
 
-On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
+On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Porto Alegre, Brazil. Each scenario is configured to test the boat control on executing some common maneuveurs (see image below). Besides that, you can run the following scripts:
 - ``scenario1``: boat should navigate through two lines of buoys. 
 - ``scenario2``: boat should avoid colision with 3 buoys.
 - ``scenario3``: boat should execute zigzag to cover an area.
-- ``scenario4``: boat should stay inside a circular area.
 
 To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
 
@@ -48,10 +49,35 @@ To execute water simulation to those scenarios, you should run the script named 
   <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
 </p>
 
+### VIDEOS
+
+###### Scenario 1
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=jvgcgIXkRtQ" target="_blank">
+ <img src="http://img.youtube.com/vi/jvgcgIXkRtQ/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=u-JnylVnD9I" target="_blank">
+ <img src="http://img.youtube.com/vi/u-JnylVnD9I/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=QlenP-I_Oms" target="_blank">
+ <img src="http://img.youtube.com/vi/QlenP-I_Oms/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+
+###### Scenario 2
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=aAN48eRpTSw" target="_blank">
+ <img src="http://img.youtube.com/vi/aAN48eRpTSw/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=pb13mWNcg74" target="_blank">
+ <img src="http://img.youtube.com/vi/pb13mWNcg74/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=sTJ3DfIYY_M" target="_blank">
+ <img src="http://img.youtube.com/vi/sTJ3DfIYY_M/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
+</a>
 
 ## System Architecture 
 
-The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
+The main system architecture is composed of UWSIM and Gazebo, including plugins for realistic  waves, wind and water current simulation on several boat types. Above is presented the topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
 
 <p align="center">
   <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
@@ -75,6 +101,9 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 <p align="center">
   <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
 </p>
+
+
+
 
 ## LAUNCH FILES STRUCTURE
 
@@ -112,27 +141,23 @@ Each launch file was designed to include others files type in a way to customize
 
 ## Contributing
 
-TODO
+One can contribute to this project by deteting bugs, future features, and pull requests. 
 
 ## Versioning
 
-TODO
+v0.0.1 – Initial version submitted to IROS 2018
 
 ## Authors
 
-* **Alexandre Amory**
-* **Davi Henrique** 
-* **Marcelo Paravisi** 
-* **Vitor Augusto Machado Jorge**
-
+* Alexandre Amory (PUCRS University, Porto Alegre, Brazil)
+* Davi Henrique (UFRN University, Natal, Brazil)
+* Luiz Marcos Gonçalves (UFRN University, Natal, Brazil)
+* Marcelo Paravisi (IFRS, Osorio, Brazil; PUCRS University, Porto Alegre, Brazil)
+* Vitor Augusto Machado Jorge (PUCRS University, Porto Alegre, Brazil)
 ## License
 
 TODO
 
 ## Acknowledgments
 
-* freefloating_gazebo
-* UWsim
-* LiftDrag 
-* HEC-RAS - https://en.wikipedia.org/wiki/HEC-RAS 
-* CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
+This project is supported by CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
