@@ -18,7 +18,7 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
         sudo apt install python-rosdep python-wxtools
         sudo apt-get install python-lxml python-pathlib python-h5py ros-kinetic-control-* ros-kinetic-osg-markers
         sudo apt-get install libfftw3-* libxml++2.6-* python-scipy python-geolinks python-gdal
-        sudo apt-get instal ros-kinetic-move-base libsdl-image1.2-dev libsdl-dev
+        sudo apt-get install ros-kinetic-move-base libsdl-image1.2-dev libsdl-dev
         sudo rosdep init
         rosdep update
 
@@ -32,6 +32,11 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
         cd ~/usv_sim_lsa
         catkin_make_isolated --install
         source ~/usv_sim_lsa/install_isolated/setup.bash
+        
+        
+        Before you run the simulador, you should download some assets, so run the following command:
+        
+        rosrun uwsim uwsim
 
 
 
