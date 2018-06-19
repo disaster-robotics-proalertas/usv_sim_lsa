@@ -33,7 +33,8 @@
 	<group unless="$(arg parse)">
 		<arg name="namespace" default="sailboat"/>  
 	   	<arg name="spawnerUsed" default="true"/>
-	        <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="sailboat" unless="$(arg gui)"/>
+        <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="sailboat" unless="$(arg gui)"/>
+        <node name="heading_control" pkg="usv_base_ctrl" type="sailboat_control_heading.py" ns="sailboat" unless="$(arg gui)" output="screen" />
 		<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
 	</group>
 

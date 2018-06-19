@@ -33,7 +33,7 @@ def get_result(result_aux):
 if __name__ == '__main__':
     pub = rospy.Publisher('move_usv/goal', Odometry, queue_size=10)
     rospy.init_node('patrol')
-    rate = rospy.Rate(1) # 10h
+    rate = rospy.Rate(10) # 10h
     rospy.Subscriber("move_usv/result", Float64, get_result)
 
     while True:    
@@ -43,4 +43,5 @@ if __name__ == '__main__':
             rate.sleep()
             while result.data == 0.0:
                 pub.publish(goal)
+#                time.sleep(5)
                 rate.sleep()
