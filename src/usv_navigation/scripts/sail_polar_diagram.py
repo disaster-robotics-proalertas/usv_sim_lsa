@@ -15,10 +15,11 @@ import math
 import tf
 
 current_state = Odometry()
-current_heading = 0
+current_heading = 270
 max_vel = 0
 max_vel_sail = 0
-current_sail = 0
+current_sail = -90
+heading_range = 360 
 
 def goal_pose1(pose):
     goal_pose = Odometry()
@@ -39,17 +40,43 @@ def rudder_ctrl_msg(sail_ctrl):
     msg.velocity = []
     msg.effort = []
     return msg
+
+def set_sailboat_heading(pub_state):
+    global current_state
+    global current_sail
+    state_aux = ModelState()
+    quaternion = (current_state.pose.pose.orientation.x, current_state.pose.pose.orientation.y, current_state.pose.pose.orientation.z, current_state.pose.pose.orientation.w)
+
+    euler = tf.transformations.euler_from_quaternion(quaternion)
+
+    quaternion = tf.transformations.quaternion_from_euler(euler[0], euler[1], math.radians(current_heading))
+    state_aux.pose.orientation.x = quaternion[0]
+    state_aux.pose.orientation.y = quaternion[1]
+    state_aux.pose.orientation.z = quaternion[2]
+    state_aux.pose.orientation.w = quaternion[3]
+    state_aux.model_name = 'sailboat'
+    #state_aux.pose.position.x = current_state.pose.pose.position.x
+    #state_aux.pose.position.y = current_state.pose.pose.position.y
+    #state_aux.pose.position.z = current_state.pose.pose.position.z
+    #print(current_state)
+
+    state_aux.pose.position.x = 240 
+    state_aux.pose.position.y = 95
+    state_aux.pose.position.z = 1
+    pub_state.publish(state_aux)
    
 def talker():
     global current_state
     global current_heading
     global max_vel_sail
     global max_vel
+    global current_sail
+    global heading_range
     rospy.init_node('polar_diagram')
     rate = rospy.Rate(10) # 10h
-    rospy.Subscriber("state", Odometry, get_pose)
+    rospy.Subscriber("/sailboat/state", Odometry, get_pose)
     pub_state = rospy.Publisher('/gazebo/set_model_state', ModelState, queue_size=10)
-    pub_sail = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
+    pub_sail = rospy.Publisher('/sailboat/joint_setpoint', JointState, queue_size=10)
 
     rospy.wait_for_service('/gazebo/unpause_physics')
     rospy.wait_for_service('/gazebo/pause_physics')
@@ -61,11 +88,14 @@ def talker():
     polar = open("polar_diagram.txt","w")
 
     while not rospy.is_shutdown(): 
-        while current_heading < 180:
-            for current_sail in range(-180, 180):
+        while current_heading <= heading_range:
+            max_vel = 0
+            current_sail = -90
+            while current_sail <= 90:
                 pub_sail.publish(rudder_ctrl_msg(math.radians(current_sail)))
-                while rospy.get_time() < 5:
+                while rospy.get_time() < 3:
                     current_vel = current_state.twist.twist.linear.x
+
                 if current_vel > max_vel:
                     max_vel_sail = current_sail
                     max_vel = current_vel
@@ -75,20 +105,18 @@ def talker():
                 print("Current Sail Angle: ")
                 print(current_sail)
 
+                current_sail += 5 
+
                 resetSimulation()
                 pause()
-                state_aux = ModelState()
-                state_aux.pose.position.x = 240 
-                state_aux.pose.position.y = 95
-                state_aux.pose.position.z = 1
-                pub_state.publish(state_aux)
+                set_sailboat_heading(pub_state)
                 unpause()
                 rate.sleep()
 
             x = rospy.get_param('/uwsim/wind/x')
             y = rospy.get_param('/uwsim/wind/y')
             wind_vel = math.sqrt(math.pow(x,2)+math.pow(y,2))
-            print_diagram = "%d,%d,%d,%d\n" % (max_vel_sail, wind_vel, max_sail, current_heading)
+            print_diagram = "%f,%f,%f,%f\n" % (max_vel, max_vel_sail, current_heading, wind_vel)
             polar.write(print_diagram)
 
             resetSimulation()
@@ -98,32 +126,13 @@ def talker():
 
             current_heading += 10
 
-            state_aux = ModelState()
+            set_sailboat_heading(pub_state)
 
-            quaternion = (current_state.pose.pose.orientation.x, current_state.pose.pose.orientation.y, current_state.pose.pose.orientation.z, current_state.pose.pose.orientation.w)
-
-            euler = tf.transformations.euler_from_quaternion(quaternion)
-
-            quaternion = tf.transformations.quaternion_from_euler(euler[0], euler[1], math.radians(current_heading))
-            state_aux.pose.orientation.x = quaternion[0]
-            state_aux.pose.orientation.y = quaternion[1]
-            state_aux.pose.orientation.z = quaternion[2]
-            state_aux.pose.orientation.w = quaternion[3]
-            state_aux.model_name = 'sailboat'
-            #state_aux.pose.position.x = current_state.pose.pose.position.x
-            #state_aux.pose.position.y = current_state.pose.pose.position.y
-            #state_aux.pose.position.z = current_state.pose.pose.position.z
-            #print(current_state)
-
-            state_aux.pose.position.x = 240 
-            state_aux.pose.position.y = 95
-            state_aux.pose.position.z = 1
-            pub_state.publish(state_aux)
             unpause()
             rate.sleep()
 
 
-            if current_heading >=  180:
+            if current_heading >= heading_range:
                 polar.close()
                 pause()
 
