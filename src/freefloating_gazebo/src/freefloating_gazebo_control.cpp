@@ -62,13 +62,29 @@ namespace gazebo
 		control_joints_ = false;
 
 		std::cerr << "\n STARTING TO VERIFY EXISTENCE OF CONTROL BODY AND CONTROL JOINTS!" << endl;
+		std::cerr<<"\n rosnode_.robot_namespace: "<< rosnode_.getNamespace()<< endl;
+		std::cerr<<"\n control_node: "<< control_node.getNamespace()<< endl;
 		while (!(control_body_ || control_joints_))
 		{
-
+			sleep(5);
 			control_body_ = control_node.hasParam ("config/body");
 			control_joints_ = control_node.hasParam ("config/joints");
-			std::cerr << "==========FFControlPlugin -  WAIT INTENTIFING CONTROL! body: " << control_body_ << " joints: "
-			        << control_joints_ << endl;
+/*
+			std::string textConfig;
+			control_node.getParam("config", textConfig);
+			std::cerr<<"\n textConfig: "<<textConfig<< endl;
+			control_node.getParam("/sailboat1", textConfig);
+			std::cerr<<"\n textConfig: "<<textConfig<< endl;
+			std::vector<std::string> vecParam;
+			control_node.getParamNames(vecParam);
+			//for (int i =0; i < vecParam.size(); i++)
+//				std::cerr<<"\n param "<<i<<": "<<vecParam[i];
+			std::string paramJoints = robot_namespace_+"/controllers/config/joints";
+			std::cerr<<"\nparamJoints: "<<paramJoints<<endl;
+			control_joints_ = control_node.hasParam (paramJoints);*/
+
+			std::cerr << "==========FFControlPlugin -  WAIT INTENTIFING CONTROL!"<<control_node.getNamespace()<<" body: " << control_body_ << " joints: " << control_joints_ << endl;
+
 		}
 
 		// *** SET UP BODY CONTROL

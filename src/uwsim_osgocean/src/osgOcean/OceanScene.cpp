@@ -43,6 +43,7 @@ namespace
             {
                 osgUtil::CullVisitor* cv = static_cast<osgUtil::CullVisitor*>(nv);
 
+
                 if (nv->getTraversalNumber() > _traversalNumber)
                 {
                     // Rendering new frame, reuse matrices used in the last frame.
@@ -740,6 +741,8 @@ void OceanScene::ViewData::updateStateSet( bool eyeAboveWater )
 {
     osg::Camera* currentCamera = _cv->getCurrentRenderBin()->getStage()->getCamera();
 
+		
+
     _globalStateSet->getUniform("osgOcean_EyeUnderwater")->set(!eyeAboveWater);
     _globalStateSet->getUniform("osgOcean_Eye")->set( _cv->getEyePoint() );
 
@@ -873,6 +876,7 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
         if (cv) 
         {
             osg::Camera* currentCamera = cv->getCurrentRenderBin()->getStage()->getCamera();
+
             if (currentCamera->getName() == "ShadowCamera" ||
                 currentCamera->getName() == "AnalysisCamera" ||
 		currentCamera->getName() == "CamViewCamera")
@@ -908,8 +912,10 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 		//prepare position of USV  to reflection
 		for (unsigned int i =0; i< _floatingObjects.size();i++)
 		{
+
+			//std::cerr<<"\n _floatingObjects: "<<_floatingObjects[i]->getName();
 			osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
-			if (ptrTransform!=NULL)
+			if ((ptrTransform!=NULL) && _floatingObjects[i]->getName().length()>0)
 			{
 /*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
 				if (ptrMT != NULL)
@@ -924,6 +930,7 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 
 					ptrMT->setMatrix(m);
 				}*/
+<<<<<<< HEAD
 				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
 				if (ptrPAT != NULL)
 				{
@@ -931,6 +938,33 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
 
 				}
+=======
+				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+				if (ptrMT != NULL)
+				{
+					osg::Matrixd	m = ptrMT->getMatrix();
+					_floatingObjectsHeight[i] = m.getTrans().z();
+					if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+					else
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+					m.setTrans(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
+					ptrMT->setMatrix(m);
+				}
+/*				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+std::cerr<<"\n ptrPAT: "<<ptrPAT;
+				if (ptrPAT != NULL)
+				{
+					std::cerr<<"\n z: "<<ptrPAT->getPosition().z()<<" >= "<<(_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal));
+					if (ptrPAT->getPosition().z() >= (_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)))
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+					else
+						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+					_floatingObjectsHeight[i] = ptrPAT->getPosition().z();
+					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
+
+				}*/
+>>>>>>> origin/develop
 			}
 
 		}
@@ -944,6 +978,7 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 
 			if (ptrTransform!=NULL)
 			{
+<<<<<<< HEAD
 /*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
 				if (ptrMT != NULL)
 				{				
@@ -956,6 +991,20 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 				{
 					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
 				}
+=======
+				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+				if (ptrMT != NULL)
+				{				
+					osg::Matrixd	m = ptrMT->getMatrix();
+					m.setTrans (osg::Vec3f(m.getTrans().x(), m.getTrans().y(), _floatingObjectsHeight[i]));
+					ptrMT->setMatrix(m);
+				}
+				/*osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+				if (ptrPAT != NULL)
+				{
+					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
+				}*/
+>>>>>>> origin/develop
 			}
 
 		}
@@ -1003,7 +1052,15 @@ void OceanScene::update( osg::NodeVisitor& nv )
 void OceanScene::preRenderCull( osgUtil::CullVisitor& cv, bool eyeAboveWater, bool surfaceVisible )
 {
     osg::Camera* currentCamera = cv.getCurrentRenderBin()->getStage()->getCamera();
-
+    if (printCameraData) 
+    {
+//                	osg::Camera* currentCamera = cv->getCurrentRenderBin()->getStage()->getCamera();
+			osg::Vec3f centre,up,eye;
+	                currentCamera->getViewMatrixAsLookAt(eye,centre,up);
+                	std::cerr<< "Ocean surface is now at eye " << eye.x()<<", "<<eye.y()<<", "<<eye.z()<<" centre: "<<centre.x()<<", "<<centre.y()<<", "<<centre.z()<<", "
+<< std::endl;
+			printCameraData=false;
+    }
     // Render all view-dependent RTT effects.
     ViewData * vd = getViewDependentData( &cv );
 
@@ -1625,7 +1682,13 @@ bool OceanScene::EventHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::G
                 osg::notify(osg::NOTICE) << "Ocean surface is now at z = " << _oceanScene->getOceanSurfaceHeight() << std::endl;
                 return true;
             }
-
+    	    if (ea.getKey() == 'c')
+            {
+                _oceanScene->printCamera();
+                osg::notify(osg::NOTICE) << "CALLING PRINT CAMERA"<<std::endl;
+std::cerr<<"\n CALLING PRINT CAMERA";
+                return true;
+            }
             break;
         }
     default:
@@ -1648,6 +1711,7 @@ void OceanScene::EventHandler::getUsage(osg::ApplicationUsage& usage) const
     usage.addKeyboardMouseBinding("H","Toggle Height lookup for shoreline foam and sine shape (above water)");
     usage.addKeyboardMouseBinding("+","Raise ocean surface");
     usage.addKeyboardMouseBinding("-","Lower ocean surface");
+    usage.addKeyboardMouseBinding("c","Print camera data");
 }
 
 // register the read and write functions with the osgDB::Registry.

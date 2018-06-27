@@ -6,10 +6,10 @@
   <oceanState>
     <windx> 1.0 </windx>
     <windy> 1.0 </windy>
-    <windSpeed> 0 </windSpeed>
+    <windSpeed> 3.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <waveScale> 1e-8 </waveScale>
+    <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -2.5 </choppyFactor>
     <crestFoamHeight> 2.2 </crestFoamHeight>
@@ -41,21 +41,21 @@
   </simParams>
 
   <camera>
-    <freeMotion> 1 </freeMotion>
+    <freeMotion> 0 </freeMotion>
     <objectToTrack>rudderboat/base_link</objectToTrack>
     <fov> 60 </fov>
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>480</x>
-      <y>100 </y>
-      <z>40 </z>
+      <x>495</x>
+      <y>107 </y>
+      <z>2.38 </z>
     </position> 
     <lookAt>
-      <x>500</x>
-      <y>100 </y>
-      <z>5 </z>
+      <x>498</x>
+      <y>108.7 </y>
+      <z>1.7 </z>
     </lookAt>
   </camera>
 

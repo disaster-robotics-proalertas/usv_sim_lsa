@@ -46,12 +46,13 @@
         <origin rpy="0 0 0" xyz="0.2 0 0.1"/>
         <dynamics damping="1.0"/>
         <axis xyz="0 0 1"/>
-        <limit effort="50" velocity="5" lower="-1.5" upper="1.5" />
+        <limit effort="500000" velocity="5" lower="-${PI}" upper="${PI}" />
     </joint>
 
     <link name="keel">
 	<inertial>
-		<mass value="5" />
+		<mass value="15" />
+		<origin rpy="0 0 0" xyz="0 0 -0.2"/>
 		<inertia
 		  ixx="0.4708"
 		  ixy="0.0"
@@ -102,8 +103,8 @@
 		<cma_stall>0</cma_stall>
 		<cp>0 0 0</cp>
 		<joint_name>sail_joint</joint_name>
-		<area>1.44</area>
-		<air_density>1.2041</air_density>
+		<area>2</area>
+		<fluid_density>1.2041</fluid_density>
 		<forward>-1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>sail</link_name>
@@ -121,7 +122,7 @@
 		  <cda_stall>-5.0</cda_stall>
 		  <cp>0 0 0</cp>
 		  <area>1.0</area>
-		  <air_density>1000</air_density>
+		  <fluid_density>1000</fluid_density>
 		  <forward>1 0 0</forward>
 		  <upward>0 1 0</upward>
 		  <link_name>keel</link_name>
@@ -140,7 +141,7 @@
 
 		<cp>0 0 0</cp>
 		<area>1</area>
-		<air_density>1000</air_density>
+		<fluid_density>1000</fluid_density>
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>rudder</link_name>

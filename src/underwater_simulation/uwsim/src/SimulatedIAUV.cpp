@@ -114,6 +114,11 @@ SimulatedIAUV::SimulatedIAUV(SceneBuilder *oscene, Vehicle vehicleChars) :
                       vcam.fov,oscene,vcam.std,vcam.parameters.get(), 0, vcam.bw));
     if (vcam.showpath)
       camview[camview.size() - 1].showPath(vcam.showpath);
+    //camview[camview.size() - 1].loadShaders(oscene);
+
+
+
+
     OSG_INFO << "Done adding a virtual camera..." << std::endl;
   }
 
@@ -138,7 +143,8 @@ SimulatedIAUV::SimulatedIAUV(SceneBuilder *oscene, Vehicle vehicleChars) :
       camview[camview.size() - 1].showPath(vcam.showpath);
     //Check underwaterParticles to change the mask
     if (!vcam.underwaterParticles)
-      camview[camview.size() - 1].textureCamera->setCullMask(oscene->scene->getOceanScene()->getNormalSceneMask());
+      camview[camview.size() - 1].textureCamera->setCullMask(oscene->scene->getOceanScene()->getNormalSceneMask()
+                                                             );
     OSG_INFO << "Done adding a virtual camera..." << std::endl;
   }
 

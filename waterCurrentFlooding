@@ -1,0 +1,4 @@
+catkin_make_isolated --install --pkg usv_water_current
+source install_isolated/setup.bash
+rosrun usv_water_current parser.py src/usv_water_current/maps/flooding.yaml 
+

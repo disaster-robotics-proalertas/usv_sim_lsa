@@ -149,8 +149,8 @@ USV_Sailing_Plugin::Init ()
 	std::cerr << "\n compare to sail: " << this->linkType.compare ("sail");
 	if (this->linkType.compare ("sail") == 0)
 	{
-		std::string topic = "/" + this->model->GetName () + "/angleLimits";
-		this->angleLimits_subscriber = rosnode_.subscribe (topic, 1, &USV_Sailing_Plugin::ropeSimulator, this);
+	//	std::string topic = "/" + this->model->GetName () + "/angleLimits";
+	//	this->angleLimits_subscriber = rosnode_.subscribe (topic, 1, &USV_Sailing_Plugin::ropeSimulator, this);
 	}
 }
 
@@ -248,11 +248,11 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 
 	// force and torque about cg in inertial frame
 	math::Vector3 force = lift + drag;
-	ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
+	/*ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
 	ROS_ERROR("a: %f inputCL: %f inputCD: %f v: %f", this->alpha, sin (2*this->alpha), (1 - cos (2 * this->alpha)), speedInLDPlane);
 	std::cerr<<"\n CL: "<<cl<<" CD: "<<cd;
 	std::cerr<<"\n rho: "<<this->rho<<" Area: "<<this->area;
-	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";
+	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";*/
 
 	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
 
@@ -350,7 +350,7 @@ USV_Sailing_Plugin::OnUpdateKeel ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 2 * (1 - cos (2 * this->alpha));
+	cd = 4 * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 
@@ -381,10 +381,9 @@ void
 USV_Sailing_Plugin::OnUpdateSail ()
 {
 
-	this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
-	this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
+	//this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
+	//this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
 	math::Vector3 aw = this->wind - this->link->GetWorldLinearVel (this->cp);
-
 	if (aw.GetLength () <= 0.01)
 		return;
 
@@ -435,7 +434,8 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	double cl;
 
-	cl = 1.5 * sin (2 * this->alpha);
+	//cl = 8 * sin (2 * this->alpha);
+	cl = 8 * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -444,7 +444,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 0.5 * (1 - cos (2 * this->alpha));
+	cd = 4 * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 
@@ -468,6 +468,12 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
+//std::cerr<<"\n force: "<<force;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<", position: "<<this->cp;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" force: "<<force.GetLength();
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift<<" drag: "<<drag;
+//std::cerr<<"\n aw:"<<aw.GetLength ()<<" lift: "<<lift.GetLength ()<<" drag: "<<drag.GetLength ()<<" cl: "<<cl<<" area: "<<this->area<<" q: "<<q<<" rho: "<<this->rho<<" speedInLDPlane: "<<speedInLDPlane;
+//std::cerr<<"\n aw: "<<aw;
 }
 
 void
@@ -520,7 +526,7 @@ USV_Sailing_Plugin::WindThreadLoop ()
 			wind.x = srv.response.x;
 			wind.y = srv.response.y;
 			//std::cout << "\n ============== fluidWind "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
-			ROS_ERROR("\N GETTING LOCAL WIND!!!");
+			//ROS_ERROR("\n GETTING LOCAL WIND!!! %s", link->GetName());
 		}
 		else
 		{

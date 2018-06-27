@@ -17,7 +17,7 @@
 		<mult_lift>1.5</mult_lift>
 		<mult_drag>1</mult_drag>
 		<cp>-0.2 0 0</cp>
-		<area>0.02</area>
+		<area>0.025</area>
 		<fluid_density>1000</fluid_density>
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>

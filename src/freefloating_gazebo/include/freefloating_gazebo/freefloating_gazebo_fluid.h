@@ -127,7 +127,7 @@ namespace gazebo
 
 	void processSurfaceData(const geometry_msgs::Point::ConstPtr& pt)
 	{
-
+		//std::cerr<<"\n --------------------------------------- z: "<<pt->z;
 		waterSurface.x = pt->x;
 		waterSurface.y = pt->y;
 		waterSurface.z = pt->z;

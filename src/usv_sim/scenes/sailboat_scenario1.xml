@@ -4,9 +4,9 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1 </windx>
-    <windy> 1.0 </windy>
-    <windSpeed> 2.2 </windSpeed>
+    <windx> 1.0 </windx>
+    <windy> 0.0 </windy>
+    <windSpeed> 2.0 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
     <waveScale> 1e-7 </waveScale>

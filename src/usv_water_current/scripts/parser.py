@@ -4,7 +4,8 @@ import sys
 import wx,h5py
 import numpy
 import yaml
-
+import thread
+import time as threadTime
 import rospy
 from usv_water_current.srv import *
 from std_msgs.msg import String
@@ -23,6 +24,7 @@ nodeNameX = 'Node X Vel'
 nodeNameY = 'Node Y Vel'
 width = 1341
 height = 558
+mapTorviz = 1
 startTime = 0
 endTime = 0
 repeat = -1
@@ -80,13 +82,19 @@ def preprocessDataset2():
 	arrayX = numpy.zeros((width,height),dtype=numpy.float64)
 	arrayY = numpy.zeros((width,height),dtype=numpy.float64)
 	indexMap = numpy.zeros((width,height),dtype=numpy.int)
-		
-	print "Preprocessing the dataset. This can take some minutes..."
+	estimatedRefX = datasetCoord[0][0]
+	estimatedRefY = datasetCoord[0][1]
+	dataSetLen = len(datasetCoord)
+	print "Preprocessing the dataset indexes(length: ",dataSetLen,"). This can take some minutes..."
 	amount = len(datasetCoord)/100
-	for i in range(0, len(datasetCoord)):
+	for i in range(0, dataSetLen):
 		perc = i / amount
 		sys.stdout.write('\r%d %% processed' %perc)
 
+		if (estimatedRefX>datasetCoord[i][0]):
+			estimatedRefX = datasetCoord[i][0];
+		if (estimatedRefY>datasetCoord[i][1]):
+			estimatedRefY = datasetCoord[i][1];
 		x = (int)(math.floor(datasetCoord[i][0]-refX))
 		y = (int)(math.floor(datasetCoord[i][1]-refY))
 		if (x < 0):
@@ -101,15 +109,17 @@ def preprocessDataset2():
 #		arrayY[x][y] = datasetY[time][i]
 		indexMap[x][y] = i		
 		#print "V[",x,y,"](",arrayX[x][y],arrayY[x][y],")"
+	print "\nestimatedRefX: ", estimatedRefX
+	print "estimatedRefY: ", estimatedRefY
 	
 def handleWaterCurrent2(req):
-	global refX, refY, datasetX, datasetY, datasetCoord, time, indexMap
-	#print ("Received request",req.x, req.y," --> ",arrayX[req.x][req.y], arrayY[req.x][req.y])
+	global refX, refY, datasetX, datasetY, datasetCoord, time, indexMap, mymap, width
 	i = indexMap[req.x][req.y]	
-	#x = (int)(math.floor(datasetCoord[i][0]-refX))
-	#y = (int)(math.floor(datasetCoord[i][1]-refY))
+	print ("Received request",req.x, req.y," --> ",datasetX[time][i], datasetY[time][i])
+	#mymap.data[req.y*width+req.x]=127
+	#for x in range (0, req.x):
+	#   mymap.data[req.y*width+x]=120
 	return GetSpeedResponse(datasetX[time][i], datasetY[time][i])
-#	return GetSpeedResponse(arrayX[req.x][req.y], arrayY[req.x][req.y])
 
 def defineTime(data):
 	global time
@@ -125,7 +135,7 @@ def startRosService():
 
 
 def loadMap():
-	global arrayX, arrayY, width, height, originX, originY, mymap
+	global arrayX, arrayY, width, height, originX, originY, mymap, filename, time
 
 	mymap.header.frame_id="odom";
 	mymap.info.resolution = resolution;
@@ -138,17 +148,15 @@ def loadMap():
 	mymap.info.origin.orientation.y = 0;
 	mymap.info.origin.orientation.z = 0;
 	mymap.info.origin.orientation.w = 1;
-	delta = 1.2
-	rospy.logerr ("################### Preparing map to rviz. Size (%d, %d) origin(%d, %d)", width, height, 0, 0)
+	rospy.logerr ("-################### Preparing map to rviz. Size (%d, %d) origin(%d, %d)", width, height, 0, 0)
 #	for y in xrange(height-1, -1, -1):
-	mymap.data = []
-	for y in range(0, height):
+#	mymap.data = []
+   	mymap.data = [0] * width*height
+	delta = 1.2
+	for y in range(0, 750):
 		sys.stdout.write('\r%d rows ' %y)	
 		sys.stdout.flush()
-		for x in range(0, width):
-
-
-	
+		for x in range(1500, width):
 			i = indexMap[x][y]
 			#px = (int)(math.floor(datasetCoord[i][0]-refX))
 			#py = (int)(math.floor(datasetCoord[i][1]-refY))
@@ -157,12 +165,14 @@ def loadMap():
 				value = (-1)*value;
 			if (value >127):
 				value = 127;
-			mymap.data.append(int(value));			
+			#mymap.data.append(int(value));
+			mymap.data[y*width+x]=int(value);		
+#	numpy.savetxt('data/'+str(filename)+'_'+str(time)+'.out', mymap.data, delimiter=',')		
 	rospy.logerr("#################### Map loaded!")
 
 
 def parse_config_file(config_file_name):
-	global filename, refX, refY, nodeCoordinate, nodeNameX, nodeNameY, time, width, height, resolution, originX, originY
+	global filename, refX, refY, nodeCoordinate, nodeNameX, nodeNameY, time, width, height, resolution, originX, originY, mapTorviz
 	global startTime, endTime, repeat, interval
 
 	with open(config_file_name, 'r') as stream:
@@ -179,6 +189,8 @@ def parse_config_file(config_file_name):
 	height = data_loaded['height']
 	filename = data_loaded['filename']
 	time = data_loaded['startTime']
+	mapTorviz = data_loaded['mapTorviz']
+
 
 
 
@@ -227,11 +239,18 @@ if __name__ == '__main__':
 	minY =datasetCoord[0][1]
 	maxY =datasetCoord[0][1]
 	startRosService();
-	loadMap()
+	print "mapTorviz: ",mapTorviz
+	if (mapTorviz == 1):
+		loadMap()
+
+
+
 	rate = rospy.Rate(1) # 10hz
 	while not rospy.is_shutdown():
-		rospy.logerr("---sending map! Time: %d", time)
-		pub.publish(mymap);
-		rospy.logerr("---map sent!")
+		if (mapTorviz == 1):
+			rospy.logerr("---sending map! Time: %d", time)
+			pub.publish(mymap);
+			rospy.logerr("---map sent!")
 		rate.sleep()
+		rospy.logerr("---end sleeping")
 

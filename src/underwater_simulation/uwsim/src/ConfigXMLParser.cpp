@@ -1051,6 +1051,7 @@ void ConfigFile::processVehicle(const xmlpp::Node* node, Vehicle &vehicle)
     {
       Vcam aux;
       aux.init();
+      aux.underwaterParticles=true;
       processVcam(child, aux);
       vehicle.Vcams.push_back(aux);
     }
