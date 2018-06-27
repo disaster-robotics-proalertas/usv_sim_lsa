@@ -930,15 +930,7 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
 
 					ptrMT->setMatrix(m);
 				}*/
-<<<<<<< HEAD
-				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
-				if (ptrPAT != NULL)
-				{
-					_floatingObjectsHeight[i] = ptrPAT->getPosition().z();
-					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
 
-				}
-=======
 				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
 				if (ptrMT != NULL)
 				{
@@ -964,7 +956,6 @@ std::cerr<<"\n ptrPAT: "<<ptrPAT;
 					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
 
 				}*/
->>>>>>> origin/develop
 			}
 
 		}
@@ -978,20 +969,7 @@ std::cerr<<"\n ptrPAT: "<<ptrPAT;
 
 			if (ptrTransform!=NULL)
 			{
-<<<<<<< HEAD
-/*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
-				if (ptrMT != NULL)
-				{				
-					osg::Matrixd	m = ptrMT->getMatrix();
-					m.preMultTranslate (osg::Vec3f(m.getTrans().x(), m.getTrans().y(), _floatingObjectsHeight[i]));
-					ptrMT->setMatrix(m);
-				}*/
-				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
-				if (ptrPAT != NULL)
-				{
-					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
-				}
-=======
+
 				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
 				if (ptrMT != NULL)
 				{				
@@ -1004,7 +982,7 @@ std::cerr<<"\n ptrPAT: "<<ptrPAT;
 				{
 					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
 				}*/
->>>>>>> origin/develop
+
 			}
 
 		}
