@@ -66,7 +66,7 @@ namespace gazebo
 		std::cerr<<"\n control_node: "<< control_node.getNamespace()<< endl;
 		while (!(control_body_ || control_joints_))
 		{
-			sleep(5);
+			sleep(1);
 			control_body_ = control_node.hasParam ("config/body");
 			control_joints_ = control_node.hasParam ("config/joints");
 /*

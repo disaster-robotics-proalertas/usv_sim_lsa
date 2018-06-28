@@ -214,7 +214,7 @@ def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
     msg.name = ['rudder_joint', 'sail_joint']
-    msg.position = [rudder_ctrl(), sail_ctrl()]
+    msg.position = [0.0, sail_ctrl()]
     msg.velocity = []
     msg.effort = []
     return msg

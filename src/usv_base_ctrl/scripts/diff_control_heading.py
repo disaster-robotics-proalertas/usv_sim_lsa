@@ -23,6 +23,7 @@ left = 0
 right = 0
 result = Float64()
 result.data = 0
+desired_distance = 0.1 
 
 
 def get_pose(initial_pose_tmp):
@@ -54,9 +55,9 @@ def thruster_ctrl_msg():
 def verify_result():
     global target_distance
     global result
-    if target_distance < 1:
+    if target_distance < desired_distance:
         result.data = 1
-    if target_distance >= 1:    
+    if target_distance >= desired_distance:    
         result.data = 0
     return result
 
@@ -153,7 +154,7 @@ def rudder_ctrl():
     err = angle_saturation(err)
     err = P(err) + I(err)
 
-    if target_distance < 1 and x2 != 0 and y2 != 0:
+    if target_distance < desired_distance and x2 != 0 and y2 != 0:
         actuator_vel = 0
         err = 0
 

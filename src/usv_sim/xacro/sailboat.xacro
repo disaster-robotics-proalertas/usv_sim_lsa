@@ -44,15 +44,15 @@
         <parent link="base_link"/>
         <child link="sail"/>
         <origin rpy="0 0 0" xyz="0.2 0 0.1"/>
-        <dynamics damping="1.0"/>
+        <dynamics damping="7.0"/>
         <axis xyz="0 0 1"/>
-        <limit effort="500000" velocity="5" lower="-${PI}" upper="${PI}" />
+        <limit effort="5000999999900" velocity="7" lower="-${PI/2}" upper="${PI/2}" />
     </joint>
 
     <link name="keel">
 	<inertial>
-		<mass value="15" />
-		<origin rpy="0 0 0" xyz="0 0 -0.2"/>
+		<mass value="30" />
+		<origin rpy="0 0 0" xyz="0 0 -0.3"/>
 		<inertia
 		  ixx="0.4708"
 		  ixy="0.0"
@@ -133,8 +133,8 @@
     <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
 		<link_type>rudder</link_type>
 		<a0>0</a0>
-		<cla>0.8</cla>
-		<cda>0.3</cda>
+		<mult_lift>1.5</mult_lift>
+		<mult_drag>1.0</mult_drag>
 		<alpha_stall>0.785</alpha_stall>
 		<cla_stall>-0.85</cla_stall>
 		<cda_stall>-0.3233984055</cda_stall>
