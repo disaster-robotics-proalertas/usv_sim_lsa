@@ -37,10 +37,11 @@
 	    <arg name="spawnerUsed" default="true"/>
 		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene_j1.py" ns="airboat"  unless="$(arg gui)" output="screen" />
 		
+		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 		
-		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" args="$(arg gui) $(arg parse)"/>
 		<!--
-		<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/usv_sim_lsa/bags/airboat_scenario1alto.bag /airboat/state" output="screen"/>
+		<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/bags/journal_2018/airboat_scenario_j1.bag /airboat/state" output="screen"/>
 		-->
+		
 	</group>
 </launch>

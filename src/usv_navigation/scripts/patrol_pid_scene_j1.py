@@ -15,7 +15,7 @@ waypoints = [
 result = Float64()
 result.data = 0
 x_offset = 300
-y_offset = 100
+y_offset = 120
 maxSimulations = 1
 
 def goal_pose(pose):
@@ -57,7 +57,7 @@ if __name__ == '__main__':
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > 2 *60):
+		    if (rospy.get_time() > 4 *60):
 			break;
             simulationNumber = simulationNumber + 1
             if (simulationNumber > maxSimulations):

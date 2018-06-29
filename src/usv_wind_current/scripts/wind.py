@@ -89,7 +89,7 @@ def initilizeArray():
 						curl(ux, uy), 
 						origin='upper', 
 						norm=matplotlib.pyplot.Normalize(-.1,.1), 
-						cmap=matplotlib.pyplot.get_cmap('cool'), interpolation='none')
+						cmap=matplotlib.pyplot.get_cmap('jet'), interpolation='none')
 			# See http://www.loria.fr/~rougier/teaching/matplotlib/#colormaps for other cmap options
 	bImageArray = numpy.zeros((height, width, 4), numpy.uint8)	# an RGBA image
 	bImageArray[barrier,3] = 255								# set alpha=255 only at barrier sites
