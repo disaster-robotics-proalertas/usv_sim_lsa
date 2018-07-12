@@ -11,7 +11,14 @@ def angleToPoint(lat, lon):
 
     return tmp
 
-def projecao2dMod(lat, lon, a, b, a_p, b_p):
+def adjustFrame(sensor):
+    if sensor > 180:
+        sensor -= 360
+    if sensor < -180:
+        sensor += 360
+    return sensor
+
+def projection2dMod(lat, lon, a, b, a_p, b_p):
     if a == 0:
         a = 0.00000001
     if b == 0:
@@ -25,7 +32,7 @@ def projecao2dMod(lat, lon, a, b, a_p, b_p):
 
     return angleToPoint(latProj, lonProj)
 
-def projecao2d(lat, lon, a, b):
+def projection2d(lat, lon, a, b):
     if a == 0:
         a = 0.00000001
     if b == 0:
@@ -39,25 +46,25 @@ def projecao2d(lat, lon, a, b):
 
     return angleToPoint(latProj, lonProj)
 
-def tackPoints(current, target, tackingAngle, tackingWidenessRate):
+def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _heading, sp):
     x0 = current.x
     y0 = current.y
     x = target.x
     y = target.y
+    _tackingAngle = tackingAngle
 
-    initialDistance = findDistance(current, target)
+    initialDistance = findDistance(x0, y0, x, y)
     tackingWideness = tackingWidenessRate * initialDistance
 
     a_A = (y - y0) / (x - x0)
     b_A = y0 - (a_A * x0)
 
     if (_heeling - _heading < 0):
-        tackingAngle = -tackingAngle
+        _tackingAngle = -_tackingAngle
 
-    thetaAB = tackingAngle
+    thetaAB = _tackingAngle
     thetaAB = adjustFrame(thetaAB)
-
-    tan_thetaAB = tan((thetaAB) * (math.pi / 180))
+    tan_thetaAB = math.tan(math.radians(thetaAB))
 
     a_B = (a_A - tan_thetaAB) / (tan_thetaAB * a_A + 1)
     b_B = y0 - (a_B * x0)
@@ -72,24 +79,33 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate):
     lonIni = y0
     latFim = x
     lonFim = y
+    a = tackingWideness
+    pontoProj = Point()
+    count = 0
 
-    while abs(d - tackingWideness) > 1:
+    while abs(d - a) > 1:
         latMedia = (latFim + latIni) / 2
         lonMedia = (lonFim + lonIni) / 2
+        
+        if count == 0:
+            print(latMedia)    
+            print(lonMedia)    
 
-        pontoProj = projection2Mod(latMedia, lonMedia, a_A, b_A, a_B, b_B)
+        pontoProj = projection2dMod(latMedia, lonMedia, a_A, b_A, a_B, b_B)
 
         d = findDistance(latMedia, lonMedia, pontoProj.x, pontoProj.y)
 
-        if d > tackingWidness:
+        if d > a:
             latFim = latMedia
             lonFim = lonMedia
-        elif d < tackingWideness:
+        elif d < a:
             latIni = latMedia
             lonIni = lonMedia
 
         latBord = latMedia
         lonBord = lonMedia
+        count += 1
+        
 
     ponto_projetado = angleToPoint(latBord, lonBord)
 
@@ -108,7 +124,7 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate):
     else:
         b_linha2 = b_A + (b_A - b_linha1)
 
-    num_pontos = math.floor(FindDistance(x0, y0, x, y) / d_p0)
+    num_pontos = math.floor(findDistance(x0, y0, x, y) / d_p0)
     
     delta_x = p0m.x - x0
     delta_y = p0m.y - y0
@@ -118,7 +134,7 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate):
     bom = 1
     ruim = 1
 
-    for z in range(1, num_pontos):
+    for z in range(1, int(num_pontos)):
         delta_x_temp = z * delta_x
         delta_y_temp = z * delta_y
 
@@ -131,7 +147,7 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate):
             bom = z
         else:
             controle1 = TackingPointsVector[z-1]
-            aux = abs((_heeling - abs(adjustFrame(_sp_))))
+            aux = abs((_heeling - abs(adjustFrame(sp))))
             delta_xaux = aux * delta_x / 31
             delta_yaux = aux * delta_y / 31
             lat_temp = p0l1.x + delta_x_temp - delta_xaux
@@ -145,8 +161,17 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate):
     d_p0_pd = findDistance(x0, y0, x, y)
 
     if(d_p0_pu > d_p0_pd):
-        TackingPointsVector[numberOfTackingPoints-1] = aux
+        TackingPointsVector[numberOfTackingPoints-1] = target 
     else:
-        TackingPointsVector.append(aux)
+        TackingPointsVector.append(target)
 
     return TackingPointsVector
+
+if __name__ == '__main__':
+    current = Point()
+    current.x = 0
+    current.y = 0
+    target = Point()
+    target.x = 100
+    target.y = 0
+    print(tackPoints(current, target, 60, 0.6, 0, 0, 10))
