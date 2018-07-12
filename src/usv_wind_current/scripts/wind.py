@@ -63,21 +63,24 @@ theFig = 0
 fluidImage = 0
 bImageArray= 0
 barrierImage=0
+
+startTime = time.clock()
+
 def initilizeArray():
 	global width, height, resolution
 	global rho, ux, uy, n0, nN, nS, nE, nW, nNE, nNW, nSE, nSW, u0
 	global theFig, fluidImage, bImageArray, barrierImage, barrier
 	u0 = u0 *resolution
 	# Initialize all the arrays to steady rightward flow:
-	n0 = four9ths * (numpy.ones((height,width)) - 1.5*u0**2)	# particle densities along 9 directions
-	nN = one9th * (numpy.ones((height,width)) - 1.5*u0**2)
-	nS = one9th * (numpy.ones((height,width)) - 1.5*u0**2)
-	nE = one9th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nW = one9th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nNE = one36th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nSE = one36th * (numpy.ones((height,width)) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nNW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
-	nSW = one36th * (numpy.ones((height,width)) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	n0 = four9ths * (numpy.ones((height,width),numpy.float64) - 1.5*u0**2)	# particle densities along 9 directions
+	nN = one9th * (numpy.ones((height,width),numpy.float64) - 1.5*u0**2)
+	nS = one9th * (numpy.ones((height,width),numpy.float64) - 1.5*u0**2)
+	nE = one9th * (numpy.ones((height,width),numpy.float64) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	nW = one9th * (numpy.ones((height,width),numpy.float64) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	nNE = one36th * (numpy.ones((height,width),numpy.float64) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	nSE = one36th * (numpy.ones((height,width),numpy.float64) + 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	nNW = one36th * (numpy.ones((height,width),numpy.float64) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
+	nSW = one36th * (numpy.ones((height,width),numpy.float64) - 3*u0 + 4.5*u0**2 - 1.5*u0**2)
 	rho = n0 + nN + nS + nE + nW + nNE + nSE + nNW + nSW		# macroscopic density
 	ux = (nE + nNE + nSE - nW - nNW - nSW) / rho			# macroscopic x velocity
 	uy = (nN + nNE + nNW - nS - nSE - nSW) / rho			# macroscopic y velocity
@@ -87,6 +90,7 @@ def initilizeArray():
 	theFig = matplotlib.pyplot.figure(figsize=(8,3))
 	fluidImage = matplotlib.pyplot.imshow(
 						curl(ux, uy), 
+#						generateSpeed(ux, uy),
 						origin='upper', 
 						norm=matplotlib.pyplot.Normalize(-.1,.1), 
 						cmap=matplotlib.pyplot.get_cmap('jet'), interpolation='none')
@@ -170,6 +174,15 @@ def collide():
 def curl(ux, uy):
 	return numpy.roll(uy,-1,axis=1) - numpy.roll(uy,1,axis=1) - numpy.roll(ux,-1,axis=0) + numpy.roll(ux,1,axis=0)
 
+def generateSpeed(ux, uy):
+	mat = numpy.zeros((height,width), numpy.uint8)
+	for x in range (0, height-1):
+		for y in range (0, width-1):
+			v = math.sqrt(ux[x][y]*ux[x][y]+uy[x][y]*uy[x][y])
+			mat[x][y]=v
+	return mat
+
+
 def curlX(ux):
 	return - numpy.roll(ux,-1,axis=0) + numpy.roll(ux,1,axis=0)
 
@@ -205,6 +218,7 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 		collide()
 	#print ("ux",ux)
 	fluidImage.set_array(curl(ux, uy))
+#	fluidImage.set_array(generateSpeed(ux, uy))
 	atualiza=atualiza+1
 	if (atualiza == 20):
 		atualiza = 0
@@ -216,6 +230,7 @@ def nextFrame(arg):				# (arg is the frame number, which we don't need)
 #	fluidImage.set_array(curlY(uy))
 
 	myarray = curl(ux, uy);
+#	myarray = generateSpeed(ux, uy);
 
 		
 	return (fluidImage, barrierImage)		# return the figure elements to redraw
@@ -231,11 +246,12 @@ def handleWindCurrent(req):
 		x = 0
 	if (x >= width):
 		x = width-1
-	y = (req.y-originY)*resolution
+	y = height-(req.y-originY)*resolution
 	if (y < 0):
 		y = 0
 	if (y >= height):
 		y = height-1
+	#print "\n x: ",x,"/",width," y: ",y,"/",height
 	
 	#barrier[y][x] = True
 	#barrierN = numpy.roll(barrier,  1, axis=0)				# sites just north of barriers
@@ -249,8 +265,9 @@ def handleWindCurrent(req):
 
 	x = int(x)
 	y = int(y)
-	print "\n[",x,",",y,"]: (",ux[x][y]/resolution,",",uy[x][y]/resolution,")"
-	return  GetSpeedResponse(ux[x][y]/resolution, uy[x][y]/resolution)
+	#print "\n[",x,",",y,"]: (",ux[y][x],",",uy[y][x],")"
+	print " -->[",x,",",y,"]: (",ux[y][x]/resolution,",",uy[y][x]/resolution,")"
+	return  GetSpeedResponse(ux[y][x]/resolution, uy[y][x]/resolution)
 #        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
 
 

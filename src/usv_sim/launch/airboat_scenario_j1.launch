@@ -39,9 +39,9 @@
 		
 		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 		
-		<!--
-		<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/bags/journal_2018/airboat_scenario_j1.bag /airboat/state" output="screen"/>
-		-->
+		
+		<node pkg="rosbag" type="record" name="record_airboat" args="-O $(env HOME)/bags/journal_2018/airboat_scenario_j1d.bag /airboat/state" output="screen"/>
+		
 		
 	</group>
 </launch>
