@@ -46,11 +46,16 @@ def projection2d(lat, lon, a, b):
 
     return angleToPoint(latProj, lonProj)
 
-def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _heading, sp):
+def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, sp):
+
     x0 = current.x
     y0 = current.y
     x = target.x
     y = target.y
+#    x0 = current.y
+#    y0 = current.x
+#    x = target.y
+#    y = target.x
     _tackingAngle = tackingAngle
 
     initialDistance = findDistance(x0, y0, x, y)
@@ -59,7 +64,7 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _he
     a_A = (y - y0) / (x - x0)
     b_A = y0 - (a_A * x0)
 
-    if (_heeling - _heading < 0):
+    if (_heeling - sp < 0):
         _tackingAngle = -_tackingAngle
 
     thetaAB = _tackingAngle
@@ -87,9 +92,9 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _he
         latMedia = (latFim + latIni) / 2
         lonMedia = (lonFim + lonIni) / 2
         
-        if count == 0:
-            print(latMedia)    
-            print(lonMedia)    
+#        if count == 0:
+#            print(latMedia)    
+#            print(lonMedia)    
 
         pontoProj = projection2dMod(latMedia, lonMedia, a_A, b_A, a_B, b_B)
 
@@ -150,8 +155,8 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _he
             aux = abs((_heeling - abs(adjustFrame(sp))))
             delta_xaux = aux * delta_x / 31
             delta_yaux = aux * delta_y / 31
-            lat_temp = p0l1.x + delta_x_temp - delta_xaux
-            lon_temp = p0l1.y + delta_y_temp - delta_yaux
+            lat_temp = p0l2.x + delta_x_temp - delta_xaux
+            lon_temp = p0l2.y + delta_y_temp - delta_yaux
             controle_loc = angleToPoint(lat_temp, lon_temp)
             TackingPointsVector.append(controle_loc)
             ruim = z
@@ -160,18 +165,18 @@ def tackPoints(current, target, tackingAngle, tackingWidenessRate, _heeling, _he
     d_p0_pu = findDistance(TackingPointsVector[numberOfTackingPoints-1].x, TackingPointsVector[numberOfTackingPoints-1].y, current.x, current.y)
     d_p0_pd = findDistance(x0, y0, x, y)
 
-    if(d_p0_pu > d_p0_pd):
-        TackingPointsVector[numberOfTackingPoints-1] = target 
-    else:
-        TackingPointsVector.append(target)
+#    if(d_p0_pu > d_p0_pd):
+#        TackingPointsVector[numberOfTackingPoints-1] = target 
+#    else:
+    TackingPointsVector.append(target)
 
     return TackingPointsVector
 
-if __name__ == '__main__':
-    current = Point()
-    current.x = 0
-    current.y = 0
-    target = Point()
-    target.x = 100
-    target.y = 0
-    print(tackPoints(current, target, 60, 0.6, 0, 0, 10))
+#if __name__ == '__main__':
+#    current = Point()
+#    current.x = 0
+#    current.y = 0
+#    target = Point()
+#    target.x = 100
+#    target.y = 0
+#    print(tackPoints(current, target, 60, 0.3, 0, 0, 10))

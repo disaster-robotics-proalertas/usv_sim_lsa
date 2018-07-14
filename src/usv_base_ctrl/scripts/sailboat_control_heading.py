@@ -148,10 +148,12 @@ def sail_ctrl():
     #sail_angle = sail_min + (sail_max - sail_min) * (wind_dir/180)
     
     sail_angle = math.radians(wind_dir)/2;
+    if math.degrees(sail_angle) < -80:
+        sail_angle = -sail_angle
     #if sail_angle < 0:
     #    sail_angle = -sail_angle
     #rospy.loginfo("sail angle = %f", math.degrees(sail_angle))
-    return sail_angle
+    return -sail_angle
 
 def rudder_ctrl():
     # erro = sp - atual
@@ -177,21 +179,26 @@ def rudder_ctrl():
     sp_angle = math.degrees(myradians)
 
     target_distance = math.hypot(x2-x1, y2-y1) 
+    #rospy.loginfo("target_distance: %f", target_distance)
 
     # encontra angulo atual
     # initial_pose.pose.pose.orientation = nav_msgs.msg.Quaternion(*tf_conversions.transformations.quaternion_from_euler(roll, pitch, yaw))
     
     quaternion = (initial_pose.pose.pose.orientation.x, initial_pose.pose.pose.orientation.y, initial_pose.pose.pose.orientation.z,initial_pose.pose.pose.orientation.w) 
-    
     euler = tf.transformations.euler_from_quaternion(quaternion) 
 
     # target_angle = initial_pose.pose.pose.orientation.yaw
     target_angle = math.degrees(euler[2])
     #rospy.loginfo("target_angle %f", target_angle)
 
+#    rospy.loginfo(sp_angle)
     sp_angle = angle_saturation(sp_angle)
     spHeading = sp_angle
+    sp_angle = -sp_angl
+    rospy.loginfo("sp: %f", sp_angle)
     target_angle = angle_saturation(target_angle)
+    target_angle = -target_angle
+    rospy.loginfo("target_angle: %f", target_angle)
 
     current_heading = math.radians(target_angle)
     currentHeading.data = current_heading
@@ -200,7 +207,7 @@ def rudder_ctrl():
     err = angle_saturation(err)
     err = P(err) + I(err)
 
-    rudder_angle = -err/2
+    rudder_angle = err/2
 
     if err > 60:
         err = 60
@@ -219,7 +226,7 @@ def rudder_ctrl():
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    #rospy.loginfo(log_msg)
+    rospy.loginfo(log_msg)
 
     return math.radians(rudder_angle)
 
