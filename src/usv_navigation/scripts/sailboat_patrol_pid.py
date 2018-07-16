@@ -5,9 +5,9 @@ from tacking import *
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist, Point, Quaternion
+from std_srvs.srv import Empty
 
 waypoints = [
-    [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
     [(22.0, 0.0, 0.0), (0.0, 0.0, -0.984047240305, 0.177907360295)]
 ]
 
@@ -38,7 +38,7 @@ def goal_pose_tack(pose):
     goal_pose = Odometry()
     goal_pose.header.stamp = rospy.Time.now()
     goal_pose.header.frame_id = 'world'
-    goal_pose.pose.pose.position = Point(pose.x + x_offset, pose.y + y_offset, 0.)
+    goal_pose.pose.pose.position = Point(pose.x, pose.y, 0.)
     return goal_pose
 
 def get_result(result_aux):
@@ -85,6 +85,8 @@ if __name__ == '__main__':
     rospy.Subscriber("state", Odometry, get_pose)
     rospy.Subscriber("heeling", Float64, get_heeling)
     rospy.Subscriber("spHeading", Float64, get_spHeading)
+    pause = rospy.ServiceProxy('/gazebo/pause_physics', Empty)
+
     for i in range(1,5):
         rate.sleep()
 
@@ -92,20 +94,25 @@ if __name__ == '__main__':
         for pose in waypoints:
             if isTacking:
                 tackingPose = tackPoints(currentPoint, goal_pose(pose).pose.pose.position, tackAngle, tackDistance, heeling.data, spHeading.data) 
+                log_msg = "current: {0}; target: {1}; tackAngle: {2}; tackDistance: {3}; heeling: {4}; spHeading: {5}" .format(currentPoint, goal_pose(pose).pose.pose.position, tackAngle, tackDistance, heeling.data, spHeading.data)
+                rospy.loginfo(log_msg)
                 rospy.loginfo(str(tackingPose))
+                #pause()
                 #print(tackingPose)
                 for pose in tackingPose:
+                    rospy.loginfo(pose)
                     goal = goal_pose_tack(pose)
+                    rospy.loginfo(goal)
                     pub.publish(goal)
                     rate.sleep()
                     while result.data == 0.0:
                         pub.publish(goal)
                         rate.sleep()
-            isTacking = 0
+                isTacking = 0
             goal = goal_pose(pose)
             pub.publish(goal)
             rate.sleep()
-            while result.data == 0.0:
+            checkTacking()
+            while result.data == 0.0 and not(isTacking):
                 pub.publish(goal)
                 rate.sleep()
-            checkTacking()

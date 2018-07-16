@@ -17,7 +17,7 @@ target_distance = 0
 actuator_vel = 15
 Ianterior = 0
 rate_value = 10
-Kp = 1 
+Kp = 2 
 Ki = 0 
 result = Float64()
 result.data = 0
@@ -194,11 +194,11 @@ def rudder_ctrl():
 #    rospy.loginfo(sp_angle)
     sp_angle = angle_saturation(sp_angle)
     spHeading = sp_angle
-    sp_angle = -sp_angl
-    rospy.loginfo("sp: %f", sp_angle)
+    sp_angle = -sp_angle
+#    rospy.loginfo("sp: %f", sp_angle)
     target_angle = angle_saturation(target_angle)
     target_angle = -target_angle
-    rospy.loginfo("target_angle: %f", target_angle)
+#    rospy.loginfo("target_angle: %f", target_angle)
 
     current_heading = math.radians(target_angle)
     currentHeading.data = current_heading
@@ -226,7 +226,7 @@ def rudder_ctrl():
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    rospy.loginfo(log_msg)
+#    rospy.loginfo(log_msg)
 
     return math.radians(rudder_angle)
 

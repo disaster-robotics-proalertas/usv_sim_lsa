@@ -32,8 +32,8 @@
 	<group unless="$(arg parse)">
 			<arg name="namespace" default="sailboat"/>  
 	    	<arg name="spawnerUsed" default="true"/>
-            <node name="patrol" pkg="usv_navigation" type="patrol_pid.py" ns="sailboat" unless="$(arg gui)" output="screen"/>
-            <!--node name="patrol" pkg="usv_navigation" type="sailboat_patrol_pid.py" ns="sailboat" unless="$(arg gui)" output="screen"/-->
+            <!--node name="patrol" pkg="usv_navigation" type="patrol_pid.py" ns="sailboat" unless="$(arg gui)" output="screen"/-->
+            <node name="patrol" pkg="usv_navigation" type="sailboat_patrol_pid.py" ns="sailboat" unless="$(arg gui)" output="screen"/>
             <node name="heading_control" pkg="usv_base_ctrl" type="sailboat_control_heading.py" ns="sailboat" unless="$(arg gui)" output="screen" />
 
             <!--node name="empty_scenario" pkg="usv_navigation" type="sail_empty_scenario.py" ns="sailboat" unless="$(arg gui)" output="screen"/-->
