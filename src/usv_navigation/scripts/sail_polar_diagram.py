@@ -15,7 +15,7 @@ import math
 import tf
 
 current_state = Odometry()
-current_heading = 270
+current_heading = 0 
 max_vel = 0
 max_vel_sail = 0
 current_sail = -90
@@ -130,7 +130,6 @@ def talker():
 
             unpause()
             rate.sleep()
-
 
             if current_heading >= heading_range:
                 polar.close()

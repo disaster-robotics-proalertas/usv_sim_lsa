@@ -34,7 +34,7 @@
 			<arg name="namespace" default="sailboat"/>  
 	    	<arg name="spawnerUsed" default="true"/>
             <!--node name="polar_diagram" pkg="usv_navigation" type="sail_polar_diagram.py" ns="sailboat" unless="$(arg gui)" output="screen"/-->
-            <!--node name="polar_diagram_control" pkg="usv_navigation" type="sail_polar_diagram.py" ns="sailboat" unless="$(arg gui)" output="screen" /-->
+            <node name="polar_diagram_control" pkg="usv_navigation" type="sail_polar_diagram.py" ns="sailboat" unless="$(arg gui)" output="screen" />
 
 			<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch" pass_all_args="true"/>
 	</group>
