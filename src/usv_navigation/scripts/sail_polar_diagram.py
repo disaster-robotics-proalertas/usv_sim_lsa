@@ -85,59 +85,58 @@ def talker():
     pause = rospy.ServiceProxy('/gazebo/pause_physics', Empty)
     resetSimulation = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
     unpause()
-    polar = open("polar_diagram.txt","w")
 
-    while not rospy.is_shutdown(): 
-        while current_heading <= heading_range:
-            max_vel = 0
-            current_sail = -90
-            while current_sail <= 90:
-                pub_sail.publish(rudder_ctrl_msg(math.radians(current_sail)))
-                while rospy.get_time() < 3:
-                    current_vel = current_state.twist.twist.linear.x
+    while current_heading <= heading_range:
+        max_vel = 0
+        current_sail = -90
+        while current_sail <= 90:
+            pub_sail.publish(rudder_ctrl_msg(math.radians(current_sail)))
+            current_vel = 0
+            while rospy.get_time() < 3 and current_state.twist.twist.linear.x > -0.15:
+                current_vel = current_state.twist.twist.linear.x
 
-                if current_vel > max_vel:
-                    max_vel_sail = current_sail
-                    max_vel = current_vel
+            if current_vel > max_vel:
+                max_vel_sail = current_sail
+                max_vel = current_vel
 
-                print("Current Heading: ")
-                print(current_heading)
-                print("Current Sail Angle: ")
-                print(current_sail)
+            print("Current Heading: ")
+            print(current_heading)
+            print("Current Sail Angle: ")
+            print(current_sail)
 
-                current_sail += 5 
-
-                resetSimulation()
-                pause()
-                set_sailboat_heading(pub_state)
-                unpause()
-                rate.sleep()
-
-            x = rospy.get_param('/uwsim/wind/x')
-            y = rospy.get_param('/uwsim/wind/y')
-            wind_vel = math.sqrt(math.pow(x,2)+math.pow(y,2))
-            print_diagram = "%f,%f,%f,%f\n" % (max_vel, max_vel_sail, current_heading, wind_vel)
-            polar.write(print_diagram)
+            current_sail += 5 
 
             resetSimulation()
-            while rospy.get_time() > 1:
-                show = 'show'
             pause()
-
-            current_heading += 10
-
             set_sailboat_heading(pub_state)
-
             unpause()
             rate.sleep()
 
-            if current_heading >= heading_range:
-                polar.close()
-                pause()
+        x = rospy.get_param('/uwsim/wind/x')
+        y = rospy.get_param('/uwsim/wind/y')
+        wind_vel = math.sqrt(math.pow(x,2)+math.pow(y,2))
+        polar = open("polar_diagram.txt","a")
+        print_diagram = "%f,%f,%f,%f\n" % (max_vel, max_vel_sail, current_heading, wind_vel)
+        polar.write(print_diagram)
+        polar.close()
+
+        resetSimulation()
+        while rospy.get_time() > 1:
+            show = 'show'
+        pause()
+
+        current_heading += 10
+
+        set_sailboat_heading(pub_state)
+
+        unpause()
+        rate.sleep()
+
+        if current_heading >= heading_range:
+            pause()
 
 if __name__ == '__main__':
     try:
         talker()
     except rospy.ROSInterruptException:
         pass
-
