@@ -23,8 +23,8 @@ windDirection = 0
 x_offset = 240
 y_offset = 95
 nextWindDir = 100 
-tackAngle = 60
-tackDistance = 0.3
+tackAngle = 50
+tackDistance = 0.2
 isTacking = 0
 
 def goal_pose(pose):
@@ -64,7 +64,6 @@ def adjustFrame(sensor):
         sensor += 360
     return sensor
 
-
 def checkTacking():
     global isTacking 
     global heeling
@@ -99,9 +98,9 @@ if __name__ == '__main__':
                 rospy.loginfo(str(tackingPose))
                 #pause()
                 #print(tackingPose)
-                for pose in tackingPose:
-                    rospy.loginfo(pose)
-                    goal = goal_pose_tack(pose)
+                for pose2 in tackingPose:
+                    rospy.loginfo(pose2)
+                    goal = goal_pose_tack(pose2)
                     rospy.loginfo(goal)
                     pub.publish(goal)
                     rate.sleep()
@@ -114,5 +113,6 @@ if __name__ == '__main__':
             rate.sleep()
             checkTacking()
             while result.data == 0.0 and not(isTacking):
+                rospy.loginfo(goal)
                 pub.publish(goal)
                 rate.sleep()

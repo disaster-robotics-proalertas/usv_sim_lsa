@@ -15,6 +15,12 @@
       </link>
   </model>
 
+  <physics type='ode'>
+    <max_step_size>0.001</max_step_size>
+    <real_time_factor>10</real_time_factor>
+    <real_time_update_rate>1000</real_time_update_rate>
+  </physics>
+
     <!-- buoyancy plugin -->
     <plugin name="freefloating_gazebo_fluid" filename="libfreefloating_gazebo_fluid.so">
               <descriptionParam>robot_description</descriptionParam>
