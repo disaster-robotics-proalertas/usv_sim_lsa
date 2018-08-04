@@ -13,13 +13,17 @@ import subprocess
 import os
 import math
 import tf
+import time
 
 current_state = Odometry()
-current_heading = 270
+current_heading = 0 
 max_vel = 0
 max_vel_sail = 0
 current_sail = -90
 heading_range = 360 
+sail_step = 5
+heading_step = 5 
+sim_time = 0.5 
 
 def goal_pose1(pose):
     goal_pose = Odometry()
@@ -72,6 +76,9 @@ def talker():
     global max_vel
     global current_sail
     global heading_range
+    global sail_step
+    global heading_step
+    global sim_time
     rospy.init_node('polar_diagram')
     rate = rospy.Rate(10) # 10h
     rospy.Subscriber("/sailboat/state", Odometry, get_pose)
@@ -84,61 +91,66 @@ def talker():
     unpause = rospy.ServiceProxy('/gazebo/unpause_physics', Empty)
     pause = rospy.ServiceProxy('/gazebo/pause_physics', Empty)
     resetSimulation = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
+    resetWorld = rospy.ServiceProxy('/gazebo/reset_world', Empty)
     unpause()
-    polar = open("polar_diagram.txt","w")
 
-    while not rospy.is_shutdown(): 
-        while current_heading <= heading_range:
-            max_vel = 0
-            current_sail = -90
-            while current_sail <= 90:
-                pub_sail.publish(rudder_ctrl_msg(math.radians(current_sail)))
-                while rospy.get_time() < 3:
-                    current_vel = current_state.twist.twist.linear.x
+    while current_heading <= heading_range:
+        max_vel = 0
+        current_sail = -90
+        while current_sail <= 90:
+            pub_sail.publish(rudder_ctrl_msg(math.radians(current_sail)))
+            current_vel = 0
+            start_time = time.time()
+            elapsed_time = 0
+            while elapsed_time < sim_time and current_state.twist.twist.linear.x > -0.2:
+                current_vel = current_state.twist.twist.linear.x
+                elapsed_time = time.time() - start_time
 
-                if current_vel > max_vel:
-                    max_vel_sail = current_sail
-                    max_vel = current_vel
+            if current_vel > max_vel:
+                max_vel_sail = current_sail
+                max_vel = current_vel
 
-                print("Current Heading: ")
-                print(current_heading)
-                print("Current Sail Angle: ")
-                print(current_sail)
+            print("Current Heading: ")
+            print(current_heading)
+            print("Current Sail Angle: ")
+            print(current_sail)
 
-                current_sail += 5 
-
-                resetSimulation()
-                pause()
-                set_sailboat_heading(pub_state)
-                unpause()
-                rate.sleep()
-
-            x = rospy.get_param('/uwsim/wind/x')
-            y = rospy.get_param('/uwsim/wind/y')
-            wind_vel = math.sqrt(math.pow(x,2)+math.pow(y,2))
-            print_diagram = "%f,%f,%f,%f\n" % (max_vel, max_vel_sail, current_heading, wind_vel)
-            polar.write(print_diagram)
+            current_sail += sail_step 
 
             resetSimulation()
-            while rospy.get_time() > 1:
-                show = 'show'
+            #resetWorld()
             pause()
-
-            current_heading += 10
-
             set_sailboat_heading(pub_state)
-
             unpause()
             rate.sleep()
 
+        x = rospy.get_param('/uwsim/wind/x')
+        y = rospy.get_param('/uwsim/wind/y')
+        wind_vel = math.sqrt(math.pow(x,2)+math.pow(y,2))
+        polar = open("polar_diagram.txt","a")
+        print_diagram = "%f,%f,%f,%f\n" % (max_vel, max_vel_sail, current_heading, wind_vel)
+        print(print_diagram)
+        polar.write(print_diagram)
+        polar.close()
 
-            if current_heading >= heading_range:
-                polar.close()
-                pause()
+        resetSimulation()
+        #resetWorld()
+        #while rospy.get_time() > 1:
+        #    show = 'show'
+        pause()
+
+        current_heading += heading_step 
+
+        set_sailboat_heading(pub_state)
+
+        unpause()
+        rate.sleep()
+
+        if current_heading >= heading_range:
+            pause()
 
 if __name__ == '__main__':
     try:
         talker()
     except rospy.ROSInterruptException:
         pass
-
