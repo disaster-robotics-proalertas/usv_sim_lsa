@@ -1,3 +1,0 @@
-SET( CATEGORY App )
-
-ADD_SUBDIRECTORY( osgbpp )
