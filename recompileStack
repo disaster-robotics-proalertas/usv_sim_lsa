@@ -1,2 +1,0 @@
-rm -r /build_isolated /devel_isolated /install_isolated
-catkin_make_isolated --install

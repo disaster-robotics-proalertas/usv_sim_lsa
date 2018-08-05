@@ -1,0 +1,49 @@
+Group {
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  StateSet {
+    rendering_hint DEFAULT_BIN
+    renderBinMode INHERIT
+    GL_CULL_FACE ON
+    GL_NORMALIZE ON
+    CullFace {
+      mode BACK
+    }
+  }
+  num_children 1
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 2
+    Geometry {
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawElementsUInt TRIANGLES 0
+        {
+          0 1 2 2 3 4 2 4 5
+        }
+      }
+      VertexArray Vec3Array 6
+      {
+        -1 0 .5
+        -1 0 -.5
+        0 0 0
+        1 0 -.5
+        1 0 0
+        1 0 .5
+      }
+      NormalBinding OVERALL
+      NormalArray UniqueID Vec3Array_2 Vec3Array 12
+      {
+        0 -1 0
+      }
+      ColorBinding OVERALL
+      ColorArray UniqueID Vec4Array_3 Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+}

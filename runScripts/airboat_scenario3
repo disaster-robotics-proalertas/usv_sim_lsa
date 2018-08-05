@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "Updating installed files. Please wait...";
-catkin_make_isolated --install -q --pkg usv_sim usv_water_current usv_wind_current usv_navigation usv_base_ctrl
-echo "Parsing files for scenario 3. Please wait...";
-roslaunch usv_sim airboat_scenario3.launch parse:=true  
-echo "Starting simulation of scenario 3";
-roslaunch usv_sim airboat_scenario3.launch parse:=false 

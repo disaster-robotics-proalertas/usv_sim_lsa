@@ -1,0 +1,19 @@
+osgOcean was developed by Kim Bale at the University of Hull
+as part of the VENUS project.
+
+VENUS is partially supported by the European Community under
+project VENUS (Contract IST-034924) of the
+"Information Society Technologies (IST) programme of the 6th
+FP for RTD".
+
+For information about the library or if you're interested in
+collaborating I can be reached at: kcbale@googlemail.com
+
+Contributors:
+-------------
+Jean-Sébastien Guay - CM-Labs Simulations Inc. - http://www.vxsim.com/
+Ulrich Hertlein
+Jan Ciger
+Dimitrios Filiagos
+Jean-Claude Monnin
+Paul Palumbo

@@ -1,0 +1,63 @@
+diff -Naur src/CMakeLists.txt src-patched//CMakeLists.txt
+--- src/CMakeLists.txt	2009-05-05 18:43:14.705745000 +0200
++++ src-patched//CMakeLists.txt	2012-06-23 18:26:06.900936000 +0200
+@@ -1,2 +1,2 @@
+ add_subdirectory (osgOcean)
+-add_subdirectory (oceanExample)
+\ No hay ningún carácter de nueva línea al final del archivo
++#add_subdirectory (oceanExample)
+diff -Naur src/osgOcean/FFTOceanTechnique.cpp src-patched//osgOcean/FFTOceanTechnique.cpp
+--- src/osgOcean/FFTOceanTechnique.cpp	2011-05-20 14:50:22.265542000 +0200
++++ src-patched//osgOcean/FFTOceanTechnique.cpp	2012-06-26 10:38:29.625998000 +0200
+@@ -60,7 +60,7 @@
+     ,_numLevels      ( (unsigned int) ( log( (float)_tileSize) / log(2.f) )+1)
+     ,_startPos       ( -float( (_tileResolution+1)*_numTiles) * 0.5f, float( (_tileResolution+1)*_numTiles) * 0.5f )
+     ,_THRESHOLD      ( 3.f )
+-    ,_VRES           ( 1024 )
++    ,_VRES           ( 1920 )
+     ,_NUMFRAMES      ( numFrames )
+     ,_waveTopColor   ( 0.192156862f, 0.32549019f, 0.36862745098f )
+     ,_waveBottomColor( 0.11372549019f, 0.219607843f, 0.3568627450f )
+diff -Naur src/osgOcean/OceanScene.cpp src-patched//osgOcean/OceanScene.cpp
+--- src/osgOcean/OceanScene.cpp	2012-02-14 15:05:00.364737000 +0100
++++ src-patched//osgOcean/OceanScene.cpp	2012-06-26 10:39:26.393998000 +0200
+@@ -162,7 +162,7 @@
+     ,_enableDefaultShader        ( true )
+     ,_reflectionTexSize          ( 512,512 )
+     ,_refractionTexSize          ( 512,512 )
+-    ,_screenDims                 ( 1024,768 )
++    ,_screenDims                 ( 1920,1080 )
+     ,_sunDirection               ( 0,0,-1 )
+     ,_reflectionUnit             ( 1 )
+     ,_refractionUnit             ( 2 )
+@@ -237,7 +237,7 @@
+     ,_enableDefaultShader        ( true )
+     ,_reflectionTexSize          ( 512,512 )
+     ,_refractionTexSize          ( 512,512 )
+-    ,_screenDims                 ( 1024,768 )
++    ,_screenDims                 ( 1920, 1080 )
+     ,_sunDirection               ( 0,0,-1 )
+     ,_reflectionUnit             ( 1 )
+     ,_refractionUnit             ( 2 )
+@@ -855,7 +855,8 @@
+         {
+             osg::Camera* currentCamera = cv->getCurrentRenderBin()->getStage()->getCamera();
+             if (currentCamera->getName() == "ShadowCamera" ||
+-                currentCamera->getName() == "AnalysisCamera" )
++                currentCamera->getName() == "AnalysisCamera" ||
++		currentCamera->getName() == "CamViewCamera")
+             {
+                 // Do not do reflections and everything if we're in a shadow pass.
+                 osg::Group::traverse(nv);
+diff -Naur src/osgOcean/SiltEffect.cpp src-patched//osgOcean/SiltEffect.cpp
+--- src/osgOcean/SiltEffect.cpp	2010-10-18 20:31:05.720082000 +0200
++++ src-patched//osgOcean/SiltEffect.cpp	2012-06-26 10:39:42.473998000 +0200
+@@ -106,7 +106,7 @@
+ {
+     setNumChildrenRequiringUpdateTraversal(1);
+ 
+-    setUpGeometries(1024);
++    setUpGeometries(1920);
+ 
+     setIntensity(0.5);
+ }

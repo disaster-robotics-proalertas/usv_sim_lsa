@@ -1,0 +1,15 @@
+prefix=${fp_file_cwd}/../..
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/include
+
+Name: osgWorks
+Description: osgWorks release pre-compiled for VES
+Provides: osgWorks osgworks
+Requires: openscenegraph openthreads
+Version: @OSGWORKS_VERSION@
+Libs: @OSGWORKS_FPC_LIBRARIES@
+Cflags: @OSGWORKS_FPC_INCLUDES@
+Arch: noarch
+
+

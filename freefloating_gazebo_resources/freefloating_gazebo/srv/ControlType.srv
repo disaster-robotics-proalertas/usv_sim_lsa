@@ -1,0 +1,3 @@
+# send an array of axis name that should have their control type modified
+string[] axes
+---

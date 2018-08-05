@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>uwsim_bullet</name>
+  <version>2.82.1</version>
+  <description>The bullet library. See https://code.google.com/p/bullet</description>
+
+  <maintainer email="marioprats@gmail.com">Mario Prats</maintainer>
+  <license>Check author's website</license>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>libxext</build_depend>
+  <build_depend>glut</build_depend>
+  
+  <run_depend>catkin</run_depend>
+  <run_depend>libxext</run_depend>
+  <run_depend>glut</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

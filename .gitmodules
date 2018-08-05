@@ -13,3 +13,9 @@
 [submodule "src/uwsim_resources/visualization_osg"]
 	path = src/uwsim_resources/visualization_osg
 	url = https://github.com/disaster-robotics-proalertas/visualization_osg.git
+[submodule "src/freefloating_gazebo_resources/freefloating_gazebo"]
+	path = src/freefloating_gazebo_resources/freefloating_gazebo
+	url = https://github.com/disaster-robotics-proalertas/freefloating_gazebo.git
+[submodule "src/uwsim_resources/underwater_simulation"]
+	path = src/uwsim_resources/underwater_simulation
+	url = https://github.com/disaster-robotics-proalertas/underwater_simulation.git

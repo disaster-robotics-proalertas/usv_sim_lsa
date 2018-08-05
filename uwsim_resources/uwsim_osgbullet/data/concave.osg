@@ -1,0 +1,247 @@
+Group {
+  name "Concave"
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  StateSet {
+    rendering_hint DEFAULT_BIN
+    renderBinMode INHERIT
+    Material {
+      ColorMode OFF
+      ambientColor 0.2 0.2 0.2 1
+      diffuseColor FRONT 1 0.5 0.3 1
+      diffuseColor BACK  0.8 0.8 0.8 1
+      specularColor 0 0 0 1
+      emissionColor 0 0 0 1
+      shininess 0
+    }
+  }
+  num_children 4
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawArrays QUADS 0 16
+      }
+      VertexArray Vec3Array 16
+      {
+        1 -1 0.5
+        2 -1 0.5
+        2 2 0.5
+        1 2 0.5
+        2 -1 -0.5
+        1 -1 -0.5
+        1 2 -0.5
+        2 2 -0.5
+        2 -1 0.5
+        2 -1 -0.5
+        2 2 -0.5
+        2 2 0.5
+        1 -1 -0.5
+        1 -1 0.5
+        1 2 0.5
+        1 2 -0.5
+      }
+      NormalBinding PER_VERTEX
+      NormalArray Vec3Array 16
+      {
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        1 0 0
+        1 0 0
+        1 0 0
+        1 0 0
+        -1 0 0
+        -1 0 0
+        -1 0 0
+        -1 0 0
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawArrays QUADS 0 16
+      }
+      VertexArray Vec3Array 16
+      {
+        1 1 0.5
+        1 2 0.5
+        -2 2 0.5
+        -2 1 0.5
+        1 2 -0.5
+        1 1 -0.5
+        -2 1 -0.5
+        -2 2 -0.5
+        1 2 0.5
+        1 2 -0.5
+        -2 2 -0.5
+        -2 2 0.5
+        1 1 -0.5
+        1 1 0.5
+        -2 1 0.5
+        -2 1 -0.5
+      }
+      NormalBinding PER_VERTEX
+      NormalArray Vec3Array 16
+      {
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        0 1 0
+        0 1 0
+        0 1 0
+        0 1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+        0 -1 0
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawArrays QUADS 0 16
+      }
+      VertexArray Vec3Array 16
+      {
+        -1 1 0.5
+        -2 1 0.5
+        -2 -2 0.5
+        -1 -2 0.5
+        -2 1 -0.5
+        -1 1 -0.5
+        -1 -2 -0.5
+        -2 -2 -0.5
+        -2 1 0.5
+        -2 1 -0.5
+        -2 -2 -0.5
+        -2 -2 0.5
+        -1 1 -0.5
+        -1 1 0.5
+        -1 -2 0.5
+        -1 -2 -0.5
+      }
+      NormalBinding PER_VERTEX
+      NormalArray Vec3Array 16
+      {
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        -1 0 0
+        -1 0 0
+        -1 0 0
+        -1 0 0
+        1 0 0
+        1 0 0
+        1 0 0
+        1 0 0
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+  Geode {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_drawables 1
+    Geometry {
+      useDisplayList TRUE
+      useVertexBufferObjects FALSE
+      PrimitiveSets 1
+      {
+        DrawArrays QUADS 0 16
+      }
+      VertexArray Vec3Array 16
+      {
+        -1 -1 0.5
+        -1 -2 0.5
+        2 -2 0.5
+        2 -1 0.5
+        -1 -2 -0.5
+        -1 -1 -0.5
+        2 -1 -0.5
+        2 -2 -0.5
+        -1 -2 0.5
+        -1 -2 -0.5
+        2 -2 -0.5
+        2 -2 0.5
+        -1 -1 -0.5
+        -1 -1 0.5
+        2 -1 0.5
+        2 -1 -0.5
+      }
+      NormalBinding PER_VERTEX
+      NormalArray Vec3Array 16
+      {
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        0 0 -1
+        5.96046e-008 -1 0
+        5.96046e-008 -1 0
+        5.96046e-008 -1 0
+        5.96046e-008 -1 0
+        -5.96046e-008 1 0
+        -5.96046e-008 1 0
+        -5.96046e-008 1 0
+        -5.96046e-008 1 0
+      }
+      ColorBinding OVERALL
+      ColorArray Vec4Array 1
+      {
+        1 1 1 1
+      }
+    }
+  }
+}

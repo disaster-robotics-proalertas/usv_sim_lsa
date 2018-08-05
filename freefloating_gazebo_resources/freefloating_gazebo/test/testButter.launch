@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="frequency_amplitude" pkg="slider_publisher" type="slider_publisher" output="screen" respawn="true">
+        <param name="file" value="$(find freefloating_gazebo)/test/FreqAmp.yaml"/>
+    </node>
+    <node name="filter" pkg="freefloating_gazebo" type="butter"/>
+    <node name="plot" pkg="rqt_plot" type="rqt_plot" args="butter/position[0] butter/position[1]"/>
+</launch>

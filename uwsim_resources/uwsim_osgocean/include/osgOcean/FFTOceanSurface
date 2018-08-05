@@ -1,0 +1,187 @@
+/*
+* This source file is part of the osgOcean library
+* 
+* Copyright (C) 2009 Kim Bale
+* Copyright (C) 2009 The University of Hull, UK
+* 
+* This program is free software; you can redistribute it and/or modify it under
+* the terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 3 of the License, or (at your option) any later
+* version.
+
+* This program is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+* http://www.gnu.org/copyleft/lesser.txt.
+*/
+
+#pragma once
+#include <osgOcean/Export>
+#include <osgOcean/FFTOceanTechnique>
+#include <osgOcean/MipmapGeometry> 
+#include <osgOcean/OceanTile> 
+
+#include <osg/Timer>
+#include <osg/NodeCallback>
+#include <osgUtil/CullVisitor>
+#include <osg/Program>
+
+namespace osgOcean
+{
+    /** 
+    * Creates and manages the ocean surface geometry and rendering. 
+    * Uses a modified geomipmapping algorithm to provide level of detail.
+    * LOD is managed automatically within the update and cull traversals.
+    */
+    class OSGOCEAN_EXPORT FFTOceanSurface : public FFTOceanTechnique
+    {
+    private:
+        unsigned int _totalPoints;                      /**< Total number of points on width/height. */ 
+        unsigned int _numVertices;                      /**< Total number of vertices in array. */
+        unsigned int _newNumVertices;                   /**< Number of vertices after updateMipmaps is called */
+
+        osg::ref_ptr<osg::Vec3Array> _activeVertices;   /**< Active vertex buffer. */
+        osg::ref_ptr<osg::Vec3Array> _activeNormals;    /**< Active normal buffer. */
+
+        std::vector< std::vector<OceanTile> > _mipmapData;                      /**< Wave tile data. */
+        std::vector< std::vector< osg::ref_ptr<MipmapGeometry> > > _mipmapGeom;  /**< Geometry tiles. */
+
+    public:
+        FFTOceanSurface(unsigned int FFTGridSize = 64,
+            unsigned int resolution = 256,
+            unsigned int numTiles = 17, 
+            const osg::Vec2f& windDirection = osg::Vec2f(1.1f, 1.1f),
+            float windSpeed = 12.f,
+            float depth = 1000.f,
+            float reflectionDamping = 0.35f,
+            float waveScale = 1e-8f,
+            bool isChoppy = true,
+            float choppyFactor = -2.5f,
+            float animLoopTime = 10.f,
+            unsigned int numFrames = 256 );
+
+        FFTOceanSurface( const FFTOceanSurface& copy, 
+            const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY );
+
+        virtual const char* libraryName() const { return "osgOcean"; }
+        virtual const char* className() const { return "FFTOceanSurface"; }
+        virtual bool isSameKindAs(const osg::Object* obj) const { return dynamic_cast<const FFTOceanSurface*>(obj) != 0; }
+
+    protected:
+        ~FFTOceanSurface(void);
+
+    public:
+        
+        float getSurfaceHeightAt(float x, float y, osg::Vec3f* normal = NULL);
+
+        /**
+        * Checks for mipmap or frame changes and updates the geometry accordingly.
+        * Will rebuild state or geometry if found to be dirty.
+        */
+        void update( unsigned int frame, const double& dt, const osg::Vec3f& eye );
+
+        /**
+        * Sets up geometry and mipmaping data.
+        * Forces stateset rebuid.
+        */
+        void build( void );
+
+    private:
+        /**
+        * Creates ocean surface stateset. 
+        * Loads shaders and adds uniforms and textures;
+        */
+        void initStateSet( void );
+
+        /**
+        * Computes the ocean FFTs and stores vertices/normals for mipmap levels.
+        */
+        void computeSea( unsigned int totalFrames );
+
+        /**
+        * Sets up with the ocean surface with mipmap geometry.
+        */
+        void createOceanTiles( void );
+
+        /**
+        * Computes and assigns mipmap primitives to the geometry.
+        */
+        void computePrimitives( void );
+
+        /**
+        * Copies vertices needs for the tiles into _activeVertices array.
+        */
+        void computeVertices( unsigned int frame );
+        
+        /**
+        * Checks for any changes in mipmap resolution based on eye position.
+        * @return true if any updates have occured.
+        */
+        bool updateMipmaps( const osg::Vec3f& eye, unsigned int frame );
+
+        /**
+        * Adds primitives for main body of vertices.
+        */
+        void addMainBody( MipmapGeometry* cTile );
+
+        /**
+        * Adds primitives for the right skirt.
+        */
+        void addRightBorder ( MipmapGeometry* cTile, MipmapGeometry* xTile );
+
+        /**
+        * Adds primitives for the bottom skirt.
+        */
+        void addBottomBorder( MipmapGeometry* cTile, MipmapGeometry* yTile );
+
+        /**
+        * Adds primitives for the corner piece.
+        */
+        void addCornerPatch( MipmapGeometry* cTile, MipmapGeometry* xTile, MipmapGeometry* yTile, MipmapGeometry* xyTile );
+
+        /**
+        * Adds primitives for main body of the lowest resolution tile (2x2 vertices).
+        * This is a special case treated similar to a corner piece.
+        */
+        void addMaxDistMainBody( MipmapGeometry* cTile, MipmapGeometry* xTile, MipmapGeometry* yTile, MipmapGeometry* xyTile );
+
+        /**
+        * Adds primitives for edge of the lowest resolution tile (2x2 vertices).
+        */
+        void addMaxDistEdge( MipmapGeometry* cTile, MipmapGeometry* xTile, MipmapGeometry* yTile );
+
+        /**
+        * Compute noise coordinates for the fragment shader.
+        * @param noiseSize Size of noise tile (m).
+        * @param movement Number of tiles moved x,y.
+        * @param speed Speed of movement(m/s).
+        * @parem time Simulation Time.
+        */
+        osg::Vec3f computeNoiseCoords(float noiseSize, const osg::Vec2f& movement, float speed, float time);
+
+        /**
+        * Creates a custom DOT3 noise map for the ocean surface.
+        * This will execute an FFT to generate a height field from which the normal map is generated.
+        * Default behaviour is to create a normal map using the params from the ocean geometry setup.
+        */
+        osg::ref_ptr<osg::Texture2D> createNoiseMap( unsigned int FFTSize, 
+            const osg::Vec2f& windDir, 
+            float windSpeed, 
+            float waveScale,
+            float tileResolution );
+
+        /** 
+        * Convenience method for retrieving mipmap geometry from _oceanGeom. 
+        */
+        inline MipmapGeometry* getTile( unsigned int x, unsigned int y ){    
+            return _mipmapGeom.at(y).at(x).get();
+        }
+
+        /** 
+        * Convenience method for loading the ocean shader. 
+        * @return NULL if shader files were not found
+        */
+        osg::Program* createShader(void);
+    };
+
+}// namespace

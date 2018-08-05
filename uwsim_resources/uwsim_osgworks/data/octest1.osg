@@ -1,0 +1,176 @@
+Group {
+  name "octest1.osg"
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  num_children 2
+  MatrixTransform {
+    name "BoxTetraMT"
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 -10 0 1
+    }
+    num_children 1
+    Group {
+      name "Box"
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      num_children 1
+      Geode {
+        DataVariance STATIC
+        name "Box"
+        nodeMask 0xffffffff
+        cullingActive TRUE
+        num_drawables 1
+        Geometry {
+          DataVariance STATIC
+          useDisplayList TRUE
+          useVertexBufferObjects FALSE
+          PrimitiveSets 6
+          {
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              2 0 3 1 
+            }
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              6 4 7 5 
+            }
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              10 8 11 9 
+            }
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              14 12 15 13 
+            }
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              18 16 19 17 
+            }
+            DrawElementsUInt TRIANGLE_STRIP 4
+            {
+              22 20 23 21 
+            }
+          }
+          VertexArray Vec3Array 24
+          {
+            4 -3 -5
+            4 3 -5
+            4 -3 5
+            4 3 5
+            -4 3 -5
+            -4 -3 -5
+            -4 3 5
+            -4 -3 5
+            4 3 -5
+            -4 3 -5
+            4 3 5
+            -4 3 5
+            -4 -3 -5
+            4 -3 -5
+            -4 -3 5
+            4 -3 5
+            -4 -3 5
+            4 -3 5
+            -4 3 5
+            4 3 5
+            4 -3 -5
+            -4 -3 -5
+            4 3 -5
+            -4 3 -5
+          }
+          NormalBinding PER_VERTEX
+          NormalArray Vec3Array 24
+          {
+            1 0 0
+            1 0 0
+            1 0 0
+            1 0 0
+            -1 0 0
+            -1 0 0
+            -1 0 0
+            -1 0 0
+            0 1 0
+            0 1 0
+            0 1 0
+            0 1 0
+            0 -1 0
+            0 -1 0
+            0 -1 0
+            0 -1 0
+            0 0 1
+            0 0 1
+            0 0 1
+            0 0 1
+            0 0 -1
+            0 0 -1
+            0 0 -1
+            0 0 -1
+          }
+          ColorBinding OVERALL
+          ColorArray Vec4Array 1
+          {
+            1 1 1 1
+          }
+          TexCoordArray 0 Vec2Array 24
+          {
+            0 0
+            1 0
+            0 1
+            1 1
+            0 0
+            1 0
+            0 1
+            1 1
+            0 0
+            1 0
+            0 1
+            1 1
+            0 0
+            1 0
+            0 1
+            1 1
+            0 0
+            1 0
+            0 1
+            1 1
+            0 0
+            1 0
+            0 1
+            1 1
+          }
+        }
+      }
+    }
+  }
+  MatrixTransform {
+    name "TetraMT"
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    referenceFrame RELATIVE
+    Matrix {
+      1 0 0 0
+      0 1 0 0
+      0 0 1 0
+      0 30 0 1
+    }
+    num_children 1
+    ProxyNode {
+      name "TetraPN1"
+      nodeMask 0xffffffff
+      cullingActive TRUE
+      Center 0 0 0
+      ExtRefMode       LOAD_IMMEDIATELY
+      Radius -1
+      FileNameList 1 {
+        tetra.osg
+      }
+      num_children 0
+    }
+  }
+}

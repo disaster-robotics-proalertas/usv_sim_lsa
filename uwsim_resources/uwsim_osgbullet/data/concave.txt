@@ -1,0 +1,77 @@
+# Comments:
+#
+#         A blank line is considered a comment (it's ignored).
+# #       A pound sign by itself is a comment.
+# # text  A pount sign followed by a space followed by text is a comment.
+
+# World setup.
+#
+# Up: x y z      Specifies the up vector. Default is 0 0 1. (If
+#                "TranslateUp" is set, place both this command and
+#                the "TranslateUp" command before the "Model:" command
+#                to specity the correct model translation.
+# TranslateUp: n If specified, the model is translated by n * up.
+# GroundPlane: x y z d
+#                Specify the ground plane. Default is 0 0 1 0.
+# NoGroundPlane: Disables the ground plant. Default is to create a ground plane.
+# HandNode: pos att length right
+#                HandNode initial parameters. "length" is a float.
+#                "right" is {1|0}, default is 1 (right).
+# Model: name    Loads the named file. Does not create a rigid body,
+#                but includes it in future node searches.
+
+# Rigid body creation control parameters.
+#
+# Node: name     Specifies a node name to search for. Can be turned
+#                into a rigid body with "Body:", or used as an
+#                attachment point for "AttachBody:".
+# MatchAllNodes: {1|0}
+#                When "Body:" and "AttachBody:" search for a named node,
+#                convert / attach to all node matches. Default: 0 (false);
+#                only the first match is converted / attached to.
+# Overall: {1|0} Sets the _overall field in CreationRecord.
+#                Default is 1 (truw).
+# Mass: m        Specifies the mass of future rigid bodies. Default
+#                is 1.0.
+# CollisionFilter: group with
+#                Specifies collision filters. Default is 0 0.
+# Shape: s       Specifies a collision shape for future rigid bodies.
+#                "s" is a BroadphaseNativeTypes cast as an int.
+#                Default: 0  BOX_SHAPE_PROXYTYPE
+#                         3  CONVEX_TRIANGLEMESH_SHAPE_PROXYTYPE
+#                         4  CONVEX_HULL_SHAPE_PROXYTYPE
+#                         8  SPHERE_SHAPE_PROXYTYPE
+#                         13 CYLINDER_SHAPE_PROXYTYPE
+#                         21 TRIANGLE_MESH_SHAPE_PROXYTYPE
+
+# Creating rigid bodies.
+#
+# Body:          Creates a rigid body from the subgraph rooted at "Node:".
+# AttachBody: file
+#                Loads the named file, attaches it to "Node:", and creates
+#                a rigid body from the loaded data.
+
+# Constraint creation.
+#
+# Hinge: nodeNameA nodeNameB pivotA pivotB axisA axisB
+#                Creates a hinge constraint between two named nodes.
+# Slider: nodeNameA nodeNameB axis low high useA
+#                Creates a slider constraint between two named nodes.
+
+# Debugging
+#
+# WirePlane: cx cy cz ux uy uz vx vy vz su sv
+#                Uses osgwTools::makeWirePlane to draw a grid, useful for
+#                object location verification. c xyz is a corner, u xyz is
+#                the plane u vector, and v xyz is the plane v vector. su
+#                and sv are plane subdivisions.
+
+TranslateUp: 7
+GroundPlane: 0 0 1 0
+HandNode: -2 6 3 0 0 0 1 2 1
+Model: concavesg.osg
+
+Shape: 0
+Node: Concave
+Overall: 0
+Body:

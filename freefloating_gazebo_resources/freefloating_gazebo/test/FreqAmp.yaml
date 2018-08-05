@@ -1,0 +1,31 @@
+/freq:
+    type: std_msgs/Float32MultiArray
+    fc:
+        min: 0.1
+        max: 50
+        to: data[0]
+    f1:
+        min: 0
+        max: 50
+        to: data[1]
+    a1: 
+        min: 0
+        max: 10
+        to: data[2]
+    f2:
+        min: 0
+        max: 50
+        to: data[3]
+    a2: 
+        min: 0
+        max: 10
+        to: data[4]
+    f3:
+        min: 0
+        max: 50
+        to: data[5]
+    a3: 
+        min: 0
+        max: 10
+        to: data[6]
+

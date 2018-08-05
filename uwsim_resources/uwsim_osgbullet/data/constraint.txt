@@ -1,0 +1,33 @@
+# See osgBullet/data/concave.txt for config file documentation.
+#
+
+
+CollisionFilter: 4 7
+GroundPlane: 0 0 1 0
+HandNode: 0 3 3 0 0 0 1 1 1
+Model: constraintsg.osg
+
+Shape: 0
+Node: NightStand_Body
+Overall: 0
+Mass: 1
+CollisionFilter: 1 4
+Body:
+
+Shape: 0
+Node: DOF_Drawer
+Overall: 0
+Mass: 0.5
+CollisionFilter: 2 4
+Body:
+
+Shape: 4
+Node: teapot.osg
+Overall: 1
+Mass: 0.25
+CollisionFilter: 4 7
+Body:
+
+Constraint: constraint.osg DOF_Drawer NightStand_Body
+
+# WirePlane: 0 0 0 2 0 0 0 0 2 2 2
