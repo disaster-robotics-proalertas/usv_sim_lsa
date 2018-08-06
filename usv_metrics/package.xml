@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>usv_nav_metrics</name>
+  <name>usv_metrics</name>
   <version>0.0.0</version>
   <description>This package contains the necessary configs to interface with the navigation stack. It also contain navigation code for the usvs.</description>
 
