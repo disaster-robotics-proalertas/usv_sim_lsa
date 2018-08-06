@@ -19,3 +19,21 @@
 [submodule "freefloating_gazebo_resources/freefloating_gazebo"]
 	path = freefloating_gazebo_resources/freefloating_gazebo
 	url = https://github.com/disaster-robotics-proalertas/freefloating_gazebo.git
+[submodule "uwsim_resources/underwater_simulation"]
+	path = uwsim_resources/underwater_simulation
+	url = https://github.com/disaster-robotics-proalertas/underwater_simulation.git
+[submodule "uwsim_resources/uwsim_osgocean"]
+	path = uwsim_resources/uwsim_osgocean
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgocean
+[submodule "uwsim_resources/uwsim_osgbullet"]
+	path = uwsim_resources/uwsim_osgbullet
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgbullet
+[submodule "uwsim_resources/uwsim_osgworks"]
+	path = uwsim_resources/uwsim_osgworks
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgworks
+[submodule "uwsim_resources/uwsim_bullet"]
+	path = uwsim_resources/uwsim_bullet
+	url = https://github.com/disaster-robotics-proalertas/uwsim_bullet
+[submodule "uwsim_resources/visualization_osg"]
+	path = uwsim_resources/visualization_osg
+	url = https://github.com/disaster-robotics-proalertas/visualization_osg.git
