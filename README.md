@@ -23,10 +23,33 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         sudo rosdep init
         rosdep update
 
-
-        
-
 ### Installing
+
+To download and install the packages of usv_sim you need a catkin workspace. If you already have a workspace you may jump to the Downloading and installing subsection.
+
+## Create catkin workspace
+
+        source /opt/ros/kinetic/setup.bash
+        mkdir -p ~/catkin_ws/src
+        cd ~/catkin_ws/
+        catkin_make
+
+## Downloading and installing usv_sim stack
+
+Clone the usv_sim repository in the src folder of your catkin workspace:
+
+        cd ~/catkin_ws/src
+        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git 
+        git submodule init
+        git submodule update
+
+To compile the stack:
+
+        ./~/catkin_ws/src/usv_sim/scenarios/recompileStack
+
+To run a scenario:
+
+        ./~/catkin_ws/src/usv_sim/scenarios/
 
 1. cd ~
 2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
