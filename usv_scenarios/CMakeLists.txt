@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(usv_sim)
+project(usv_scenarios)
 
 find_package(catkin REQUIRED COMPONENTS
     roscpp
@@ -20,9 +20,6 @@ catkin_package(
 include_directories(${catkin_INCLUDE_DIRS})
 
 
-install(DIRECTORY config/
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
-
 install(DIRECTORY launch/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
 
@@ -35,11 +32,8 @@ install(DIRECTORY scenes/
 install(DIRECTORY terrain/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/terrain)
 
-install(DIRECTORY urdf/
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
-
-install(DIRECTORY xacro/
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/xacro)
-
 install(DIRECTORY world/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/world)
+
+install(DIRECTORY scripts/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/scripts)

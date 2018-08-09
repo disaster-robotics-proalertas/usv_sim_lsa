@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>usv_sim</name>
+  <name>usv_scenarios</name>
   <version>0.0.0</version>
   <description>This package contains the robot and enviromental models for the simulation.</description>
 
