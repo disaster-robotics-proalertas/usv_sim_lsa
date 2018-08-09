@@ -8,7 +8,6 @@ project(usv_water_current)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
   rospy
   std_msgs
   nav_msgs
@@ -78,7 +77,6 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  roscpp
   std_msgs
   rosgraph_msgs
 )
@@ -117,7 +115,6 @@ catkin_package(
   #LIBRARIES usv_water_current
   CATKIN_DEPENDS message_runtime roscpp std_msgs
   DEPENDS 
-    roscpp
     nav_msgs
     geometry_msgs
     rosgraph_msgs
@@ -151,7 +148,6 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME} src/main.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,12 +160,6 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}
-   ${catkin_LIBRARIES}
-   ${YAMLCPP_LIBRARIES}
-   ${SDL_LIBRARY}
-   ${SDL_IMAGE_LIBRARIES}
-)
 
 #############
 ## Install ##
@@ -205,14 +195,6 @@ target_link_libraries(${PROJECT_NAME}
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
 
 install(DIRECTORY maps/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/maps)
