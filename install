@@ -34,5 +34,8 @@ echo "DONE!"
 echo ""
 
 echo "Compiling the stack and running a scenario..."
-./~/catkin_ws/src/usv_sim/scenarios/recompileStack
-./~/catkin_ws/src/usv_sim/scenarios
+cd ~/catkin_ws/src
+catkin_make_isolated --install
+source install_isolated/setup.bash
+roslaunch usv_sim airboat_scenario1.launch parse:=true
+roslaunch usv_sim airboat_scenario1.launch parse:=false

@@ -2,7 +2,7 @@
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
 Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
 
-### Prerequisites
+## Prerequisites
 
 You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
 
@@ -10,52 +10,50 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
         sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
         sudo apt-get update
-        sudo apt-get install ros-kinetic-desktop-full
+        sudo apt-get install ros-kinetic-desktop-full ros-kinetic-control-* ros-kinetic-osg-markers ros-kinetic-move-base -y
+        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep python-wxtools python-lxml python-pathlib python-h5py python-scipy python-geolinks python-gdal -y
+        sudo apt-get install libfftw3-* libxml++2.6-* libsdl-image1.2-dev libsdl-dev -y
         sudo rosdep init
         rosdep update
         sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
         source ~/.bashrc
-        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
-        sudo apt install python-rosdep python-wxtools
-        sudo apt-get install python-lxml python-pathlib python-h5py ros-kinetic-control-* ros-kinetic-osg-markers
-        sudo apt-get install libfftw3-* libxml++2.6-* python-scipy python-geolinks python-gdal
-        sudo apt-get instal ros-kinetic-move-base libsdl-image1.2-dev libsdl-dev
-        sudo rosdep init
-        rosdep update
 
-### Installing
+## Installing
 
-To download and install the packages of usv_sim you need a catkin workspace. If you already have a workspace you may jump to the Downloading and installing subsection.
+To run the packages of usv_sim you need a catkin workspace. If you already have a workspace you may jump to the Downloading and installing subsection.
 
-## Create catkin workspace
+### Creating a catkin workspace
 
         source /opt/ros/kinetic/setup.bash
         mkdir -p ~/catkin_ws/src
         cd ~/catkin_ws/
         catkin_make
 
-## Downloading and installing usv_sim stack
+### Downloading and installing usv_sim stack
 
 Clone the usv_sim repository in the src folder of your catkin workspace:
 
         cd ~/catkin_ws/src
-        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git 
+        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+        cd usv_sim_lsa
         git submodule init
         git submodule update
 
-To compile the stack:
+Run the instalation script:
 
-        ./~/catkin_ws/src/usv_sim/scenarios/recompileStack
+        cd ~/catkin_ws/src/usv_sim_lsa
+        ./install_usv_sim
+
+Compile the stack:
+
+        cd ~/catkin_ws/
+        catkin_make_isolated --install
+        source install_isolated/setup.bash
 
 To run a scenario:
 
-        ./~/catkin_ws/src/usv_sim/scenarios/
-
-1. cd ~
-2. git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-3. cd ~/usv_sim_lsa
-4. catkin_make_isolated --install
-5. source ~/usv_sim_lsa/install_isolated/setup.bash
+        roslaunch usv_sim airboat_scenario1.launch parse:=true
+        roslaunch usv_sim airboat_scenario1.launch parse:=false
 
 ## Running the tests
 
