@@ -11,12 +11,16 @@ You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS 
         sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
         sudo apt-get update
         sudo apt-get install ros-kinetic-desktop-full ros-kinetic-control-* ros-kinetic-osg-markers ros-kinetic-move-base -y
-        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep python-wxtools python-lxml python-pathlib python-h5py python-scipy python-geolinks python-gdal -y
-        sudo apt-get install libfftw3-* libxml++2.6-* libsdl-image1.2-dev libsdl-dev -y
         sudo rosdep init
         rosdep update
         sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
         source ~/.bashrc
+
+Now run the following commands to download the dependencies of usv_sim:
+
+        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep python-wxtools python-lxml python-pathlib python-h5py python-scipy python-geolinks python-gdal -y
+        sudo apt-get install libfftw3-* libxml++2.6-* libsdl-image1.2-dev libsdl-dev -y
+
 
 ## Installing
 
@@ -54,6 +58,10 @@ To run a scenario:
 
         roslaunch usv_sim airboat_scenario1.launch parse:=true
         roslaunch usv_sim airboat_scenario1.launch parse:=false
+
+The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation dosen't starts you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
+
+Make sure your graphic card driver is up to date.
 
 ## Running the tests
 
