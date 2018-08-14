@@ -1,14 +1,2 @@
-build_isolated/*
-devel_isolated/*
-install_isolated/*
-build/*
-devel/*
-.medatada/*
-RemoteSystemsTempFiles/*
-/.metadata/
-bags2/*
-bags/*
-bags3/*
-.settings/*
-usv_scenarios/*
-usv_models/*
+/usv_scenarios/*
+/usv_models/*
