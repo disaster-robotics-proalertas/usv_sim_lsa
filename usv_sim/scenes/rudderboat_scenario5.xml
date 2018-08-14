@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> 1.0 </windx>
+    <windy> 1.0 </windy>
+    <windSpeed> 0 </windSpeed>
+    <depth> 10000 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <waveScale> 1e-8 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> -2.5 </choppyFactor>
+    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+        <r>0.017</r>
+        <g>0.027</g>
+        <b>0.079</b>
+      </color>
+    </fog>
+    <color>
+        <r>0.55</r>
+        <g>0.45</g>
+        <b>0.33</b>
+    </color>
+    <attenuation>
+      <r>0.15</r>
+      <g>0.15 </g>
+      <b> 0.05 </b>
+    </attenuation>
+  </oceanState>
+  
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 1152 </resw>
+    <resh> 864 </resh>
+  </simParams>
+
+  <camera>
+    <freeMotion> 1 </freeMotion>
+    <objectToTrack>rudderboat/base_link</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 1 </near>
+    <far> 10000 </far>
+    <position>
+      <x>480</x>
+      <y>100 </y>
+      <z>40 </z>
+    </position> 
+    <lookAt>
+      <x>500</x>
+      <y>100 </y>
+      <z>5 </z>
+    </lookAt>
+  </camera>
+
+  <vehicle>
+    <name>rudderboat</name>
+    <file>urdf/rudderboat_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 500</x>
+      <y> 110 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0 </r>
+      <p>0 </p>
+      <y>3.14 </y>
+    </orientation>
+  </vehicle>
+  
+
+
+
+	<object>
+    <name>terrain</name>
+    <file>terrain/diluvio5/novo4.obj</file>
+    <position>
+      <x> 0</x>
+      <y> 558 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
+
+  <rosInterfaces>   
+
+    <ROSOdomToPAT>
+      <topic> /rudderboat/state </topic>
+      <vehicleName> rudderboat </vehicleName>
+    </ROSOdomToPAT>
+
+
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/base_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>base_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/center_r_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>center_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/back_r_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>back_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/back_l_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>back_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/front_r_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>front_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/front_l_link</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/rudder</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>rudder</linkName>
+    </OceanSurfaceToROSOceanVehicle>   
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/rudderboat/Surface/fwd</topic>
+	<vehicleName>rudderboat</vehicleName>
+	<linkName>fwd</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+
+     
+
+	<ROSJointStateToArm> 
+   		<topic>/rudderboat/joint_states</topic>
+   		<vehicleName>rudderboat</vehicleName>
+   	</ROSJointStateToArm>
+
+  </rosInterfaces>
+</UWSimScene>
+

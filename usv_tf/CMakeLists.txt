@@ -8,10 +8,6 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES robot_setup_tf
-#  CATKIN_DEPENDS geometry_msgs roscpp tf
-#  DEPENDS system_lib
 )
 
 include_directories(

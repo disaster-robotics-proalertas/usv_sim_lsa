@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<robot name="airboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+                      
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
+
+    <!-- Plugin list -->
+
+    <gazebo>
+    <!-- Gazebo plugin listens to the body-->
+
+        <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+            <switchService>switch</switchService>
+            <updateRate>100</updateRate>
+            <link>fwd</link>
+            <thruster>
+                <effortUnderWater>100</effortUnderWater>
+				<effortOverWater>100</effortOverWater>
+                <name>fwd</name>
+            </thruster>
+        </plugin>
+    </gazebo>  
+                
+    <!-- Define one steering thruster, with assumed force control in Z-direction -->
+    <xacro:airthruster_link name="fwd" xyz="0 0.12 0.3" rpy="0 ${-PI/2} 0" effort="100" velocity="20" rotationAxis="1 0 0" lowerLimit="-${PI/4}" upperLimit="${PI/4}"/>
+    
+            
+</robot>

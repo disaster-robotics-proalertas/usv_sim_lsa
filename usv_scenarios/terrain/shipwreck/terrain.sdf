@@ -10,14 +10,14 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>file://$(find usv_sim)/terrain/shipwreck/terrain.dae</uri>
+            <uri>file://$(find usv_scenarios)/terrain/shipwreck/terrain.dae</uri>
           </mesh>
         </geometry>
       </visual>
       <collision name="collision">
         <geometry>
           <mesh>
-            <uri>file://$(find usv_sim)/terrain/shipwreck/terrain.dae</uri>
+            <uri>file://$(find usv_scenarios)/terrain/shipwreck/terrain.dae</uri>
           </mesh>
         </geometry>
         <surface>

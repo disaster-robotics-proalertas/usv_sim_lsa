@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<robot name="diffboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
+
+    <!-- Plugin list -->
+    <gazebo>
+        <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+            <switchService>switch</switchService>
+            <updateRate>100</updateRate>
+            <link>fwd_left</link>
+            <thruster>
+                <effort>100</effort>
+                <name>fwd_left</name>
+            </thruster>
+   	    <thruster>
+	        <effort>100</effort>
+	        <name>fwd_right</name>
+	    </thruster>    
+        </plugin>
+    </gazebo>  
+
+    <!-- Define two steering thrusters, with assumed force control in Z-direction -->
+    <xacro:thruster_link name="fwd_left"  xyz="-0.4 0 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_l_link"/>
+    <xacro:thruster_link name="fwd_right" xyz="-0.4 0 -0.15" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_r_link"/>
+       
+</robot>
