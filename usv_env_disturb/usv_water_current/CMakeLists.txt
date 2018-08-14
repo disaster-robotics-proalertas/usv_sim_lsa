@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(usv_water_current)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
   rospy
   std_msgs
   nav_msgs
@@ -23,7 +22,6 @@ add_service_files(
 
 generate_messages(
   DEPENDENCIES
-  roscpp
   std_msgs
   rosgraph_msgs
 )
@@ -33,7 +31,6 @@ catkin_package(
   #LIBRARIES usv_water_current
   CATKIN_DEPENDS message_runtime roscpp std_msgs
   DEPENDS 
-    roscpp
     nav_msgs
     geometry_msgs
     rosgraph_msgs
@@ -44,23 +41,6 @@ include_directories(
   ${SDL_INCLUDE_DIR}
   ${SDL_IMAGE_INCLUDE_DIRS}
   ${YAMLCPP_INCLUDE_DIRS}
-)
-
-add_executable(${PROJECT_NAME} src/main.cpp)
-
-target_link_libraries(${PROJECT_NAME}
-   ${catkin_LIBRARIES}
-   ${YAMLCPP_LIBRARIES}
-   ${SDL_LIBRARY}
-   ${SDL_IMAGE_LIBRARIES}
-)
-
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 install(DIRECTORY maps/
