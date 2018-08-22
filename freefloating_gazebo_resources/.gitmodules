@@ -1,4 +1,0 @@
-[submodule "src/freefloating_gazebo_resources/freefloating_gazebo"]
-	path = src/freefloating_gazebo_resources/freefloating_gazebo
-	url = https://github.com/disaster-robotics-proalertas/freefloating_gazebo.git
-    branch = usv_sim
