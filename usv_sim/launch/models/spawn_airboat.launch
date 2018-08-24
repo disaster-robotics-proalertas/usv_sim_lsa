@@ -2,16 +2,14 @@
 <launch>
 
 	<arg name="gui" default="false"/>
-	<arg name="parse" default="false"/>   
 	<arg name="namespace" default="airboat"/>  
 	<arg name="posX" default="0"/>
     <arg name="posY" default="0"/>
     <arg name="posZ" default="0"/>
     <arg name="spawnerUsed" default="false"/>
-    <arg name="disableShaders"/>
 
     <!-- spawn in Gazebo with GUI -->
-    <group ns="$(arg namespace)" unless="$(arg parse)">
+    <group ns="$(arg namespace)">
 
         <!--<node name="patrol" pkg="usv_navigation" type="patrol_pid.py" unless="$(arg gui)"/>-->
         <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/airboat.xacro"/>
