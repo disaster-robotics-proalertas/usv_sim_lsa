@@ -10,7 +10,7 @@
 	<group unless="$(arg parse)">
 		<arg name="disableShaders" default="false"/>
         <arg name="namespace" value="$(arg usvType)"/>  
-        <arg name="spawnerUsed" default="true"/>
+        <arg name="spawnGazebo" default="true"/>
 
         <!-- Launch Gazebo with empty world -->
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -28,12 +28,11 @@
 		<!-- using parser  -->
 		<include file="$(find usv_sim)/launch/runscenario_spawner.launch"/>
 
-		<include file="$(find usv_sim)/launch/models/spawn_usv.launch">
+		<include file="$(find usv_sim)/launch/models/spawn_$(arg usvType).launch">
             <arg name="gui" value="$(arg gui)"/>
-            <arg name="spawnerUsed" value="$(arg spawnerUsed)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
             <arg name="namespace" value="$(arg usvType)"/>
         </include>
-			
 	</group>
 
 	<!-- parse launch file -->
