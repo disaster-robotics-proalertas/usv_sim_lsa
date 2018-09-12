@@ -27,6 +27,8 @@
 #include <robot_state_publisher/robot_state_publisher.h>
 #include <kdl_parser/kdl_parser.hpp>
 
+#include <osgDB/WriteFile>
+
 // static member
 ros::Time ROSInterface::current_time_;
 
@@ -832,6 +834,7 @@ VirtualCameraToROSImage::VirtualCameraToROSImage(VirtualCamera *camera, std::str
   this->bw = camera->bw;
   CameraBufferCallback * buffercb = new  CameraBufferCallback(this,cam,depth); 
   cam->textureCamera->setPostDrawCallback(buffercb); 
+  imageNumber=0;
 }
 
 void VirtualCameraToROSImage::createPublisher(ros::NodeHandle &nh)
@@ -952,10 +955,24 @@ void VirtualCameraToROSImage::publish()
         }
       else
         memset(&(img.data.front()), 0, d);
-      mutex.unlock();
+      /*
+      std::stringstream ss;
+
+      ss<<"/home/lsa/imagensComMarcacao/image"<<imageNumber<<".jpg";
+      std::string filename = ss.str();
+      osgDB::writeImageFile(*osgimage, filename);
 
       img_pub_.publish(img);
       pub_.publish(img_info);
+      ofstream myfile;
+      myfile.open ("/home/lsa/imagensComMarcacao/groundTruth.txt", ios::out|ios::app);
+      myfile << imageNumber<<";"<<groundTruthData->x<<";"<< groundTruthData->y<<";"<< groundTruthData->width<<";"<< groundTruthData->height<<";\n";
+      imageNumber++;
+      myfile.close();*/
+
+      mutex.unlock();
+
+
     }
   }
   //OSG_DEBUG << "OSGImageToROSImage::publish exit" << std::endl;

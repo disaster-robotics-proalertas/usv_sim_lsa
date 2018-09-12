@@ -15,13 +15,51 @@
 * http://www.gnu.org/copyleft/lesser.txt.
 */
 
+#include <osg/Geometry>
+#include <osgDB/WriteFile>
 #include <osgOcean/OceanScene>
 #include <osgOcean/ShaderManager>
 #include <osgOcean/FFTOceanTechnique>
+#include <ros/ros.h>
+#include <osgOcean/GroundTruth>
 
 #include <osg/Depth>
 
 using namespace osgOcean;
+
+
+class getWorldCoordOfNodeVisitor : public osg::NodeVisitor
+{
+public:
+   getWorldCoordOfNodeVisitor():
+      osg::NodeVisitor(NodeVisitor::TRAVERSE_PARENTS), done(false)
+      {
+         wcMatrix= new osg::Matrixd();
+      }
+      void apply(osg::Node &node)
+      {
+    	  std::cerr<<"\n ::apply";
+         if (!done)
+         {
+        	 std::cerr<<"\n if";
+            if ( 0 == node.getNumParents() ) // no parents
+            {
+            	std::cerr<<"\n dentro if";
+               wcMatrix->set( osg::computeLocalToWorld(this->getNodePath()) );
+               done = true;
+            }
+            std::cerr<<"\n passou";
+            traverse(node);
+         }
+      }
+      osg::Matrixd* giveUpDaMat()
+      {
+         return wcMatrix;
+      }
+private:
+   bool done;
+   osg::Matrix* wcMatrix;
+};
 
 namespace
 {
@@ -193,6 +231,7 @@ OceanScene::OceanScene( void )
     ,_oceanTransform             ( new osg::MatrixTransform )
     ,_oceanCylinder              ( new Cylinder(1900.f, OCEAN_CYLINDER_HEIGHT, 16, false, true) )
     ,_oceanCylinderMT            ( new osg::MatrixTransform )
+    ,frame(0)
 {
     //-----------------------------------------------------------------------
     // _oceanCylinder follows the camera underwater, so that the clear
@@ -222,6 +261,9 @@ OceanScene::OceanScene( void )
     
     _defaultSceneShader = createDefaultSceneShader();
     ShaderManager::instance().setGlobalDefinition("osgOcean_LightID", _lightID);
+
+    //groundTruthData = NULL;
+
 }
 
 OceanScene::OceanScene( OceanTechnique* technique )
@@ -374,7 +416,7 @@ OceanScene::~OceanScene( void )
 void OceanScene::init( void )
 {
     osg::notify(osg::INFO) << "OceanScene::init()" << std::endl;
-
+    groundTruthData = new GroundTruth();
     _godrayPreRender  = NULL;
     _godrayPostRender = NULL;
 
@@ -594,6 +636,8 @@ void OceanScene::init( void )
     }
     
     _isDirty = false;
+    start_ = ros::Time::now();
+    frame = 0;
 }
 
 OceanScene::ViewData* OceanScene::getViewDependentData( osgUtil::CullVisitor * cv )
@@ -858,6 +902,112 @@ void OceanScene::enableRTTEffectsForView(osg::View* view, bool enable)
     }
 }
 
+void OceanScene::processGroup( osg::Group* group, osg::Matrix MVPW, double height)
+{
+//	std::cerr<<"\n it is a group! "<<group;
+//	std::cerr<<" --  children: "<<group-> getNumChildren ();
+	for (unsigned int c =0; c< group-> getNumChildren ();c++)
+	{
+		osg::Node* node = group->getChild(c);
+		//std::cerr<<"\n node: "<<node;
+		if (node->asGeode())
+		{
+			processGeode(node->asGeode(), MVPW, height);
+		}
+		else if (node->asGroup())
+		{
+			processGroup(node->asGroup(), MVPW, height);
+		}
+		else
+		{
+			//std::cerr<<"\n processGroup ->  not geode";
+
+		}
+	}
+
+}
+
+void OceanScene::processGeode( osg::Geode* geode, osg::Matrix MVPW, double height)
+{
+	//std::cerr<<"\n geode:: drawables: "<<geode->getNumDrawables();
+	for (unsigned int d =0; d< geode->getNumDrawables();d++)
+	{
+		//osg::Geometry::ArrayData arrayVertex = _floatingObjects[i]->asGeode()->getDrawable(d)->asGeometry()->getVertexData();
+		//std::cerr<<" - geometry "<<geode->getDrawable(d)->asGeometry();
+		if (geode->getDrawable(d)->asGeometry())
+		{
+			/*
+			 osg::Matrixd* worldMatrix = NULL;
+		   getWorldCoordOfNodeVisitor* ncv = new getWorldCoordOfNodeVisitor();
+		   if (ncv)
+		   {
+			   std::cerr<<"\n trying to accept "<<ncv;
+			   //geode->accept(*ncv);
+			   ncv->apply(*geode);
+			   std::cerr<<"\n get matrix";
+			   worldMatrix =  ncv->giveUpDaMat();
+			   std::cerr<<"\n done";
+			   std::cerr<<"\n done";
+		   }*/
+			osg::Matrix world(osg::computeLocalToWorld(geode->getParentalNodePaths()[0]));
+			osg::Vec3Array *vertices = (osg::Vec3Array *)geode->getDrawable(d)->asGeometry()->getVertexArray();
+			//std::cerr<<" vertices: "<<vertices;
+			for (unsigned int v = 0; v < vertices->size(); v++)
+			{
+				//std::cerr<<"\n get p";
+				osg::Vec3 p = vertices->at(v);
+
+				//std::cerr<<"\n p.z: "<<p.z()<<" height: "<<height;
+				osg::Vec3 w = p*world;
+				osg::Vec3f normal = osg::Vec3f(0,0,1);
+				height = (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(w.x(), w.y(), &normal));
+				if (w.z() >= height)
+				{
+					//osg::Vec3 w = world.preMult(p);
+
+					/*std::cerr<<"\n worldMatrix: "<<worldMatrix;
+					if (worldMatrix!=NULL)
+					{
+						w = p *(*worldMatrix);
+					}
+					//*/
+					//std::cerr<<"\n p: "<<p.x()<<", "<<p.y()<<", "<<p.z();
+					//std::cerr<<"\n w: "<<w.x()<<", "<<w.y()<<", "<<w.z();
+					osg::Vec3 point = w * MVPW;
+					//std::cerr<<"\n point: "<<point.x()<<", "<<point.y()<<", "<<point.z();
+					if (minX > point.x())
+						minX = point.x();
+					if (minY > point.y())
+						minY = point.y();
+					if (maxX < point.x())
+						maxX = point.x();
+					if (maxY < point.y())
+						maxY = point.y();
+				}
+				else
+				{
+					// simplification to get close water line
+					osg::Vec3 point = w * MVPW;
+					//if (minX < point.x() && point.x() < maxX)
+					{
+						//point = osg::Vec3(w.x(), w.y(), point.z()) * MVPW;
+						point = osg::Vec3(w.x(), w.y(), height) * MVPW;
+						if (minY > point.y())
+							minY = point.y();
+						if (maxY < point.y())
+							maxY = point.y();
+					}
+				}
+			}
+		}
+		if (geode->getDrawable(d)->getShape())
+		{
+			//std::cerr<<" ---- it is a shape";
+		}
+	}
+
+}
+
 void OceanScene::traverse( osg::NodeVisitor& nv )
 {
     if( nv.getVisitorType() == osg::NodeVisitor::UPDATE_VISITOR )
@@ -876,10 +1026,12 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
         if (cv) 
         {
             osg::Camera* currentCamera = cv->getCurrentRenderBin()->getStage()->getCamera();
-
+std::cerr<<"\n camera name: "<<currentCamera->getName();
             if (currentCamera->getName() == "ShadowCamera" ||
-                currentCamera->getName() == "AnalysisCamera" ||
-		currentCamera->getName() == "CamViewCamera")
+                currentCamera->getName() == "AnalysisCamera"
+		        //|| currentCamera->getName() == "CamViewCamera"
+        		|| currentCamera->getName() == "MainCamera"
+        				)
             {
                 // Do not do reflections and everything if we're in a shadow pass.
                 osg::Group::traverse(nv);
@@ -906,86 +1058,86 @@ void OceanScene::traverse( osg::NodeVisitor& nv )
                 bool surfaceVisible = _oceanSurface->isVisible(*cv, eyeAboveWater);
 
                 (*_oceanSurface->getCullCallback())(_oceanSurface.get(), &nv);
-		osg::Vec3f normal = osg::Vec3f(0,0,1);
+				osg::Vec3f normal = osg::Vec3f(0,0,1);
 
 
-		//prepare position of USV  to reflection
-		for (unsigned int i =0; i< _floatingObjects.size();i++)
-		{
-
-			//std::cerr<<"\n _floatingObjects: "<<_floatingObjects[i]->getName();
-			osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
-			if ((ptrTransform!=NULL) && _floatingObjects[i]->getName().length()>0)
-			{
-/*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
-				if (ptrMT != NULL)
-				{				
-					osg::Matrixd	m = ptrMT->getMatrix();
-					_floatingObjectsHeight[i] = m.getTrans().z();
-					if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
-					else
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
-					m.preMultTranslate(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
-
-					ptrMT->setMatrix(m);
-				}*/
-
-				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
-				if (ptrMT != NULL)
+				//prepare position of USV  to reflection
+				for (unsigned int i =0; i< _floatingObjects.size();i++)
 				{
-					osg::Matrixd	m = ptrMT->getMatrix();
-					_floatingObjectsHeight[i] = m.getTrans().z();
-					if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
-					else
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
-					m.setTrans(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
-					ptrMT->setMatrix(m);
+
+					//std::cerr<<"\n _floatingObjects: "<<_floatingObjects[i]->getName();
+					osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
+					if ((ptrTransform!=NULL) && _floatingObjects[i]->getName().length()>0)
+					{
+		/*				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+						if (ptrMT != NULL)
+						{
+							osg::Matrixd	m = ptrMT->getMatrix();
+							_floatingObjectsHeight[i] = m.getTrans().z();
+							if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+							else
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+							m.preMultTranslate(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
+
+							ptrMT->setMatrix(m);
+						}*/
+
+						osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+						if (ptrMT != NULL)
+						{
+							osg::Matrixd	m = ptrMT->getMatrix();
+							_floatingObjectsHeight[i] = m.getTrans().z();
+							if (m.getTrans().z() >= (_surfaceHeight+_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)))
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+							else
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+							m.setTrans(osg::Vec3f (m.getTrans().x(), m.getTrans().y(), m.getTrans().z()-2*_oceanSurface->getSurfaceHeightAt(m.getTrans().x(), m.getTrans().y(), &normal)));
+							ptrMT->setMatrix(m);
+						}
+		/*				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+		std::cerr<<"\n ptrPAT: "<<ptrPAT;
+						if (ptrPAT != NULL)
+						{
+							std::cerr<<"\n z: "<<ptrPAT->getPosition().z()<<" >= "<<(_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal));
+							if (ptrPAT->getPosition().z() >= (_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)))
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
+							else
+									_floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
+							_floatingObjectsHeight[i] = ptrPAT->getPosition().z();
+							ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
+
+						}*/
+					}
+
 				}
-/*				osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
-std::cerr<<"\n ptrPAT: "<<ptrPAT;
-				if (ptrPAT != NULL)
-				{
-					std::cerr<<"\n z: "<<ptrPAT->getPosition().z()<<" >= "<<(_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal));
-					if (ptrPAT->getPosition().z() >= (_surfaceHeight-2+_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)))
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() );
-					else
-						    _floatingObjects[i]->setNodeMask( getNormalSceneMask() | getReflectedSceneMask() | getRefractedSceneMask());
-					_floatingObjectsHeight[i] = ptrPAT->getPosition().z();
-					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), ptrPAT->getPosition().z()-2*_oceanSurface->getSurfaceHeightAt(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), &normal)));
-
-				}*/
-			}
-
-		}
 
                 preRenderCull(*cv, eyeAboveWater, surfaceVisible);     // reflections/refractions
 
-		//return position of USV  after reflection
-		for (unsigned int i =0; i< _floatingObjects.size();i++)
-		{
-			osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
-
-			if (ptrTransform!=NULL)
-			{
-
-				osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
-				if (ptrMT != NULL)
-				{				
-					osg::Matrixd	m = ptrMT->getMatrix();
-					m.setTrans (osg::Vec3f(m.getTrans().x(), m.getTrans().y(), _floatingObjectsHeight[i]));
-					ptrMT->setMatrix(m);
-				}
-				/*osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
-				if (ptrPAT != NULL)
+				//return position of USV  after reflection
+				for (unsigned int i =0; i< _floatingObjects.size();i++)
 				{
-					ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
-				}*/
+					osg::Transform* ptrTransform = (osg::Transform*)_floatingObjects[i]->asTransform ();
 
-			}
+					if (ptrTransform!=NULL)
+					{
 
-		}
+						osg::MatrixTransform *ptrMT = ptrTransform->asMatrixTransform();
+						if (ptrMT != NULL)
+						{
+							osg::Matrixd	m = ptrMT->getMatrix();
+							m.setTrans (osg::Vec3f(m.getTrans().x(), m.getTrans().y(), _floatingObjectsHeight[i]));
+							ptrMT->setMatrix(m);
+						}
+						/*osg::PositionAttitudeTransform* ptrPAT = ptrTransform->asPositionAttitudeTransform();
+						if (ptrPAT != NULL)
+						{
+							ptrPAT->setPosition(osg::Vec3f(ptrPAT->getPosition().x(), ptrPAT->getPosition().y(), _floatingObjectsHeight[i]));
+						}*/
+
+					}
+
+				}
                 
                 // Above water
                 if( eyeAboveWater )
@@ -1000,12 +1152,120 @@ std::cerr<<"\n ptrPAT: "<<ptrPAT;
                         cull(*cv, eyeAboveWater, surfaceVisible);        // normal scene render
                 }
 
-                postRenderCull(*cv, eyeAboveWater, surfaceVisible);    // god rays/dof/glare
+                osg::Matrix MVPW( currentCamera->getViewMatrix() *
+                                  currentCamera->getProjectionMatrix() *
+                                  currentCamera->getViewport()->computeWindowMatrix());
 
-                if (vd)
+                for (unsigned int i =0; i< _floatingObjects.size();i++)
                 {
-                    cv->popStateSet();
+                	std::cerr<<"\n floating : "<<i;
+                	if (_floatingObjects[i]->getName().find("airboat2") !=std::string::npos)
+                	{
+						maxX=-6000;
+						maxY=-6000;
+						minX=6000;
+						minY=6000;
+						if (_floatingObjects[i]->asGeode())
+						{
+							processGeode(_floatingObjects[i]->asGeode(), MVPW, _floatingObjectsHeight[i]);
+						}
+						else if (_floatingObjects[i]->asGroup())
+						{
+							processGroup(_floatingObjects[i]->asGroup(), MVPW, _floatingObjectsHeight[i]);
+						}
+						else
+						{
+							//std::cerr<<"\n main -> not geode";
+						}
+						std::cerr<<" box: "<<i<<" "<<_floatingObjects[i]->getName()<<" -> X: "<<minX<<" - "<<maxX<<"  Y: "<<minY<<" - "<<maxY;
+						if (groundTruthData!=NULL)
+						{
+							std::cerr<<"\n saving groundTruthData "<<groundTruthData;
+							std::string filename;
+							std::stringstream ss;
+							ss << "/home/lsa/imagensComMarcacao2/image_"<<frame++<<"_"<<groundTruthData->x<<"_"<<groundTruthData->y<<"_"<<groundTruthData->width<<"_"<<groundTruthData->height<<".jpg";
+							filename= ss.str();
+
+							groundTruthData->x = minX;
+							groundTruthData->y = currentCamera->getViewport()->height() - maxY;
+							groundTruthData->width = maxX-minX;
+							groundTruthData->height = maxY-minY;
+							std::cerr<<" saved!";
+
+							//osgcurrentCamera->getBufferAttachmentMap().find(osg::Camera::COLOR_BUFFER);
+							osg::ref_ptr<osg::Image> image = NULL;
+							std::map<osg::Camera::BufferComponent, osg::Camera::Attachment> bam = currentCamera->getBufferAttachmentMap();
+							if (!bam.empty())
+							{
+							   osg::Camera::BufferAttachmentMap::iterator iter = bam.find(osg::Camera::COLOR_BUFFER);
+							   if (iter != bam.end())
+								  image = iter->second._image;
+							}
+
+
+							std::cerr<<"\n image: "<<image;
+							if (image!=NULL)
+								osgDB::writeImageFile(*image,filename);
+						}
+                	}
                 }
+                std::cerr<<"\n ---- end groundtruth marking";//*/
+
+                postRenderCull(*cv, eyeAboveWater, surfaceVisible);    // god rays/dof/glare
+                std::cerr<<"\n ---- end postRenderCull";
+                //std::stringstream ss;
+				//ss << " image_"<<frame++<<"_"<<minX<<"_"<<minY<<"_"<<(maxX-minX)<<"_"<<(maxY-minY)<<".jpg";
+                //currentCamera->setName(ss.str());
+/*
+				ros::Time end_;
+
+
+				end_ = ros::Time::now();
+				std::cerr<<"\n diferenca tempo: "<<(end_ - start_).toSec();
+				if ((end_ - start_).toSec() > 1)
+				{
+					start_ = end_;
+					int x,y,width,height;
+					x = currentCamera->getViewport()->x();
+					y = currentCamera->getViewport()->y();
+					width = currentCamera->getViewport()->width();
+					height = currentCamera->getViewport()->height();
+//					osg::ref_ptr<osg::Image> image = new osg::Image(currentCamera->renderTexture.get());
+
+					osg::ref_ptr<osg::Image> image = new osg::Image;
+					//image->allocateImage(width, height, 1, GL_RGBA, GL_FLOAT);
+					image->allocateImage(width, height, 1, GL_RGB, GL_UNSIGNED_BYTE);
+					image->setInternalTextureFormat(GL_RGBA16F_ARB);
+					//image->readPixels(x,y,width,height,GL_RGB,GL_UNSIGNED_BYTE);
+					//image->readImageFromCurrentTexture(contextId, false, GL_UNSIGNED_BYTE);
+
+					currentCamera->setRenderTargetImplementation(osg::Camera::FRAME_BUFFER_OBJECT);
+					currentCamera->setRenderOrder(osg::Camera::PRE_RENDER);
+					currentCamera->setClearMask(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					currentCamera->setViewport(0, 0, width, height);
+					currentCamera->attach(osg::Camera::COLOR_BUFFER, image);
+					//*/
+                /*
+					std::string filename;
+					std::stringstream ss;
+					ss << "/home/paravisi/imagensComMarcacao/image_"<<frame++<<"_"<<minX<<"_"<<minY<<"_"<<(maxX-minX)<<"_"<<(maxY-minY)<<".jpg";
+					filename= ss.str();
+					std::cerr<<"\n image: "<<image;
+
+					if (osgDB::writeImageFile(*image,filename))
+					{
+						std::cerr << "\nSaved screen image to `"<<filename<<"`"<< std::endl;
+					}
+					else
+						std::cerr << "\nCant save screen image to `"<<filename<<"`"<< std::endl;
+
+
+				}
+//*/
+				if (vd)
+				{
+					cv->popStateSet();
+				}
             }
         }
         else
@@ -1133,6 +1393,7 @@ void OceanScene::cull(osgUtil::CullVisitor& cv, bool eyeAboveWater, bool surface
             osg::Node* child = getChild(i);
             if (child->getNodeMask() != 0 && child != _oceanTransform.get() && child != _siltClipNode.get())
                 child->setNodeMask((child->getNodeMask() & ~_surfaceMask & ~_siltMask) | _normalSceneMask | _reflectionSceneMask | _refractionSceneMask);
+                //child->setNodeMask((child->getNodeMask() & ~_surfaceMask & ~_siltMask) | _normalSceneMask | _refractionSceneMask);
         }
 
         // Push the view-dependent surface stateset.

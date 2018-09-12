@@ -30,17 +30,22 @@ SceneBuilder::SceneBuilder()
 {
   int argc = 0;
   char **argv = NULL;
+
+
   arguments.reset(new osg::ArgumentParser(&argc, argv));
 }
 
 SceneBuilder::SceneBuilder(int *argc, char **argv)
 {
   arguments.reset(new osg::ArgumentParser(argc, argv));
+
+
 }
 
 SceneBuilder::SceneBuilder(boost::shared_ptr<osg::ArgumentParser> args)
 {
   arguments = args;
+
 }
 
 bool SceneBuilder::loadScene(std::string xml_file)
@@ -127,6 +132,7 @@ bool SceneBuilder::loadScene(ConfigFile config)
   //Initialize ocean scene.
   scene = new osgOceanScene(config.offsetp, config.offsetr, windDirection, windSpeed, depth, reflectionDamping, scale,
                             isChoppy, choppyFactor, crestFoamHeight, false, "terrain");
+
 
   if (disableShaders)
   {
@@ -336,9 +342,11 @@ bool SceneBuilder::loadScene(ConfigFile config)
         for (unsigned int c = 0; c < iauvFile[j]->getNumCams(); c++)
           if (iauvFile[j]->camview[c].name == rosInterface.targetName)
 	  {
+
             iface = boost::shared_ptr < VirtualCameraToROSImage
-                > (new VirtualCameraToROSImage(&(iauvFile[j]->camview[c]), rosInterface.topic, rosInterface.infoTopic,
+                > ( new VirtualCameraToROSImage(&(iauvFile[j]->camview[c]), rosInterface.topic, rosInterface.infoTopic,
                                                rosInterface.rate, rosInterface.depth));
+
 	    correspondences++;
 	  }
       }

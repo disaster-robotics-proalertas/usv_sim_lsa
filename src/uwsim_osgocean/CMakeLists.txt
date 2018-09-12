@@ -22,6 +22,8 @@ SET(CMAKE_MINSIZEREL_POSTFIX "s" CACHE STRING "add a postfix, usually s")
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules;{CMAKE_MODULE_PATH}")
 
+
+
 find_package (osg REQUIRED)
 include_directories (${OSG_INCLUDE_DIR})
 

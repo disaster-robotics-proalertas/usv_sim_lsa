@@ -331,7 +331,7 @@ def process_objects(objcts, datapath):
     return object_nodes
     
 if __name__ == '__main__':
-    
+    print "\n Starting parser"
     rospy.init_node('scene_to_spawner')
     
     # parse launch file to get uwsim info

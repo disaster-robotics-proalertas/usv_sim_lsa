@@ -8,7 +8,7 @@
     <include file="$(find gazebo_ros)/launch/empty_world.launch" unless="$(arg parse)">
         <arg name="use_sim_time" value="true" />
         <arg name="debug" value="false" />
-        <arg name="gui" value="false" />
+        <arg name="gui" value="true" />
         <arg name="paused" value="true"/>
         <arg name="verbose" value="true"/>
         <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
@@ -34,6 +34,15 @@
 			<arg name="namespace" default="airboat"/>  
 	    	<arg name="spawnerUsed" default="true"/>
             <node name="patrol" pkg="usv_navigation" type="patrol_pid_scene2.py" ns="airboat" unless="$(arg gui)"/>
+			<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
+			<!--
+			<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/usv_sim_lsa/bags/airboat_scenario2alto.bag /airboat/state" output="screen"/>
+			-->
+	</group>
+	
+	<group unless="$(arg parse)">
+			<arg name="namespace" default="airboat2"/>  
+	    	<arg name="spawnerUsed" default="true"/>
 			<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
 			<!--
 			<node pkg="rosbag" type="record" name="record_airboat" args="-O /home/paravisi/usv_sim_lsa/bags/airboat_scenario2alto.bag /airboat/state" output="screen"/>

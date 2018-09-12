@@ -38,6 +38,8 @@
 #include <osg/Drawable>
 #include <osg/Geometry>
 
+
+
 //STL
 #include <vector>
 
@@ -418,6 +420,7 @@ class VirtualCameraToROSImage : public ROSPublisherInterface
   VirtualCamera *cam;
   int depth;
   int bw;
+  int imageNumber;
 public:
 
   VirtualCameraToROSImage(VirtualCamera *camera, std::string topic, std::string info_topic, int rate, int depth);
@@ -430,6 +433,7 @@ public:
 
   osg::ref_ptr < osg::Image > osgimage;
   OpenThreads::Mutex mutex; //Mutex to avoid image overwriting
+
 
 };
 

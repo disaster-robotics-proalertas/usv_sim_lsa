@@ -66,6 +66,7 @@ SET( LIB_HEADERS
   ${HEADER_PATH}/RandUtils
   ${HEADER_PATH}/ScreenAlignedQuad
   ${HEADER_PATH}/ShaderManager
+  ${HEADER_PATH}/GroundTruth
   ${HEADER_PATH}/SiltEffect
   ${HEADER_PATH}/WaterTrochoids
   ${HEADER_PATH}/Export
