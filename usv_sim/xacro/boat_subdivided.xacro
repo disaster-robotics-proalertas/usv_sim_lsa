@@ -13,6 +13,11 @@
     <xacro:property name="back_water_displaced_mass" value="40"/>
     <xacro:property name="middle_water_displaced_mass" value="60"/>
     <xacro:property name="front_water_displaced_mass" value="25"/>
+    <xacro:property name="scale" value="0.3"/>
+    <xacro:property name="bl1" value=".1" />
+    <xacro:property name="bl2" value=".1" />
+    <xacro:property name="windType" value="global" />
+    <xacro:property name="waterType" value="global" />
 
     <!-- Thruster constants -->
     <xacro:property name="tr1" value=".02" />
@@ -52,8 +57,69 @@
         </buoyancy>
     </link>
 
+<!-- Thruster link -->
+    <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=base_link">
+        <joint name="${name}_joint" type="revolute">
+            <parent link="${parentLink}"/>
+            <child link="${name}"/>
+            <origin rpy="${rpy}" xyz="${xyz}"/>
+            <dynamics damping="10.0"/>
+            <axis xyz="${rotationAxis}"/>
+            <limit effort="${effort}" velocity="${velocity}" lower="${lowerLimit}" upper="${upperLimit}" />
+        </joint>
+        
+        <link name="${name}">      
+            <buoyancy>
+				<compensation>0.8</compensation>
+	        	<fluidVelocity>${windType}</fluidVelocity>
+	    	</buoyancy>
+	    	<collision>
+          		<origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0"/>
+          		<geometry>
+          		    <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
+          		</geometry>
+        	</collision>
+
+            <visual name="${name}">
+                <origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://usv_sim/meshes/simpleHull3/thruster.dae" scale="${scale} ${scale} ${scale}"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="255 255 255 1"/>
+                </material>
+            </visual>  
+
+            <inertial>
+                <mass value="5"/>
+                <origin xyz="${-0.2*scale} 0 ${0.3*scale}" rpy="0 0 0" />
+                <inertia
+                    ixx=".1"
+                    ixy="0.0"
+                    ixz="0.0"
+                    iyy=".1"
+                    iyz="0.0"
+                    izz=".1"/>
+            </inertial>  
+        </link>                 
+            
+        <gazebo reference="${name}">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>                   
+
+    <xacro:macro name="thruster_dummy_link" params="name xyz rpy">        
+        <joint name="${name}" type="fixed">
+            <parent link="base_link"/>
+            <child link="${name}"/>
+            <origin rpy="${rpy}" xyz="${xyz}"/>
+        </joint>
+        <link name="${name}"/>
+    </xacro:macro>  
+    
+    
     <!-- Thruster link -->
-    <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=back_r_link">
+    <xacro:macro name="airthruster_link" params="name xyz rpy rotationAxis effort:=100 velocity:=20 lowerLimit upperLimit parentLink:=base_link">
         <joint name="${name}_joint" type="revolute">
             <parent link="${parentLink}"/>
             <child link="${name}"/>
@@ -66,23 +132,20 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>1.0</compensation>
-	        	<fluidVelocity>local</fluidVelocity>
+	        	<fluidVelocity>${waterType}</fluidVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>
           		<geometry>
-          			<box size="tl1 tl1 tl2" />
+          			<box size="${bl1} ${bl1} ${bl2}" />
           		</geometry>
         	</collision>
 
             <visual name="${name}">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://usv_sim/meshes/simpleHull/thruster.obj"/>
+                    	<mesh filename="package://usv_sim/meshes/simpleHull3/airPropeller.dae" scale="${scale} ${scale} ${scale}"/>
                 </geometry>
-                <material name="black">
-                    <color rgba="255 255 255 1"/>
-                </material>
             </visual>  
 
             <inertial>
@@ -115,7 +178,7 @@
     <xacro:macro name="rudder_xacro">
         <link name="rudder">
             <inertial>
-                <mass value="0.05" />
+                <mass value="1" />
                 <inertia
                   ixx="0.05"
                   ixy="0.0"
@@ -127,28 +190,34 @@
 
             <collision name="collision">
                 <geometry>
-                  <box size="0.2 0.02 0.3" />
+                  <box size="${0.2*scale} ${0.02*scale} ${0.3*scale}" />
                 </geometry>
-                <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+                <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
             </collision>
 
             <visual name="visual">
                 <geometry>
-                  <box size="0.1 0.02 0.3" />
+                
+                  <mesh filename="package://usv_sim/meshes/simpleHull3/box.dae" scale="${0.2*scale} ${0.02*scale} ${0.3*scale}"/>
+                  
                 </geometry>
-                <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+                <origin rpy="0 0 0" xyz="${-0.1*scale} 0 0"/>
+                
             </visual>
+
         </link>
 
         <joint name="rudder_joint" type="revolute">
-            <parent link="back_r_link"/>
+            <parent link="base_link"/>
             <child link="rudder"/>
-            <origin rpy="0 0 0" xyz="-1.2 0.22 -0.5"/>
+            <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.39*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
             <axis xyz="0 0 1"/>
-            <limit effort="50" velocity="5" lower="-${PI/3}" upper="${PI/3}" />
+            <limit effort="100" velocity="5" lower="-${PI/2}" upper="${PI/2}" />
         </joint>
     </xacro:macro> 
+
+
 
     <!-- Sensors -->
 

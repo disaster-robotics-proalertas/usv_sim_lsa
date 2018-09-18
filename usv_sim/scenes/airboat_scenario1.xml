@@ -308,36 +308,6 @@
 	<linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-	<OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/center_r_link</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>center_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
-
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/back_r_link</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>back_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
-    
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/back_l_link</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>back_l_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
-
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/front_r_link</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>front_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
-    
-    <OceanSurfaceToROSOceanVehicle>
-	<topic>/airboat/Surface/front_l_link</topic>
-	<vehicleName>airboat</vehicleName>
-	<linkName>front_l_link</linkName>
-    </OceanSurfaceToROSOceanVehicle> 
-    
      <OceanSurfaceToROSOceanVehicle>
 	<topic>/airboat/Surface/fwd</topic>
 	<vehicleName>airboat</vehicleName>
