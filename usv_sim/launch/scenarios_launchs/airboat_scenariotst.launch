@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+
+    <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+        <arg name="namespace" default="airboat"/>  
+        <arg name="spawnerUsed" default="true"/>
+
+        <!-- Launch Gazebo with empty world -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="use_sim_time" value="true" />
+            <arg name="debug" value="false" />
+            <arg name="gui" value="true" />
+            <arg name="paused" value="true"/>
+            <arg name="verbose" value="true"/>
+            <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+        </include>
+
+		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch" pass_all_args="true"/>
+
+	</group>
+
+</launch>

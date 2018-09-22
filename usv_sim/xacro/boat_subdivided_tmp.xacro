@@ -22,23 +22,25 @@
 
     <link name="base_link">
         <visual>
-          <origin rpy="0 0 0" xyz="0 0 1"/>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull3/base_link.dae" scale="${scale} ${scale} ${scale}"/>
+              <box size="2 0.75 0.25"/>
           </geometry>
         </visual>
+
         <collision>
           <origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull3/base_link.dae" scale="${scale} ${scale} ${scale}"/>
+              <box size="2 0.75 0.25"/>
           </geometry>
         </collision>
 
         <inertial>
-            <origin rpy="0 0 0" xyz="${0.35*scale} ${0.44*scale} ${-0.2*scale}"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
           <mass value="${middle_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
+          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.4"/>
         </inertial>
+
         <buoyancy>
 			<compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
 			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
@@ -51,214 +53,6 @@
 	  		<fluidVelocity>${waterType}</fluidVelocity>
         </buoyancy>
     </link>
-
-
-    
-    
-    <link name="center_r_link">
-    	<visual>
-          <origin rpy="0 0 0"  xyz="0 0 ${0*scale}"/>
-          <geometry>
-            <mesh filename="package://usv_sim/meshes/simpleHull3/centerRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </visual>
-        
-        <collision>
-          <origin rpy="0 0 0"  xyz="0 0 ${0*scale}"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/centerRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${0.35*scale} ${-0.44*scale} ${-0.2*scale}"/>
-          <mass value="${middle_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
-          <origin xyz="${0.35*scale} ${-0.44*scale} ${-0.15*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-			<windVelocity>${windType}</windVelocity>
-			<frontal_area>0.0</frontal_area>
-			<lateral_area>0.06</lateral_area>
-			<lateral_length>1.2</lateral_length>
-	  <fluidVelocity>${waterType}</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="center_r_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="center_r_link"/>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
-
-
-    <link name="back_l_link">
-        <visual>
-          <origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/backLeft.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </visual>
-        <collision>
-          <origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/backLeft.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${-0.6*scale} 0 ${-0.2*scale}"/>
-          <mass value="${back_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-			<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-			<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
-			<limit radius="0.1"/>
-			<damping rpy="20 20 20" xyz="20 40 50"/>
-			<windVelocity>${windType}</windVelocity>
-			<frontal_area>0.04</frontal_area>
-			<lateral_area>0.06</lateral_area>
-			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="back_l_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="back_l_link"/>
-        <origin rpy="0 0 0" xyz="${-0.5*scale} ${0.39*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
-
-    <link name="back_r_link">
-    	<visual>
-          <origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/backRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-    	</visual>
-        <collision>
-          <origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/backRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${-0.6*scale} 0 ${-0.2*scale}"/>
-          <mass value="${back_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          	<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
-          	<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
-          	<limit radius="0.1"/>
-          	<damping rpy="20 20 20" xyz="20 40 50"/>
-          	<windVelocity>${windType}</windVelocity>
-			<frontal_area>0.04</frontal_area>
-			<lateral_area>0.06</lateral_area>
-			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="back_r_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="back_r_link"/>
-        <origin rpy="0 0 0" xyz="${-0.5*scale} ${-0.39*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
-
-
-    <link name="front_l_link">
-    	<visual>
-    	<origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontLeft.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-    	</visual>
-        <collision>
-          <origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontLeft.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${0.4*scale} 0 ${-0.1*scale}"/>
-          <mass value="${front_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          	<compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          	<origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
-          	<limit radius="0.1"/>
-          	<damping rpy="20 20 20" xyz="20 40 50"/>
-          	<windVelocity>${windType}</windVelocity>
-			<frontal_area>0.04</frontal_area>
-			<lateral_area>0.06</lateral_area>
-			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="front_l_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="front_l_link"/>
-        <origin rpy="0 0 0" xyz="${1.3*scale} ${0.2*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
-    
-    <link name="front_r_link">
-    	<visual>
-    		<origin rpy="0 0 0"  xyz="0 0 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </visual>
-        <collision>
-          <origin rpy="0 0 0"  xyz="${0*scale} ${0*scale} 0"/>
-          <geometry>
-           	<mesh filename="package://usv_sim/meshes/simpleHull3/frontRight.dae" scale="${scale} ${scale} ${scale}"/>
-          </geometry>
-        </collision>
-
-        <inertial>
-            <origin rpy="0 0 0" xyz="${0.4*scale} 0 ${-0.1*scale}"/>
-          <mass value="${front_body_mass}"/>
-          <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="1.4" iyz="0.0" izz="1.4"/>
-        </inertial>
-        <buoyancy>
-          <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
-          <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
-          <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="20 40 50"/>
-          <windVelocity>${windType}</windVelocity>
-	  <fluidVelocity>${waterType}</fluidVelocity>
-        </buoyancy>
-    </link>
-
-    <joint name="front_r_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="front_r_link"/>
-        <origin rpy="0 0 0" xyz="${1.3*scale} ${-0.2*scale} 0"/>
-	<limit effort="50" velocity="5" lower="0" upper="0" />
-            <dynamics damping="1.0"/>
-            <axis xyz="1 0 0"/>
-    </joint>
 
     <!-- Thruster link -->
     <xacro:macro name="thruster_link" params="name xyz rpy rotationAxis effort:=50 velocity:=5 lowerLimit upperLimit parentLink:=back_r_link">
@@ -322,7 +116,7 @@
     
     
     <!-- Thruster link -->
-    <xacro:macro name="airthruster_link" params="name xyz rpy rotationAxis effort:=100 velocity:=20 lowerLimit upperLimit parentLink:=back_r_link">
+    <xacro:macro name="airthruster_link" params="name xyz rpy rotationAxis effort:=100 velocity:=20 lowerLimit upperLimit parentLink:=base_link">
         <joint name="${name}_joint" type="revolute">
             <parent link="${parentLink}"/>
             <child link="${name}"/>
@@ -411,7 +205,7 @@
         </link>
 
         <joint name="rudder_joint" type="revolute">
-            <parent link="back_r_link"/>
+            <parent link="base_link"/>
             <child link="rudder"/>
             <origin rpy="0 0 0" xyz="${-1.4*scale} ${0.39*scale} ${-0.5*scale}"/>
             <dynamics damping="1.0"/>
