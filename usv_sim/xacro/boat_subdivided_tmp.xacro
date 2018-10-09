@@ -43,7 +43,7 @@
 
         <buoyancy>
 			<compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
-			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
+			<origin xyz="$0 0 -1"/>
 			<limit radius="0.1"/>
 			<damping rpy="20 20 20" xyz="20 40 50"/>
          	<windVelocity>${windType}</windVelocity>
