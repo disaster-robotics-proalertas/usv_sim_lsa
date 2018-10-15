@@ -48,14 +48,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>95 </y>
-      <z>15 </z>
+      <x> -10</x>
+      <y> 0 </y>
+      <z> 15 </z>
     </position> 
     <lookAt>
-      <x>245</x>
-      <y>95 </y>
-      <z>5 </z>
+      <x> 5</x>
+      <y> 0 </y>
+      <z> 5 </z>
     </lookAt>
   </camera>
 
@@ -67,8 +67,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 240</x>
-      <y> 95 </y>
+      <x> 0 </x>
+      <y> 0 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -112,6 +112,7 @@
 	<vehicleName>airboat</vehicleName>
 	<linkName>fwd</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+
 
 	<ROSJointStateToArm> 
    		<topic>/airboat/joint_states</topic>
