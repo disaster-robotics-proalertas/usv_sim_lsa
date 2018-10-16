@@ -51,6 +51,7 @@
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
 	  		<fluidVelocity>${waterType}</fluidVelocity>
+            <fluidDensity>1000</fluidDensity>
         </buoyancy>
     </link>
 
