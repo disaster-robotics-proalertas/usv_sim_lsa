@@ -61,6 +61,7 @@ vec4 lighting( vec4 colormap )
 		final_color += gl_LightSource[osgOcean_LightID].specular * specular;
 	}
 
+
 	return final_color;
 }
 
@@ -81,7 +82,7 @@ void main(void)
     // Underwater
 	// +2 tweak here as waves peak above average wave height,
 	// and surface fog becomes visible.
-	if(osgOcean_EyeUnderwater && vWorldHeight < osgOcean_WaterHeight+2.0 )
+	if(osgOcean_EyeUnderwater && vWorldHeight < osgOcean_WaterHeight+20.0 )
 	{
 		final_color = lighting( textureColor );
 
@@ -110,6 +111,6 @@ void main(void)
 			final_color.a = 0.0;
         }
 	}
-
+	final_color.set(1,0,0,0);
 	gl_FragColor = final_color;
 }
