@@ -45,6 +45,7 @@
     <groundTruth>
     	<imageLocation>/home/lsa/imagesGT</imageLocation>
     	<type>save</type>
+    	<gt_shader>1</gt_shader>
     </groundTruth>
   </simParams>
   

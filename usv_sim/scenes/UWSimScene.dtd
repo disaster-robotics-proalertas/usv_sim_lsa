@@ -41,6 +41,8 @@
 <!ELEMENT type (#PCDATA)>
 <!ELEMENT imageLocation (#PCDATA)>
 <!ELEMENT obstacleName (#PCDATA)>
+<!ELEMENT gt_shader (#PCDATA)>
+
 
 
 
@@ -67,7 +69,7 @@
 <!ELEMENT resw (#PCDATA)>
 <!ELEMENT resh (#PCDATA)>
 <!ELEMENT showTrajectory (target,color?,lineStyle?,timeWindow?)>
-<!ELEMENT groundTruth (imageLocation?, obstacleName?,type)>
+<!ELEMENT groundTruth (imageLocation?, obstacleName?,type, gt_shader?)>
 <!ELEMENT lineStyle (#PCDATA)>
 <!ELEMENT timeWindow (#PCDATA)>
 <!ELEMENT enablePhysics (#PCDATA)>
