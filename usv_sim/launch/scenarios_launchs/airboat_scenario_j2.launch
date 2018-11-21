@@ -6,7 +6,7 @@
 
     <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
-		<arg name="disableShaders" default="false"/>
+	<arg name="disableShaders" default="true"/>
         <arg name="namespace" default="airboat"/>  
         <arg name="spawnGazebo" default="true"/>
 

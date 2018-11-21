@@ -9,6 +9,7 @@
     <windSpeed> 3.2 </windSpeed>
     <depth> 100 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
+    <reflection>0</reflection>
     <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -1.5 </choppyFactor>
@@ -42,8 +43,9 @@
       <target>airboat</target>
     </showTrajectory>
     <groundTruth>
-    	<imageLocation>~/imagesGT/</imageLocation>
+    	<imageLocation>/home/lsa/imagesGT</imageLocation>
     	<type>save</type>
+    	<gt_shader>1</gt_shader>
     </groundTruth>
   </simParams>
   
@@ -133,6 +135,12 @@
    		<topic>/airboat/joint_states</topic>
    		<vehicleName>airboat</vehicleName>
    	</ROSJointStateToArm>
+   	
+   	<VirtualCameraToROSImage>
+   		<cameraName>airboatCamera</cameraName>
+   		<imageTopic>/uwsim/cameraAirboat_gt</imageTopic>
+   		<infoTopic>/uwsim/infoCameraAirboat_gt</infoTopic>
+	</VirtualCameraToROSImage>
 
   </rosInterfaces>
 </UWSimScene>

@@ -2,7 +2,7 @@
 <!ATTLIST UWSimScene xmlns:xacro CDATA #IMPLIED>
 
 <!-- elementos oceanScene -->
-<!ELEMENT oceanState (windx?,windy?,windSpeed?,depth?,reflectionDamping?,waveScale?,isNotChoppy?,choppyFactor?,crestFoamHeight?,oceanSurfaceHeight?,fog?,color?,attenuation?)>
+<!ELEMENT oceanState (windx?,windy?,windSpeed?,depth?,reflectionDamping?,reflection?,waveScale?,isNotChoppy?,choppyFactor?,crestFoamHeight?,oceanSurfaceHeight?,fog?,color?,attenuation?)>
 <!ELEMENT simParams (disableShaders?,resw?,resh?,offsetp?,offsetr?,enablePhysics?,gravity?,physicsFrequency?,physicsSubSteps?,physicsSolver?,showTrajectory*,groundTruth*,lightRate?)>
 <!ELEMENT vehicle (name,file,jointValues?,position?,orientation?,scaleFactor?,virtualCamera*, structuredLightProjector*, rangeSensor*, objectPicker*, imu*, pressureSensor*, gpsSensor*, dvlSensor*, virtualRangeImage*,multibeamSensor*, simulatedDevices?, echo*, ForceSensor*, DredgeTool*)>
 <!ELEMENT virtualCamera (name,relativeTo,resw?,resh?,position?,orientation?,baseline?,frameId?,fovy?, parameters?, showpath?,grayscale?,std?)>
@@ -40,6 +40,10 @@
 <!ELEMENT target (#PCDATA)>
 <!ELEMENT type (#PCDATA)>
 <!ELEMENT imageLocation (#PCDATA)>
+<!ELEMENT obstacleName (#PCDATA)>
+<!ELEMENT gt_shader (#PCDATA)>
+
+
 
 
 <!-- elementos oceanState -->
@@ -48,6 +52,7 @@
 <!ELEMENT windSpeed (#PCDATA)>
 <!ELEMENT depth (#PCDATA)>
 <!ELEMENT reflectionDamping (#PCDATA)>
+<!ELEMENT reflection (#PCDATA)>
 <!ELEMENT waveScale (#PCDATA)>
 <!ELEMENT isNotChoppy (#PCDATA)>
 <!ELEMENT choppyFactor (#PCDATA)>
@@ -64,7 +69,7 @@
 <!ELEMENT resw (#PCDATA)>
 <!ELEMENT resh (#PCDATA)>
 <!ELEMENT showTrajectory (target,color?,lineStyle?,timeWindow?)>
-<!ELEMENT groundTruth (imageLocation?,type)>
+<!ELEMENT groundTruth (imageLocation?, obstacleName?,type, gt_shader?)>
 <!ELEMENT lineStyle (#PCDATA)>
 <!ELEMENT timeWindow (#PCDATA)>
 <!ELEMENT enablePhysics (#PCDATA)>

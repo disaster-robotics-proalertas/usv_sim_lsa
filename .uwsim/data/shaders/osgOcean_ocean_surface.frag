@@ -285,7 +285,8 @@ void main( void )
             gl_FragData[1] = vec4(lum);
         }
 
-        gl_FragData[0] = final_color;
+        //gl_FragData[0] = final_color;
+	gl_FragData[0] = vec4(1.0,0.0,0.0,0.0);
     }
     else
     {
@@ -341,7 +342,8 @@ void main( void )
             gl_FragData[1] = vec4(depthBlur);
         }
 
-        gl_FragData[0] = final_color;
+//        gl_FragData[0] = final_color;
+	gl_FragData[0] = vec4(1.0,0.0,0.0,0.0);
     }
 }
 
