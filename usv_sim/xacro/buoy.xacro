@@ -23,6 +23,7 @@
         	<compensation>10</compensation>
           	<origin xyz="0 0 0.05"/>
           	<limit radius="0.25"/>
+          	<windVelocity>none</windVelocity>
           	<damping rpy="20 20 20" xyz="100 100 50"/>
 	  	  	<fluidVelocity>none</fluidVelocity>
         </buoyancy>

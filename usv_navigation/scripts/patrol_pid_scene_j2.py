@@ -9,13 +9,20 @@ import rosbag
 import subprocess
 import os
 
-waypoints = [
-    [(100.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+waypoints = [ #there is a offset applied to this  coordinates
+    [(10.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)], 
+    [(15.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(20.0, 5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(25.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(30.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(35.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
+
+
 result = Float64()
 result.data = 0
 x_offset = 300
-y_offset = 150
+y_offset = 120
 maxSimulations = 1
 maxTime = 8 * 60
 

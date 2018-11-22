@@ -16,8 +16,10 @@
     <xacro:property name="scale" value="0.3"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
-    <xacro:property name="windType" value="global" />
-    <xacro:property name="waterType" value="global" />
+    <xacro:arg name="windType" default="global" />
+    <xacro:arg name="waterType" default="global" />
+    <xacro:property name="windType" value="$(arg windType)" />
+    <xacro:property name="waterType" value="$(arg waterType)" />
     
 
     <link name="base_link">
