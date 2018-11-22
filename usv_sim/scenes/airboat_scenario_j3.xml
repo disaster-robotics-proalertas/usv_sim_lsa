@@ -38,7 +38,11 @@
     <disableShaders> 0 </disableShaders>
     <resw> 1152 </resw>
     <resh> 864 </resh>
+    <showTrajectory>
+      <target>airboat</target>
+    </showTrajectory>
   </simParams>
+  
 
   <camera>
     <freeMotion> 1 </freeMotion>
@@ -48,13 +52,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>240</x>
-      <y>82.5 </y>
-      <z>25 </z>
+      <x>270</x>
+      <y>110 </y>
+      <z>50 </z>
     </position> 
     <lookAt>
-      <x>260</x>
-      <y>82.5 </y>
+      <x>290</x>
+      <y>110 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -67,8 +71,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 250</x>
-      <y> 95 </y>
+      <x> 280</x>
+      <y> 140 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -84,8 +88,8 @@
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 250</x>
-      <y> 100 </y>
+      <x> 280</x>
+      <y> 145 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -99,8 +103,8 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 285</x>
-      <y> 100 </y>
+      <x> 320</x>
+      <y> 145 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -115,8 +119,8 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 250</x>
-      <y> 65 </y>
+      <x> 280</x>
+      <y> 75 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -131,8 +135,8 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 285</x>
-      <y> 65 </y>
+      <x> 320</x>
+      <y> 75 </y>
       <z> 1 </z>
     </position>
     <orientation>

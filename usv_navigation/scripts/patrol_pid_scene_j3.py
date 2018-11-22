@@ -10,56 +10,52 @@ import subprocess
 import os
 
 waypoints = [
-    [(-50.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(-60.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(-70.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(-100.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+    [(40.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0, -10.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(0.0,  -10.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(0.0,  -20.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(40.0, -20.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0, -30.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(0.0,  -30.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(0.0,  -40.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(40.0, -40.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0, -50.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(0.0,  -50.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(0.0,  -60.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(40.0, -60.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0, -70.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+
+    [(0.0,  -70.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
-speed = 
-[
-    [(1.0, 0.0, 0.0), (0.0, 0.0, 0.0)],
-    [(1.0, 0.0, 0.0), (0.0, 0.0, 1.0)],
-    [(1.0, 0.0, 0.0), (0.0, 0.0, -1.0)],
-    [(1.0, 0.0, 0.0), (0.0, 0.0, 0.0)]
-]
+
 result = Float64()
 result.data = 0
-x_offset = 400
-y_offset = 120
+x_offset = 280 
+y_offset = 140
 maxSimulations = 1
-maxTime = 8 * 60
-f_distance = 2
 
-def goal_vel(pose):
-    goal_vel = Twist()
-    goal_vel.linear = speed[i][0]
-    goal_vel.angular = speed[i][1]
-    return goal_vel
+def goal_pose(pose):
+    goal_pose = Odometry()
+    goal_pose.header.stamp = rospy.Time.now()
+    goal_pose.header.frame_id = 'world'
+    goal_pose.pose.pose.position = Point(pose[0][0]+x_offset, pose[0][1]+y_offset, 0.)
+    return goal_pose
 
-def get_result():
-    global result, initial_pose, target_pose
-    
-    x1 = initial_pose.pose.pose.position.x
-    y1 = initial_pose.pose.pose.position.y
-    x2 = target_pose.pose.pose.position.x
-    y2 = target_pose.pose.pose.position.y
-    
-    target_distance = math.hypot(x2-x1, y2-y1) 
-    if target_distance < f_distance:
-        return 1
-    if target_distance >= f_distance:    
-        return 0
-    
-def get_pose(initial_pose_tmp):
-    global initial_pose 
-    initial_pose = initial_pose_tmp
+def get_result(result_aux):
+    global result
+    result.data = result_aux.data
 
 if __name__ == '__main__':
-    global proc 
-    pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+    pub = rospy.Publisher('move_usv/goal', Odometry, queue_size=10)
     rospy.init_node('patrol')
     rate = rospy.Rate(1) # 10h
-    rospy.Subscriber("state", Odometry, get_pose)  # get usv position (add 'gps' position latter)
+    rospy.Subscriber("move_usv/result", Float64, get_result)
     rospy.wait_for_service('/gazebo/unpause_physics')
     rospy.wait_for_service('/gazebo/pause_physics')
     rospy.wait_for_service('/gazebo/reset_simulation')
@@ -72,31 +68,27 @@ if __name__ == '__main__':
     simulationNumber = 1
     while not rospy.is_shutdown():    
         try:
-	        rospy.logerr("Simulation number %d", simulationNumber)
+	    rospy.logerr("Simulation number %d", simulationNumber)
             for pose in waypoints:
-                vel = goal_vel(pose)
-                pub.publish(vel)
+                goal = goal_pose(pose)
+                pub.publish(goal)
                 rate.sleep()
-        		if (rospy.get_time() > maxTime):
-        			break;
-                while get_result() == 0.0:
-                    pub.publish(vel)
+		if (rospy.get_time() > 12 *60):
+			break;
+                while result.data == 0.0:
+                    pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > maxTime):
-			    break;
+		    if (rospy.get_time() > 12 *60):
+			break;
             simulationNumber = simulationNumber + 1
             if (simulationNumber > maxSimulations):
-		        rospy.logerr("All simulations have been done. Pausing gazebo")
+		rospy.logerr("All simulations have been done. Pausing gazebo")
                 pause() 
-	        else:
-                pause() 
-		        rate.sleep()
+	    else:
                 resetSimulation()
-		        rate.sleep()
-		        unpause()
-		        rospy.logerr("Continue simulation!") 
+                rate.sleep()
         except rospy.ROSInterruptException:
-	        rospy.logerr("ROS InterruptException! Just ignore the exception!") 
+	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:
-	        rospy.logerr("ROS Time Backwards! Just ignore the exception!")
-	
+	    rospy.logerr("ROS Time Backwards! Just ignore the exception!")
+
