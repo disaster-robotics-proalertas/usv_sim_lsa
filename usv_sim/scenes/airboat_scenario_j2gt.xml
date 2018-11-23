@@ -104,6 +104,54 @@
       </orientation>
 	</virtualCamera>
   </vehicle>
+  
+  
+   <vehicle>
+    <name>buoy1</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+     <position>
+      <x> 310</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <vehicle>
+    <name>buoy2</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+     <position>
+      <x> 320</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy3</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+
+     <position>
+      <x> 330</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
 
 
 	<object>
@@ -127,6 +175,21 @@
       <topic> /airboat/state </topic>
       <vehicleName> airboat </vehicleName>
     </ROSOdomToPAT>
+    
+        <ROSOdomToPAT>
+      <topic> /buoy1/state </topic>
+      <vehicleName> buoy1 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy2/state </topic>
+      <vehicleName> buoy2 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy3/state </topic>
+      <vehicleName> buoy3 </vehicleName>
+    </ROSOdomToPAT>   
 
 
    

@@ -110,7 +110,7 @@
    <vehicle>
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
-     <position>
+    <position>
       <x> 310</x>
       <y> 120 </y>
       <z> 1.13 </z>
