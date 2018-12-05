@@ -39,6 +39,7 @@ result.data = 0
 x_offset = 280 
 y_offset = 140
 maxSimulations = 1
+maxTime = 12*60;
 
 def goal_pose(pose):
     goal_pose = Odometry()
@@ -73,12 +74,12 @@ if __name__ == '__main__':
                 goal = goal_pose(pose)
                 pub.publish(goal)
                 rate.sleep()
-		if (rospy.get_time() > 12 *60):
+		if (rospy.get_time() > maxTime ):
 			break;
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > 12 *60):
+		    if (rospy.get_time() > maxTime ):
 			break;
             simulationNumber = simulationNumber + 1
             if (simulationNumber > maxSimulations):

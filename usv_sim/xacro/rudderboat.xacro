@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 
 <robot name="rudderboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
-                      
+    <xacro:arg name="windType" default="global" />
+    <xacro:arg name="waterType" default="global" />
+    <xacro:property name="windType" value="$(arg windType)" />
+    <xacro:property name="waterType" value="$(arg waterType)" />
+                          
     <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided4.xacro" />
         
     <xacro:rudder_xacro/> 
@@ -22,6 +26,7 @@
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
 		<link_name>rudder</link_name>
+		<fluidVelocity>${waterType}</fluidVelocity>
 	</plugin>
 	
 

@@ -38,6 +38,9 @@
     <disableShaders> 0 </disableShaders>
     <resw> 1152 </resw>
     <resh> 864 </resh>
+    <showTrajectory>
+      <target>diffboat</target>
+    </showTrajectory>
   </simParams>
 
   <camera>

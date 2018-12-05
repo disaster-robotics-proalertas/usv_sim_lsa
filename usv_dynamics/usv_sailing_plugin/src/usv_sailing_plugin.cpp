@@ -114,7 +114,7 @@ USV_Sailing_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 		}
 		else
 		{
-			ROS_INFO ("Sail plugin error: Cant find value of /uwsim/wind in param server");
+			ROS_INFO ("USV_Sailing_Plugin:: Sail plugin error: Cant find value of /uwsim/wind in param server");
 		}
 	}
 	else if (fluidVelocity.compare ("local") == 0)
@@ -182,7 +182,8 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 		return;
 	if (vel.GetLength () > 5)
 	{
-		std::cerr<<"\n vel: "<<vel<<" lengtH: "<<vel.GetLength()<<" oldTime: "<<oldTime<<" > "<<ros::Time::now();
+		std::cerr<<"\n OnUpdateRudder::vel: "<<vel<<" lengtH: "<<vel.GetLength()<<" oldTime: "<<oldTime<<" > "<<ros::Time::now();
+		//std::cerr<<"\n cp "<<this->cp<<" pose: "<<this->link->GetWorldPose ();
 		return;
 	}
 	// pose of body
@@ -257,6 +258,7 @@ USV_Sailing_Plugin::OnUpdateRudder ()
 	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
 
 	// apply forces at cg (with torques for position shift)
+	//std::cerr<<"\n forceRudder["<<force.GetLength()<<"]: "<<force;
 	this->link->AddForceAtRelativePosition (force, this->cp);
 	//this->link->AddTorque(torque);
 }
@@ -372,6 +374,7 @@ USV_Sailing_Plugin::OnUpdateKeel ()
 
 	math::Vector3 torque = moment;
 
+	//std::cerr<<"\n forceKeel["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
 
@@ -465,7 +468,7 @@ USV_Sailing_Plugin::OnUpdateSail ()
 
 	math::Vector3 torque = moment;
 
-
+	//std::cerr<<"\n forceSail["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)
 	this->link->AddForceAtRelativePosition (force, this->cp);
 //std::cerr<<"\n force: "<<force;
@@ -502,8 +505,8 @@ USV_Sailing_Plugin::WaterThreadLoop ()
 		}
 		else
 		{
-			ROS_WARN ("Failed to call service waterCurrent %s", this->modelName.c_str ());
-
+			ROS_WARN ("USV_Sailing_Plugin::Failed to call service waterCurrent %s", this->modelName.c_str ());
+			ROS_WARN (" fluidVelocity: %s",fluidVelocity.c_str());
 			ros::Rate s (1);
 			s.sleep ();
 		}

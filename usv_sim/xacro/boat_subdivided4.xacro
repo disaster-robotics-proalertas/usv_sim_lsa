@@ -50,7 +50,7 @@
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
+	  		<waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -86,7 +86,7 @@
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  <fluidVelocity>${waterType}</fluidVelocity>
+	  <waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -128,7 +128,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
+	  		<waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -169,7 +169,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
+	  		<waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -211,7 +211,7 @@
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
 			<lateral_length>1.2</lateral_length>
-	  		<fluidVelocity>${waterType}</fluidVelocity>
+	  		<waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -249,7 +249,7 @@
           <limit radius="0.1"/>
           <damping rpy="20 20 20" xyz="20 40 50"/>
           <windVelocity>${windType}</windVelocity>
-	  <fluidVelocity>${waterType}</fluidVelocity>
+	  <waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
     </link>
 
@@ -276,7 +276,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>0.8</compensation>
-	        	<fluidVelocity>${windType}</fluidVelocity>
+	        	<waterVelocity>${waterType}</waterVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="${-0.15*scale} 0 ${0*scale}" rpy="0 0 0"/>
@@ -337,7 +337,7 @@
         <link name="${name}">      
             <buoyancy>
 				<compensation>1.0</compensation>
-	        	<fluidVelocity>${waterType}</fluidVelocity>
+	        	<waterVelocity>${waterType}</waterVelocity>
 	    	</buoyancy>
 	    	<collision>
           		<origin xyz="0 0 0" rpy="0 0 0"/>

@@ -25,7 +25,7 @@
           	<limit radius="0.25"/>
           	<windVelocity>none</windVelocity>
           	<damping rpy="20 20 20" xyz="100 100 50"/>
-	  	  	<fluidVelocity>none</fluidVelocity>
+	  	  	<waterVelocity>none</waterVelocity>
         </buoyancy>
   </link>
 </robot>

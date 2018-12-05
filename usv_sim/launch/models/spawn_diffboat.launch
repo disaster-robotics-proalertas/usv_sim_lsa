@@ -8,10 +8,12 @@
     <arg name="posY" default="0"/>
     <arg name="posZ" default="0"/>
     <arg name="spawnGazebo" default="false"/>
+    <arg name="windType" default="global"/>
+    <arg name="waterType" default="global"/>
     
 	<!-- spawn in Gazebo with GUI -->
 	<group ns="$(arg namespace)" unless="$(arg parse)">
-		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/diffboat.xacro"/>
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/diffboat.xacro windType:=$(arg windType) waterType:=$(arg waterType)"/>
 		<node unless="$(arg spawnGazebo)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model diffboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->

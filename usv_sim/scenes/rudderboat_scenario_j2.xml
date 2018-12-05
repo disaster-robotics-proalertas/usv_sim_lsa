@@ -38,6 +38,9 @@
     <disableShaders> 0 </disableShaders>
     <resw> 1152 </resw>
     <resh> 864 </resh>
+    <showTrajectory>
+      <target>rudderboat</target>
+    </showTrajectory>
   </simParams>
 
   <camera>
@@ -48,14 +51,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-	  <x>291.6</x>
-      <y>150 </y>
-      <z>33.9 </z>
+	  <x>300</x>
+      <y>120 </y>
+      <z>15 </z>
     </position> 
     <lookAt>
-      <x>292.3</x>
-      <y>150 </y>
-      <z>33.15 </z>
+      <x>310</x>
+      <y>120 </y>
+      <z>5 </z>
     </lookAt>
   </camera>
 
@@ -68,7 +71,7 @@
     </jointValues>
      <position>
       <x> 300</x>
-      <y> 150 </y>
+      <y> 120 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -78,6 +81,52 @@
     </orientation>
   </vehicle>
 
+  
+   <vehicle>
+    <name>buoy1</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+    <position>
+      <x> 310</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <vehicle>
+    <name>buoy2</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+     <position>
+      <x> 320</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy3</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+
+     <position>
+      <x> 330</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
   
 
 	<object>
@@ -102,7 +151,20 @@
       <vehicleName> rudderboat </vehicleName>
     </ROSOdomToPAT>
 
-
+    <ROSOdomToPAT>
+      <topic> /buoy1/state </topic>
+      <vehicleName> buoy1 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy2/state </topic>
+      <vehicleName> buoy2 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy3/state </topic>
+      <vehicleName> buoy3 </vehicleName>
+    </ROSOdomToPAT>    
 
 	<OceanSurfaceToROSOceanVehicle>
 	<topic>/rudderboat/Surface/base_link</topic>
@@ -152,7 +214,24 @@
 	<linkName>fwd</linkName>
     </OceanSurfaceToROSOceanVehicle> 
 
-        
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy1/Surface/link</topic>
+	<vehicleName>buoy1</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy2/Surface/link</topic>
+	<vehicleName>buoy2</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/buoy3/Surface/link</topic>
+	<vehicleName>buoy3</vehicleName>
+	<linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
         
 	<ROSJointStateToArm> 
    		<topic>/rudderboat/joint_states</topic>

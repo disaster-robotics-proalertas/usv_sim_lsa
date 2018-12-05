@@ -5,7 +5,7 @@
 <UWSimScene>
   <oceanState>
     <windx> 1 </windx>
-    <windy> 1.0 </windy>
+    <windy> 0 </windy>
     <windSpeed> 2.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
@@ -38,6 +38,9 @@
     <disableShaders> 0 </disableShaders>
     <resw> 1152 </resw>
     <resh> 864 </resh>
+    <showTrajectory>
+      <target>sailboat</target>
+    </showTrajectory>
   </simParams>
 
   <camera>
@@ -48,14 +51,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>95 </y>
-      <z>15 </z>
+	  <x>291.6</x>
+      <y>120 </y>
+      <z>33.9 </z>
     </position> 
     <lookAt>
-      <x>245</x>
-      <y>95 </y>
-      <z>5 </z>
+      <x>292.3</x>
+      <y>120 </y>
+      <z>33.15 </z>
     </lookAt>
   </camera>
 
@@ -67,9 +70,9 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 320</x>
-      <y> 100 </y>
-      <z> 1 </z>
+      <x> 300</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
     </position>
     <orientation>
       <r>0 </r>

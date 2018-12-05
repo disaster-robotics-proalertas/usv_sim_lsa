@@ -31,6 +31,8 @@
             <arg name="gui" value="$(arg gui)"/>
             <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
             <arg name="namespace" value="$(arg namespace)"/>
+            <arg name="windType" value="global"/>
+            <arg name="waterType" value="global"/>
         </include>
 			
         <!-- recording experiment -->
