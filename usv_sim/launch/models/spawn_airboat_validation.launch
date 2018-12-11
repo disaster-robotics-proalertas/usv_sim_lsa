@@ -22,7 +22,7 @@
         <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
 
         <!-- Launch motion control nodes -->
-        <node name="heading_control" pkg="usv_base_ctrl" type="airboat_control_heading.py" unless="$(arg gui)"/>
+        <node name="heading_control" pkg="usv_base_ctrl" type="airboat_control_heading.py" output="screen" unless="$(arg gui)"/>
         <!--<node name="control_vel" pkg="usv_base_ctrl" type="control_vel_airboat.py" unless="$(arg gui)"/>-->
 
         <!-- TF TREE NODES -->

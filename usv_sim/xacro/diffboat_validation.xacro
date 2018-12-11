@@ -6,7 +6,8 @@
     <xacro:arg name="waterType" default="global" />
     <xacro:property name="windType" value="$(arg windType)" />
     <xacro:property name="waterType" value="$(arg waterType)" />
-    <xacro:property name="dampingXYZ" value="5.7 18 60" />
+    <xacro:property name="dampingXYZ" value="1.88 10 10" />
+    <xacro:property name="angularDampingXYZ" value="0.5 15 2" />
     <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided_validation.xacro" />
 
     <!-- Plugin list -->
@@ -30,7 +31,7 @@
 
     <!-- Define two steering thrusters, with assumed force control in Z-direction -->
     
-    <xacro:thruster_link name="fwd_left"  xyz="-0.4 0 -0.1" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_l_link"/>
-    <xacro:thruster_link name="fwd_right" xyz="-0.4 0 -0.1" rpy="0 ${-PI/2} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_r_link"/>
+    <xacro:thruster_link name="fwd_left"  xyz="-0.4 0 -0.1" rpy="0 ${-PI/2-0.26} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_l_link"/>
+    <xacro:thruster_link name="fwd_right" xyz="-0.4 0 -0.1" rpy="0 ${-PI/2-0.26} 0" rotationAxis="1 0 0" lowerLimit="0" upperLimit="0" parentLink="back_r_link"/>
        
 </robot>

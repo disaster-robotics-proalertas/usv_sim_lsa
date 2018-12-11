@@ -23,7 +23,7 @@ left = 0
 right = 0
 result = Float64()
 result.data = 0
-desired_distance = 0.1 
+desired_distance = 3
 
 
 def get_pose(initial_pose_tmp):
@@ -45,7 +45,11 @@ def thruster_ctrl_msg():
     aux = rudder_ctrl()
 
     left = aux + 100.
-    right = -aux + 100. 
+    right = -aux + 100.
+    if (left < 0):
+        left = 0
+    if (right < 0):
+        right  = 0  
 
     msg.position = [left, right]
     msg.velocity = []

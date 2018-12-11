@@ -5,13 +5,13 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
 
     <!-- Body properties -->
-    <xacro:property name="front_body_mass" value="1.5"/>
-    <xacro:property name="back_body_mass" value="1.5"/>
-    <xacro:property name="middle_body_mass" value="1.5"/>
-    <xacro:property name="back_water_displaced_mass" value="40"/>
-    <xacro:property name="middle_water_displaced_mass" value="40"/>
-    <xacro:property name="front_water_displaced_mass" value="25"/>
-    <xacro:property name="scale" value="0.3"/>
+    <xacro:property name="front_body_mass" value="0.5"/>
+    <xacro:property name="back_body_mass" value="2"/>
+    <xacro:property name="middle_body_mass" value="2"/>
+    <xacro:property name="back_water_displaced_mass" value="10"/>
+    <xacro:property name="middle_water_displaced_mass" value="10"/>
+    <xacro:property name="front_water_displaced_mass" value="2"/>
+    <xacro:property name="scale" value="0.24"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
     
@@ -39,7 +39,7 @@
 			<compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
 			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}"/>
 			<limit radius="0.1"/>
-			<damping rpy="20 20 20" xyz="0 18 60"/>
+			<damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
          	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
@@ -75,7 +75,7 @@
           <compensation>${middle_water_displaced_mass/middle_body_mass}</compensation>
           <origin xyz="${0.35*scale} ${-0.44*scale} ${-0.15*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="0 18 60"/>
+          <damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
 			<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.0</frontal_area>
 			<lateral_area>0.06</lateral_area>
@@ -117,7 +117,7 @@
 			<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
 			<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
 			<limit radius="0.1"/>
-			<damping rpy="20 20 20" xyz="0 18 60"/>
+			<damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
 			<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
@@ -158,7 +158,7 @@
           	<compensation>${back_water_displaced_mass/back_body_mass}</compensation>
           	<origin xyz="${-0.6*scale} 0 ${-0.15*scale}"/>
           	<limit radius="0.1"/>
-          	<damping rpy="20 20 20" xyz="0 18 60"/>
+          	<damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
           	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
@@ -200,7 +200,7 @@
           	<compensation>${front_water_displaced_mass/front_body_mass}</compensation>
           	<origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           	<limit radius="0.1"/>
-          	<damping rpy="20 20 20" xyz="${dampingXYZ}"/>
+          	<damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
           	<windVelocity>${windType}</windVelocity>
 			<frontal_area>0.04</frontal_area>
 			<lateral_area>0.06</lateral_area>
@@ -241,7 +241,7 @@
           <compensation>${front_water_displaced_mass/front_body_mass}</compensation>
           <origin xyz="${0.4*scale} 0 ${-0.05*scale}"/>
           <limit radius="0.1"/>
-          <damping rpy="20 20 20" xyz="${dampingXYZ}"/>
+          <damping rpy="${angularDampingXYZ}" xyz="${dampingXYZ}"/>
           <windVelocity>${windType}</windVelocity>
 	  <waterVelocity>${waterType}</waterVelocity>
         </buoyancy>
@@ -262,7 +262,7 @@
             <parent link="${parentLink}"/>
             <child link="${name}"/>
             <origin rpy="${rpy}" xyz="${xyz}"/>
-            <dynamics damping="10.0"/>
+            <dynamics damping="1.0"/>
             <axis xyz="${rotationAxis}"/>
             <limit effort="${effort}" velocity="${velocity}" lower="${lowerLimit}" upper="${upperLimit}" />
         </joint>
@@ -413,7 +413,7 @@
     <!-- Hokuyo Laser -->
     <joint name="hokuyo_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="0.7 0 0.2" rpy="0 0 0"/>
+        <origin xyz="0.56 0 0.2" rpy="0 0 0"/>
         <parent link="base_link"/>
         <child link="hokuyo_link"/>
     </joint>

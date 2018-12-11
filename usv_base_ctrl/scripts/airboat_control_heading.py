@@ -17,13 +17,13 @@ target_distance = 0
 actuator_vel = 15
 Ianterior = 0
 rate_value = 10
-Kp = 10 
-Ki = 0 
+Kp = 2
+Ki = 0
 result = Float64()
 result.data = 0
 f_distance = 3
-rudder_min = -math.pi/4
-rudder_max = math.pi/4
+rudder_min = -0.5
+rudder_max = 0.5
 rudder_med = (rudder_min + rudder_max)/2
 
 
@@ -39,6 +39,7 @@ def thruster_ctrl_msg():
     global actuator_vel
     msg = JointState()
     msg.header = Header()
+    msg.header.stamp = rospy.Time.now()
     msg.name = ['fwd']
     msg.position = [actuator_vel]
     msg.velocity = []
@@ -159,15 +160,16 @@ def rudder_ctrl():
     else:
         rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
 
-    log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
+#    log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    rospy.loginfo(log_msg)
+#    rospy.loginfo(log_msg)
 
     return rudder_angle
 
 def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
+    msg.header.stamp = rospy.Time.now()
     msg.name = ['fwd_joint']
     msg.position = [rudder_ctrl()]
     msg.velocity = []
