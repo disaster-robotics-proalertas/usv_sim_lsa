@@ -42,6 +42,7 @@ sizeX = 0
 sizeY = 0
 sizeZ = 0
 time = 0
+showVehicleOnMap = 0 # mark on map the received requests
 
 pub = rospy.Publisher('windflow', OccupancyGrid, queue_size=1)
 mymap = OccupancyGrid();
@@ -61,8 +62,8 @@ def defineTime(data):
 
 def handleWindCurrent(req):
 	global originX, originY, originZ, cellSizeX, cellSizeY, cellSizeZ
-	global fieldsVX, fieldsVY, fieldsVZ, time
-	print ("\n Received request",req.x,", ",req.y,", ",req.z)
+	global fieldsVX, fieldsVY, fieldsVZ, time, sizeX, sizeY, sizeZ
+	#print "\n Received request",req.x,req.y,req.z
 	x = (req.x-originX)/cellSizeX
 	if (x < 0):
 		x = 0
@@ -91,7 +92,13 @@ def handleWindCurrent(req):
 
 	x = int(x)
 	y = int(y)
-	print "\n[",x,",",y,",",z,"]: (",fieldsVX[time][x][y][z],",",fieldsVY[time][x][y][z],",",fieldsVZ[time][x][y][z],")"
+	z = int(z)
+	#print "\n[",x,",",y,",",z,"]: (",fieldsVX[time][x][y][z],",",fieldsVY[time][x][y][z],",",fieldsVZ[time][x][y][z],")"
+	if (showVehicleOnMap):
+		#print "vehicle on ",(y*sizeY+x),"/",len(mymap.data), " pos ",x,y,z
+		mymap.data[y*sizeX+x] = int(127)
+	#	print "\n mymap: "
+	#	print mymap.data
 	return  GetSpeedResponse(fieldsVX[time][x][y][z], fieldsVY[time][x][y][z], fieldsVZ[time][x][y][z])
 #        return GetSpeedResponse(ux[req.x][req.y], uy[req.x][req.y])
 
@@ -99,8 +106,8 @@ def handleWindCurrent(req):
 def parse_config_file(config_file_name):
 	global pkg_path, fieldNames, fieldsVX, fieldsVY, fieldsVZ
 	global originX, originY, originZ, cellSizeX, cellSizeY, cellSizeZ
-	global sizeX, sizeY, sizeZ
-	with open(config_file_name, 'r') as stream:
+	global sizeX, sizeY, sizeZ, time
+	with open(pkg_path+"/"+config_file_name, 'r') as stream:
         	data_loaded = yaml.load(stream)
 	print ('--------------------- Loading yaml file ', config_file_name)
 	print ('--------------------- data_loaded: ', data_loaded)
@@ -113,6 +120,10 @@ def parse_config_file(config_file_name):
 	cellSizeX=data_loaded['cellsize'][0]
 	cellSizeY=data_loaded['cellsize'][1]
 	cellSizeZ=data_loaded['cellsize'][2]
+	time = data_loaded['time']
+	if (time > len(data_loaded['fields'])):
+		time = len(data_loaded['fields'])
+	print "time: ",time
 	print sizeX
 	print sizeY
 	print sizeZ
@@ -166,18 +177,21 @@ def loadField(id):
 
 
 def startRosService():
-	rospy.Subscriber("windCurrentTime", Int64, defineTime)
         s = rospy.Service('windCurrent', GetSpeed, handleWindCurrent)
-        print "Ready to answer wind current."
+        print "Ready to answer wind current. Wait full load before changing time"
+
+def startTopicChangeTime():
+	rospy.Subscriber("windCurrentTime", Int64, defineTime)
+        print "Ready to change time."
 
 def loadMapVX(id, z):
 	global array, width, height, originX, originY, mymap, minSpeed, maxSpeed
 	global sizeX, sizeY
-	global fieldsVX
+	global fieldsVX, cellSizeX
 	mynorm = matplotlib.colors.Normalize(vmin=-0.1,vmax=0.1);
 
-	mymap.header.frame_id="odom";
-	mymap.info.resolution = resolution;
+	mymap.header.frame_id="world";
+	mymap.info.resolution = cellSizeX;
 	mymap.info.width = sizeX;
 	mymap.info.height = sizeY;
 	mymap.info.origin.position.x = originX;
@@ -190,20 +204,26 @@ def loadMapVX(id, z):
 	rospy.loginfo ("################### Preparing map. Size (%d, %d) origin(%d, %d)", sizeX, sizeY, originX, originY)
 	print len(mymap.data), " == ", sizeX*sizeY
 	if (len(mymap.data) == sizeX*sizeY):
+		maior = -1000
 		for y in xrange(sizeY-1, -1, -1):
 			for x in range(0, sizeX):
-				mymap.data[y*sizeY+x] = (fieldsVX[id][x][y][z]);
+				mymap.data[y*sizeX+x] = int(fieldsVX[id][x][y][z]);
+				if (maior < mymap.data[y*sizeX+x]):
+					maior =mymap.data[y*sizeX+x]
+		for y in xrange(sizeY-1, -1, -1):
+			for x in range(0, sizeX):
+				mymap.data[y*sizeX+x] = 127*mymap.data[y*sizeX+x]/maior
 	else:		
 		for y in xrange(sizeY-1, -1, -1):
 			for x in range(0, sizeX):
-				mymap.data.append(fieldsVX[id][x][y][z]);
+				mymap.data.append(int(fieldsVX[id][x][y][z]));
 
 	rospy.loginfo("#################### Map loaded!")
 
 if __name__ == '__main__':
 	rospy.init_node('usv_wind_current')
 	rospy.loginfo ("starting usv_wind_current. argument count: %d", len(sys.argv))
-	if (len(sys.argv)!=2 and len(sys.argv)!=5):
+	if (len(sys.argv)!=3):
 		rospy.logerr ("###################Error: argument count invalid! %d", len(sys.argv))
 		for i in range(0, len(sys.argv)):
 			rospy.logerr(" argv %d : %s", i, sys.argv[i])
@@ -212,15 +232,18 @@ if __name__ == '__main__':
 	pkg_path = sys.argv[1]
 	config_file_name = sys.argv[2]
 	parse_config_file(config_file_name)
-	for i in range(0, len(fieldNames)):
-		loadField(i)
-	id = time
-	id = 4
-	loadMapVX(id, 0)
-	rate = rospy.Rate(30) # 10hz
+	loadField(time)
 	startRosService();
+	loadMapVX(time, 0)
+	for i in range(0, len(fieldNames)):
+		if (i <> time):
+			loadField(i)
+
+	startTopicChangeTime()
+	rate = rospy.Rate(30) # 10hz
+
 	while not rospy.is_shutdown():
-		print ("waiting[",time,"] ")
+#		print ("waiting[",time,"] ")
 #		rospy.logerr("---sending map! %d, %d", mymap.info.origin.position.x, mymap.info.origin.position.y)
 		pub.publish(mymap);
 

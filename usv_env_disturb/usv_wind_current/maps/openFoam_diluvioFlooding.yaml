@@ -1,4 +1,0 @@
-fields: ['./maps/diluvio/a10.0.csv', './maps/diluvio/a10.1.csv', './maps/diluvio/a10.2.csv','./maps/diluvio/a10.3.csv','./maps/diluvio/a10.4.csv']
-size: [136, 57, 9]
-origin: [0, 0, -20]
-cellsize: [10, 10, 10]

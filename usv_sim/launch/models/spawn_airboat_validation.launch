@@ -37,7 +37,8 @@
             <remap from="joint_states" to="joint_setpoint" />        
         </node>
 
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>
+        <node pkg="tf" type="static_transform_publisher" name="world_base_link" args="0 0 0 0 0 0 1 /world /base_link 10" />             
 
         <!-- GUI interface to control thrusters -->
         <group ns="thrusters">
