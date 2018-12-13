@@ -10,8 +10,8 @@
     <xacro:property name="middle_body_mass" value="2"/>
     <xacro:property name="back_water_displaced_mass" value="10"/>
     <xacro:property name="middle_water_displaced_mass" value="10"/>
-    <xacro:property name="front_water_displaced_mass" value="2"/>
-    <xacro:property name="scale" value="0.24"/>
+    <xacro:property name="front_water_displaced_mass" value="5"/>
+    <xacro:property name="scale" value="0.21"/>
     <xacro:property name="bl1" value=".1" />
     <xacro:property name="bl2" value=".1" />
     
@@ -411,11 +411,12 @@
     <!-- Sensors -->
 
     <!-- Hokuyo Laser -->
-    <joint name="hokuyo_joint" type="fixed">
+    <joint name="hokuyo_joint" type="revolute">
         <axis xyz="0 1 0" />
-        <origin xyz="0.56 0 0.2" rpy="0 0 0"/>
+        <origin xyz="0.50 0 0.15" rpy="0 0 0"/>
         <parent link="base_link"/>
         <child link="hokuyo_link"/>
+        <limit effort="100" velocity="5" lower="0" upper="0" />
     </joint>
 
     <link name="hokuyo_link">
