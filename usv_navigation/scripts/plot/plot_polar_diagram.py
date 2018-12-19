@@ -36,17 +36,22 @@ with open('polar_diagram_2.txt', 'rb') as file1, open('polar_diagram_2-5.txt', '
     theta4 = [float(i) for i in reader4[2]]
     theta4 = [math.radians(i) for i in theta4]
 
+    f = plt.figure()
     ax = plt.subplot(111, projection='polar')
-    ax.plot(theta1, r1)
-    ax.plot(theta2, r2)
-    ax.plot(theta3, r3)
-    ax.plot(theta4, r4)
+    ax.plot(theta1, r1, linewidth=2.0)
+    ax.plot(theta2, r2, linewidth=2.0)
+    ax.plot(theta3, r3, linewidth=2.0)
+#    ax.plot(theta4, r4)
     ax.set_rmax(1.5)
     ax.set_rticks([0.5, 1, 1.5])  # less radial ticks
-    ax.set_rlabel_position(-90)  # get radial labels away from plotted line
+    ax.set_rlabel_position(-85)  # get radial labels away from plotted line
     ax.set_theta_zero_location("N")
     ax.grid(True)
+    ttl = ax.title
+    ttl.set_position([.5, 1.08])
 
-    ax.set_title("Sailboat polar diagram on usv_sim", va='bottom')
-    plt.legend(['2 m/s', '2,5 m/s', '3 m/s', '3,5 m/s'], loc='upper right')
+#    ax.set_title("Sailboat polar diagram on usv_sim")
+    plt.rcParams.update({'font.size': 22})
+    plt.legend(['2 m/s', '2,5 m/s', '3 m/s'], loc='upper right', title='Wind speed')
     plt.show()
+    f.savefig("foo.pdf", bbox_inches='tight')
