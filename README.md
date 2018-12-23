@@ -1,4 +1,10 @@
-# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.0.0
+# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
+
+[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=develop%2Ftravis_integration)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
+[![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/usv-sim)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/LICENSE)
+
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
 Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
 
