@@ -163,12 +163,14 @@ TODO
 
 ## License
 
-TODO
+USV Simulator is open-sourced under the Apache-2.0 license. See the
+[LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
 * freefloating_gazebo
-* UWsim
 * LiftDrag 
+* UWsim - https://github.com/uji-ros-pkg/underwater_simulation
+* Openfoam - https://openfoam.org/
 * HEC-RAS - https://en.wikipedia.org/wiki/HEC-RAS 
 * CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
