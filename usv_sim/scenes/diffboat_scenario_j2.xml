@@ -4,16 +4,15 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1.0 </windx>
-    <windy> 1.0 </windy>
+    <windx> -1 </windx>
+    <windy> 0 </windy>
     <windSpeed> 3.2 </windSpeed>
-    <depth> 100 </depth>
+    <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <reflection>1</reflection>
     <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
-    <choppyFactor> -1.5 </choppyFactor>
-    <crestFoamHeight> 1.2 </crestFoamHeight>
+    <choppyFactor> -2.5 </choppyFactor>
+    <crestFoamHeight> 2.2 </crestFoamHeight>
     <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
     <fog>
       <density> 0.1 </density>
@@ -54,15 +53,15 @@
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
-    <position>
-	  <x>300</x>
-      <y>120 </y>
-      <z>15 </z>
+	    <position>
+	  <x>220</x>
+      <y>55 </y>
+      <z>13.9 </z>
     </position> 
     <lookAt>
-      <x>310</x>
-      <y>120 </y>
-      <z>5 </z>
+      <x>220</x>
+      <y>110</y>
+      <z>3.15 </z>
     </lookAt>
   </camera>
 
@@ -74,31 +73,15 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 75 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.57 </y>
     </orientation>
-    <virtualCamera>
-    	<name>diffboatCamera</name>
-    	<relativeTo>front_r_link</relativeTo>
-    	<resw>1024</resw>
-    	<resh>768</resh>
-    	<position>
-        	<x>0.2</x>
-        	<y> 0.05 </y>
-        	<z> 0.25 </z>
-      </position>
-      <orientation>
-        <r>1.57</r>
-        <p>0</p>
-        <y>-1.57</y>
-      </orientation>
-	</virtualCamera>
   </vehicle>
 
 
@@ -106,8 +89,8 @@
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 310</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 90 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -121,8 +104,8 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
      <position>
-      <x> 320</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 105 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -137,7 +120,7 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
      <position>
-      <x> 330</x>
+      <x> 220</x>
       <y> 120 </y>
       <z> 1.13 </z>
     </position>
@@ -224,11 +207,17 @@
 	<linkName>front_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle> 
     
-     <OceanSurfaceToROSOceanVehicle>
-	<topic>/diffboat/Surface/fwd</topic>
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat/Surface/fwd_left</topic>
 	<vehicleName>diffboat</vehicleName>
-	<linkName>fwd</linkName>
-    </OceanSurfaceToROSOceanVehicle>  
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>   
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat/Surface/fwd_right</topic>
+	<vehicleName>diffboat</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
    
    
     <OceanSurfaceToROSOceanVehicle>
@@ -254,11 +243,6 @@
    		<vehicleName>diffboat</vehicleName>
    	</ROSJointStateToArm>
 
-   	<VirtualCameraToROSImage>
-   		<cameraName>diffboatCamera</cameraName>
-   		<imageTopic>/uwsim/cameradiffboat</imageTopic>
-   		<infoTopic>/uwsim/infoCameradiffboat</infoTopic>
-	</VirtualCameraToROSImage>
 
   </rosInterfaces>
 </UWSimScene>

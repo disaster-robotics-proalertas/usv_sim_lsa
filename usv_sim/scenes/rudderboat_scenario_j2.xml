@@ -4,8 +4,8 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1.0 </windx>
-    <windy> 1.0 </windy>
+    <windx> -1 </windx>
+    <windy> 0 </windy>
     <windSpeed> 3.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
@@ -50,15 +50,15 @@
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
-    <position>
-	  <x>300</x>
-      <y>120 </y>
-      <z>15 </z>
+	    <position>
+	  <x>220</x>
+      <y>55 </y>
+      <z>13.9 </z>
     </position> 
     <lookAt>
-      <x>310</x>
-      <y>120 </y>
-      <z>5 </z>
+      <x>220</x>
+      <y>110</y>
+      <z>3.15 </z>
     </lookAt>
   </camera>
 
@@ -70,24 +70,24 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 75 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.57 </y>
     </orientation>
   </vehicle>
 
-  
+
    <vehicle>
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 310</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 90 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -101,8 +101,8 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
      <position>
-      <x> 320</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 105 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -117,7 +117,7 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
      <position>
-      <x> 330</x>
+      <x> 220</x>
       <y> 120 </y>
       <z> 1.13 </z>
     </position>

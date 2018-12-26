@@ -4,12 +4,11 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1.0 </windx>
-    <windy> 0 </windy>
+    <windx> -1.0 </windx>
+    <windy> 0.0 </windy>
     <windSpeed> 3.2 </windSpeed>
     <depth> 100 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <reflection>1</reflection>
     <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
     <choppyFactor> -1.5 </choppyFactor>
@@ -54,14 +53,14 @@
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
-<position>
-      <x>270</x>
-      <y>110 </y>
-      <z>50 </z>
+	<position>
+      <x>155</x>
+      <y>60 </y>
+      <z>80 </z>
     </position> 
     <lookAt>
-      <x>290</x>
-      <y>110 </y>
+      <x>190</x>
+      <y>60 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -74,40 +73,25 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 280</x>
-      <y> 140 </y>
+      <x> 240</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.57 </y>
     </orientation>
-    <virtualCamera>
-    	<name>sailboatCamera</name>
-    	<relativeTo>front_r_link</relativeTo>
-    	<resw>1024</resw>
-    	<resh>768</resh>
-    	<position>
-        	<x>0.2</x>
-        	<y> 0.05 </y>
-        	<z> 0.25 </z>
-      </position>
-      <orientation>
-        <r>1.57</r>
-        <p>0</p>
-        <y>-1.57</y>
-      </orientation>
-	</virtualCamera>
   </vehicle>
+  
 
 
    <vehicle>
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 280</x>
-      <y> 145 </y>
+      <x> 150</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -121,8 +105,8 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 320</x>
-      <y> 145 </y>
+      <x> 250</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -137,8 +121,24 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 280</x>
-      <y> 75 </y>
+      <x> 150</x>
+      <y> 110 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy4</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+
+    <position>
+      <x> 250</x>
+      <y> 110 </y>
       <z> 1 </z>
     </position>
     <orientation>

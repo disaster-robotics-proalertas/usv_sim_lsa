@@ -10,24 +10,12 @@ import subprocess
 import os
 
 waypoints = [
-    [(433.0, 130.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(446.0, 123, 0.0), (0.0, 0.0, 0.0, 1.0)],    
-    [(469.0, 123, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(480.0, 111.0, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(465.0, 102.0, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(446.0, 103.3, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(446.0, 118.0, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(469.0, 118.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-
-    [(468.0, 99.0, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(446.0, 99.5, 0.0), (0.0, 0.0, 0.63, 0.78)],
-    [(433.0, 145.0, 0.0), (0.0, 0.0, 0.63, 0.78)]
+    [(220.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
-
 result = Float64()
 result.data = 0
-x_offset = 0 
-y_offset = 0
+x_offset = 180
+y_offset = 150
 maxSimulations = 1
 
 def goal_pose(pose):
@@ -42,6 +30,7 @@ def get_result(result_aux):
     result.data = result_aux.data
 
 if __name__ == '__main__':
+    global proc 
     pub = rospy.Publisher('move_usv/goal', Odometry, queue_size=10)
     rospy.init_node('patrol')
     rate = rospy.Rate(1) # 10h
@@ -58,27 +47,13 @@ if __name__ == '__main__':
     simulationNumber = 1
     while not rospy.is_shutdown():    
         try:
-	    rospy.logerr("Simulation number %d", simulationNumber)
+            rospy.logerr("Simulation number %d", simulationNumber)
             for pose in waypoints:
                 goal = goal_pose(pose)
                 pub.publish(goal)
-                rate.sleep()
-		if (rospy.get_time() > 12 *60):
-			break;
-                while result.data == 0.0:
-                    pub.publish(goal)
-                    rate.sleep()
-		    if (rospy.get_time() > 12 *60):
-			break;
-            simulationNumber = simulationNumber + 1
-            if (simulationNumber > maxSimulations):
-		rospy.logerr("All simulations have been done. Pausing gazebo")
-                pause() 
-	    else:
-                resetSimulation()
                 rate.sleep()
         except rospy.ROSInterruptException:
 	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:
 	    rospy.logerr("ROS Time Backwards! Just ignore the exception!")
-
+	

@@ -6,7 +6,7 @@
 
     <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
-	<arg name="disableShaders" default="true"/>
+		<arg name="disableShaders" default="false"/>
         <arg name="namespace" default="airboat"/>  
         <arg name="spawnGazebo" default="true"/>
 
@@ -17,7 +17,7 @@
             <arg name="gui" value="true" />
             <arg name="paused" value="true"/>
             <arg name="verbose" value="true"/>
-            <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+            <arg name="world_name" value="$(find usv_sim)/world/empty_accelerated.world"/>
         </include>
 
 		<!-- launch uwsim -->
@@ -27,16 +27,16 @@
 		<include file="$(find usv_sim)/launch/scenarios_launchs/airboat_scenario_j2_spawner.launch"/>
 		<!-- one include and one node to each vehicle -->
 		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene_j2.py" ns="airboat" unless="$(arg gui)"/>
-		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch">
+		<include file="$(find usv_sim)/launch/models/spawn_airboat_validation.launch">
             <arg name="gui" value="$(arg gui)"/>
             <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
             <arg name="namespace" value="$(arg namespace)"/>
-            <arg name="windType" value="global"/>
-            <arg name="waterType" value="global"/>
+            <arg name="windType" value="local"/>
+            <arg name="waterType" value="local"/>
         </include>
 			
         <!-- recording experiment -->
-		<!--node pkg="rosbag" type="record" name="record_airboat" args="-O /$(find usv_navigation)bags/journal_2018/airboat_scenario_j2.bag /airboat/state" output="screen"/-->
+		<node pkg="rosbag" type="record" name="record_airboat" args="-O $(find usv_navigation)/bags/journal_2018/airboat_scenario_j2WaterWindOut.bag /airboat/state" output="screen"/>
 
 	</group>
 

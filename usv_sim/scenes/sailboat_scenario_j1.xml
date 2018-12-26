@@ -4,9 +4,9 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1 </windx>
+    <windx> -1 </windx>
     <windy> 0 </windy>
-    <windSpeed> 2.2 </windSpeed>
+    <windSpeed> 3.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
     <waveScale> 1e-7 </waveScale>
@@ -50,15 +50,15 @@
     <aspectRatio> 1.33 </aspectRatio>
     <near> 1 </near>
     <far> 10000 </far>
-    <position>
-	  <x>291.6</x>
-      <y>120 </y>
-      <z>33.9 </z>
+	    <position>
+	  <x>220</x>
+      <y>20 </y>
+      <z>13.9 </z>
     </position> 
     <lookAt>
-      <x>292.3</x>
-      <y>120 </y>
-      <z>33.15 </z>
+      <x>220</x>
+      <y>40 </y>
+      <z>3.15 </z>
     </lookAt>
   </camera>
 
@@ -70,14 +70,14 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 120 </y>
+      <x> 220</x>
+      <y> 40 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.57 </y>
     </orientation>
   </vehicle>
 

@@ -5,10 +5,12 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist, Point, Quaternion
 from std_srvs.srv import Empty
+import time
 import rosbag
 import subprocess
 import os
 
+# old waypoints
 waypoints = [
     [(40.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
     [(40.0, -10.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
@@ -34,12 +36,38 @@ waypoints = [
     [(0.0,  -70.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
 
+# new waypoints
+waypoints = [
+    #[(10.0,  50.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(90.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(80.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(80.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(70.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    
+    [(70.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(60.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(60.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(50.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    
+    [(50.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(40.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(30.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    
+    [(30.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(20.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(20.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(10.0,   0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    
+    [(10.0, 100.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+]
+
 result = Float64()
 result.data = 0
-x_offset = 280 
-y_offset = 140
+x_offset = 150 
+y_offset = 10
 maxSimulations = 1
-maxTime = 12*60;
+maxTime = 30*60;
 
 def goal_pose(pose):
     goal_pose = Odometry()
@@ -69,27 +97,39 @@ if __name__ == '__main__':
     simulationNumber = 1
     while not rospy.is_shutdown():    
         try:
-	    rospy.logerr("Simulation number %d", simulationNumber)
+            rospy.logerr("Simulation number %d", simulationNumber)
             for pose in waypoints:
                 goal = goal_pose(pose)
                 pub.publish(goal)
                 rate.sleep()
-		if (rospy.get_time() > maxTime ):
-			break;
+                if (rospy.get_time() > maxTime):
+                    break;
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > maxTime ):
-			break;
+                    if (rospy.get_time() > maxTime):
+                        break;
+            
             simulationNumber = simulationNumber + 1
+            rospy.logerr("Increasing simulationNumber. now: %d", simulationNumber)
             if (simulationNumber > maxSimulations):
-		rospy.logerr("All simulations have been done. Pausing gazebo")
-                pause() 
-	    else:
+                rospy.logerr("All simulations have been done. Pausing gazebo")
+                pause()
+            else:
+                rospy.logerr("preparing new simulation!")
+                #rospy.logerr("pause simulation!")
+                pause()
+                #rospy.logerr("wait!")
+                time.sleep(1)
+                #rospy.logerr("reset simulation!")
                 resetSimulation()
-                rate.sleep()
+                #rospy.logerr("wait!")   
+                time.sleep(1)
+                #rospy.logerr("start new simulation!")
+                unpause()
+                rospy.logerr("Continue simulation!") 
         except rospy.ROSInterruptException:
-	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
+            rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:
-	    rospy.logerr("ROS Time Backwards! Just ignore the exception!")
-
+            rospy.logerr("ROS Time Backwards! Just ignore the exception!")
+    

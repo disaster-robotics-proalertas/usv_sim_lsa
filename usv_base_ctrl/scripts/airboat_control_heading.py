@@ -16,7 +16,7 @@ target_pose = Odometry()
 target_distance = 0
 actuator_vel = 15
 Ianterior = 0
-rate_value = 10
+rate_value = 100
 Kp = 2
 Ki = 0
 result = Float64()
@@ -98,6 +98,7 @@ def I(erro):
         Ianterior = Ianterior + Ki * erro * 50 * (1./rate_value)
     else:
         Ianterior = Ianterior + Ki * erro * (1./rate_value)
+    #print "Ianterior: ",Ianterior, " erro: ",erro
     return Ianterior
 
 def rudder_ctrl():
@@ -124,6 +125,7 @@ def rudder_ctrl():
     sp_angle = math.degrees(myradians)
 
     target_distance = math.hypot(x2-x1, y2-y1) 
+    
 
 
     # encontra angulo atual
@@ -142,13 +144,15 @@ def rudder_ctrl():
     err = sp_angle - target_angle
     err = angle_saturation(err)
     err = P(err) + I(err)
+    
+   
 
     if target_distance < f_distance+1 and target_distance > f_distance:
         actuator_vel = 150 
     elif target_distance < f_distance:
         actuator_vel = 0 
     else:
-	actuator_vel = 300
+        actuator_vel = 300
    
     if err > 180:
         err = 180
@@ -159,7 +163,7 @@ def rudder_ctrl():
         rudder_angle = rudder_med + (rudder_min - rudder_med) * ((err) / 180)
     else:
         rudder_angle = rudder_med + (rudder_max - rudder_med) * (-err / 180)
-
+    #print "err: ", err, " angle: ", rudder_angle
 #    log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
 #    rospy.loginfo(log_msg)

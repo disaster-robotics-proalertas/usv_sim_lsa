@@ -23,7 +23,8 @@ left = 0
 right = 0
 result = Float64()
 result.data = 0
-desired_distance = 3
+#desired_distance = 3 # big scenarios
+desired_distance = 2 # scenario G
 
 
 def get_pose(initial_pose_tmp):

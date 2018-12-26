@@ -4,15 +4,15 @@
 
 <UWSimScene>
   <oceanState>
-    <windx> 1.0 </windx>
-    <windy> 1.0 </windy>
+    <windx> -1.0 </windx>
+    <windy> 0.0 </windy>
     <windSpeed> 3.2 </windSpeed>
-    <depth> 10000 </depth>
+    <depth> 100 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
-    <waveScale> 5e-8 </waveScale>
+    <waveScale> 1e-7 </waveScale>
     <isNotChoppy> 0 </isNotChoppy>
-    <choppyFactor> -2.5 </choppyFactor>
-    <crestFoamHeight> 2.2 </crestFoamHeight>
+    <choppyFactor> -1.5 </choppyFactor>
+    <crestFoamHeight> 1.2 </crestFoamHeight>
     <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
     <fog>
       <density> 0.1 </density>
@@ -52,13 +52,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>270</x>
-      <y>110 </y>
-      <z>50 </z>
+      <x>155</x>
+      <y>60 </y>
+      <z>80 </z>
     </position> 
     <lookAt>
-      <x>290</x>
-      <y>110 </y>
+      <x>190</x>
+      <y>60 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -71,14 +71,14 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 280</x>
-      <y> 140 </y>
+      <x> 240</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
       <r>0 </r>
       <p>0 </p>
-      <y>0 </y>
+      <y>1.57 </y>
     </orientation>
   </vehicle>
   
@@ -88,8 +88,8 @@
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 280</x>
-      <y> 145 </y>
+      <x> 150</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -103,8 +103,8 @@
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
     <position>
-      <x> 320</x>
-      <y> 145 </y>
+      <x> 250</x>
+      <y> 10 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -119,8 +119,8 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 280</x>
-      <y> 75 </y>
+      <x> 150</x>
+      <y> 110 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -135,8 +135,8 @@
     <file>urdf/buoy_uwsim.urdf</file>
 
     <position>
-      <x> 320</x>
-      <y> 75 </y>
+      <x> 250</x>
+      <y> 110 </y>
       <z> 1 </z>
     </position>
     <orientation>
@@ -226,10 +226,16 @@
     </OceanSurfaceToROSOceanVehicle> 
    
      <OceanSurfaceToROSOceanVehicle>
-	<topic>/diffboat/Surface/fwd</topic>
+	<topic>/diffboat/Surface/fwd_left</topic>
 	<vehicleName>diffboat</vehicleName>
-	<linkName>fwd</linkName>
+	<linkName>fwd_left</linkName>
     </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat/Surface/fwd_right</topic>
+	<vehicleName>diffboat</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>
      
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy1/Surface/link</topic>

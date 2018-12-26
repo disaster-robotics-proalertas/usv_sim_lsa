@@ -70,9 +70,9 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 240</x>
-      <y> 100 </y>
-      <z> 1.13 </z>
+      <x> 0</x>
+      <y> 0 </y>
+      <z> 1.1 </z>
     </position>
     <orientation>
       <r>0 </r>
@@ -81,7 +81,7 @@
     </orientation>
   </vehicle>
 
-
+<!-- 
    <vehicle>
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
@@ -127,6 +127,7 @@
       <y>0</y>
     </orientation>
   </vehicle>
+   -->
   
 	<object>
     <name>terrain</name>
@@ -149,7 +150,7 @@
       <topic> /airboat/state </topic>
       <vehicleName> airboat </vehicleName>
     </ROSOdomToPAT>
-
+<!-- 
     <ROSOdomToPAT>
       <topic> /buoy1/state </topic>
       <vehicleName> buoy1 </vehicleName>
@@ -164,7 +165,7 @@
       <topic> /buoy3/state </topic>
       <vehicleName> buoy3 </vehicleName>
     </ROSOdomToPAT>   
-
+ -->
 	<OceanSurfaceToROSOceanVehicle>
 	<topic>/airboat/Surface/base_link</topic>
 	<vehicleName>airboat</vehicleName>
@@ -207,7 +208,7 @@
 	<linkName>fwd</linkName>
     </OceanSurfaceToROSOceanVehicle>  
 
-        
+        <!--  
     <OceanSurfaceToROSOceanVehicle>
 	<topic>/buoy1/Surface/link</topic>
 	<vehicleName>buoy1</vehicleName>
@@ -225,7 +226,7 @@
 	<vehicleName>buoy3</vehicleName>
 	<linkName>link</linkName>
     </OceanSurfaceToROSOceanVehicle>  
-        
+        -->
 	<ROSJointStateToArm> 
    		<topic>/airboat/joint_states</topic>
    		<vehicleName>airboat</vehicleName>

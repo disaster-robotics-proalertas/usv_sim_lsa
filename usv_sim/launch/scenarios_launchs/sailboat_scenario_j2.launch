@@ -6,7 +6,7 @@
 
     <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
-	<arg name="disableShaders" default="true"/>
+		<arg name="disableShaders" default="false"/>
         <arg name="namespace" default="sailboat"/>  
         <arg name="spawnGazebo" default="true"/>
 
@@ -17,7 +17,7 @@
             <arg name="gui" value="true" />
             <arg name="paused" value="true"/>
             <arg name="verbose" value="true"/>
-            <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+            <arg name="world_name" value="$(find usv_sim)/world/empty_accelerated.world"/>
         </include>
 
 		<!-- launch uwsim -->
@@ -31,12 +31,12 @@
             <arg name="gui" value="$(arg gui)"/>
             <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
             <arg name="namespace" value="$(arg namespace)"/>
-            <arg name="windType" value="global"/>
-            <arg name="waterType" value="global"/>
+            <arg name="windType" value="local"/>
+            <arg name="waterType" value="local"/>
         </include>
 			
         <!-- recording experiment -->
-		<!--node pkg="rosbag" type="record" name="record_sailboat" args="-O /$(find usv_navigation)bags/journal_2018/sailboat_scenario_j2.bag /sailboat/state" output="screen"/-->
+		<node pkg="rosbag" type="record" name="record_sailboat" args="-O $(find usv_navigation)/bags/journal_2018/sailboat_scenario_j2WaterWindOut.bag /sailboat/state" output="screen"/>
 
 	</group>
 

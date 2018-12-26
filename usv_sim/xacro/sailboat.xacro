@@ -56,7 +56,7 @@
 
     <link name="keel">
 	<inertial>
-		<mass value="5" />
+		<mass value="30" />
 		<inertia
 		  ixx="0.4708"
 		  ixy="0.0"

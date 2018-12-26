@@ -5,24 +5,34 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist, Point, Quaternion
 from std_srvs.srv import Empty
+import time
 import rosbag
 import subprocess
 import os
 
 waypoints = [ #there is a offset applied to this  coordinates
-    [(10.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)], 
-    [(15.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(20.0, 5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(25.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(30.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
-    [(35.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+    [(15.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)], 
+    [(22.5, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(30.0, 5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(37.5, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(45.0, -5.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(52.5, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
+]
+
+waypoints = [ #there is a offset applied to this  coordinates
+    [(-5.0, 15.0, 0.0), (0.0, 0.0, 0.0, 1.0)], 
+    [( 0.0, 22.5, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [( 5.0, 30.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [( 0.0, 37.5, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(-5.0, 45.0, 0.0), (0.0, 0.0, 0.0, 1.0)],
+    [(0.0,  52.5, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
 
 
 result = Float64()
 result.data = 0
-x_offset = 300
-y_offset = 120
+x_offset = 220
+y_offset = 75
 maxSimulations = 1
 maxTime = 8 * 60
 
@@ -55,31 +65,39 @@ if __name__ == '__main__':
     simulationNumber = 1
     while not rospy.is_shutdown():    
         try:
-	    rospy.logerr("Simulation number %d", simulationNumber)
+            rospy.logerr("Simulation number %d", simulationNumber)
             for pose in waypoints:
                 goal = goal_pose(pose)
                 pub.publish(goal)
                 rate.sleep()
-		if (rospy.get_time() > maxTime):
-			break;
+                if (rospy.get_time() > maxTime):
+                    break;
                 while result.data == 0.0:
                     pub.publish(goal)
                     rate.sleep()
-		    if (rospy.get_time() > maxTime):
-			break;
+                    if (rospy.get_time() > maxTime):
+                        break;
+            
             simulationNumber = simulationNumber + 1
+            rospy.logerr("Increasing simulationNumber. now: %d", simulationNumber)
             if (simulationNumber > maxSimulations):
-		rospy.logerr("All simulations have been done. Pausing gazebo")
-                pause() 
-	    else:
-                pause() 
-		rate.sleep()
+                rospy.logerr("All simulations have been done. Pausing gazebo")
+                pause()
+            else:
+                rospy.logerr("preparing new simulation!")
+                #rospy.logerr("pause simulation!")
+                pause()
+                #rospy.logerr("wait!")
+                time.sleep(1)
+                #rospy.logerr("reset simulation!")
                 resetSimulation()
-		rate.sleep()
-		unpause()
-		rospy.logerr("Continue simulation!") 
+                #rospy.logerr("wait!")   
+                time.sleep(1)
+                #rospy.logerr("start new simulation!")
+                unpause()
+                rospy.logerr("Continue simulation!") 
         except rospy.ROSInterruptException:
-	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
+            rospy.logerr("ROS InterruptException! Just ignore the exception!") 
         except rospy.ROSTimeMovedBackwardsException:
-	    rospy.logerr("ROS Time Backwards! Just ignore the exception!")
-	
+            rospy.logerr("ROS Time Backwards! Just ignore the exception!")
+    

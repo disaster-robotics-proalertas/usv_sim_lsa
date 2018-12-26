@@ -37,6 +37,8 @@ time = 0
 arrayX = []
 arrayY = []
 indexMap = []
+showVehicleOnMap = 1;
+
 
 
 pub = rospy.Publisher('waterflow', OccupancyGrid, queue_size=1)
@@ -61,19 +63,22 @@ def PrintHierarchy(gid, level, text):
 					datasetX=h5py.Dataset(hid)
 				elif t==np.ndarray:
 				    	datasetX=hid
+				text = text + "["+str(len(datasetX))+"]"
 
 			if hidStr == nodeNameY:
 				if t==h5py.h5d.DatasetID:
 					datasetY=h5py.Dataset(hid)
 				elif t==np.ndarray:
 				    	datasetY=hid
+				text = text + "["+str(len(datasetY))+"]"
 
 			if hidStr == nodeCoordinate:
 				if t==h5py.h5d.DatasetID:
 					datasetCoord=h5py.Dataset(hid)
 				elif t==np.ndarray:
 				    	datasetCoord=hid
-			print text+" > "+hidStr
+				text = text + "["+str(len(datasetCoord))+"]"
+			print text+" > "+hidStr+" ["+str(len(hidStr))+"]"
 
 
 def preprocessDataset2():
@@ -113,17 +118,20 @@ def preprocessDataset2():
 	print "estimatedRefY: ", estimatedRefY
 	
 def handleWaterCurrent2(req):
-	global refX, refY, datasetX, datasetY, datasetCoord, time, indexMap, mymap, width
+	global refX, refY, datasetX, datasetY, datasetCoord, time, indexMap, mymap, width, showVehicleOnMap
 	i = indexMap[req.x][req.y]	
 	print ("Received request",req.x, req.y," --> ",datasetX[time][i], datasetY[time][i])
-	#mymap.data[req.y*width+req.x]=127
+
 	#for x in range (0, req.x):
 	#   mymap.data[req.y*width+x]=120
+	if (showVehicleOnMap):
+		mymap.data[req.y*width+req.x]=127
 	return GetSpeedResponse(datasetX[time][i], datasetY[time][i])
 
 def defineTime(data):
 	global time
 	time = data.data
+	loadMap()
 	print "\n New time defined: ", time
 
 def startRosService():
@@ -153,10 +161,13 @@ def loadMap():
 #	mymap.data = []
    	mymap.data = [0] * width*height
 	delta = 1.2
-	for y in range(0, 750):
-		sys.stdout.write('\r%d rows ' %y)	
+	for y in range(0, height):
+		#rospy.logerr ('\r%d rows ' %y)
+		#sys.stdout.write('\r%d rows ' %y)	
+		#sys.stdout.flush()
+		sys.stdout.write('\r%d rows processed' %y)
 		sys.stdout.flush()
-		for x in range(1500, width):
+		for x in range(0, width):
 			i = indexMap[x][y]
 			#px = (int)(math.floor(datasetCoord[i][0]-refX))
 			#py = (int)(math.floor(datasetCoord[i][1]-refY))
@@ -165,8 +176,9 @@ def loadMap():
 				value = (-1)*value;
 			if (value >127):
 				value = 127;
-			#mymap.data.append(int(value));
-			mymap.data[y*width+x]=int(value);		
+			#mymap.data.append(int(value))
+			mymap.data[y*width+x]=int(value);	
+			#rospy.logerr ( value )
 #	numpy.savetxt('data/'+str(filename)+'_'+str(time)+'.out', mymap.data, delimiter=',')		
 	rospy.logerr("#################### Map loaded!")
 
@@ -247,10 +259,15 @@ if __name__ == '__main__':
 
 	rate = rospy.Rate(1) # 10hz
 	while not rospy.is_shutdown():
-		if (mapTorviz == 1):
-			rospy.logerr("---sending map! Time: %d", time)
-			pub.publish(mymap);
-			rospy.logerr("---map sent!")
-		rate.sleep()
-		rospy.logerr("---end sleeping")
+		try:
+			if (mapTorviz == 1):
+				rospy.logerr("---sending map! Time: %d", time)
+				pub.publish(mymap);
+				rospy.logerr("---map sent!")
+			rate.sleep()
+			rospy.logerr("---end sleeping")
+		except rospy.ROSInterruptException:
+			rospy.logerr("ROS InterruptException! Just ignore the exception!") 
+		except rospy.ROSTimeMovedBackwardsException:
+			rospy.logerr("ROS Time Backwards! Just ignore the exception!")
 

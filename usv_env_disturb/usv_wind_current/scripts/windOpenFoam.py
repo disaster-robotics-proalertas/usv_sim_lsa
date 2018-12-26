@@ -243,11 +243,16 @@ if __name__ == '__main__':
 	rate = rospy.Rate(30) # 10hz
 
 	while not rospy.is_shutdown():
+		try:
 #		print ("waiting[",time,"] ")
 #		rospy.logerr("---sending map! %d, %d", mymap.info.origin.position.x, mymap.info.origin.position.y)
-		pub.publish(mymap);
+			pub.publish(mymap);
 
-		rate.sleep()
+			rate.sleep()
+		except rospy.ROSInterruptException:
+			rospy.logerr("ROS InterruptException! Just ignore the exception!") 
+		except rospy.ROSTimeMovedBackwardsException:
+			rospy.logerr("ROS Time Backwards! Just ignore the exception!")
 	exit(0)
 	#loadColisions()
 	#initilizeArray()
