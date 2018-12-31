@@ -156,7 +156,9 @@ To allow the water current affect vehicles differently across the space and time
   <img src="./images/composto4.png" width="800" alt="HEC-RAS Simulation of Diluvio River, Porto Alegre, RS - Brazil "/>
 </p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GAgCjPdy3AI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=GAgCjPdy3AI" target="_blank">
+ <img src="http://img.youtube.com/vi/GAgCjPdy3AI/0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="290" height="210" border="10" />
+</a>
 
 ### WAVES
 The integration with UWSim allows to reproduce waves to different configurations. Below is presented an differential boat travelling through waves.
