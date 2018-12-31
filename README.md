@@ -159,7 +159,7 @@ To allow the water current affect vehicles differently across the space and time
 #### VIDEO - CLICK ON IMAGE TO PLAY IT
 <p align="center">
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=phxAOb616FI" target="_blank">
-  <img src="http://img.youtube.com/vi/phxAOb616FI/0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="580" height="420" border="10" />
+  <img src="./images/0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="580" height="420" border="10" />
 </a>
 </p>
 
