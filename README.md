@@ -155,6 +155,8 @@ To allow the water current affect vehicles differently across the space and time
 <p align="center">
   <img src="./images/composto4.png" width="800" alt="HEC-RAS Simulation of Diluvio River, Porto Alegre, RS - Brazil "/>
 </p>
+
+#### VIDEO - CLICK ON IMAGE TO PLAY IT
 <p align="center">
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=GAgCjPdy3AI" target="_blank">
   <img src="http://img.youtube.com/vi/GAgCjPdy3AI/0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="580" height="420" border="10" />
