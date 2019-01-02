@@ -84,6 +84,8 @@ To execute water simulation to those scenarios, you should run the script named 
   <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
 </p>
 
+[//]: <> (This is also a comment.) AMA, aponta aqui para aqueles videos que vc fez antes. la no youtube, seria bom vc editar a descricao dos videos para incluir uma frase sobre o simulador e apontar p esse repo. assim, quem achar o teu simulador via youtube vai conseguir acessar o codigo ;)
+
 
 ## System Architecture 
 
@@ -132,6 +134,8 @@ To allow the water current affect vehicles differently across the space and time
 ### WAVES
 The integration with UWSim allows to reproduce waves to different configurations. Below is presented an differential boat travelling through waves.
 
+[//]: <> (This is also a comment.) AMA. Marcelo, seria legal colocar um video mostrando bem de perto um barco balançando com as ondas.
+
 
 ### WIND CURRENTS
 
@@ -154,7 +158,7 @@ P.S: The lines on the botton images have been integrated with runge kutta from w
 
 ## GROUND TRUTH GENERATION
 ### CONFIGURATION
-
+[//]: <> (This is also a comment.) AMA. Marcelo, nao sei se eh necessario falaar sobre GROUND TRUTH GENERATION no git. mais eh instalacao, como rodar exemplo, como modificar o controle, como parametrizar a simulacao, como criar um scenario, etc. coisas de usabilidade.
 
 ## Contributing
 
