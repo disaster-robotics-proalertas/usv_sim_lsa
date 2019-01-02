@@ -197,7 +197,7 @@ We have added support to generate ground truth data for algorithm visions. Below
 ```
 
 <p align="center">
-  <img src="./images/gt.png" width="400" alt="Ground Truth generation"/>
+  <img src="./images/gt.png" width="800" alt="Ground Truth generation"/>
 </p>
 
 [//]: # ((This is also a comment. AMA. Marcelo, nao sei se eh necessario falaar sobre GROUND TRUTH GENERATION no git. mais eh instalacao, como rodar exemplo, como modificar o controle, como parametrizar a simulacao, como criar um scenario, etc. coisas de usabilidade.)
