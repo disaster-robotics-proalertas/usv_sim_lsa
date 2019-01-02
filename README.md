@@ -165,10 +165,10 @@ The disturbances can affect vehicles in different ways:
 - **LOCAL:** vehicle will be affected by a local disturbance. It can change in time and in space. Disturbance values will acquired from wind_current (OpenFoam Simulation) and water_current (HEC-RAS Simulation);
 #### CONFIGURATION
 
-You can configure how the wind current and how the water current will affect each vehicle. Thus you can define on ''windType'' and ''waterType'' one of the following options: ''none'', ''global'', ''local''.
+You can configure how the wind current and how the water current will affect each vehicle. Thus you can define on ''windType'' and ''waterType'' parameter one of the following options: ''none'', ''global'', ''local''.
 
 Below it is presented the portion of a launch file that it responsible to configure an airboat in the simulation. In this case, the ''windType'' and ''waterType'' was configurated with value ''local''. 
-
+```
         <include file="$(find usv_sim)/launch/models/spawn_airboat_validation.launch">
                 <arg name="gui" value="$(arg gui)"/>
                 <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
@@ -176,9 +176,10 @@ Below it is presented the portion of a launch file that it responsible to config
                 <arg name="windType" value="local"/>
                 <arg name="waterType" value="local"/>
         </include>
+```
 
 Below, it is present another example, where a differential boat (named ''diffboat1'') was configurated in such way that the wind current has a global value and will not change in time, and the water current was defined to ''none'', so the vehicle will not be affected by wind currents.
-
+```
         <include file="$(find usv_sim)/launch/models/spawn_diffboat_validation.launch">
                 <arg name="gui" value="$(arg gui)"/>
                 <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
@@ -186,6 +187,7 @@ Below, it is present another example, where a differential boat (named ''diffboa
                 <arg name="windType" value="global"/>
                 <arg name="waterType" value="none"/>
         </include>
+```
 
 ## GROUND TRUTH GENERATION
 ### CONFIGURATION
