@@ -160,9 +160,9 @@ P.S: The lines on the botton images have been integrated with runge kutta from w
 
 ### HOW DISTURBANCES CAN AFFECT VEHICLES
 The disturbances can affect vehicles in different ways:
-- NONE: vehicle will not be affected by the disturbance;
-- GLOBAL: vehicle will be affected by a global disturbance. It will not change in time and in space (same value to all over the place);
-- LOCAL: vehicle will be affected by a local disturbance. It can change in time and in space. Disturbance values will acquired from wind_current (OpenFoam Simulation) and water_current (HEC-RAS Simulation);
+- **NONE:** vehicle will not be affected by the disturbance;
+- **GLOBAL:** vehicle will be affected by a global disturbance. It will not change in time and in space (same value to all over the place);
+- **LOCAL:** vehicle will be affected by a local disturbance. It can change in time and in space. Disturbance values will acquired from wind_current (OpenFoam Simulation) and water_current (HEC-RAS Simulation);
 #### CONFIGURATION
 
 You can configure how the wind current and how the water current will affect each vehicle. Thus you can define on ''windType'' and ''waterType'' one of the following options: ''none'', ''global'', ''local''.
