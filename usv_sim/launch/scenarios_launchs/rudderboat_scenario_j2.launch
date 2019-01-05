@@ -3,6 +3,7 @@
 
 	<arg name="gui" default="false"/>
 	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
 
     <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
@@ -36,7 +37,7 @@
         </include>
 			
         <!-- recording experiment -->
-		<node pkg="rosbag" type="record" name="record_rudderboat" args="-O $(find usv_navigation)/bags/journal_2018/rudderboat_scenario_j2WaterWindOut.bag /rudderboat/state" output="screen"/>
+		<node pkg="rosbag" type="record" name="record_rudderboat" args="-O $(find usv_navigation)/bags/journal_2018/rudderboat_scenario_j2WaterWindOut.bag /rudderboat/state" output="screen" if="$(arg rec)"/>
 
 	</group>
 

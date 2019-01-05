@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>foil_dynamics_plugin</name>
+  <version>0.0.0</version>
+  <description>The foil_dynamics_plugin package</description>
+
+  <maintainer email="marcelo.paravisi@osorio.ifrs.edu.br">Marcelo Paravisi</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>wind_current</build_depend>
+  <build_depend>water_current</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>water_current</exec_depend>
+  <exec_depend>wind_current</exec_depend>
+
+</package>

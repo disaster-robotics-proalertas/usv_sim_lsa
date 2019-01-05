@@ -3,6 +3,7 @@
 
 	<arg name="gui" default="false"/>
 	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
 
 	<!-- spawn uwsim -->
 	<group unless="$(arg parse)">
@@ -27,7 +28,7 @@
 		<include file="$(find usv_sim)/launch/scenarios_launchs/diffboat_scenario_j2_spawner.launch"/>
 		<!-- one include and one node to each vehicle -->
 		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene_j2.py" ns="diffboat" unless="$(arg gui)"/>
-		<include file="$(find usv_sim)/launch/models/spawn_diffboat_validation.launch">
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch">
 		    <arg name="gui" value="$(arg gui)"/>
 		    <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
 		    <arg name="namespace" value="$(arg namespace)"/>
@@ -36,7 +37,7 @@
 		</include>
 			
        	<!-- recording experiment -->
-		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/journal_2018/diffboat_scenario_j2WaterWindOut.bag /diffboat/state" output="screen"/>
+		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/journal_2018/diffboat_scenario_j2WaterWindOut.bag /diffboat/state" output="screen" if="$(arg rec)"/>
 
 	</group>
 

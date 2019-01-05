@@ -161,7 +161,7 @@ def rudder_ctrl():
 
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    rospy.loginfo(log_msg)
+    #rospy.loginfo(log_msg)
 
     return rudder_angle
 

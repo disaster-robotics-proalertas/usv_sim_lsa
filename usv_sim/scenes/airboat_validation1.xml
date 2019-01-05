@@ -51,20 +51,20 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>95 </y>
+      <x>-10</x>
+      <y>0 </y>
       <z>15 </z>
     </position> 
     <lookAt>
-      <x>245</x>
-      <y>95 </y>
+      <x>10</x>
+      <y>0 </y>
       <z>5 </z>
     </lookAt>
   </camera>
 
   <vehicle>
     <name>airboat</name>
-    <file>urdf/airboat_validation_uwsim.urdf</file>
+    <file>urdf/airboat_uwsim.urdf</file>
     <jointValues>
       <joint> 0 </joint>
       <joint> 0 </joint>

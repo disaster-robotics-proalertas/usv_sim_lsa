@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-
 	<arg name="gui" default="false"/>
 	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
 
     <!-- spawn uwsim -->
 	<group unless="$(arg parse)">
@@ -36,7 +36,7 @@
         </include>
 		
 		<!-- recording experiment -->
-		<node pkg="rosbag" type="record" name="record_sailboat" args="-O $(find usv_navigation)/bags/journal_2018/sailboat_scenario_j1WaterWindOut.bag /sailboat/state" output="screen"/>
+		<node pkg="rosbag" type="record" name="record_sailboat" args="-O $(find usv_navigation)/bags/journal_2018/sailboat_scenario_j1WaterWindOut.bag /sailboat/state" if="$(arg rec)"/>
 
 	</group>
 			

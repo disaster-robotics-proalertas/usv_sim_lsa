@@ -59,14 +59,14 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-	  <x>291.6</x>
-      <y>120 </y>
-      <z>13.9 </z>
+      <x>230</x>
+      <y>100 </y>
+      <z>15 </z>
     </position> 
     <lookAt>
-      <x>292.3</x>
-      <y>120 </y>
-      <z>13.15 </z>
+      <x>240</x>
+      <y>100 </y>
+      <z>5 </z>
     </lookAt>
   </camera>
 
@@ -78,9 +78,9 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 300</x>
-      <y> 120 </y>
-      <z> 1.13 </z>
+	  <x> 240</x>
+      <y> 100 </y>
+      <z> 1.15 </z>
     </position>
     <orientation>
       <r>0 </r>
@@ -109,10 +109,10 @@
    <vehicle>
     <name>buoy1</name>
     <file>urdf/buoy_uwsim.urdf</file>
-     <position>
-      <x> 310</x>
-      <y> 120 </y>
-      <z> 1.13 </z>
+    <position>
+      <x> 250</x>
+      <y> 100 </y>
+      <z> 1</z>
     </position>
     <orientation>
       <r>0</r>
@@ -124,10 +124,10 @@
    <vehicle>
     <name>buoy2</name>
     <file>urdf/buoy_uwsim.urdf</file>
-     <position>
-      <x> 320</x>
-      <y> 120 </y>
-      <z> 1.13 </z>
+    <position>
+      <x> 260</x>
+      <y> 100 </y>
+      <z> 1 </z>
     </position>
     <orientation>
       <r>0</r>
@@ -140,10 +140,10 @@
     <name>buoy3</name>
     <file>urdf/buoy_uwsim.urdf</file>
 
-     <position>
-      <x> 330</x>
-      <y> 120 </y>
-      <z> 1.13 </z>
+    <position>
+      <x> 270</x>
+      <y> 100 </y>
+      <z> 1 </z>
     </position>
     <orientation>
       <r>0</r>

@@ -89,7 +89,7 @@ To execute water simulation to those scenarios, you should run the script named 
 
 ## System Architecture 
 
-The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
+The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes wind_current and wind_current.
 
 <p align="center">
   <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
@@ -193,8 +193,11 @@ Below, it is present another example, where a differential boat (named ''diffboa
 
 We have added support to generate ground truth data for algorithm visions. Below we present some result of our solution, you can execute an example by running the following commands:
 ```
-        roslaunch usv_sim ....XXXX...
+        roslaunch usv_sim airboat_segmentation_2.launch parse:=true
+        roslaunch usv_sim airboat_segmentation_2.launch parse:=false
 ```
+As soon as both UWSIM show up, press **c** on your keyboard in each UWSim window, so the boat camera will be rendered.
+
 
 <p align="center">
   <img src="./images/gt.png" width="800" alt="Ground Truth generation"/>

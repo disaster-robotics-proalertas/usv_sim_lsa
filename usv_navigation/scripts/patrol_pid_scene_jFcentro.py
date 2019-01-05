@@ -45,9 +45,9 @@ if __name__ == '__main__':
 
 
     simulationNumber = 1
+    rospy.logerr("Simulation number %d", simulationNumber)
     while not rospy.is_shutdown():    
         try:
-            rospy.logerr("Simulation number %d", simulationNumber)
             for pose in waypoints:
                 goal = goal_pose(pose)
                 pub.publish(goal)
