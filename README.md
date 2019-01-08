@@ -189,6 +189,14 @@ Below, it is present another example, where a differential boat (named ''diffboa
         </include>
 ```
 
+#### VIDEOS
+<p>
+        <a href="http://www.youtube.com/watch?feature=player_embedded&v=JEhY3h-BKGQ" target="_blank">
+                <img src="./images/diffboat_scenario_jF.png" alt="Differential boats sailing upstream" width="423" height="271" border="10" />
+        </a>
+</p>
+        
+
 ## GROUND TRUTH GENERATION
 
 We have added support to generate ground truth data for algorithm visions. Below we present some result of our solution, you can execute an example by running the following commands:
