@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="namespace" default="airboat"/>  
+	<arg name="posX" default="0"/>
+    <arg name="posY" default="0"/>
+    <arg name="posZ" default="0"/>
+    <arg name="spawnGazebo" default="false"/>
+    <arg name="windType" default="global"/>
+    <arg name="waterType" default="global"/>
+
+    <!-- spawn in Gazebo with GUI -->
+    <group ns="$(arg namespace)">
+
+        <!--<node name="patrol" pkg="usv_navigation" type="patrol_pid.py" unless="$(arg gui)"/>-->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/airboat.xacro windType:=$(arg windType) waterType:=$(arg waterType)"/>
+        <node unless="$(arg spawnGazebo)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model airboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
+
+        <!-- Load joint and thruster controller configurations from YAML file to parameter server -->
+        <rosparam file="$(find usv_sim)/config/airboat.yaml" command="load"/>
+        <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
+
+        <!-- Launch motion control nodes -->
+        <node name="heading_control" pkg="usv_base_ctrl" type="airboat_control_heading.py" output="screen" unless="$(arg gui)"/>
+        <!--<node name="control_vel" pkg="usv_base_ctrl" type="control_vel_airboat.py" unless="$(arg gui)"/>-->
+
+        <!-- TF TREE NODES -->
+        <!--node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py"/--> 
+        <!--node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 base_link airboat/base_laser 10" /-->
+        <!--node name="odom_relay" type="relay" pkg="topic_tools" args="state /odom" /-->
+        <!--node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" /-->
+
+        <!-- GUI interface to control joints -->
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+            <param name="use_gui" value="True"/>
+            <remap from="joint_states" to="joint_setpoint" />        
+        </node>
+
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>
+        <node pkg="tf" type="static_transform_publisher" name="world_base_link" args="0 0 0 0 0 0 1 /world /base_link 10" />             
+
+        <!-- GUI interface to control thrusters -->
+        <group ns="thrusters">
+             <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/airboat_dummy.urdf"/>                         
+             <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+                 <param name="use_gui" value="True"/>
+                 <remap from="joint_states" to="/airboat/thruster_command" />
+             </node>             
+        </group>
+
+	</group>
+
+</launch>

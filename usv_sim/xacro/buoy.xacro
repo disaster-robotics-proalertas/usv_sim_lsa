@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<robot name="buoy">
+  <link name="link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+      <geometry>
+          <mesh filename="package://usv_sim/meshes/buoy2.dae" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.0"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+     <geometry>
+          <mesh filename="package://usv_sim/meshes/buoy2.dae" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+		<buoyancy>
+        	<compensation>10</compensation>
+          	<origin xyz="0 0 0.05"/>
+          	<limit radius="0.25"/>
+          	<windVelocity>none</windVelocity>
+          	<damping rpy="20 20 20" xyz="100 100 50"/>
+	  	  	<waterVelocity>none</waterVelocity>
+        </buoyancy>
+  </link>
+</robot>

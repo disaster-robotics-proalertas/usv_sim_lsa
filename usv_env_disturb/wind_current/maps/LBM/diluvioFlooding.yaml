@@ -1,0 +1,9 @@
+heightMap: src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/combinado2.tif
+autodraw:
+  minColisionHeight: 9
+  maxColisionHeight: 20
+resolution: 0.5
+windSpeed: -0.6
+origin: [0, 0, 0.0]
+obstacleImage: 'src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/cleanCombinado2.jpg'
+

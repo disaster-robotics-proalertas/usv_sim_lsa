@@ -1,0 +1,32 @@
+controllers:
+    config:
+        joints:
+            state: joint_states
+            setpoint: joint_setpoint
+            command: joint_command
+            cascaded_position: False
+            dynamic_reconfigure: False
+    x:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100}
+    y:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100}
+    z:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100}
+    pitch:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100} 
+    roll:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100}
+    yaw:
+        velocity: {p: 150, i: 100, d: 0}
+        position: {p: 100, i: 5, d: 100}
+    rudder_joint:
+        velocity: {p: 5.0, i: 1, d: 0.0}
+        position: {p: 10.0, i: 1, d: 0}
+    sail_joint:
+        velocity: {p: 5.0, i: 1, d: 0.0}
+        position: {p: 10, i: 1, d: 0}

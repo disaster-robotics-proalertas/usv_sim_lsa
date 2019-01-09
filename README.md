@@ -1,7 +1,16 @@
-# Simulated Environment for Unmanned Surface Vehicles (usv_sim) -- 0.0.1
-This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  It is developed to test control and trajectory strategies for USVs, but it can be easily adapted to other applications. It contains multiple robot models such as propelled boats(rudder boat, differential boat, airboat) and sailboat. Boats are affected by waves, wind and water currents, implemented by UWsim for water surface modeling, HEC-RAS for water speed of river and channel simulations, and Lattice Boltzmann in a 2D grid for wind current. All those features allow to modelling the movement of boats in a realistic way.
 
-### Prerequisites
+# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
+
+[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=testTravis%2Ftravis_integration)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
+[![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/usv-sim)
+[![DOI](https://zenodo.org/badge/91500138.svg)](https://zenodo.org/badge/latestdoi/91500138)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/LICENSE)
+
+This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
+Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
+
+## Prerequisites
 
 You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic and some additional packages, run the following commands:
 
@@ -9,36 +18,58 @@ You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
         sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
         sudo apt-get update
-        sudo apt-get install ros-kinetic-desktop-full
+        sudo apt-get install ros-kinetic-desktop-full ros-kinetic-control-* ros-kinetic-osg-markers ros-kinetic-move-base -y
         sudo rosdep init
         rosdep update
         sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
         source ~/.bashrc
-        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
-        sudo apt install python-rosdep python-wxtools
-        sudo apt-get install python-lxml python-pathlib python-h5py ros-kinetic-control-* ros-kinetic-osg-markers
-        sudo apt-get install libfftw3-* libxml++2.6-* python-scipy python-geolinks python-gdal
-        sudo apt-get install ros-kinetic-move-base libsdl-image1.2-dev libsdl-dev
-        sudo rosdep init
-        rosdep update
+
+Now run the following commands to download the dependencies of usv_sim:
+
+        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep python-wxtools python-lxml python-pathlib python-h5py python-scipy python-geolinks python-gdal -y
+        sudo apt-get install libfftw3-* libxml++2.6-* libsdl-image1.2-dev libsdl-dev -y
 
 
-        
+## Installing
 
-### Downloading and compiling usv_sim
+To run the packages of usv_sim you need a catkin workspace. If you already have a workspace you may jump to the Downloading and installing subsection.
 
-        cd ~
+### Creating a catkin workspace
+
+        source /opt/ros/kinetic/setup.bash
+        mkdir -p ~/catkin_ws/src
+        cd ~/catkin_ws/
+        catkin_make
+
+### Downloading and installing usv_sim stack
+
+Clone the usv_sim repository in the src folder of your catkin workspace:
+
+        cd ~/catkin_ws/src
         git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-        cd ~/usv_sim_lsa
+        cd usv_sim_lsa
+        git submodule init
+        git submodule update
+
+Run the instalation script:
+
+        cd ~/catkin_ws/src/usv_sim_lsa
+        ./install_usv_sim
+
+Compile the stack:
+
+        cd ~/catkin_ws/
         catkin_make_isolated --install
-        source ~/usv_sim_lsa/install_isolated/setup.bash
-        
-        
-        Before you run the simulador, you should download some assets, so run the following command:
-        
-        rosrun uwsim uwsim
+        source install_isolated/setup.bash
 
+To run a scenario:
 
+        roslaunch usv_sim airboat_scenario1.launch parse:=true
+        roslaunch usv_sim airboat_scenario1.launch parse:=false
+
+The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation dosen't starts you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
+
+Make sure your graphic card driver is up to date.
 
 
 ## Running the tests
@@ -54,35 +85,13 @@ To execute water simulation to those scenarios, you should run the script named 
   <img src="./images/SCENARIOS2.png" width="400" alt="Scenarios to test boats"/>
 </p>
 
-### VIDEOS
+[//]: # ( AMA, aponta aqui para aqueles videos que vc fez antes. la no youtube, seria bom vc editar a descricao dos videos para incluir uma frase sobre o simulador e apontar p esse repo. assim, quem achar o teu simulador via youtube vai conseguir acessar o codigo )
 
-###### Scenario 1
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=jvgcgIXkRtQ" target="_blank">
- <img src="http://img.youtube.com/vi/jvgcgIXkRtQ/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=u-JnylVnD9I" target="_blank">
- <img src="http://img.youtube.com/vi/u-JnylVnD9I/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=QlenP-I_Oms" target="_blank">
- <img src="http://img.youtube.com/vi/QlenP-I_Oms/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
-</a>
-
-###### Scenario 2
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=aAN48eRpTSw" target="_blank">
- <img src="http://img.youtube.com/vi/aAN48eRpTSw/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=pb13mWNcg74" target="_blank">
- <img src="http://img.youtube.com/vi/pb13mWNcg74/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
-</a>
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=sTJ3DfIYY_M" target="_blank">
- <img src="http://img.youtube.com/vi/sTJ3DfIYY_M/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
-</a>
 
 ## System Architecture 
 
-The main system architecture is composed of UWSIM and Gazebo, including plugins for realistic  waves, wind and water current simulation on several boat types. Above is presented the topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes usv_wind_current and usv_wind_current.
+The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes wind_current and wind_current.
+
 
 <p align="center">
   <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
@@ -108,41 +117,104 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 </p>
 
 
+## DISTURBANCE TYPES
+The vehicles can be affected by 3 types of disturbances: wind currents, water currents and waves. Each kind of disturbance is presented below:
+
+### WATER CURRENT
+To allow the water current affect vehicles differently across the space and time, the USV_SIM can load output simulations from the HEC-RAS hydrological simulator. The HEC-RAS is a CFD software (computational fluid dynamics) capable of modelling the water flow through natural rivers and channels. Below it is presented an image, and a video of HEC-RAS simulations used in USV_SIM. HEC-RAS can reproduce turbulence effects presented into rivers and other bodies of water.
+
+<p align="center">
+  <img src="./images/composto4.png" width="800" alt="HEC-RAS Simulation of Diluvio River, Porto Alegre, RS - Brazil "/>
+</p>
+
+#### VIDEO - CLICK ON IMAGE TO PLAY IT
+<p align="center">
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=mbg59MQRa9M" target="_blank">
+  <img src="./images/hecras_diluvio0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="423" height="271" border="10" />
+</a>
+</p>
+
+### WAVES
+The integration with UWSim allows to reproduce waves to different configurations. Below is presented an differential boat travelling through waves.
+
+[//]: # (This is also a comment. AMA. Marcelo, seria legal colocar um video mostrando bem de perto um barco balançando com as ondas.)
 
 
-## LAUNCH FILES STRUCTURE
+### WIND CURRENTS
 
-The main files to configure your simulations are:
+The simulator can load wind currents generated by the CFD software OpenFoam, which it can solve continuum mechanics problems, and reproduce vortices and wind turbulence near buildings. Below it is presented some simulations that are avaliable in our robotic simulator. 
 
-1. XML files located into folder scenes of package usv_sim. In those files, you can configure UWSIM to run water simulation and some other world properties (current, waves and wind).
-2. Launch files located into folder launch of package usv_sim. In those files, you can configure gazebo to run the simulation.
-3. Xacro files located into folder xacro of package usv_sim. In those files, you can define the structure of your robot. You can use the available models (diferential boat, rudder boat, airboat and sailboat) as template to build your own model.
+<p align="center">
+  <img src="./images/bridge_1_5m_sem3D.png" width="400" alt="OpenFOAM simulation of bridge over Diluvio River, Porto Alegre, RS - Brazil "/>
+  <img src="./images/slice_15m.png" width="400" alt="OpenFOAM simulation Porto Alegre, RS - Brazil"/>
+</p>
+<p align="center">
+  <img src="./images/bridge0008.png" width="400" alt="OpenFOAM simulation of Porto Alegre, RS - Brazil"/>        
+  <img src="./images/buildings_15m0008.png" width="400" alt="OpenFOAM simulation of Porto Alegre, RS - Brazil"/>        
+</p>
+P.S: The lines on the botton images have been integrated with runge kutta from wind current field.
 
-Each launch file was designed to include others files type in a way to customize your simulation. Above it is presented 3 tables that describe the relation between each launch file with xacro, xml, collada file (.dae).
+#### VIDEO - CLICK ON IMAGE TO PLAY IT
+<p align="center">
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=i6lvMAsERHg" target="_blank">
+  <img src="./images/openfoam_diluvio0.jpg" alt="Diluvio River - HEC-RAS Simulation" width="423" height="271" border="10" />
+</a>
+</p>
 
-|<sub> Launch File</sub> | <sub>Gazebo World File</sub> | <sub>UWSIM XML File</sub> | <sub>Autogenerated UWSIM File</sub> | <sub>Boat Launch File |
-|-------------|-------------------|----------------|--------------------------|------------------|
-|<sub>robots_start.launch</sub> | <sub>world/empty.world</sub> | <sub>robots_start.xml</sub> | <sub>robots_start_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch<br> models/spawn_airboat.launch <br>models/spawn_boat_rudder.launch <br>models/spawn_sailboat.launch</sub> |
-|<sub>scenario1.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario1.xml</sub> | <sub>scenario1_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
-|<sub>scenario2.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario2.xml</sub> | <sub>scenario2_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
-|<sub>scenario3.launch</sub> | <sub>world/empty.world</sub> | <sub>scenario3.xml</sub> | <sub>scenario3_spawner.launch</sub> | <sub>models/spawn_boat_diff.launch</sub> |
+### HOW DISTURBANCES CAN AFFECT VEHICLES
+The disturbances can affect vehicles in different ways:
+- **NONE:** vehicle will not be affected by the disturbance;
+- **GLOBAL:** vehicle will be affected by a global disturbance. It will not change in time and in space (same value to all over the place);
+- **LOCAL:** vehicle will be affected by a local disturbance. It can change in time and in space. Disturbance values will acquired from wind_current (OpenFoam Simulation) and water_current (HEC-RAS Simulation);
+#### CONFIGURATION
 
-|<sub> Boat Launch File</sub> | <sub>Robot Description</sub> | <sub>Controller Configurations</sub> | <sub>PID Control</sub> | <sub>Velocity Control</sub> | <sub>TF Broadcasters</sub> | <sub>GUI Support</sub> | 
-|-----------------|-------------------|-----------|----------------|------------------------------|-----------------|-------------|
-|<sub>models/spawn_airboat.launch</sub></sub> | <sub>xacro/airboat.xacro</sub> | <sub>config/airboat.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_vel_airboat.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
-|<sub>models/spawn_boat_diff.launch</sub> | <sub>xacro/boat_diff.xacro</sub> | <sub>config/boat_diff.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_diff_vel_ctrl.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
-|<sub>models/spawn_boat_rudder.launch</sub> | <sub>xacro/boat_rudder.xacro</sub> | <sub>config/boat_rudder.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::boat_rudder_vel_ctrl.py</sub> | <sub>usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> |
-|<sub>models/spawn_sailboat.launch</sub> | <sub>xacro/sailboat.xacro</sub> | <sub>config/sailboat.yaml</sub> | <sub>freefloating_gazebo::pid_control</sub> | <sub>usv_base_ctrl::control_??_ctrl.py</sub> | <sub>	usv_tf::world_tf_broadcaster.py</sub> | <sub>Yes</sub> | 
+You can configure how the wind current and how the water current will affect each vehicle. Thus you can define on ''windType'' and ''waterType'' parameter one of the following options: ''none'', ''global'', ''local''.
+
+Below it is presented the portion of a launch file that it responsible to configure an airboat in the simulation. In this case, the ''windType'' and ''waterType'' was configurated with value ''local''. 
+```
+        <include file="$(find usv_sim)/launch/models/spawn_airboat_validation.launch">
+                <arg name="gui" value="$(arg gui)"/>
+                <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+                <arg name="namespace" value="$(arg namespace)"/>
+                <arg name="windType" value="local"/>
+                <arg name="waterType" value="local"/>
+        </include>
+```
+
+Below, it is present another example, where a differential boat (named ''diffboat1'') was configurated in such way that the wind current has a global value and will not change in time, and the water current was defined to ''none'', so the vehicle will not be affected by wind currents.
+```
+        <include file="$(find usv_sim)/launch/models/spawn_diffboat_validation.launch">
+                <arg name="gui" value="$(arg gui)"/>
+                <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+                <arg name="namespace" value="diffboat1"/>
+                <arg name="windType" value="global"/>
+                <arg name="waterType" value="none"/>
+        </include>
+```
+
+#### VIDEOS
+<p>
+        <a href="http://www.youtube.com/watch?feature=player_embedded&v=JEhY3h-BKGQ" target="_blank">
+                <img src="./images/diffboat_scenario_jF.png" alt="Differential boats sailing upstream" width="423" height="271" border="10" />
+        </a>
+</p>
+        
+
+## GROUND TRUTH GENERATION
+
+We have added support to generate ground truth data for algorithm visions. Below we present some result of our solution, you can execute an example by running the following commands:
+```
+        roslaunch usv_sim airboat_segmentation_2.launch parse:=true
+        roslaunch usv_sim airboat_segmentation_2.launch parse:=false
+```
+As soon as both UWSIM show up, press **c** on your keyboard in each UWSim window, so the boat camera will be rendered.
 
 
-|<sub>Xacro Files</sub> |  <sub>Hull Subdivision</sub> |  <sub>Plugins</sub> |  <sub>DAE File</sub> |  <sub>Thruster</sub> |  <sub>Air thruster</sub> |  <sub>Rudder</sub> |
-|------------|------------------|---------|-----------|---------|--------------|--------|
-|<sub>xacro/airboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  |<sub> fwd </sub> |  | |  
-|<sub>xacro/boat_diff.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control</sub> |  | <sub>fwd_left fwd_right</sub> |  | |
-|<sub>xacro/boat_rudder.xacro</sub> | <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  |<sub> fwd</sub> |  | <sub>rudder</sub> |
-|<sub>xacro/sailboat.xacro</sub> |  <sub>xacro/boat_subdivided4.xacro</sub> |  <sub>libfreefloating_gazebo_control libusv_sailing_plugin</sub> |  <sub>meshes/simpleHull3/sail.dae meshes/simpleHull3/box.dae</sub> | | | |
-|<sub>xacro/boat_subdivided4.xacro</sub> | - |<sub>libgazebo_ros_gpu_laser</sub> |  <sub>meshes/simpleHull3/base_link.dae meshes/simpleHull3/centerRight.dae meshes/simpleHull3/backLeft.dae meshes/simpleHull3/backRight.dae meshes/simpleHull3/frontLeft.dae meshes/simpleHull3/frontRight.dae meshes/simpleHull3/thruster.dae meshes/simpleHull3/airPropeller.dae meshes/simpleHull3/box.dae</sub> |  <sub>macro:thruster_link</sub> |  <sub>macro:airthruster_link</sub> |  <sub>macro:rudder_xacro</sub>|
+<p align="center">
+  <img src="./images/gt.png" width="800" alt="Ground Truth generation"/>
+</p>
 
+[//]: # ((This is also a comment. AMA. Marcelo, nao sei se eh necessario falaar sobre GROUND TRUTH GENERATION no git. mais eh instalacao, como rodar exemplo, como modificar o controle, como parametrizar a simulacao, como criar um scenario, etc. coisas de usabilidade.)
 
 ## Contributing
 
@@ -161,8 +233,15 @@ v0.0.1 – Initial version submitted to IROS 2018
 * Vitor Augusto Machado Jorge (PUCRS University, Porto Alegre, Brazil)
 ## License
 
-TODO
+USV Simulator is open-sourced under the Apache-2.0 license. See the
+[LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-This project is supported by CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
+* freefloating_gazebo
+* LiftDrag 
+* UWsim - https://github.com/uji-ros-pkg/underwater_simulation
+* Openfoam - https://openfoam.org/
+* HEC-RAS - https://en.wikipedia.org/wiki/HEC-RAS 
+* CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
+

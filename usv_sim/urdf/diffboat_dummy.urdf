@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="thrusters">
+  <joint name="fwd_left">
+    <limit lower="-11.5" upper="11.5"/>
+  </joint>
+  <joint name="fwd_right">
+    <limit lower="-11.5" upper="11.5"/>
+  </joint>
+</robot>

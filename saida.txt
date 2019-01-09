@@ -1,7 +1,0 @@
---- Inicializando batch script ---
-Simulacao 1 - inicio:  Sáb Fev 17 23:46:03 -02 2018
-Simulacao 1 - termino: Sáb Fev 17 23:46:14 -02 2018
-Simulacao 2 - inicio:  Sáb Fev 17 23:46:14 -02 2018
-Simulacao 2 - termino: Sáb Fev 17 23:46:24 -02 2018
-Simulacao 3 - inicio:  Sáb Fev 17 23:46:24 -02 2018
-Simulacao 3 - termino: Sáb Fev 17 23:46:34 -02 2018

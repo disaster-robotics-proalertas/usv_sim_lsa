@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> -1.0 </windx>
+    <windy> 0.0 </windy>
+    <windSpeed> 3.2 </windSpeed>
+    <depth> 100 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <waveScale> 1e-7 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> -1.5 </choppyFactor>
+    <crestFoamHeight> 1.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+        <r>0.017</r>
+        <g>0.027</g>
+        <b>0.079</b>
+      </color>
+    </fog>
+    <color>
+        <r>0.55</r>
+        <g>0.45</g>
+        <b>0.33</b>
+    </color>
+    <attenuation>
+      <r>0.15</r>
+      <g>0.15 </g>
+      <b> 0.05 </b>
+    </attenuation>
+  </oceanState>
+  
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 1152 </resw>
+    <resh> 864 </resh>
+    <showTrajectory>
+      <target>diffboat</target>
+    </showTrajectory>
+  </simParams>
+  
+
+  <camera>
+    <freeMotion> 1 </freeMotion>
+    <objectToTrack>diffboat/base_link</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 1 </near>
+    <far> 10000 </far>
+    <position>
+      <x>215</x>
+      <y>135 </y>
+      <z>40 </z>
+    </position> 
+    <lookAt>
+      <x>240</x>
+      <y>135 </y>
+      <z>5 </z>
+    </lookAt>
+  </camera>
+
+  <vehicle>
+    <name>diffboat1</name>
+    <file>urdf/diffboat_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 230</x>
+      <y> 120 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0 </r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </vehicle>
+  
+  
+  <vehicle>
+    <name>diffboat2</name>
+    <file>urdf/diffboat_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 230</x>
+      <y> 150 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0 </r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </vehicle>
+
+	<object>
+    <name>terrain</name>
+    <file>terrain/diluvio5/novo4.obj</file>
+    <position>
+      <x> 0</x>
+      <y> 558 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
+
+  <rosInterfaces>   
+
+    <ROSOdomToPAT>
+      <topic> /diffboat1/state </topic>
+      <vehicleName> diffboat1 </vehicleName>
+    </ROSOdomToPAT>
+    
+    <ROSOdomToPAT>
+      <topic> /diffboat2/state </topic>
+      <vehicleName> diffboat2 </vehicleName>
+    </ROSOdomToPAT>
+
+
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/base_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>base_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/center_r_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>center_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/back_r_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>back_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/back_l_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>back_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/front_r_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>front_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/front_l_link</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+   
+     <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/fwd_left</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat1/Surface/fwd_right</topic>
+	<vehicleName>diffboat1</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+     
+     
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/base_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>base_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+	<OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/center_r_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>center_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/back_r_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>back_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/back_l_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>back_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/front_r_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>front_r_link</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/front_l_link</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>front_l_link</linkName>
+    </OceanSurfaceToROSOceanVehicle> 
+   
+     <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/fwd_left</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>fwd_left</linkName>
+    </OceanSurfaceToROSOceanVehicle>  
+    
+    <OceanSurfaceToROSOceanVehicle>
+	<topic>/diffboat2/Surface/fwd_right</topic>
+	<vehicleName>diffboat2</vehicleName>
+	<linkName>fwd_right</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+        
+	<ROSJointStateToArm> 
+   		<topic>/diffboat1/joint_states</topic>
+   		<vehicleName>diffboat1</vehicleName>
+   	</ROSJointStateToArm>
+   	
+	<ROSJointStateToArm> 
+   		<topic>/diffboat2/joint_states</topic>
+   		<vehicleName>diffboat2</vehicleName>
+   	</ROSJointStateToArm>
+
+  </rosInterfaces>
+</UWSimScene>
+

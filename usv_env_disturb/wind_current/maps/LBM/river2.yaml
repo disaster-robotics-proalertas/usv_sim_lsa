@@ -1,0 +1,9 @@
+heightMap: src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/diluvio2.tif
+autodraw:
+  minColisionHeight: 2.0
+  maxColisionHeight: 2.5
+resolution: 0.1
+windSpeed: 4
+origin: [0, 0, 0.0]
+obstacleImage: 'src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/obstaculos.jpg'
+

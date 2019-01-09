@@ -1,3 +1,0 @@
-ADD_SUBDIRECTORY( osgobjects )
-ADD_SUBDIRECTORY( osgwTools )
-ADD_SUBDIRECTORY( skeleton )

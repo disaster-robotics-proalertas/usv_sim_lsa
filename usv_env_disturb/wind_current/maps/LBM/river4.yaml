@@ -1,0 +1,9 @@
+heightMap: 'src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/diluvio2entrance.tif'
+autodraw:
+  minColisionHeight: 1
+  maxColisionHeight: 10
+resolution: 0.1
+windSpeed: 4.0
+origin: [0, 0, 0.0]
+obstacleImage: './src/usv_sim_lsa/usv_env_disturb/wind_current/maps/LBM/river4entrance.png'
+

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="gui" default="false"/>
+    <arg name="namespace" default="airboat"/>  
+    <arg name="posX" default="0"/>
+    <arg name="posY" default="0"/>
+    <arg name="posZ" default="0"/>
+    <arg name="spawnerUsed" default="false"/>
+
+    <!-- spawn in Gazebo with GUI -->
+    <group ns="$(arg namespace)">
+
+        <!--<node name="patrol" pkg="usv_navigation" type="patrol_pid.py" unless="$(arg gui)"/>-->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/$(arg namespace).xacro"/>
+        <node unless="$(arg spawnerUsed)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model $(arg namespace) -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
+
+        <!-- Load joint and thruster controller configurations from YAML file to parameter server -->
+        <rosparam file="$(find usv_sim)/config/$(arg namespace).yaml" command="load"/>
+        <node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
+
+        <!-- Launch motion control nodes -->
+        <node name="heading_control" pkg="usv_base_ctrl" type="$(arg namespace)_control_heading.py" unless="$(arg gui)"/>
+
+        <!-- GUI interface to control joints -->
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+            <param name="use_gui" value="True"/>
+            <remap from="joint_states" to="joint_setpoint" />        
+        </node>
+
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" if="$(arg gui)"/>             
+
+        <!-- GUI interface to control thrusters -->
+        <group ns="thrusters">
+             <param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/urdf/$(arg namespace)_dummy.urdf"/>                         
+             <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" if="$(arg gui)">
+                 <param name="use_gui" value="True"/>
+                 <remap from="joint_states" to="/$(arg namespace)/thruster_command" />
+             </node>             
+        </group>
+
+	</group>
+
+</launch>

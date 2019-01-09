@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>usv_tf</name>
+  <version>0.0.0</version>
+  <description>This package contains the transformation tree information used in the usvs.</description>
+
+  <maintainer email="davihenriqueds@gmail.com">Davi Henrique</maintainer>
+  <maintainer email="marcelo.paravisi@osorio.ifrs.edu.br">Marcelo Paravisi</maintainer>
+
+  <license>TODO</license>
+
+  <url type="website">https://github.com/disaster-robotics-proalertas/usv_sim_lsa</url> 
+
+  <author>LSA</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

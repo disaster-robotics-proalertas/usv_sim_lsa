@@ -1,0 +1,17 @@
+<launch>
+  <!--- Run AMCL -->
+  <!-- <include file="$(find amcl)/examples/amcl_diff.launch" /> -->
+    
+    <arg name="robot_description_path" />
+    <arg name="namespace_prefix" default="robot_namespace" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="$(arg namespace_prefix)">
+    <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find usv_navigation)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find usv_navigation)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find usv_navigation)/config/base_local_planner_params.yaml" command="load" />
+
+   <!-- <remap from="map" to="/map" /> -->
+  </node>
+</launch>
