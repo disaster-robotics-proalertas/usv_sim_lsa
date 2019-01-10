@@ -14,5 +14,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-sh .uuv_ci_config/uuv_dependencies.sh
+sh .usv_sim_ci_config/dependencies.sh
 
