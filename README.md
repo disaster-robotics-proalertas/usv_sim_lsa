@@ -1,7 +1,7 @@
 
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
 
-[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=testTravis%2Ftravis_integration)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
+[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=master)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
 [![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/usv-sim)
 [![DOI](https://zenodo.org/badge/91500138.svg)](https://zenodo.org/badge/latestdoi/91500138)
