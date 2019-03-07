@@ -224,6 +224,12 @@ One can contribute to this project by deteting bugs, future features, and pull r
 
 v0.0.1 – Initial version submitted to IROS 2018
 
+v0.2 - Version submitted to Sensors 
+
+## Reference for citing USV_SIM
+
+Paravisi, M.; H. Santos, D.; Jorge, V.; Heck, G.; Gonçalves, L. M.; Amory, A.; Unmanned Surface Vehicle Simulator with Realistic Environmental Disturbances; Journal Sensors, Volume 19, 2019. Available: <a href="http://www.mdpi.com/1424-8220/19/5/1068" target="_blank">http://www.mdpi.com/1424-8220/19/5/1068</a>
+
 ## Authors
 
 * Alexandre Amory (PUCRS University, Porto Alegre, Brazil)
