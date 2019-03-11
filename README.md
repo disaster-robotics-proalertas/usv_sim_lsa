@@ -1,4 +1,6 @@
+
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
+
 
 [![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=develop)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
 [![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
@@ -7,11 +9,11 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/LICENSE)
 
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
-Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with Lattice Boltzmann in a 2D grid. All those features alow to disturb the movement of boats in a realistic way.
+Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with OpenFoam simulator. All those features alow to disturb the movement of boats in a realistic way.
 
 ## Prerequisites
 
-You need Ubuntu Linux 16.04 since the curent version of this simulator uses ROS Kinetic. To install Ros Kinetic, run the following commands:
+You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic and some additional packages, run the following commands:
 
 
         sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -70,13 +72,13 @@ The simulation might take some time to initialize if you're launching gazebo for
 
 Make sure your graphic card driver is up to date.
 
+
 ## Running the tests
 
-On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Brazil. Each scenario is configured to test boat control on executing some common manueveurs (see image above). Besides that, you can run the following scripts:
+On main folder of usv_sim_lsa, there are some scripts that run testing scenarios on Diluvio's River in Porto Alegre, Brazil. Each scenario is configured to test the boat control on executing some common maneuveurs (see image below). Besides that, you can run the following scripts:
 - ``scenario1``: boat should navigate through two lines of buoys. 
 - ``scenario2``: boat should avoid colision with 3 buoys.
 - ``scenario3``: boat should execute zigzag to cover an area.
-- ``scenario4``: boat should stay inside a circular area.
 
 To execute water simulation to those scenarios, you should run the script named ``waterCurrentDiluvio``.
 
@@ -90,6 +92,7 @@ To execute water simulation to those scenarios, you should run the script named 
 ## System Architecture 
 
 The main system architecture is composed of UWSIM and Gazebo. With some plugins, we can simulate in a realistic way the effects of waves, wind and water currents on several boat types. Above is presented the some topic interaction between our gazebo plugin named usv_sailing_plugin and ROS Nodes wind_current and wind_current.
+
 
 <p align="center">
   <img src="./images/DiagramaTopicosServicos.png" width="800" alt="System Architecture"/>
@@ -113,6 +116,7 @@ The hull of all models above has been subdivided in 6 parts (see image above), s
 <p align="center">
   <img src="./images/boatSubdivision3.png" width="800" alt="Boat subdivision"/>
 </p>
+
 
 ## DISTURBANCE TYPES
 The vehicles can be affected by 3 types of disturbances: wind currents, water currents and waves. Each kind of disturbance is presented below:
@@ -242,19 +246,25 @@ As soon as both UWSIM show up, press **c** on your keyboard in each UWSim window
 
 ## Contributing
 
-TODO
+One can contribute to this project by deteting bugs, future features, and pull requests. 
 
 ## Versioning
 
-TODO
+v0.0.1 – Initial version submitted to IROS 2018
+
+v0.2 - Version submitted to Sensors 
+
+## Reference for citing USV_SIM
+
+Paravisi, M.; H. Santos, D.; Jorge, V.; Heck, G.; Gonçalves, L. M.; Amory, A.; Unmanned Surface Vehicle Simulator with Realistic Environmental Disturbances; Journal Sensors, Volume 19, 2019. Available: <a href="http://www.mdpi.com/1424-8220/19/5/1068" target="_blank">http://www.mdpi.com/1424-8220/19/5/1068</a>
 
 ## Authors
 
-* **Alexandre Amory**
-* **Davi Henrique** 
-* **Marcelo Paravisi** 
-* **Vitor Augusto Machado Jorge**
-
+* Alexandre Amory (PUCRS University, Porto Alegre, Brazil)
+* Davi Henrique (UFRN University, Natal, Brazil)
+* Luiz Marcos Gonçalves (UFRN University, Natal, Brazil)
+* Marcelo Paravisi (IFRS, Osorio, Brazil; PUCRS University, Porto Alegre, Brazil)
+* Vitor Augusto Machado Jorge (PUCRS University, Porto Alegre, Brazil)
 ## License
 
 USV Simulator is open-sourced under the Apache-2.0 license. See the
@@ -268,3 +278,4 @@ USV Simulator is open-sourced under the Apache-2.0 license. See the
 * Openfoam - https://openfoam.org/
 * HEC-RAS - https://en.wikipedia.org/wiki/HEC-RAS 
 * CAPES proalertas - https://lsa-pucrs.github.io/projects/pro-alertas
+
