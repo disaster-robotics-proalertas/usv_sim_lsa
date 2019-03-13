@@ -343,8 +343,9 @@
 
             <visual name="${name}">
                 <origin xyz="0 0 0" rpy="0 0 0" />
+                
                 <geometry>
-                    	<mesh filename="package://usv_sim/meshes/simpleHull3/airPropeller.dae" scale="${scale} ${scale} ${scale}"/>
+                    	<mesh filename="package://usv_sim/meshes/simpleHull3/airPropeller.dae" scale="${0.9*scale} ${0.9*scale} ${0.9*scale}"/>
                 </geometry>
             </visual>  
 

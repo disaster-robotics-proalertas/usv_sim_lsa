@@ -28,6 +28,6 @@
     <!-- Define one steering thruster, with assumed force control in Z-direction -->
     
     
-    <xacro:airthruster_link name="fwd" xyz="-0.3 0 0.13" rpy="0 ${-PI/2} 0" effort="100" velocity="2" rotationAxis="1 0 0" lowerLimit="${-PI/2}" upperLimit="0.5" parentLink="base_link"/>
+    <xacro:airthruster_link name="fwd" xyz="-0.3 0 0.18" rpy="0 ${-PI/2} 0" effort="100" velocity="2" rotationAxis="1 0 0" lowerLimit="-0.5" upperLimit="0.5" parentLink="base_link"/>
         
 </robot>
