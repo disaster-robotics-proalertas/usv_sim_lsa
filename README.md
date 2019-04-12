@@ -1,7 +1,8 @@
 
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
 
-[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=master)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
+
+[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=develop)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
 [![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/usv-sim)
 [![DOI](https://zenodo.org/badge/91500138.svg)](https://zenodo.org/badge/latestdoi/91500138)
@@ -193,12 +194,39 @@ Below, it is present another example, where a differential boat (named ''diffboa
 ```
 
 #### VIDEOS
+
+###### Differential boats sailing upstream - Global vs Local disturbances
+
 <p>
         <a href="http://www.youtube.com/watch?feature=player_embedded&v=JEhY3h-BKGQ" target="_blank">
                 <img src="./images/diffboat_scenario_jF.png" alt="Differential boats sailing upstream" width="423" height="271" border="10" />
         </a>
 </p>
         
+
+###### Scenario 1
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=jvgcgIXkRtQ" target="_blank">
+ <img src="http://img.youtube.com/vi/jvgcgIXkRtQ/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=u-JnylVnD9I" target="_blank">
+ <img src="http://img.youtube.com/vi/u-JnylVnD9I/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=QlenP-I_Oms" target="_blank">
+ <img src="http://img.youtube.com/vi/QlenP-I_Oms/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
+</a>
+
+###### Scenario 2
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=aAN48eRpTSw" target="_blank">
+ <img src="http://img.youtube.com/vi/aAN48eRpTSw/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=pb13mWNcg74" target="_blank">
+ <img src="http://img.youtube.com/vi/pb13mWNcg74/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
+</a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=sTJ3DfIYY_M" target="_blank">
+ <img src="http://img.youtube.com/vi/sTJ3DfIYY_M/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
+</a>
 
 ## GROUND TRUTH GENERATION
 

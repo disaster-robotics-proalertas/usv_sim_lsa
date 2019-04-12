@@ -16,14 +16,14 @@
   </model>
   
 
-    <!-- buoyancy plugin -->
-    <plugin name="freefloating_gazebo_fluid" filename="libfreefloating_gazebo_fluid.so">
-              <descriptionParam>robot_description</descriptionParam>
-              <fluidTopic>current</fluidTopic>
-              <alwaysOn>true</alwaysOn>
-              <surface>0 0 0</surface>
-              <updateRate>.001</updateRate>
-          </plugin>
+	<!-- buoyancy plugin -->
+	<plugin name="freefloating_gazebo_fluid" filename="libfreefloating_gazebo_fluid.so">
+		<descriptionParam>robot_description</descriptionParam>
+		<fluidTopic>current</fluidTopic>
+		<alwaysOn>true</alwaysOn>
+		<surface>0 0 0</surface>
+		<updateRate>0.02</updateRate>
+	</plugin>
           
 
   </world>
