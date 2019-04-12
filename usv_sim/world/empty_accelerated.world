@@ -22,7 +22,7 @@
               <fluidTopic>current</fluidTopic>
               <alwaysOn>true</alwaysOn>
               <surface>0 0 0</surface>
-              <updateRate>0.001</updateRate>
+              <updateRate>0.01</updateRate>
           </plugin>
           
     <physics name='default_physics' default='0' type='ode'>
