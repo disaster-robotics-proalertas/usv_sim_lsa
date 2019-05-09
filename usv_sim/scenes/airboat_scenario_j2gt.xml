@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE UWSimScene SYSTEM "UWSimScene.dtd" >
+
+<UWSimScene>
+  <oceanState>
+    <windx> 1.0 </windx>
+    <windy> 1.0 </windy>
+    <windSpeed> 3.2 </windSpeed>
+    <depth> 100 </depth>
+    <reflectionDamping> 0.35 </reflectionDamping>
+    <reflection>0</reflection>
+    <waveScale> 1e-7 </waveScale>
+    <isNotChoppy> 0 </isNotChoppy>
+    <choppyFactor> -1.5 </choppyFactor>
+    <crestFoamHeight> 1.2 </crestFoamHeight>
+    <oceanSurfaceHeight> 1 </oceanSurfaceHeight>
+    <fog>
+      <density> 0.1 </density>
+      <color>
+        <r>0.017</r>
+        <g>0.027</g>
+        <b>0.079</b>
+      </color>
+    </fog>
+    <color>
+        <r>1.0</r>
+        <g>0</g>
+        <b>0</b>
+    </color>
+    <attenuation>
+      <r>1</r>
+      <g>1 </g>
+      <b>1 </b>
+    </attenuation>
+  </oceanState>
+  
+  <simParams>
+    <disableShaders> 0 </disableShaders>
+    <resw> 800 </resw>
+    <resh> 600 </resh>
+    <showTrajectory>
+      <target>airboat</target>
+    </showTrajectory>
+    <groundTruth>
+    	<imageLocation>/home/lsa/imagesGT</imageLocation>
+    	<type>save</type>
+    	<gt_shader>1</gt_shader>
+    </groundTruth>
+  </simParams>
+  
+
+
+  <camera>
+    <freeMotion> 1 </freeMotion>
+    <objectToTrack>airboat/base_link</objectToTrack>
+    <fov> 60 </fov>
+    <aspectRatio> 1.33 </aspectRatio>
+    <near> 1 </near>
+    <far> 10000 </far>
+    <position>
+	  <x>291.6</x>
+      <y>120 </y>
+      <z>13.9 </z>
+    </position> 
+    <lookAt>
+      <x>292.3</x>
+      <y>120 </y>
+      <z>13.15 </z>
+    </lookAt>
+  </camera>
+
+  <vehicle>
+    <name>airboat</name>
+    <file>urdf/airboat_uwsim.urdf</file>
+    <jointValues>
+      <joint> 0 </joint>
+      <joint> 0 </joint>
+    </jointValues>
+     <position>
+      <x> 300</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0 </r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+    <virtualCamera>
+    	<name>airboatCamera</name>
+    	<relativeTo>front_r_link</relativeTo>
+    	<resw>1024</resw>
+    	<resh>768</resh>
+    	<position>
+        	<x>0.2</x>
+        	<y> 0.05 </y>
+        	<z> 0.25 </z>
+      </position>
+      <orientation>
+        <r>1.57</r>
+        <p>0</p>
+        <y>-1.57</y>
+      </orientation>
+	</virtualCamera>
+  </vehicle>
+  
+  
+   <vehicle>
+    <name>buoy1</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+     <position>
+      <x> 310</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+   <vehicle>
+    <name>buoy2</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+     <position>
+      <x> 320</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+
+   <vehicle>
+    <name>buoy3</name>
+    <file>urdf/buoy_uwsim.urdf</file>
+
+     <position>
+      <x> 330</x>
+      <y> 120 </y>
+      <z> 1.13 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
+  
+
+
+	<object>
+    <name>terrain</name>
+    <file>terrain/diluvio5/novo4.obj</file>
+    <position>
+      <x> 0</x>
+      <y> 558 </y>
+      <z> 0 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0 </p>
+      <y>0 </y>
+    </orientation>
+  </object>
+
+  <rosInterfaces>   
+
+    <ROSOdomToPAT>
+      <topic> /airboat/state </topic>
+      <vehicleName> airboat </vehicleName>
+    </ROSOdomToPAT>
+    
+        <ROSOdomToPAT>
+      <topic> /buoy1/state </topic>
+      <vehicleName> buoy1 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy2/state </topic>
+      <vehicleName> buoy2 </vehicleName>
+    </ROSOdomToPAT> 
+    
+    <ROSOdomToPAT>
+      <topic> /buoy3/state </topic>
+      <vehicleName> buoy3 </vehicleName>
+    </ROSOdomToPAT>   
+
+
+   
+        
+	<ROSJointStateToArm> 
+   		<topic>/airboat/joint_states</topic>
+   		<vehicleName>airboat</vehicleName>
+   	</ROSJointStateToArm>
+   	
+   	<VirtualCameraToROSImage>
+   		<cameraName>airboatCamera</cameraName>
+   		<imageTopic>/uwsim/cameraAirboat_gt</imageTopic>
+   		<infoTopic>/uwsim/infoCameraAirboat_gt</infoTopic>
+	</VirtualCameraToROSImage>
+
+  </rosInterfaces>
+</UWSimScene>
+

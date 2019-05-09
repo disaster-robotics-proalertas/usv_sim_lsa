@@ -1,0 +1,28 @@
+[submodule "uwsim_resources/underwater_simulation"]
+	path = uwsim_resources/underwater_simulation
+	url = https://github.com/disaster-robotics-proalertas/underwater_simulation.git
+	branch = usv_sim
+[submodule "uwsim_resources/uwsim_osgbullet"]
+	path = uwsim_resources/uwsim_osgbullet
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgbullet.git
+	branch = usv_sim
+[submodule "uwsim_resources/uwsim_bullet"]
+	path = uwsim_resources/uwsim_bullet
+	url = https://github.com/disaster-robotics-proalertas/uwsim_bullet.git
+	branch = usv_sim
+[submodule "uwsim_resources/visualization_osg"]
+	path = uwsim_resources/visualization_osg
+	url = https://github.com/disaster-robotics-proalertas/visualization_osg.git
+	branch = usv_sim
+[submodule "uwsim_resources/uwsim_osgworks"]
+	path = uwsim_resources/uwsim_osgworks
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgworks.git
+	branch = usv_sim
+[submodule "uwsim_resources/uwsim_osgocean"]
+	path = uwsim_resources/uwsim_osgocean
+	url = https://github.com/disaster-robotics-proalertas/uwsim_osgocean.git
+	branch = usv_sim
+[submodule "freefloating_gazebo_resources/freefloating_gazebo"]
+	path = freefloating_gazebo_resources/freefloating_gazebo
+	url = https://github.com/disaster-robotics-proalertas/freefloating_gazebo.git
+	branch = usv_sim

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<robot name="airboat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:arg name="windType" default="global" />
+    <xacro:arg name="waterType" default="global" />
+    <xacro:property name="windType" value="$(arg windType)" />
+    <xacro:property name="waterType" value="$(arg waterType)" />
+    <xacro:property name="dampingXYZ" value="1.16 10 6.66" />
+    <xacro:property name="angularDampingXYZ" value="2 15 2" />
+    <xacro:property name="extraPayload" value="3" />                              
+    <xacro:include filename="$(find usv_sim)/xacro/boat_subdivided_validated.xacro" />
+
+    <!-- Plugin list -->
+    <gazebo>
+        <plugin name="freefloating_gazebo_control" filename="libfreefloating_gazebo_control.so">
+            <switchService>switch</switchService>
+            <updateRate>100</updateRate>
+            <link>fwd</link>
+            <thruster>
+                <effortUnderWater>0</effortUnderWater>
+				<effortOverWater>4.12</effortOverWater>
+                <name>fwd</name>
+            </thruster>
+        </plugin>
+    </gazebo>  
+                
+    <!-- Define one steering thruster, with assumed force control in Z-direction -->
+    
+    
+    <xacro:airthruster_link name="fwd" xyz="-0.3 0 0.18" rpy="0 ${-PI/2} 0" effort="100" velocity="2" rotationAxis="1 0 0" lowerLimit="-0.5" upperLimit="0.5" parentLink="base_link"/>
+        
+</robot>

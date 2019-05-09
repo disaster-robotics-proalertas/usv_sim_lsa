@@ -1,3 +1,0 @@
-catkin_make_isolated --install --pkg usv_wind_current
-source install_isolated/setup.bash
-rosrun usv_wind_current wind.py src/usv_wind_current/maps/river4.yaml

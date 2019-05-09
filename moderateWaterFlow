@@ -1,5 +1,0 @@
-rosservice call /gazebo/unpause_physics "{}"
-rostopic pub /gazebo/current geometry_msgs/Vector3 "x: -0.20
-y: -0.20
-z: 0.0" 
-

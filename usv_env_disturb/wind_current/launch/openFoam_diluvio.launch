@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="path" value="$(find wind_current)"/>
+    <arg name="field" value="$(find wind_current)/maps/openFoam_diluvioFlooding.yaml"/>
+	<node name="wind_current_OF" pkg="wind_current" type="windOpenFoam.py" ns="openFoam" args="$(arg path) $(arg field)" output="screen"/>
+</launch>

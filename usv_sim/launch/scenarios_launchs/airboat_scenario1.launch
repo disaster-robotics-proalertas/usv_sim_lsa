@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
+
+    <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+        <arg name="namespace" default="airboat"/>  
+        <arg name="spawnGazebo" default="true"/>
+
+        <!-- Launch Gazebo with empty world -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="use_sim_time" value="true" />
+            <arg name="debug" value="false" />
+            <arg name="gui" value="true" />
+            <arg name="paused" value="true"/>
+            <arg name="verbose" value="true"/>
+            <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+        </include>
+
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/airboat_scenario1.xml" respawn="false" required="true"/>
+
+		<!-- using parser  -->
+		<include file="$(find usv_sim)/launch/scenarios_launchs/airboat_scenario1_spawner.launch"/>
+		<!-- one include and one node to each vehicle -->
+		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="airboat" unless="$(arg gui)"/>
+		<include file="$(find usv_sim)/launch/models/spawn_airboat.launch">
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+            <arg name="namespace" value="$(arg namespace)"/>
+            <arg name="windType" value="global"/>
+            <arg name="waterType" value="global"/>
+        </include>
+			
+        <!-- recording experiment -->
+		<node pkg="rosbag" type="record" name="record_airboat" args="-O $(find usv_navigation)/bags/airboat_scenario1.bag /airboat/state" output="screen" if="$(arg rec)"/>
+
+	</group>
+
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/scenarios_launchs/airboat_scenario1.launch" output="screen" required="true"/>
+	</group>
+
+</launch>

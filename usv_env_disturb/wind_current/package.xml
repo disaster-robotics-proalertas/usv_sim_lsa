@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>wind_current</name>
+  <version>0.0.0</version>
+  <description>The wind_current package</description>
+
+  <maintainer email="marcelo.paravisi@osorio.ifrs.edu.br">Marcelo Paravisi</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sdl</build_depend>
+  <build_depend>sdl-image</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+  <build_depend>rosgraph_msgs</build_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>sdl</build_export_depend>
+  <build_export_depend>sdl-image</build_export_depend>
+  <build_export_depend>yaml-cpp</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sdl</exec_depend>
+  <exec_depend>sdl-image</exec_depend>
+  <exec_depend>yaml-cpp</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+
+  <export>
+
+  </export>
+</package>

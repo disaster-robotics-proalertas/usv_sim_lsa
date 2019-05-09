@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="underwater">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <wind>
+      <linear_velocity>11 11 0</linear_velocity> <!-- Wind linear velocity -->
+    </wind>
+
+    <model name="model">
+      <link name="link">
+        <wind>true</wind>
+      </link>
+  </model>
+  
+
+	<!-- buoyancy plugin -->
+	<plugin name="freefloating_gazebo_fluid" filename="libfreefloating_gazebo_fluid.so">
+		<descriptionParam>robot_description</descriptionParam>
+		<fluidTopic>current</fluidTopic>
+		<alwaysOn>true</alwaysOn>
+		<surface>0 0 0</surface>
+		<updateRate>0.02</updateRate>
+	</plugin>
+          
+
+  </world>
+</sdf>

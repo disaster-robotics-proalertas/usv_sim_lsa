@@ -1,0 +1,5 @@
+fields: ['../../diluvio/p0.0.csv', '../../diluvio/p0.1.csv', '../../diluvio/p0.2.csv','../../diluvio/p0.3.csv','../../diluvio/p0.4.csv','../../diluvio/p0.5.csv','../../diluvio/p0.6.csv','../../diluvio/p0.7.csv','../../diluvio/p0.8.csv']
+size: [136, 57, 9]
+origin: [0, 0, -20]
+cellsize: [10, 10, 10]
+time: 8

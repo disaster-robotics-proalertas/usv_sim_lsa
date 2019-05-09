@@ -1,0 +1,5 @@
+fields: ['../../diluvioOut/p0.8.csv']
+size: [136, 57, 9]
+origin: [0, 0, -20]
+cellsize: [10, 10, 10]
+time: 0

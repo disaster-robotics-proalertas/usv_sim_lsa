@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+<!-- navigation nodes -->
+        <arg name="map_file" default="$(find usv_sim_navigation)/maps/my_map.yaml"/> -->
+        <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+
+        <!--- Run AMCL -->
+        <include file="$(find amcl)/examples/amcl_diff.launch" />
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <rosparam file="$(find usv_sim_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find usv_sim_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find usv_sim_navigation)/config/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find usv_sim_navigation)/config/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find usv_sim_navigation)/config/base_local_planner_params.yaml" command="load" />
+        </node>
+</launch>
+
