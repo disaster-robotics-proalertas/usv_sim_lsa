@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
+	<arg name="map_file" default="$(find usv_navigation)/maps/mapping1.yaml"/>
+	
+
+    <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+		<arg name="namespace" default="diffboat"/>  
+    	<arg name="spawnGazebo" default="true"/>
+    	
+	    <!-- Launch Gazebo with empty world -->
+	    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	        <arg name="use_sim_time" value="true" />
+	        <arg name="debug" value="false" />
+	        <arg name="gui" value="true" />
+	        <arg name="paused" value="true"/>
+	        <arg name="verbose" value="true"/>
+	        <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+	    </include>
+
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/movebase_mapping1.xml" respawn="false" required="true"/>
+		
+		<!-- using parser  -->
+		<include file="$(find usv_sim)/launch/move_base/movebase_mapping1_spawner.launch"/>
+		<!-- one include and one node to each vehicle -->
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch">
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+            <arg name="namespace" value="$(arg namespace)"/>
+            <arg name="windType" value="none"/>
+            <arg name="waterType" value="none"/>
+			<arg name="headingControl" default="false"/>
+			<arg name="velocityControl" default="true"/>
+        </include>
+		
+		<!-- MOVE BASE NODE -->
+		<include file="$(find usv_navigation)/launch/multi_move_base.launch" >
+		  	<arg name="odom_frame_id"   default="$(arg namespace)/odom"/>
+			<arg name="base_frame_id"   default="$(arg namespace)/base_link"/>
+			<arg name="global_frame_id" default="/$(arg namespace)/map"/>
+			<arg name="odom_topic" default="$(arg namespace)/odom" />
+			<arg name="laser_topic" default="$(arg namespace)/scan" />
+			<arg name="namespace_prefix" default="$(arg namespace)" />
+		</include>
+  		<include file="$(find usv_navigation)/launch/includes/velocity_smoother.launch.xml"/>		
+  		<include file="$(find usv_navigation)/launch/includes/safety_controller.launch.xml"/>
+		<!-- AMCL -->
+		<include file="$(find usv_navigation)/launch/amcl2.launch" >
+			<arg name="use_map_topic"   default="false"/>
+			<arg name="scan_topic"      default="/$(arg namespace)/scan"/> 
+			<arg name="initial_pose_x"  default="0.0"/>
+			<arg name="initial_pose_y"  default="0.0"/>
+			<arg name="initial_pose_a"  default="0.0"/>
+			<arg name="odom_frame_id"   default="/$(arg namespace)/odom"/>
+			<arg name="base_frame_id"   default="/$(arg namespace)/base_link"/>
+			<arg name="global_frame_id" default="/$(arg namespace)/map"/>
+		</include>
+		
+		<!-- MAP SERVER. Inform the map_file here -->
+		<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
+		 	<param name="frame_id" value="/$(arg namespace)/map" />
+			<param name="use_map_topic" value="true" />
+		 </node>
+
+		<!-- recording experiment -->
+		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/diffboat_scenario1.bag /diffboat/state" output="screen" if="$(arg rec)"/>
+
+	</group>
+			
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/move_base/movebase_mapping1.launch" output="screen" required="true"/>
+	</group>
+
+</launch>

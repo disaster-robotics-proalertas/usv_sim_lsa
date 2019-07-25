@@ -4,16 +4,6 @@
     <include>
       <uri>model://sun</uri>
     </include>
-
-    <wind>
-      <linear_velocity>11 11 0</linear_velocity> <!-- Wind linear velocity -->
-    </wind>
-
-    <model name="model">
-      <link name="link">
-        <wind>true</wind>
-      </link>
-  </model>
   
 
 	<!-- buoyancy plugin -->

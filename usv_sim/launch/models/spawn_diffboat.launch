@@ -10,23 +10,28 @@
     <arg name="spawnGazebo" default="false"/>
     <arg name="windType" default="global"/>
     <arg name="waterType" default="global"/>
+	<arg name="headingControl" default="true"/>
+	<arg name="velocityControl" default="false"/>
+	
     
 	<!-- spawn in Gazebo with GUI -->
 	<group ns="$(arg namespace)" unless="$(arg parse)">
-		<param name="robot_description" command="$(find xacro)/xacro $(find usv_sim)/xacro/diffboat.xacro waterType:=$(arg waterType) windType:=$(arg windType)"/>
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(find usv_sim)/xacro/diffboat.xacro waterType:=$(arg waterType) windType:=$(arg windType) namespace:=$(arg namespace)"/>
 		<node unless="$(arg spawnGazebo)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model diffboat -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0"/>
 
 		<!-- Load controller configurations (vehicle and arm) from YAML file to parameter server -->
 		<rosparam file="$(find usv_sim)/config/diffboat.yaml" command="load"/>
 
 		<!-- Launch control -->
-		<node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true"/>
-		<!--<node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"  unless="$(arg gui)"/>-->
-         <node name="heading_control" pkg="usv_base_ctrl" type="diff_control_heading.py" unless="$(arg gui)" output="screen" />
-		<node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py"/> 
-		<node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 base_link diffboat/base_laser 10" />
+		<node name="pid_control" pkg="freefloating_gazebo" type="pid_control" output="screen" respawn="true" />
+		<!--<node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"  unless="$(arg gui) and $(arg velocityControl)"/>-->
+		<node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"  unless="$(eval arg('gui') or arg('velocityControl')==false)" />
+        <node name="heading_control" pkg="usv_base_ctrl" type="diff_control_heading.py" unless="$(eval arg('gui') or arg('headingControl')==false)"/>
+		<node name="map_odom_tf" pkg="usv_tf" type="map_tf_broadcaster.py" args="$(arg namespace)" output="screen"/> 
+		<node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py" args="$(arg namespace)" output="screen"/> 
+		<node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 $(arg namespace)/base_link $(arg namespace)/base_laser 10" />
 
-		<node name="odom_relay" type="relay" pkg="topic_tools" args="state /odom" />
+		<node name="odom_relay" type="relay" pkg="topic_tools" args="$(arg namespace)state $(arg namespace)/odom" />
 		<node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" />
 
 

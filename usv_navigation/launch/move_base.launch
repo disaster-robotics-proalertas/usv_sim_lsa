@@ -11,7 +11,7 @@
     <rosparam file="$(find usv_navigation)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find usv_navigation)/config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find usv_navigation)/config/base_local_planner_params.yaml" command="load" />
-
+    <param name="robot_base_frame"             value="$(arg namespace_prefix)/base_link"/>
    <!-- <remap from="map" to="/map" /> -->
   </node>
 </launch>
