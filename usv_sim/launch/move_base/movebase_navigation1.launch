@@ -39,34 +39,111 @@
 			<arg name="velocityControl" default="true"/>
         </include>
 		
-		<!-- MOVE BASE NODE -->
-		<include file="$(find usv_navigation)/launch/multi_move_base.launch" >
-		  	<arg name="odom_frame_id"   default="$(arg namespace)/odom"/>
-			<arg name="base_frame_id"   default="$(arg namespace)/base_link"/>
-			<arg name="global_frame_id" default="/$(arg namespace)/map"/>
-			<arg name="odom_topic" default="$(arg namespace)/odom" />
-			<arg name="laser_topic" default="$(arg namespace)/scan" />
-			<arg name="namespace_prefix" default="$(arg namespace)" />
-		</include>
-  		<include file="$(find usv_navigation)/launch/includes/velocity_smoother.launch.xml"/>		
-  		<include file="$(find usv_navigation)/launch/includes/safety_controller.launch.xml"/>
-		<!-- AMCL -->
-		<include file="$(find usv_navigation)/launch/amcl2.launch" >
+		<!-- MAP SERVER. Inform the map_file here -->
+		<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
+		 	<param name="frame_id" value="/diffboat/map" />
+		 </node>
+
+		 <!-- AMCL -->
+		<!-- <include file="$(find usv_navigation)/launch/amcl2.launch" >
 			<arg name="use_map_topic"   default="false"/>
 			<arg name="scan_topic"      default="/$(arg namespace)/scan"/> 
+			
 			<arg name="initial_pose_x"  default="0.0"/>
 			<arg name="initial_pose_y"  default="0.0"/>
 			<arg name="initial_pose_a"  default="0.0"/>
 			<arg name="odom_frame_id"   default="/$(arg namespace)/odom"/>
 			<arg name="base_frame_id"   default="/$(arg namespace)/base_link"/>
-			<arg name="global_frame_id" default="/$(arg namespace)/map"/>
-		</include>
+			<arg name="global_frame_id" default="map"/>
+		</include> --> 
+		<node pkg="topic_tools" type="relay" name="state_to_odom" args="/diffboat/state /diffboat/odom" />
+		<arg name="use_map_topic"   default="false"/>
+		<arg name="scan_topic"      default="/diffboat/scan"/> 
+		<arg name="initial_pose_x"  default="0.0"/>
+		<arg name="initial_pose_y"  default="0.0"/>
+		<arg name="initial_pose_a"  default="0.0"/>
+		<arg name="odom_frame_id"   default="/$(arg namespace)/odom"/>
+		<arg name="base_frame_id"   default="/$(arg namespace)/base_link"/>
+		<arg name="global_frame_id" default="/$(arg namespace)/map"/>
+
+		<node pkg="amcl" type="amcl" name="amcl">
+			<param name="use_map_topic"             value="$(arg use_map_topic)"/>
+			<!-- Publish scans from best pose at a max of 10 Hz -->
+			<param name="odom_model_type"           value="diff"/>
+			<param name="odom_alpha5"               value="0.1"/>
+			<param name="gui_publish_rate"          value="10.0"/>
+			<param name="laser_max_beams"             value="60"/>
+			<param name="laser_max_range"           value="12.0"/>
+			<param name="min_particles"             value="500"/>
+			<param name="max_particles"             value="2000"/>
+			<param name="kld_err"                   value="0.05"/>
+			<param name="kld_z"                     value="0.99"/>
+			<param name="odom_alpha1"               value="0.2"/>
+			<param name="odom_alpha2"               value="0.2"/>
+			<!-- translation std dev, m -->
+			<param name="odom_alpha3"               value="0.2"/>
+			<param name="odom_alpha4"               value="0.2"/>
+			<param name="laser_z_hit"               value="0.5"/>
+			<param name="laser_z_short"             value="0.05"/>
+			<param name="laser_z_max"               value="0.05"/>
+			<param name="laser_z_rand"              value="0.5"/>
+			<param name="laser_sigma_hit"           value="0.2"/>
+			<param name="laser_lambda_short"        value="0.1"/>
+			<param name="laser_model_type"          value="likelihood_field"/>
+			<!-- <param name="laser_model_type" value="beam"/> -->
+			<param name="laser_likelihood_max_dist" value="2.0"/>
+			<param name="update_min_d"              value="0.25"/>
+			<param name="update_min_a"              value="0.2"/>
+			<param name="odom_frame_id"             value="$(arg odom_frame_id)"/> 
+			<param name="base_frame_id"             value="$(arg base_frame_id)"/> 
+			<param name="global_frame_id"           value="$(arg global_frame_id)"/>
+			<param name="resample_interval"         value="1"/>
+			<!-- Increase tolerance because the computer can get quite busy -->
+			<param name="transform_tolerance"       value="1.0"/>
+			<param name="recovery_alpha_slow"       value="0.0"/>
+			<param name="recovery_alpha_fast"       value="0.0"/>
+			<param name="initial_pose_x"            value="$(arg initial_pose_x)"/>
+			<param name="initial_pose_y"            value="$(arg initial_pose_y)"/>
+			<param name="initial_pose_a"            value="$(arg initial_pose_a)"/>
+			<remap from="scan"                      to="$(arg scan_topic)"/>
+		</node>
+
 		
-		<!-- MAP SERVER. Inform the map_file here -->
-		<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
-		 	<param name="frame_id" value="/$(arg namespace)/map" />
-			<param name="use_map_topic" value="true" />
-		 </node>
+  
+
+
+		<!-- MOVE BASE NODE -->
+		<!-- <include file="$(find usv_navigation)/launch/multi_move_base.launch" >
+		  	<arg name="odom_frame_id"   default="$(arg namespace)/odom"/>
+			<arg name="base_frame_id"   default="$(arg namespace)/base_link"/>
+			<arg name="global_frame_id" default="map"/>
+			<arg name="odom_topic" default="$(arg namespace)/state" />
+			<arg name="laser_topic" default="$(arg namespace)/scan" />
+			<arg name="namespace_prefix" default="$(arg namespace)" />
+		</include>
+  		<include file="$(find usv_navigation)/launch/includes/velocity_smoother.launch.xml"/>		
+  		<include file="$(find usv_navigation)/launch/includes/safety_controller.launch.xml"/> -->
+		
+		
+		
+		<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+			<rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+			<rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+			<rosparam file="$(find usv_navigation)/config/local_costmap_params.yaml" command="load" />
+			<rosparam file="$(find usv_navigation)/config/global_costmap_params.yaml" command="load" /> 
+			<rosparam file="$(find usv_navigation)/config/base_local_planner_params.yaml" command="load" />
+
+			<param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+    		<param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+    		<param name="local_costmap/global_frame" value="$(arg odom_frame_id)"/>
+    		<param name="local_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+			<param name="global_costmap/laser_scan_sensor/sensor_frame" value="$(arg base_frame_id)"/>
+			<param name="local_costmap/laser_scan_sensor/sensor_frame" value="/$(arg namespace)/base_laser"/>
+			<remap from="scan" to="$(arg scan_topic)"/>
+			<remap from="cmd_vel" to="/$(arg namespace)/cmd_vel"/>
+			<remap from="odom" to="/$(arg namespace)/odom" />
+		</node>
+		
 
 		<!-- recording experiment -->
 		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/diffboat_scenario1.bag /diffboat/state" output="screen" if="$(arg rec)"/>

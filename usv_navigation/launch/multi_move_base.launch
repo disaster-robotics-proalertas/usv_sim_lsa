@@ -13,14 +13,19 @@
   <arg name="robot_description_path" />
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="$(arg namespace_prefix)">
-    <rosparam file="$(find usv_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />   
+    <rosparam file="$(find usv_navigation)/config/local_costmap_params.yaml" command="load" />   
+    <rosparam file="$(find usv_navigation)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find usv_navigation)/config/base_local_planner_params.yaml" command="load" />
+    <!--<rosparam file="$(find usv_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find usv_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
     <rosparam file="$(find usv_navigation)/param/local_costmap_params.yaml" command="load" />   
     <rosparam file="$(find usv_navigation)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find usv_navigation)/param/dwa_local_planner_params.yaml" command="load" />
     <rosparam file="$(find usv_navigation)/param/move_base_params.yaml" command="load" />
     <rosparam file="$(find usv_navigation)/param/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find usv_navigation)/param/navfn_global_planner_params.yaml" command="load" />
+    <rosparam file="$(find usv_navigation)/param/navfn_global_planner_params.yaml" command="load" />-->
     <!-- external params file that could be loaded into the move_base namespace -->
     <rosparam file="$(arg custom_param_file)" command="load" />
     
@@ -32,7 +37,7 @@
     <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame_id)"/>
 
     <!-- <remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/> -->
-    <remap from="odom" to="$(arg odom_topic)"/>
+    <!--<remap from="odom" to="$(arg odom_topic)"/>-->
     <remap from="scan" to="$(arg laser_topic)"/>
   </node>
 </launch>
