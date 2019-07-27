@@ -1,0 +1,25 @@
+<launch>    
+        <arg name="global_frame_id"   default="map"/>
+        <arg name="odom_frame_id"   default="odom"/>
+        <arg name="base_frame_id"   default="base_link"/>
+        <arg name="namespace"   default="diffboat"/>
+        <arg name="scan_topic"   default="scan"/>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+            <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find usv_navigation)/config/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find usv_navigation)/config/global_costmap_params.yaml" command="load" /> 
+            <rosparam file="$(find usv_navigation)/config/base_local_planner_params.yaml" command="load" />
+
+            <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+            <param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+            <param name="local_costmap/global_frame" value="$(arg odom_frame_id)"/>
+            <param name="local_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+            <param name="global_costmap/laser_scan_sensor/sensor_frame" value="$(arg base_frame_id)"/>
+            <param name="local_costmap/laser_scan_sensor/sensor_frame" value="/$(arg namespace)/base_laser"/>
+            <remap from="scan" to="$(arg scan_topic)"/>
+            <remap from="cmd_vel" to="/$(arg namespace)/cmd_vel"/>
+            <remap from="odom" to="/$(arg namespace)/state" />
+        </node>        
+</launch>
