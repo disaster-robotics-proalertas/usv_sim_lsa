@@ -27,11 +27,11 @@
 		<!--<node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"  unless="$(arg gui) and $(arg velocityControl)"/>-->
 		<node name="control_vel" pkg="usv_base_ctrl" type="boat_diff_vel_ctrl.py"  unless="$(eval arg('gui') or arg('velocityControl')==false)" />
         <node name="heading_control" pkg="usv_base_ctrl" type="diff_control_heading.py" unless="$(eval arg('gui') or arg('headingControl')==false)"/>
-		<node name="map_odom_tf" pkg="usv_tf" type="map_tf_broadcaster.py" args="$(arg namespace)" output="screen"/> 
+		
 		<node name="odom_base_tf" pkg="usv_tf" type="world_tf_broadcaster.py" args="$(arg namespace)" output="screen"/> 
 		<node pkg="tf" type="static_transform_publisher" name="laser_base_tf" args="0.5 0 0.2 0 0 0 1 $(arg namespace)/base_link $(arg namespace)/base_laser 10" />
 
-		<node name="odom_relay" type="relay" pkg="topic_tools" args="$(arg namespace)state $(arg namespace)/odom" />
+		<node name="odom_relay" type="relay" pkg="topic_tools" args="/$(arg namespace)state /$(arg namespace)/odom" />
 		<node name="vel_relay" type="relay" pkg="topic_tools" args="/navigation_velocity_smoother/raw_cmd_vel cmd_vel" />
 
 
