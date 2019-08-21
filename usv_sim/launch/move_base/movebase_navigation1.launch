@@ -64,7 +64,7 @@
 		<include file="$(find usv_navigation)/launch/amcl3.launch">
 			<arg name="use_map_topic"   value="false"/>
 			<arg name="scan_topic"      value="/$(arg namespace)/scan"/> 
-			<arg name="initial_pose_x"  value="2.0"/>
+			<arg name="initial_pose_x"  value="5.0"/>
 			<arg name="initial_pose_y"  value="5.0"/>
 			<arg name="initial_pose_a"  value="0.0"/> 
 			<arg name="odom_frame_id"   value="/$(arg namespace)/odom"/>
