@@ -59,7 +59,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /map
+      Topic: diffboat/map
       Unreliable: false
       Use Timestamp: false
       Value: true
