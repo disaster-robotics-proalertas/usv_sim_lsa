@@ -95,7 +95,7 @@
     <!-- Plugin list -->
   <gazebo>
 
-	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+	<plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		<link_type>sail</link_type>
 		<a0>0</a0>
 		<cla>3.0</cla>
@@ -116,7 +116,7 @@
       </plugin>
       
   
-      <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+      <plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		  <link_type>keel</link_type>
 		  <a0>0</a0>
 		  <cla>10.0</cla>
@@ -134,7 +134,7 @@
     </plugin>
     
 
-    <plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+    <plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		<link_type>rudder</link_type>
 		<a0>0</a0>
 		<cla>0.8</cla>
