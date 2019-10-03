@@ -18,7 +18,7 @@
     <!-- Gazebo plugin listens to the body-->
 	
 
-	<plugin name="usv_sail_plugin" filename="libusv_sailing_plugin.so">
+	<plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		<link_type>rudder</link_type>
 		<mult_lift>1.5</mult_lift>
 		<mult_drag>1</mult_drag>
