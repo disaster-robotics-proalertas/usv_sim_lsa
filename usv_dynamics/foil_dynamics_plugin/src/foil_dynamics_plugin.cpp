@@ -541,4 +541,3 @@ Foil_Dynamics_Plugin::WindThreadLoop ()
 		r.sleep ();
 	}
 }
-

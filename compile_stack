@@ -1,0 +1,4 @@
+rm -r ../../install_isolated/share/usv_sim
+cd ../../
+catkin_make_isolated --install -q --pkg usv_sim
+cd src/usv_sim_lsa

@@ -26,8 +26,10 @@
 
 		<!-- using parser  -->
 		<include file="$(find usv_sim)/launch/scenarios_launchs/sailboat_scenario1_spawner.launch"/>
-		<!-- one include and one node to each vehicle -->
+
 		<node name="patrol" pkg="usv_navigation" type="patrol_pid_scene1.py" ns="sailboat" unless="$(arg gui)"/>
+
+		<!-- one include and one node to each vehicle -->
 		<include file="$(find usv_sim)/launch/models/spawn_sailboat.launch">
             <arg name="gui" value="$(arg gui)"/>
             <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
@@ -37,7 +39,7 @@
         </include>
 			
         <!-- recording experiment -->
-		<node pkg="rosbag" type="record" name="record_sailboat" args="-O /$(find usv_navigation)bags/sailboat_scenario1.bag /sailboat/state" output="screen" if="$(arg rec)"/>
+		<!--node pkg="rosbag" type="record" name="record_sailboat" args="-O /$(find usv_navigation)bags/sailboat_scenario1.bag /sailboat/state" output="screen" if="$(arg rec)"/-->
 
 	</group>
 

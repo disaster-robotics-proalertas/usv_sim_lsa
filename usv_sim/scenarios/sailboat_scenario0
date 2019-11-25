@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Updating installed files. Please wait...";
+rm -r ~/catkin_new_lsa/install_isolated/share/usv_sim ~/catkin_new_lsa/install_isolated/share/usv_base_ctrl ~/catkin_new_lsa/install_isolated/share/usv_navigation
+catkin_make_isolated --install -q --pkg usv_*
+echo "Parsing files for scenario 0. Please wait...";
+roslaunch usv_sim sailboat_scenario0.launch parse:=true  
+echo "Starting simulation of scenario 0";
+roslaunch usv_sim sailboat_scenario0.launch parse:=false

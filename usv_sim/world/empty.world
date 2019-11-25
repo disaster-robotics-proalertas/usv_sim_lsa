@@ -6,7 +6,7 @@
     </include>
 
     <wind>
-      <linear_velocity>11 11 0</linear_velocity> <!-- Wind linear velocity -->
+      <linear_velocity>10 0 0</linear_velocity> <!-- Wind linear velocity -->
     </wind>
 
     <model name="model">

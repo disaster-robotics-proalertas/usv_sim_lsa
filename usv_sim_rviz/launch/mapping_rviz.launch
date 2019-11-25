@@ -1,4 +1,0 @@
-<launch>
-<param name="robot_description" textfile="/home/lsa/usv_sim_lsa/src/usv_sim_rviz/urdf/barcoDiferencial.xacro" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find usv_sim_rviz)/rviz/mapping.rviz"/>
-</launch>

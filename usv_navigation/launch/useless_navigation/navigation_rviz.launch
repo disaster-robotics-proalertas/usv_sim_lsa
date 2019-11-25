@@ -1,3 +1,0 @@
-<launch>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find freefloating_gazebo_demo)/rviz/navigation.rviz"/>
-</launch>
