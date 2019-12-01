@@ -5,6 +5,9 @@
       <uri>model://sun</uri>
     </include>
 
+    <!--real_time_update_rate>0.000000</real_time_update_rate>
+    <max_step_size>0.001000</max_step_size-->
+
     <wind>
       <linear_velocity>10 0 0</linear_velocity> <!-- Wind linear velocity -->
     </wind>

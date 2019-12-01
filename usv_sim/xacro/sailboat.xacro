@@ -49,9 +49,9 @@
         <parent link="base_link"/>
         <child link="sail"/>
         <origin rpy="0 0 0" xyz="0.2 0 0.1"/>
-        <dynamics damping="1.0"/>
+        <dynamics damping="2.0"/>
         <axis xyz="0 0 1"/>
-        <limit effort="100" velocity="70" lower="-${PI}" upper="${PI}" />
+        <limit effort="1000000" velocity="700" lower="-${PI/2}" upper="${PI/2}" />
     </joint>
 
     <link name="keel">

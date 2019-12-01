@@ -5,7 +5,7 @@
 <UWSimScene>
   <oceanState>
     <windx> 1 </windx>
-    <windy> 0 </windy>
+    <windy> 1 </windy>
     <windSpeed> 2.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
@@ -48,13 +48,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>95 </y>
+      <x>40</x>
+      <y>50 </y>
       <z>15 </z>
     </position> 
     <lookAt>
-      <x>245</x>
-      <y>95 </y>
+      <x>55</x>
+      <y>50 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -67,8 +67,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 240</x>
-      <y> 95 </y>
+      <x> 145 </x>
+      <y> 150 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -77,21 +77,6 @@
       <y>0 </y>
     </orientation>
   </vehicle>
-
-	<object>
-    <name>terrain</name>
-    <file>terrain/diluvio5/novo4.obj</file>
-    <position>
-      <x> 0</x>
-      <y> 558 </y>
-      <z> 0 </z>
-    </position>
-    <orientation>
-      <r>0</r>
-      <p>0 </p>
-      <y>0 </y>
-    </orientation>
-  </object>
 
   <rosInterfaces>   
 
