@@ -2,7 +2,7 @@
 
 The purpose of this branch is to separate the control and navigation packages from the main simulation packages. This helps the development of control and navigation nodes by reducing the compilation time. 
 
-Control and navigation packages were moved to this repository -> 
+Control and navigation packages were moved to this repository -> https://github.com/disaster-robotics-proalertas/usv_navigation.git
 
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
 
