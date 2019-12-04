@@ -23,8 +23,8 @@ Foil_Dynamics_Plugin::Foil_Dynamics_Plugin () : rho (1000.1)
 	this->forward = math::Vector3 (1, 0, 0);
 	this->upward = math::Vector3 (0, 0, 1);
 	this->area = 1.0;
-	this->mult_lift = 1.5;
-	this->mult_drag = 1.0;
+	this->cla = 1.5;
+	this->cda = 1.0;
 	this->oldTime = ros::Time::now();
 }
 
@@ -64,11 +64,11 @@ Foil_Dynamics_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 	if (_sdf->HasElement ("area"))
 		this->area = _sdf->Get<double> ("area");
 
-	if (_sdf->HasElement ("mult_lift"))
-			this->mult_lift = _sdf->Get<double> ("mult_lift");
+	if (_sdf->HasElement ("cla"))
+			this->cla = _sdf->Get<double> ("cla");
 
-	if (_sdf->HasElement ("mult_drag"))
-				this->mult_lift = _sdf->Get<double> ("mult_drag");
+	if (_sdf->HasElement ("cda"))
+				this->cda = _sdf->Get<double> ("cda");
 
 	if (_sdf->HasElement ("fluid_density"))
 		this->rho = _sdf->Get<double> ("fluid_density");
@@ -239,14 +239,14 @@ Foil_Dynamics_Plugin::OnUpdateRudder ()
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
-	cl = this->mult_lift * sin (2*this->alpha);
+	cl = this->cla * sin (2*this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
 	// compute cd at cp, check for stall, correct for sweep
 	double cd;
 
-	cd =  this->mult_drag * (1 - cos (2 * this->alpha));
+	cd =  this->cda * (1 - cos (2 * this->alpha));
 	// make sure drag is positive
 	cd = fabs (cd);
 
@@ -379,7 +379,7 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
-	cl = this->mult_lift * sin (2 * this->alpha);
+	cl = this->cla * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -388,7 +388,7 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = this->mult_lift * (1 - cos (2 * this->alpha));
+	cd = this->cda * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 
@@ -503,7 +503,7 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 	double cl;
 
 	//cl = 8 * sin (2 * this->alpha);
-	cl = 8 * sin (2 * this->alpha);
+	cl = this->cla * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -512,7 +512,7 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 4 * (1 - cos (2 * this->alpha));
+	cd = this->cda * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 

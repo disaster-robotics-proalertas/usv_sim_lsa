@@ -97,59 +97,43 @@
 
 	<plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		<link_type>sail</link_type>
-		<a0>0</a0>
-		<cla>3.0</cla>
-		<cda>3.0</cda>
-		<cma>-1.8</cma>
-		<alpha_stall>0.785</alpha_stall>
-		<cla_stall>-3.85</cla_stall>
-		<cda_stall>-0.9233984055</cda_stall>
-		<cma_stall>0</cma_stall>
-		<cp>0 0 0</cp>
+		<link_name>sail</link_name>
 		<joint_name>sail_joint</joint_name>
+		<cla>8.0</cla>
+		<cda>4.0</cda>
+		<cp>0 0 0</cp>
 		<area>1.44</area>
 		<fluid_density>1.2041</fluid_density>
-		<forward>-1 0 0</forward>
-		<upward>0 1 0</upward>
-		<link_name>sail</link_name>
+		<forward>1 0 0</forward>
+		<upward>0 -1 0</upward>
 		<fluidVelocity>${windType}</fluidVelocity>
       </plugin>
       
   
       <plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		  <link_type>keel</link_type>
-		  <a0>0</a0>
-		  <cla>10.0</cla>
-		  <cda>8.0</cda>
-		  <alpha_stall>0.785</alpha_stall>
-		  <cla_stall>-10.0</cla_stall>
-		  <cda_stall>-5.0</cda_stall>
+		  <link_name>keel</link_name>
+		  <cla>8.0</cla>
+		  <cda>4.0</cda>
 		  <cp>0 0 0</cp>
 		  <area>1.0</area>
 		  <fluid_density>1000</fluid_density>
 		  <forward>1 0 0</forward>
 		  <upward>0 1 0</upward>
-		  <link_name>keel</link_name>
 		  <fluidVelocity>${waterType}</fluidVelocity>
     </plugin>
     
 
     <plugin name="usv_sail_plugin" filename="libfoil_dynamics_plugin.so">
 		<link_type>rudder</link_type>
-		<a0>0</a0>
-		<cla>0.8</cla>
-		<cda>0.3</cda>
-		<mult_lift>1.5</mult_lift>
-		<mult_drag>1.0</mult_drag>
-		<alpha_stall>0.785</alpha_stall>
-		<cla_stall>-0.85</cla_stall>
-		<cda_stall>-0.3233984055</cda_stall>
+		<link_name>rudder</link_name>
+		<cla>1.5</cla>
+		<cda>1.0</cda>
 		<cp>0 0 0</cp>
 		<area>1</area>
 		<fluid_density>1000</fluid_density>
 		<forward>1 0 0</forward>
 		<upward>0 1 0</upward>
-		<link_name>rudder</link_name>
 		<fluidVelocity>${waterType}</fluidVelocity>
       </plugin>
       

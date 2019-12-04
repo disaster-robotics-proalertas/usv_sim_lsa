@@ -5,7 +5,7 @@
 <UWSimScene>
   <oceanState>
     <windx> 1 </windx>
-    <windy> 1 </windy>
+    <windy> 0 </windy>
     <windSpeed> 2.2 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
@@ -48,13 +48,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>135</x>
-      <y>150 </y>
+      <x>-5</x>
+      <y>0 </y>
       <z>15 </z>
     </position> 
     <lookAt>
-      <x>145</x>
-      <y>150 </y>
+      <x>5</x>
+      <y>0 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -67,8 +67,8 @@
       <joint> 0 </joint>
     </jointValues>
      <position>
-      <x> 145 </x>
-      <y> 150 </y>
+      <x> 0 </x>
+      <y> 0 </y>
       <z> 1.13 </z>
     </position>
     <orientation>

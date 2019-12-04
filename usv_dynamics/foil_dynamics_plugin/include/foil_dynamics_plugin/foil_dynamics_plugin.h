@@ -79,8 +79,8 @@ namespace gazebo
     /// \brief angle of attack
     protected: double alpha;
 
-    protected: double mult_lift;
-    protected: double mult_drag;
+    protected: double cla;
+    protected: double cda;
 
     /// \brief center of pressure in link local coordinates
     protected: math::Vector3 cp;
