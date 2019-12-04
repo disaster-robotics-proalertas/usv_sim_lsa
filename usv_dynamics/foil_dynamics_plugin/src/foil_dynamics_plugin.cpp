@@ -9,6 +9,7 @@
 #include <gazebo/transport/transport.hh>
 #include <ros/publisher.h>
 #include <sensor_msgs/JointState.h>
+#include <geometry_msgs/WrenchStamped.h>
 
 using namespace gazebo;
 
@@ -144,6 +145,11 @@ Foil_Dynamics_Plugin::Init ()
 {
 	std::cerr << "\n ----------- Foil_Dynamics_Plugin::init: type: " << this->linkType << " linkName: " << this->linkName;
 	current_subscriber_ = rosnode_.subscribe ("/gazebo/current", 1, &Foil_Dynamics_Plugin::ReadWaterCurrent, this);
+
+	this->pubFinForce = n.advertise<geometry_msgs::WrenchStamped>(this->modelName+"/"+this->link->GetName()+"/force", 10);
+	this->pubFinLift = n.advertise<geometry_msgs::WrenchStamped>(this->modelName+"/"+this->link->GetName()+"/lift", 10);
+	this->pubFinDrag = n.advertise<geometry_msgs::WrenchStamped>(this->modelName+"/"+this->link->GetName()+"/drag", 10);
+
 	this->updateConnection = event::Events::ConnectWorldUpdateBegin (boost::bind (&Foil_Dynamics_Plugin::OnUpdate, this));
 
 	std::cerr << "\n compare to sail: " << this->linkType.compare ("sail");
@@ -257,8 +263,38 @@ Foil_Dynamics_Plugin::OnUpdateRudder ()
 
 	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
 
+	geometry_msgs::WrenchStamped force_msg;
+	geometry_msgs::WrenchStamped lift_msg;
+	geometry_msgs::WrenchStamped drag_msg;
+
+	force_msg.header.stamp = ros::Time().now();
+    force_msg.header.frame_id = this->link->GetName();
+	force_msg.wrench.force.x = force.x;
+	force_msg.wrench.force.y = force.y;
+	force_msg.wrench.force.z = force.z;
+	force_msg.wrench.torque.x = torque.x;
+	force_msg.wrench.torque.y = torque.y;
+	force_msg.wrench.torque.z = torque.z;
+
+	lift_msg.header.stamp = ros::Time().now();
+    lift_msg.header.frame_id = this->link->GetName();
+	lift_msg.wrench.force.x = lift.x;
+	lift_msg.wrench.force.y = lift.y;
+	lift_msg.wrench.force.z = lift.z;
+
+	drag_msg.header.stamp = ros::Time().now();
+    drag_msg.header.frame_id = this->link->GetName();
+	drag_msg.wrench.force.x = drag.x;
+	drag_msg.wrench.force.y = drag.y;
+	drag_msg.wrench.force.z = drag.z;
+
+	this->pubFinForce.publish(force_msg);
+	this->pubFinLift.publish(lift_msg);
+	this->pubFinDrag.publish(drag_msg);
+
 	// apply forces at cg (with torques for position shift)
 	//std::cerr<<"\n forceRudder["<<force.GetLength()<<"]: "<<force;
+
 	this->link->AddForceAtRelativePosition (force, this->cp);
 	//this->link->AddTorque(torque);
 }
@@ -343,7 +379,7 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
-	cl = 8 * sin (2 * this->alpha);
+	cl = this->mult_lift * sin (2 * this->alpha);
 	// compute lift force at cp
 	math::Vector3 lift = cl * q * this->area * liftDirection;
 
@@ -352,7 +388,7 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 	// make sure drag is positive
 	//cd = fabs(cd);
 
-	cd = 4 * (1 - cos (2 * this->alpha));
+	cd = this->mult_lift * (1 - cos (2 * this->alpha));
 	// drag at cp
 	math::Vector3 drag = cd * q * this->area * dragDirection;
 
@@ -373,6 +409,35 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 	// + moment.Cross(momentArm);
 
 	math::Vector3 torque = moment;
+
+	geometry_msgs::WrenchStamped force_msg;
+	geometry_msgs::WrenchStamped lift_msg;
+	geometry_msgs::WrenchStamped drag_msg;
+
+	force_msg.header.stamp = ros::Time().now();
+    force_msg.header.frame_id = this->link->GetName();
+	force_msg.wrench.force.x = force.x;
+	force_msg.wrench.force.y = force.y;
+	force_msg.wrench.force.z = force.z;
+	force_msg.wrench.torque.x = torque.x;
+	force_msg.wrench.torque.y = torque.y;
+	force_msg.wrench.torque.z = torque.z;
+
+	lift_msg.header.stamp = ros::Time().now();
+    lift_msg.header.frame_id = this->link->GetName();
+	lift_msg.wrench.force.x = lift.x;
+	lift_msg.wrench.force.y = lift.y;
+	lift_msg.wrench.force.z = lift.z;
+
+	drag_msg.header.stamp = ros::Time().now();
+    drag_msg.header.frame_id = this->link->GetName();
+	drag_msg.wrench.force.x = drag.x;
+	drag_msg.wrench.force.y = drag.y;
+	drag_msg.wrench.force.z = drag.z;
+
+	this->pubFinForce.publish(force_msg);
+	this->pubFinLift.publish(lift_msg);
+	this->pubFinDrag.publish(drag_msg);
 
 	//std::cerr<<"\n forceKeel["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)
@@ -467,6 +532,36 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 	// + moment.Cross(momentArm);
 
 	math::Vector3 torque = moment;
+
+
+	geometry_msgs::WrenchStamped force_msg;
+	geometry_msgs::WrenchStamped lift_msg;
+	geometry_msgs::WrenchStamped drag_msg;
+
+	force_msg.header.stamp = ros::Time().now();
+    force_msg.header.frame_id = this->link->GetName();
+	force_msg.wrench.force.x = force.x;
+	force_msg.wrench.force.y = force.y;
+	force_msg.wrench.force.z = force.z;
+	force_msg.wrench.torque.x = torque.x;
+	force_msg.wrench.torque.y = torque.y;
+	force_msg.wrench.torque.z = torque.z;
+
+	lift_msg.header.stamp = ros::Time().now();
+    lift_msg.header.frame_id = this->link->GetName();
+	lift_msg.wrench.force.x = lift.x;
+	lift_msg.wrench.force.y = lift.y;
+	lift_msg.wrench.force.z = lift.z;
+
+	drag_msg.header.stamp = ros::Time().now();
+    drag_msg.header.frame_id = this->link->GetName();
+	drag_msg.wrench.force.x = drag.x;
+	drag_msg.wrench.force.y = drag.y;
+	drag_msg.wrench.force.z = drag.z;
+
+	this->pubFinForce.publish(force_msg);
+	this->pubFinLift.publish(lift_msg);
+	this->pubFinDrag.publish(drag_msg);
 
 	//std::cerr<<"\n forceSail["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)

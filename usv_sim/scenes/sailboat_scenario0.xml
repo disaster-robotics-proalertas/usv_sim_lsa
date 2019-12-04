@@ -48,13 +48,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>40</x>
-      <y>50 </y>
+      <x>135</x>
+      <y>150 </y>
       <z>15 </z>
     </position> 
     <lookAt>
-      <x>55</x>
-      <y>50 </y>
+      <x>145</x>
+      <y>150 </y>
       <z>5 </z>
     </lookAt>
   </camera>

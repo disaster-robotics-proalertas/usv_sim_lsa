@@ -28,6 +28,7 @@
 #include <std_msgs/Float64.h>
 #include "water_current/GetSpeed.h"
 #include "wind_current/GetSpeed.h"
+#include <geometry_msgs/WrenchStamped.h>
 
 namespace gazebo
 {
@@ -125,6 +126,12 @@ namespace gazebo
    // }
     public: void WaterThreadLoop();
     public: void WindThreadLoop();
+
+    private: ros::NodeHandle n;
+
+    private: ros::Publisher pubFinForce;
+    private: ros::Publisher pubFinLift;
+    private: ros::Publisher pubFinDrag;
   };
 
 }
