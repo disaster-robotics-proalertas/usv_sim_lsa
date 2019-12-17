@@ -59,14 +59,14 @@ if __name__ == '__main__':
                     rate.sleep()
                     if (rospy.get_time() > 2 *60):
                         break;
-                simulationNumber = simulationNumber + 1
-                if (simulationNumber > maxSimulations):
-                    rospy.logerr("All simulations have been done. Pausing gazebo")
-                    pause() 
-                else:
-                    pause() 
-                    rate.sleep()
-                    resetSimulation()
+            simulationNumber = simulationNumber + 1
+            if (simulationNumber > maxSimulations):
+                rospy.logerr("All simulations have been done. Pausing gazebo")
+                pause() 
+            else:
+                pause() 
+                rate.sleep()
+                resetSimulation()
             rate.sleep()
             unpause()
             rospy.logerr("Continue simulation!") 
