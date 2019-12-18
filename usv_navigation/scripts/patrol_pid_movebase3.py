@@ -60,15 +60,15 @@ if __name__ == '__main__':
                     if (rospy.get_time() > 2 *60):
                         break;
             simulationNumber = simulationNumber + 1
-            if (simulationNumber > maxSimulations):
-                rospy.logerr("All simulations have been done. Pausing gazebo")
-                pause() 
-            else:
-                pause() 
-                rate.sleep()
-                resetSimulation()
+            # if (simulationNumber > maxSimulations):
+            #     rospy.logerr("All simulations have been done. Pausing gazebo")
+            #     pause() 
+            # else:
+            #     pause() 
+            #     rate.sleep()
+            #     resetSimulation()
             rate.sleep()
-            unpause()
+            # unpause()
             rospy.logerr("Continue simulation!") 
         except rospy.ROSInterruptException:
     	    rospy.logerr("ROS InterruptException! Just ignore the exception!") 
