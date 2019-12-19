@@ -1,8 +1,9 @@
-obstacle_range: 2.5
-raytrace_range: 3.0
+obstacle_range: 25.0
+raytrace_range: 30.0
 footprint: [[0.6, -0.25], [0.6, 0.25], [-0.6, 0.25], [-0.6, -0.25]]
 #robot_radius: ir_of_robot
-inflation_radius: 0.8
+inflation_radius: 20.2
+cost_scaling_factor: 5.0
 
 observation_sources: laser_scan_sensor 
 

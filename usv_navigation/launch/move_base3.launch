@@ -14,7 +14,7 @@
             <!-- Extern local planner -->
             <!-- <param name="base_local_planner" value="local_planner/LocalPlanner"/> -->
             <!-- <param name="base_local_planner" value="eband_local_planner/EBandPlannerROS"/> -->
-            <param name="base_local_planner" value="rra_local_planner/RRAPlannerROS"/>
+            <!-- <param name="base_local_planner" value="rra_local_planner/RRAPlannerROS"/> -->
             
             <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
             <rosparam file="$(find usv_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />

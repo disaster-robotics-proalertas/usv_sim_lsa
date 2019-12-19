@@ -32,7 +32,7 @@
 		
 
 
-		<include file="$(find usv_sim_rviz)/launch/movebase_navigation2.launch" /> 
+		<include file="$(find usv_sim_rviz)/launch/movebase_navigation3.launch" /> 
 
 		<!-- recording experiment -->
 		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/diffboat_scenario1.bag /diffboat/state" output="screen" if="$(arg rec)"/>
