@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="false"/>
+	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
+	<arg name="map_file" default="$(find usv_navigation)/maps/diluvio2.yaml"/>
+	<arg name="spawnGazebo" default="true"/>
+
+    <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+		<arg name="namespace" default="diffboat"/>  
+    	
+    	
+	    <!-- Launch Gazebo with empty world -->
+	    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	        <arg name="use_sim_time" value="true" />
+	        <arg name="debug" value="false" />
+	        <arg name="gui" value="true" />
+	        <arg name="paused" value="true"/>
+	        <arg name="verbose" value="true"/>
+	        <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+	    </include>
+
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/colregs/colregs_headon1.xml" respawn="false" required="true"/>
+		
+		<!-- using parser  -->
+		<include file="$(find usv_sim)/launch/colregs/colregs_headon1_spawner.launch"/>
+
+		
+
+
+		<include file="$(find usv_sim_rviz)/launch/movebase_navigation3.launch" /> 
+
+		<!-- recording experiment -->
+		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/diffboat_scenario1.bag /diffboat/state" output="screen" if="$(arg rec)"/>
+
+	</group>
+
+	<!-- spawn diffboat1 -->
+	<group unless="$(arg parse)" >
+		<arg name="namespace" default="diffboat1"/>  
+		<!-- one include and one node to each vehicle -->
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch">
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+            <arg name="namespace" value="/$(arg namespace)"/>
+            <arg name="windType" value="none"/>
+            <arg name="waterType" value="none"/>
+			<arg name="headingControl" default="false"/>
+			<arg name="velocityControl" default="true"/>
+        </include>
+		<!-- MAP SERVER. Inform the map_file here -->
+		<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" ns="$(arg namespace)">
+		 	<param name="frame_id" value="/$(arg namespace)/map" />
+		</node>
+		<node pkg="tf" type="static_transform_publisher" name="world_map_tf" args="0 0 0 0 0 0 1 world $(arg namespace)/map 10" ns="$(arg namespace)"/>
+		
+		
+
+		 <!-- AMCL -->
+		<include file="$(find usv_navigation)/launch/amcl3.launch">
+			<arg name="use_map_topic"   value="false"/>
+			<arg name="scan_topic"      value="/$(arg namespace)/scan"/> 
+			<arg name="initial_pose_x"  value="430.0"/>
+			<arg name="initial_pose_y"  value="115.0"/>
+			<arg name="initial_pose_a"  value="0"/> 
+			<arg name="odom_frame_id"   value="/$(arg namespace)/odom"/>
+			<arg name="base_frame_id"   value="/$(arg namespace)/base_link"/>
+			<arg name="global_frame_id" value="/$(arg namespace)/map"/>
+			<arg name="namespace"   value="$(arg namespace)"/>
+		</include>
+		
+
+		<!-- MOVE BASE NODE -->
+		<include file="$(find usv_navigation)/launch/move_base3.launch" >
+			<arg name="global_frame_id"   value="/$(arg namespace)/map"/>
+        	<arg name="odom_frame_id"   value="/$(arg namespace)/odom"/>
+        	<arg name="base_frame_id"   value="/$(arg namespace)/base_link"/>
+        	<arg name="namespace"   value="$(arg namespace)"/>
+        	<arg name="scan_topic"   value="/$(arg namespace)/scan"/>
+		</include>	
+	</group>
+
+	<!-- spawn diffboat2 -->
+	<group unless="$(arg parse)">
+		<arg name="namespace" default="diffboat2"/> 
+		<!-- one include and one node to each vehicle -->
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch">
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+            <arg name="namespace" value="/$(arg namespace)"/>
+            <arg name="windType" value="none"/>
+            <arg name="waterType" value="none"/>
+			<arg name="headingControl" default="true"/>
+			<arg name="velocityControl" default="false"/>
+        </include>
+
+		<node name="patrol" pkg="usv_navigation" type="patrol_pid_headon1.py" ns="diffboat2" unless="$(arg gui)" output="screen"/>
+		
+	</group>
+			
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/colregs/colregs_headon1.launch" output="screen" required="true"/>
+	</group>
+
+</launch>

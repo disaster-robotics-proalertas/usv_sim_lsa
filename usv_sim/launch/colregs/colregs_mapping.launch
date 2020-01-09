@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="true"/>
+	<arg name="parse" default="false"/>
+	<arg name="rec" default="false"/>
+
+    <arg name="spawnGazebo" default="true"/>
+
+    <!-- spawn uwsim -->
+	<group unless="$(arg parse)">
+		<arg name="disableShaders" default="false"/>
+		<arg name="namespace" default="diffboat"/>  
+    	
+	    <!-- Launch Gazebo with empty world -->
+	    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	        <arg name="use_sim_time" value="true" />
+	        <arg name="debug" value="false" />
+	        <arg name="gui" value="true" />
+	        <arg name="paused" value="true"/>
+	        <arg name="verbose" value="true"/>
+	        <arg name="world_name" value="$(find usv_sim)/world/empty.world"/>
+	    </include>
+
+		<!-- launch uwsim -->
+		<node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/colregs/colregs_mapping.xml" respawn="false" required="true"/>
+		
+		<!-- using parser  -->
+		<include file="$(find usv_sim)/launch/colregs/colregs_mapping_spawner.launch"/>
+		
+		<!-- recording experiment -->
+		<node pkg="rosbag" type="record" name="record_diffboat" args="-O $(find usv_navigation)/bags/diffboat_scenario1.bag /diffboat/state" output="screen" if="$(arg rec)"/>
+
+	</group>
+
+
+	<!-- spawn diffboat1 -->
+	<group unless="$(arg parse)" >
+		<arg name="namespace" default="diffboat1"/>  
+		<!-- one include and one node to each vehicle -->
+		<include file="$(find usv_sim)/launch/models/spawn_diffboat.launch">
+            <arg name="gui" value="$(arg gui)"/>
+            <arg name="spawnGazebo" value="$(arg spawnGazebo)"/>
+            <arg name="namespace" value="/$(arg namespace)"/>
+            <arg name="windType" value="none"/>
+            <arg name="waterType" value="none"/>
+			<arg name="headingControl" default="false"/>
+			<arg name="velocityControl" default="true"/>
+        </include>
+		<!-- MAP SERVER. Inform the map_file here -->
+		<!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" ns="$(arg namespace)">
+		 	<param name="frame_id" value="/$(arg namespace)/map" />
+		</node> -->
+		<node pkg="tf" type="static_transform_publisher" name="world_map_tf" args="0 0 0 0 0 0 1 world $(arg namespace)/map 10" ns="$(arg namespace)"/>
+		
+
+
+		
+		<include file="$(find usv_navigation)/launch/multi_move_base.launch" >
+		  	<arg name="odom_frame_id"   default="$(arg namespace)/odom"/>
+			<arg name="base_frame_id"   default="$(arg namespace)/base_link"/>
+			<arg name="global_frame_id" default="$(arg namespace)/map"/>
+			<arg name="odom_topic" default="$(arg namespace)/odom" />
+			<arg name="laser_topic" default="$(arg namespace)/scan" />
+			<arg name="namespace_prefix" default="$(arg namespace)" />
+		</include>
+		
+
+		<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+			<param name="base_frame" value="/$(arg namespace)/base_laser"/>
+			<param name="odom_frame" value="/$(arg namespace)/odom"/>
+			<param name="map_frame" value="/$(arg namespace)/map"/>
+			<param name="map_update_interval" value="5.0"/>
+			<param name="maxUrange" value="40.0"/>
+			<param name="maxRange" value="30.0"/>
+			<param name="sigma" value="0.05"/>
+			<param name="kernelSize" value="1"/>
+			<param name="lstep" value="0.05"/>
+			<param name="astep" value="0.05"/>
+			<param name="iterations" value="5"/>
+			<param name="lsigma" value="0.075"/>
+			<param name="ogain" value="3.0"/>
+			<param name="lskip" value="0"/>
+			<param name="minimumScore" value="200"/>
+			<param name="srr" value="0.01"/>
+			<param name="srt" value="0.02"/>
+			<param name="str" value="0.01"/>
+			<param name="stt" value="0.02"/>
+			<param name="linearUpdate" value="0.5"/>
+			<param name="angularUpdate" value="0.436"/>
+			<param name="temporalUpdate" value="-1.0"/>
+			<param name="resampleThreshold" value="0.5"/>
+			<param name="particles" value="80"/>
+			<param name="xmin" value="0.0"/>
+			<param name="ymin" value="0.0"/>
+			<param name="xmax" value="500.0"/>
+			<param name="ymax" value="500.0"/>
+			<param name="delta" value="0.5"/>
+			<param name="llsamplerange" value="0.01"/>
+			<param name="llsamplestep" value="0.01"/>
+			<param name="lasamplerange" value="0.005"/>
+			<param name="lasamplestep" value="0.005"/>
+			<remap from="scan" to="/$(arg namespace)/scan"/>
+		</node>
+		
+
+		
+	</group>
+			
+	<!-- parse launch file -->
+	<group if="$(arg parse)">
+		<node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/colregs/colregs_mapping.launch" output="screen" required="true"/>
+	</group>
+
+</launch>
