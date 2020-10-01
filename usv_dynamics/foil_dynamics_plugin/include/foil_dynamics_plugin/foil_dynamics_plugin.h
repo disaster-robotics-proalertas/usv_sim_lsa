@@ -82,14 +82,14 @@ namespace gazebo
     protected: double mult_drag;
 
     /// \brief center of pressure in link local coordinates
-    protected: math::Vector3 cp;
+    protected: ignition::math::Vector3d cp;
 
     /// \brief forward flight direction in link local coordinates
-    protected: math::Vector3 forward;
+    protected: ignition::math::Vector3d forward;
 
     /// \brief A vector in the lift/drag plane, anything orthogonal to it
     /// is considered wing sweep.
-    protected: math::Vector3 upward;
+    protected: ignition::math::Vector3d upward;
 
     /// \brief Names of allowed target links, specified in sdf parameters.
     protected: std::string linkName;
@@ -107,10 +107,10 @@ namespace gazebo
 
     protected: ros::Subscriber current_subscriber_;
 
-    protected: math::Vector3 waterCurrent;
+    protected: ignition::math::Vector3d waterCurrent;
 
     protected: ros::NodeHandle rosnode_;
-    protected: math::Vector3 wind;
+    protected: ignition::math::Vector3d wind;
     //protected: float angle;
     protected: ros::ServiceClient velocity_serviceClient_;
     protected: bool running;

@@ -18,9 +18,9 @@ GZ_REGISTER_MODEL_PLUGIN (Foil_Dynamics_Plugin)
 Foil_Dynamics_Plugin::Foil_Dynamics_Plugin () : rho (1000.1)
 {
 	ROS_INFO ("------------------------------Foil_Dynamics_Plugin OBJECT CREATED!!!!");
-	this->cp = math::Vector3 (0, 0, 0);
-	this->forward = math::Vector3 (1, 0, 0);
-	this->upward = math::Vector3 (0, 0, 1);
+	this->cp = ignition::math::Vector3d (0, 0, 0);
+	this->forward = ignition::math::Vector3d (1, 0, 0);
+	this->upward = ignition::math::Vector3d (0, 0, 1);
 	this->area = 1.0;
 	this->mult_lift = 1.5;
 	this->mult_drag = 1.0;
@@ -43,22 +43,22 @@ Foil_Dynamics_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 	this->world = this->model->GetWorld ();
 	GZ_ASSERT (this->world, "Foil_Dynamics_Plugin world pointer is NULL");
 
-	this->physics = this->world->GetPhysicsEngine ();
+	this->physics = this->world->Physics  ();
 	GZ_ASSERT (this->physics, "Foil_Dynamics_Plugin physics pointer is NULL");
 
 	GZ_ASSERT (_sdf, "Foil_Dynamics_Plugin _sdf pointer is NULL");
 
 
 	if (_sdf->HasElement ("cp"))
-		this->cp = _sdf->Get < math::Vector3 > ("cp");
+		this->cp = _sdf->Get < ignition::math::Vector3d > ("cp");
 
 	// blade forward (-drag) direction in link frame
 	if (_sdf->HasElement ("forward"))
-		this->forward = _sdf->Get < math::Vector3 > ("forward");
+		this->forward = _sdf->Get < ignition::math::Vector3d > ("forward");
 
 	// blade upward (+lift) direction in link frame
 	if (_sdf->HasElement ("upward"))
-		this->upward = _sdf->Get < math::Vector3 > ("upward");
+		this->upward = _sdf->Get < ignition::math::Vector3d > ("upward");
 
 	if (_sdf->HasElement ("area"))
 		this->area = _sdf->Get<double> ("area");
@@ -99,7 +99,7 @@ Foil_Dynamics_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 		std::cerr << "fluidVelocity: [" << this->fluidVelocity << "\n";
 	}
 
-	waterCurrent = math::Vector3 (0, 0, 0);
+	waterCurrent = ignition::math::Vector3d (0, 0, 0);
 	float wind_value_x;
 	float wind_value_y;
 	float wind_value_z;
@@ -109,8 +109,8 @@ Foil_Dynamics_Plugin::Load (physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
 		if (rosnode_.getParam ("/uwsim/wind/x", wind_value_x) & rosnode_.getParam ("/uwsim/wind/y", wind_value_y))
 		{
-			this->wind = math::Vector3 (wind_value_x, wind_value_y, 0);
-			ROS_WARN("\n WIND TYPE IS GLOBAL wind %f, %f, %f", this->wind.x, this->wind.y, this->wind.z);
+			this->wind = ignition::math::Vector3d (wind_value_x, wind_value_y, 0);
+			ROS_WARN("\n WIND TYPE IS GLOBAL wind %f, %f, %f", this->wind.X(), this->wind.Y(), this->wind.Z());
 		}
 		else
 		{
@@ -176,50 +176,50 @@ void
 Foil_Dynamics_Plugin::OnUpdateRudder ()
 {
 	// get linear velocity at cp in inertial frame
-	math::Vector3 vel = this->link->GetWorldLinearVel (this->cp) - waterCurrent;
+	ignition::math::Vector3d vel = this->link->WorldLinearVel (this->cp) - waterCurrent;
 
-	if (vel.GetLength () <= 0.01)
+	if (vel.Length () <= 0.01)
 		return;
-	if (vel.GetLength () > 5)
+	if (vel.Length () > 5)
 	{
-		std::cerr<<"\n OnUpdateRudder::vel: "<<vel<<" lengtH: "<<vel.GetLength()<<" oldTime: "<<oldTime<<" > "<<ros::Time::now();
+		//std::cerr<<"\n OnUpdateRudder::vel: "<<vel<<" lengtH: "<<vel.Length()<<" oldTime: "<<oldTime<<" > "<<ros::Time::now();
 		//std::cerr<<"\n cp "<<this->cp<<" pose: "<<this->link->GetWorldPose ();
 		return;
 	}
 	// pose of body
-	math::Pose pose = this->link->GetWorldPose ();
+	ignition::math::Pose3d pose = this->link->WorldPose ();
 
 	// rotate forward and upward vectors into inertial frame
-	math::Vector3 forwardI = pose.rot.RotateVector (this->forward);
-	math::Vector3 upwardI = pose.rot.RotateVector (this->upward);
+	ignition::math::Vector3d forwardI = pose.Rot().RotateVector (this->forward);
+	ignition::math::Vector3d upwardI = pose.Rot().RotateVector (this->upward);
 	//std::cerr<<"pose: "<<pose<<" forwardI: "<<forwardI<<" upwardI: "<<upwardI<<"\n";
 
 	// ldNormal vector to lift-drag-plane described in inertial frame
-	math::Vector3 ldNormal = forwardI.Cross (upwardI).Normalize ();
+	ignition::math::Vector3d ldNormal = forwardI.Cross (upwardI).Normalize ();
 
 
 	// angle of attack
-	math::Vector3 velInLDPlane = ldNormal.Cross (vel.Cross (ldNormal));
+	ignition::math::Vector3d velInLDPlane = ldNormal.Cross (vel.Cross (ldNormal));
 
 	// get direction of drag
-	math::Vector3 dragDirection = -velInLDPlane;
+	ignition::math::Vector3d dragDirection = -velInLDPlane;
 	dragDirection.Normalize ();
 
 	// get direction of lift
-	math::Vector3 liftDirection = ldNormal.Cross (velInLDPlane);
+	ignition::math::Vector3d liftDirection = ldNormal.Cross (velInLDPlane);
 	liftDirection.Normalize ();
 	//std::cerr<<"vel: "<<vel<<"("<<vel.GetLength()<<") liftDirection: "<<liftDirection<<" dragDirection: "<<dragDirection<<"\n";
 
 	// get direction of moment
-	math::Vector3 momentDirection = ldNormal;
+	ignition::math::Vector3d momentDirection = ldNormal;
 
-	double cosAlpha = math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.GetLength () * velInLDPlane.GetLength ()),
+	double cosAlpha = ignition::math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.Length () * velInLDPlane.Length ()),
 	                               -1.0, 1.0);
 
 	// get sign of alpha
 	// take upwards component of velocity in lift-drag plane.
 	// if sign == upward, then alpha is negative
-	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.GetLength () + velInLDPlane.GetLength ());
+	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.Length () + velInLDPlane.Length ());
 
 	// double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
 	if (alphaSign > 0.0)
@@ -228,14 +228,14 @@ Foil_Dynamics_Plugin::OnUpdateRudder ()
 		this->alpha = - acos (cosAlpha);
 
 	// compute dynamic pressure
-	double speedInLDPlane = velInLDPlane.GetLength ();
+	double speedInLDPlane = velInLDPlane.Length ();
 	double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
 	cl = this->mult_lift * sin (2*this->alpha);
 	// compute lift force at cp
-	math::Vector3 lift = cl * q * this->area * liftDirection;
+	ignition::math::Vector3d lift = cl * q * this->area * liftDirection;
 
 	// compute cd at cp, check for stall, correct for sweep
 	double cd;
@@ -245,17 +245,17 @@ Foil_Dynamics_Plugin::OnUpdateRudder ()
 	cd = fabs (cd);
 
 	// drag at cp
-	math::Vector3 drag = cd * q * this->area * dragDirection;
+	ignition::math::Vector3d drag = cd * q * this->area * dragDirection;
 
 	// force and torque about cg in inertial frame
-	math::Vector3 force = lift + drag;
+	ignition::math::Vector3d force = lift + drag;
  //ROS_ERROR("liftDirection: %f,%f,%f lift: %f, %f drag: (%f, %f)",liftDirection.x,liftDirection.y,liftDirection.z,lift.x,lift.y,drag.x,drag.y);
 //	ROS_ERROR("a: %f inputCL: %f inputCD: %f v: %f", this->alpha, sin (2*this->alpha), (1 - cos (2 * this->alpha)), speedInLDPlane);
 //	std::cerr<<"\n Lift: "<<lift<<" Drag: "<<drag;
 //	std::cerr<<"\n rho: "<<this->rho<<" Area: "<<this->area;
 //	std::cerr<<" totalForce: "<<(lift+drag)<<"\n";
 
-	math::Vector3 torque = (lift + drag)*(this->cp - this->link->GetInertial ()->GetCoG ());
+	ignition::math::Vector3d torque = (lift + drag)*(this->cp - this->link->GetInertial ()->CoG ());
 
 	// apply forces at cg (with torques for position shift)
 	//std::cerr<<"\n forceRudder["<<force.GetLength()<<"]: "<<force;
@@ -270,23 +270,23 @@ void
 Foil_Dynamics_Plugin::OnUpdateKeel ()
 {
 
-	math::Vector3 vel = this->link->GetWorldLinearVel (this->cp) - waterCurrent;
+	ignition::math::Vector3d vel = this->link->WorldLinearVel (this->cp) - waterCurrent;
 
-	if (vel.GetLength () <= 0.01)
+	if (vel.Length () <= 0.01)
 		return;
 
 	// pose of body
-	math::Pose pose = this->link->GetWorldPose ();
+	ignition::math::Pose3d pose = this->link->WorldPose ();
 
 	// rotate forward and upward vectors into inertial frame
-	math::Vector3 forwardI = pose.rot.RotateVector (this->forward);
-	math::Vector3 upwardI = pose.rot.RotateVector (this->upward);
+	ignition::math::Vector3d forwardI = pose.Rot().RotateVector (this->forward);
+	ignition::math::Vector3d upwardI = pose.Rot().RotateVector (this->upward);
 
 	// ldNormal vector to lift-drag-plane described in inertial frame
-	math::Vector3 ldNormal = forwardI.Cross (upwardI).Normalize ();
+	ignition::math::Vector3d ldNormal = forwardI.Cross (upwardI).Normalize ();
 
 	// check sweep (angle between vel and lift-drag-plane)
-	double sinSweepAngle = ldNormal.Dot (vel) / vel.GetLength ();
+	double sinSweepAngle = ldNormal.Dot (vel) / vel.Length ();
 
 	// get cos from trig identity
 	double cosSweepAngle2 = (1.0 - sinSweepAngle * sinSweepAngle);
@@ -305,27 +305,27 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 	//
 	// so,
 	// velocity in lift-drag plane (expressed in inertial frame) is:
-	math::Vector3 velInLDPlane = ldNormal.Cross (vel.Cross (ldNormal));
+	ignition::math::Vector3d velInLDPlane = ldNormal.Cross (vel.Cross (ldNormal));
 
 	// get direction of drag
-	math::Vector3 dragDirection = -velInLDPlane;
+	ignition::math::Vector3d dragDirection = -velInLDPlane;
 	dragDirection.Normalize ();
 
 	// get direction of lift
-	math::Vector3 liftDirection = ldNormal.Cross (velInLDPlane);
+	ignition::math::Vector3d liftDirection = ldNormal.Cross (velInLDPlane);
 	liftDirection.Normalize ();
 	//std::cerr<<"\n liftDirection: "<<liftDirection;
 
 	// get direction of moment
-	math::Vector3 momentDirection = ldNormal;
+	ignition::math::Vector3d momentDirection = ldNormal;
 
-	double cosAlpha = math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.GetLength () * velInLDPlane.GetLength ()),
+	double cosAlpha = ignition::math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.Length () * velInLDPlane.Length ()),
 	                               -1.0, 1.0);
 
 	// get sign of alpha
 	// take upwards component of velocity in lift-drag plane.
 	// if sign == upward, then alpha is negative
-	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.GetLength () + velInLDPlane.GetLength ());
+	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.Length () + velInLDPlane.Length ());
 
 	// double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
 	if (alphaSign > 0.0)
@@ -338,14 +338,14 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 		this->alpha = this->alpha > 0 ? this->alpha - 2 * M_PI : this->alpha + 2 * M_PI;
 
 	// compute dynamic pressure
-	double speedInLDPlane = velInLDPlane.GetLength ();
+	double speedInLDPlane = velInLDPlane.Length ();
 	double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
 	// compute cl at cp, check for stall, correct for sweep
 	double cl;
 	cl = 8 * sin (2 * this->alpha);
 	// compute lift force at cp
-	math::Vector3 lift = cl * q * this->area * liftDirection;
+	ignition::math::Vector3d lift = cl * q * this->area * liftDirection;
 
 	// compute cd at cp, check for stall, correct for sweep
 	double cd;
@@ -354,7 +354,7 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 
 	cd = 4 * (1 - cos (2 * this->alpha));
 	// drag at cp
-	math::Vector3 drag = cd * q * this->area * dragDirection;
+	ignition::math::Vector3d drag = cd * q * this->area * dragDirection;
 
 	// compute cm at cp, check for stall, correct for sweep
 	double cm;
@@ -363,16 +363,16 @@ Foil_Dynamics_Plugin::OnUpdateKeel ()
 	cm = 0.0;
 
 	// compute moment (torque) at cp
-	math::Vector3 moment = cm * q * this->area * momentDirection;
+	ignition::math::Vector3d moment = cm * q * this->area * momentDirection;
 
 	// moment arm from cg to cp in inertial plane
-	math::Vector3 momentArm = pose.rot.RotateVector (this->cp - this->link->GetInertial ()->GetCoG ());
+	ignition::math::Vector3d momentArm = pose.Rot().RotateVector (this->cp - this->link->GetInertial ()->CoG ());
 
 	// force and torque about cg in inertial frame
-	math::Vector3 force = lift + drag;
+	ignition::math::Vector3d force = lift + drag;
 	// + moment.Cross(momentArm);
 
-	math::Vector3 torque = moment;
+	ignition::math::Vector3d torque = moment;
 
 	//std::cerr<<"\n forceKeel["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)
@@ -386,42 +386,42 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 
 	//this->joint->SetLowStop (0, gazebo::math::Angle (-this->angle));
 	//this->joint->SetHighStop (0, gazebo::math::Angle (this->angle));
-	math::Vector3 aw = this->wind - this->link->GetWorldLinearVel (this->cp);
-	if (aw.GetLength () <= 0.01)
+	ignition::math::Vector3d aw = this->wind - this->link->WorldLinearVel (this->cp);
+	if (aw.Length () <= 0.01)
 		return;
 
 	// pose of body
-	math::Pose pose = this->link->GetWorldPose ();
+	ignition::math::Pose3d pose = this->link->WorldPose ();
 
 	// rotate forward and upward vectors into inertial frame
-	math::Vector3 forwardI = pose.rot.RotateVector (this->forward); //xb
-	math::Vector3 upwardI = pose.rot.RotateVector (this->upward);   //yb
+	ignition::math::Vector3d forwardI = pose.Rot().RotateVector (this->forward); //xb
+	ignition::math::Vector3d upwardI = pose.Rot().RotateVector (this->upward);   //yb
 
 	// ldNormal vector to lift-drag-plane described in inertial frame
-	math::Vector3 ldNormal = forwardI.Cross (upwardI).Normalize ();
+	ignition::math::Vector3d ldNormal = forwardI.Cross (upwardI).Normalize ();
 	// TODOS ESSES PRODUTOS VETORIAIS SÃO PRA PEGAR OS VETORES PERPENDICULARES
 
-	//math::Vector3 velInLDPlane = ldNormal.Cross(aw.Cross(ldNormal)); // isso é igual ao vel, só que escalado????
-	math::Vector3 velInLDPlane = aw;
+	//ignition::math::Vector3d velInLDPlane = ldNormal.Cross(aw.Cross(ldNormal)); // isso é igual ao vel, só que escalado????
+	ignition::math::Vector3d velInLDPlane = aw;
 	// get direction of drag
-	math::Vector3 dragDirection = velInLDPlane;
+	ignition::math::Vector3d dragDirection = velInLDPlane;
 	dragDirection.Normalize ();
 
 	// get direction of lift
-	// math::Vector3 liftDirection = ldNormal.Cross(velInLDPlane);
-	math::Vector3 liftDirection = -ldNormal.Cross (velInLDPlane);
+	// ignition::math::Vector3d liftDirection = ldNormal.Cross(velInLDPlane);
+	ignition::math::Vector3d liftDirection = -ldNormal.Cross (velInLDPlane);
 	liftDirection.Normalize ();
 
 	// get direction of moment
-	math::Vector3 momentDirection = ldNormal;
+	ignition::math::Vector3d momentDirection = ldNormal;
 
-	double cosAlpha = math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.GetLength () * velInLDPlane.GetLength ()),
+	double cosAlpha = ignition::math::clamp (forwardI.Dot (velInLDPlane) / (forwardI.Length () * velInLDPlane.Length ()),
 	                               -1.0, 1.0);
 
 	// get sign of alpha
 	// take upwards component of velocity in lift-drag plane.
 	// if sign == upward, then alpha is negative
-	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.GetLength () + velInLDPlane.GetLength ());
+	double alphaSign = -upwardI.Dot (velInLDPlane) / (upwardI.Length () + velInLDPlane.Length ());
 
 	// double sinAlpha = sqrt(1.0 - cosAlpha * cosAlpha);
 	if (alphaSign > 0.0)
@@ -430,7 +430,7 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 		this->alpha = -acos (cosAlpha);
 
 	// compute dynamic pressure
-	double speedInLDPlane = velInLDPlane.GetLength ();
+	double speedInLDPlane = velInLDPlane.Length ();
 	double q = 0.5 * this->rho * speedInLDPlane * speedInLDPlane;
 
 	// compute cl at cp, check for stall, correct for sweep
@@ -440,7 +440,7 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 	//cl = 8 * sin (2 * this->alpha);
 	cl = 8 * sin (2 * this->alpha);
 	// compute lift force at cp
-	math::Vector3 lift = cl * q * this->area * liftDirection;
+	ignition::math::Vector3d lift = cl * q * this->area * liftDirection;
 
 	// compute cd at cp, check for stall, correct for sweep
 	double cd;
@@ -449,7 +449,7 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 
 	cd = 4 * (1 - cos (2 * this->alpha));
 	// drag at cp
-	math::Vector3 drag = cd * q * this->area * dragDirection;
+	ignition::math::Vector3d drag = cd * q * this->area * dragDirection;
 
 	// compute cm at cp, check for stall, correct for sweep
 	double cm;
@@ -457,16 +457,16 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 	cm = 0.0;
 
 	// compute moment (torque) at cp
-	math::Vector3 moment = cm * q * this->area * momentDirection;
+	ignition::math::Vector3d moment = cm * q * this->area * momentDirection;
 
 	// moment arm from cg to cp in inertial plane
-	math::Vector3 momentArm = pose.rot.RotateVector (this->cp - this->link->GetInertial ()->GetCoG ());
+	ignition::math::Vector3d momentArm = pose.Rot().RotateVector (this->cp - this->link->GetInertial ()->CoG ());
 
 	// force and torque about cg in inertial frame
-	math::Vector3 force = lift + drag;
+	ignition::math::Vector3d force = lift + drag;
 	// + moment.Cross(momentArm);
 
-	math::Vector3 torque = moment;
+	ignition::math::Vector3d torque = moment;
 
 	//std::cerr<<"\n forceSail["<<force.GetLength()<<"]: "<<force;
 	// apply forces at cg (with torques for position shift)
@@ -482,9 +482,9 @@ Foil_Dynamics_Plugin::OnUpdateSail ()
 void
 Foil_Dynamics_Plugin::ReadWaterCurrent (const geometry_msgs::Vector3::ConstPtr& _msg)
 {
-	waterCurrent.x = _msg->x;
-	waterCurrent.y = _msg->y;
-	waterCurrent.z = _msg->z;
+	waterCurrent.X(_msg->x);
+	waterCurrent.Y(_msg->y);
+	waterCurrent.Z(_msg->z);
 }
 
 void
@@ -493,15 +493,15 @@ Foil_Dynamics_Plugin::WaterThreadLoop ()
 	ros::Rate r (10);
 	while (running)
 	{
-		gazebo::math::Pose pose = this->link->GetWorldCoGPose ();
+		ignition::math::Pose3d pose = this->link->WorldCoGPose ();
 		water_current::GetSpeed srv;
-		srv.request.x = pose.pos.x;
-		srv.request.y = pose.pos.y;
+		srv.request.x = pose.Pos().X();
+		srv.request.y = pose.Pos().Y();
 		if (velocity_serviceClient_.call (srv))
 		{
-			waterCurrent.x = srv.response.x;
-			waterCurrent.y = srv.response.y;
-			//std::cout << "\n ============== fluidWater "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
+			waterCurrent.X(srv.response.x);
+			waterCurrent.Y( srv.response.y);
+			
 		}
 		else
 		{
@@ -520,16 +520,15 @@ Foil_Dynamics_Plugin::WindThreadLoop ()
 	ros::Rate r (10);
 	while (running)
 	{
-		gazebo::math::Pose pose = this->link->GetWorldCoGPose ();
+		ignition::math::Pose3d pose = this->link->WorldCoGPose ();
 		wind_current::GetSpeed srv;
-		srv.request.x = pose.pos.x;
-		srv.request.y = pose.pos.y;
+		srv.request.x = pose.Pos().X();
+		srv.request.y = pose.Pos().Y();
 		if (velocity_serviceClient_.call (srv))
 		{
-			wind.x = srv.response.x;
-			wind.y = srv.response.y;
-			//std::cout << "\n ============== fluidWind "<<model_name<<"="<<link->GetName()<<" ("<<fluid_velocity_.x<<", "<<fluid_velocity_.y<<")";
-			//ROS_ERROR("\n GETTING LOCAL WIND!!! %s", link->GetName());
+			wind.X( srv.response.x);
+			wind.Y( srv.response.y);
+			
 		}
 		else
 		{
