@@ -55,7 +55,12 @@ Clone the usv_sim repository in the src folder of your catkin workspace:
 Run the instalation script:
 
         cd ~/catkin_ws/src/usv_sim_lsa
+        chmod +x ./install_usv_sim 
         ./install_usv_sim
+
+Install the dependencies:
+
+        rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
 
 Compile the stack:
 
