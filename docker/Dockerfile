@@ -12,6 +12,7 @@ RUN source /opt/ros/kinetic/setup.bash \
  # clone only if it was not clone yet
  #&& [ ! -d 'usv_sim_lsa' ] && git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git 
  && rm -rf usv_sim_lsa && git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git \
+ # && if [ "$REVISION" != "$(dpkg-parsechangelog --show-field=Version)" ]; then exit 1; fi \
  && cd usv_sim_lsa  \
  && git submodule init && git submodule update \
  && chmod +x ./install_usv_sim \
