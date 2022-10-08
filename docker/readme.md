@@ -77,3 +77,6 @@ Links to related tutorials and possible improvements:
  - https://github.com/facontidavide/ros-docker-gazebo
  - http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 
+# TODO
+
+ - Test [LXC](https://artivis.github.io/post/2020/lxc/) virtualization;
