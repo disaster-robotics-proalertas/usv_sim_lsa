@@ -6,27 +6,25 @@ FROM usv_sim_dep
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]
  
-# Create a Catkin workspace and clone TurtleBot3 repos
 RUN source /opt/ros/kinetic/setup.bash \
  && mkdir -p ~/catkin_ws/src \
  && cd ~/catkin_ws/src \
- && catkin_init_workspace \
- && git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git  \
+ # clone only if it was not clone yet
+ #&& [ ! -d 'usv_sim_lsa' ] && git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git 
+ && rm -rf usv_sim_lsa && git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git \
  && cd usv_sim_lsa  \
- && git submodule init  \
- && git submodule update  
- 
-RUN source /opt/ros/kinetic/setup.bash \
- && cd ~/catkin_ws/src/usv_sim_lsa \
+ && git submodule init && git submodule update \
  && chmod +x ./install_usv_sim \
- && ./install_usv_sim
+ && rm -rf ~/.uwsim && ./install_usv_sim 
  
 RUN source /opt/ros/kinetic/setup.bash \
- && cd ~/catkin_ws/src/usv_sim_lsa \
- #&& rosdep install --from-paths src --ignore-src --rosdistro kinetic -y \
+ # && cd ~/catkin_ws/src/usv_sim_lsa \
  && cd ~/catkin_ws/ \
+ && rosdep install --from-paths src --ignore-src --rosdistro kinetic -y \
  && catkin_make_isolated --install \
  && source install_isolated/setup.bash
 
+RUN echo 'source ~/catkin_ws/install_isolated/setup.bash' >> /root/.bashrc
+
 # Set the working folder at startup
-WORKDIR /catkin_ws
+WORKDIR /root/catkin_ws
