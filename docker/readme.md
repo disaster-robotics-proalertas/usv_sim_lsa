@@ -29,7 +29,7 @@ $ docker run -it --rm --net=host usv_sim bash
 If this is working, next let's test the DISPLAY configuration to run GUI apps in the docker image:
 
 ```
-$ xhost + 
+$ export DISPLAY=:0.0
 $ xhost +local:docker
 $ docker run -it --rm --net=host \
     --env="DISPLAY=$DISPLAY" \
@@ -56,7 +56,24 @@ $ docker run -it --rm --net=host \
     usv_sim bash -c "roslaunch usv_sim airboat_scenario1.launch parse:=true"
 ```
 
+# Hardware aceleration support
+
+`Dockerfile_intel` installs Intel drivers on top of `usv_sim` image. A similar thing can be done with [NVIDIA](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration).
+
+
+# Other approaches
+
+There are multiple ways to build this image. For instance, one might add support to NVIDIA cards, or VNC.
+Yet, instead of cloning the USV_SIM source code withing the image, it is possible to mount an external directory n the host with the source code. This way, the image size can be reduced. All these options are *beyond the scope* as we were aiming for the most straight forward way to build the image. Feel free to colaborate by **sending a push to github** with improved docker images.  
+
 # References
+
+Links to related tutorials and possible improvements:
 
  - https://github.com/Alok018/Jenkins/blob/master/Dockerfile
  - https://roboticseabass.com/2021/04/21/docker-and-ros/
+ - https://github.com/rubensa/docker-ubuntu-tini-x11
+ - https://www.howtogeek.com/devops/how-to-run-gui-applications-in-a-docker-container/
+ - https://github.com/facontidavide/ros-docker-gazebo
+ - http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
+

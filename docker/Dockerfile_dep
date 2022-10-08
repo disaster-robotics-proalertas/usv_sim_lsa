@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # install recommended tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git nano cmake cmake-curses-gui \
+    git nano cmake cmake-curses-gui xauth \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init \
