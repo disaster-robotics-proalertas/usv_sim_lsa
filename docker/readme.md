@@ -8,15 +8,22 @@ The base [kinetic docker](https://github.com/osrf/docker_images/tree/master/ros/
 The following command created the docker image with all USV_SIM depedencies:
 
 ```
-docker build --network=host --rm  -t usv_sim_dep .
+docker build --network=host --rm -f Dockerfile_dep -t usv_sim_dep .
 ```
 
 Which is used, in this next step, to build USV_SIM it self
 
 
 ```
-docker build --network=host --rm  -t usv_sim .
+docker build --network=host --rm -f Dockerfile -t usv_sim .
 ```
+The next step is to prepare the docker to support OpenGL.
+```
+docker build --network=host --rm -f Dockerfile_<GRAPHIC_CARD> -t usv_sim_dep .
+```
+In <GRAPHIC_CARD>, you should inform your graphic card brand. The options available are:
+* intel
+
 
 # Running USV_SIM with Docker image for the first time
 
