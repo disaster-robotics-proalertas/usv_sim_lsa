@@ -19,7 +19,7 @@ docker build --network=host --rm -f Dockerfile -t usv_sim .
 ```
 The next step is to prepare the docker to support OpenGL.
 ```
-docker build --network=host --rm -f Dockerfile_<GRAPHIC_CARD> -t usv_sim_dep .
+docker build --network=host --rm -f Dockerfile_<GRAPHIC_CARD> -t usv_sim_intel .
 ```
 In <GRAPHIC_CARD>, you should inform your graphic card brand. The options available are:
 * intel
@@ -30,15 +30,15 @@ In <GRAPHIC_CARD>, you should inform your graphic card brand. The options availa
 First, let's test the usv_sim image in the simplest way. The following command will open a terminal where you can run commands without GUI: 
 
 ```
-$ docker run -it --rm --net=host usv_sim bash
+docker run -it --rm --net=host usv_sim bash
 ```
 
 If this is working, next let's test the DISPLAY configuration to run GUI apps in the docker image:
 
 ```
-$ export DISPLAY=:0.0
-$ xhost +local:docker
-$ docker run -it --rm --net=host \
+export DISPLAY=:0.0
+xhost +local:docker
+docker run -it --rm --net=host \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     usv_sim bash -c "xcalc"
@@ -48,19 +48,26 @@ You can use any GUI application for this test.
 Next, it's time to test Gazebo, but without USV_SIM:
 
 ```
-$ docker run -it --rm --net=host \
+docker run -it --rm --net=host \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     usv_sim bash -c "roslaunch gazebo_ros empty_world.launch"
 ```
 
-Finally, let's test a USV_SIM basic scenario: 
+Finally, let's run bash to test a USV_SIM basic scenario. Please, you should execute a bash on docker:
 
 ```
-$ docker run -it --rm --net=host \
+docker run -it --rm --net=host \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    usv_sim bash -c "roslaunch usv_sim airboat_scenario1.launch parse:=true"
+    usv_sim bash
+```
+
+Once bash starts, you should execute the parser script and execute the scenario. 
+
+```
+roslaunch usv_sim airboat_scenario1.launch parse:=true
+roslaunch usv_sim airboat_scenario1.launch parse:=false
 ```
 
 # Hardware aceleration support
