@@ -1,0 +1,27 @@
+
+Os robos do simulador vem com um controle de movimento que nós utilizamos para testar alguns cenário. O principal objetivo deste controle de movimento é fazer com que os robôs alcancem pontos desejáveis do ambiente. Esta primeira implementação de um controle de movimento é uma das estratégias mais simples para este tipo de controle, chama de controle de orientação.
+
+
+O controle de orientação consiste em ajustar, em cada passo, a orientação do robô movendo nos atuadores. A ideia desta estratégia de controle é bem intuitiva: se a cada passo o robô estiver apontando (ou direcionado) para o alvo e se houver um movimento frontal então eventualmente o robô alcançará este alvo. Desta forma, o que o controlador faz é capturar informações necessárias para ajustar a orientação do robô, no caso a orientação atual e a orientação desejada, e então calcular a posição adequada para tentar corrigir o erro gerado pela diferença entre a orientação desejada e a atual. O que foi descrito anteriormente é o controle de orientação. Também deve existir um agente (controle) responsável por dar velocidade frontal ao robô, caso contrário o robô acertaria sua orientação porém ficaria parado no mesmo local e não se esforçaria para avançar ao objetivo.
+
+
+
+A ideia descrita acima é aplicada atualmente a todos os robôs. Escolhemos esta estragétia devido a sua simplicidade, o que a torna rápida e fácil de implementar. A principal diferença entre o controle que atua em cada veículo é a forma como é feita a atuação, ou seja, a ativação dos atuadores. No airboat, por exemplo, a orientação do robô é modificada de acordo com a orientação do hélice responsável pela propulsão. No barco leme e veleiro o elemento resposável por controlador a orientação é o leme. Já no barco difernecial, a orientação é modificada de acordo com as velocidades dos motores direito e esquerdo. Os detalhes de cada controlador são mostrados abaixo.
+
+
+
+Controle de orientação do airboat: o controlador recebe informação de odometria e do ponto alvo (ponto a ser alcançado), calcula qual a orientação a ser seguida, encontra o erro entre a orientação atual no referencial de mundo e a orientação a ser seguida e a partir deste erro retorna a orientação adequada do atuador para zerar este erro e fazer com que a orientação atual tenda a ser igual (ou mais próxima possível)  da orientação desejada. Esta orientação do atuador é então publicada no tópico /airboat/jointSetpoint fazendo com que a orientação da hélice seja ajustada.
+
+
+Controle de velocidade linear do airboat: Consiste em ativar ou não a propulsão da hélice. Implementamos esta parte como uma série de condições. Caso o airboat esteja a mais de 10 metros do ponto objetivo, a propulção da hélice é 100%. Se estiver entre 5 metros e 10 metros a propulsão é 50%. Caso o airboat esteja a menos de 5 metros a propulsão da hélice é cessada (0%) e dizemos que o alvo foi alcançado.
+
+
+Controle de orientação do barco leme e veleiro: Estas plataformas possuem o mesmo tipo de controle de orientação. Igualmente ao controle de orientação do airboat, o controlador recebe os dados de entrada, encontra a orientação atual e a desejada (necessária para alcançar o objetivo; aquela que aponta ao objetivo; aquela que, caso o veículo seguisse em linha reta, faria com que o mesmo alcançasse o objetivo), encontra o erro entre estas duas orientações e calcula a posição adequada do leme para que este erro seja reduzido. A posição do leme calculada pelo controlador é então publicada nos tópicos: /sailboat/jointSetPoint para o veleiro e /boat_rudder/jointSetpoint para o barco leme.
+
+Controle de velocidade linear do barco leme: Possui condições semelhantes às do airboat porém a atuação feita no thruster subaquático.
+
+Controle de velocidade linear do veleiro: Possui um controlador mais robusto que calcula a posição adequada da vela de acordo com a direção do vento no refencial do veleiro. Parte do principio simples de que quanto mais a frente do veleiro apontar paraa direção do vento (vento vindo em direção a frente do veleiro) mais fechada deve ser a vela e quanto mais a retaguarda do veleiro apontar para o vento (vento vindo em direção a retaguarda do veleiro) mais aberta deve ser a vela (limite de +-90 graus).
+
+Controle de orientação do barco diferencial: Segue os mesmos passos descritos nos controles anteriores. Recebe/encontra a orientação atual e a orientação desejada, calcula o erro entre estas duas orientações e calcula a velocidade dos dois thruster que reduz este erro. Isto depende principalmente do sinal do erro. Um erro positivo indica que o veículo deve rotacionar no sentido horário e um erro negativo indica que o barco deve rotacionar no sentido anti-horário para alcançar a orientação desejada (a relação sinal do erro e direção da rotação depende do referencial). Isto é entao traduzido para velocidade dos motores. Por exemplo, 50% de potencia no motor 1 e -50% no motor 2 faz com que o barco rotacione no sentido horário.
+
+Controle de velocidade linear do barco diferencial: igualmente aos descritos anteriormente segue um conjunto de condições para decidir se o barco deve ir para frente. Para conseguir velocidade linear os motores do barco (em nosso simulador) devem receber potencia de mesmo sinal (por exemplo, 50% no motor 1 e 50% no motor 2 faz com que o barco vá para frente. -50% m1 -50% m2 o barco vai de ré).
