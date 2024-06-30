@@ -40,9 +40,9 @@ mkdir -p $HOME/catkin_ws/src/
 cd $HOME/catkin_ws/src/
 git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
 cd usv_sim_lsa
-git submodule init
-git submodule update
-chmod +x ./install_usv_sim
+# or use the following commands if you cloned wo `--recurse-submodules`
+#git submodule init
+#git submodule update
 ```
 
 Now, we use the previous image (`usv_sim_dep`) to build the binary. Note that the `-v` argument
