@@ -1,14 +1,29 @@
 
-
 # Building the Docker Images
 
-USV_SIM works with Ubuntu xenial (16.04) and ROS kinetic.
-The base [kinetic docker](https://github.com/osrf/docker_images/tree/master/ros/kinetic/ubuntu/xenial) is already available. Thus, USV_SIM docker is built on top of `osrf/ros:kinetic-desktop-full-xenial`. 
+USV_SIM works with Ubuntu Xenial (16.04) and ROS Kinetic.
+The base [ROS kinetic docker](https://github.com/osrf/docker_images/tree/master/ros/kinetic/ubuntu/xenial) is already available. Thus, USV_SIM docker is built on top of `osrf/ros:kinetic-desktop-full-xenial`. 
 
-## Building the docker image w usv_sim dependencies
-The following command created the docker image with all USV_SIM depedencies:
+## Cloning the repository 
+
+Clone the usv_sim source code in the host computer. For instance at `$HOME/catkin_ws/src/usv_sim_lsa`.
 
 ```bash
+mkdir -p $HOME/catkin_ws/src/
+cd $HOME/catkin_ws/src/
+git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
+cd usv_sim_lsa
+# or use the following commands if you cloned wo `--recurse-submodules`
+#git submodule init
+#git submodule update
+```
+
+## Building the docker image w usv_sim dependencies
+
+Run the following command in the host computer to create the docker image with all USV_SIM depedencies:
+
+```bash
+cd $HOME/catkin_ws/src/usv_sim_lsa/docker
 docker build --network=host --rm -f Dockerfile_dep -t usv_sim_dep .
 ```
 
@@ -28,27 +43,11 @@ In <GRAPHIC_CARD>, you should inform your graphic card brand. The options availa
 
 `Dockerfile_intel` installs Intel drivers on top of `usv_sim_dep` image. A similar thing can be done with [NVIDIA](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration). **Contributions required to create a Docker for NVIDIA support !!!**
 
-
-In case you decide to use the hardware accelarated image, **then replace `usv_sim_dep` by `usv_sim_<GRAPHIC_CARD>` in the following section**.
+In case you decide to use the hardware accelarated image, **then replace `usv_sim_dep` by `usv_sim_<GRAPHIC_CARD>` in the following sections**.
 
 ## Building usv_sim
 
-Clone the usv_sim source code in the host computer. For instance at `$HOME/catkin_ws/src/usv_sim_lsa`.
-
-```bash
-mkdir -p $HOME/catkin_ws/src/
-cd $HOME/catkin_ws/src/
-git clone --recurse-submodules https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
-cd usv_sim_lsa
-# or use the following commands if you cloned wo `--recurse-submodules`
-#git submodule init
-#git submodule update
-```
-
-Now, we use the previous image (`usv_sim_dep`) to build the binary. Note that the `-v` argument
-maps the host folder `$HOME/catkin_ws` into a folder visible within the created docker image (`/root/catkin_ws/`).
-This way, both the source code and the binary are acessible from the host. The second mounted volume holds uwsim data (e.g. meshes)
-that might be required in some scenarios.
+Now, we use the previous image (`usv_sim_dep`) to build the binary. Note that the `-v` argument maps the host folder `$HOME/catkin_ws` into a folder visible within the created docker image (`/root/catkin_ws/`). This way, both the source code and the binary are acessible from the host. The second mounted volume holds uwsim data (e.g. meshes) that might be required in some scenarios.
 
 ```bash
 docker run -it --rm -v $HOME/catkin_ws:/root/catkin_ws/ -v $HOME/.uwsim:/root/.uwsim --net=host usv_sim_dep bash
@@ -154,74 +153,15 @@ roslaunch usv_sim airboat_scenario1.launch parse:=true
 roslaunch usv_sim airboat_scenario1.launch parse:=false
 ```
 
+The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation doesn't starts you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
+
 The 1st command shows some red messages. It's normal. The 2nd command launchs an empty Gazebo window and the UWSIM window with the following scenario:
 
 <p align="center">
-  <img src="./scenario.png" width="400" alt="Scenarios to test boats"/>
+  <img src="./images/first_scenario.png" width="400" alt="Firtst USV_SIM scenario"/>
 </p>
 
-
-# Interacting with the simulation
-
-Assuming the previous docker image and the simulation scenario are still opened, open a second docker terminal attached to the same image, name `usv_sim_test`. 
-This terminal will be used to launch RViz to send simulation commands:
-
-```bash
-docker docker exec -it usv_sim_test bash
-```
-Within the docker terminal, run: 
-
-```bash
-source ~/catkin_ws/install_isolated/setup.bash
-roslaunch usv_sim_rviz navigation_rviz.launch
-```
-
-| :exclamation:  TBD: How to send the boat to a goal ?  |
-|-------------------------------------------------------|
-
-You can also inspect all boat topics to interact with it
-
-```bash
-root@ale:~/catkin_ws# rostopic list 
-/airboat/Surface/fwd
-/airboat/controllers/fwd_joint/position/parameter_descriptions
-/airboat/controllers/fwd_joint/position/parameter_updates
-/airboat/controllers/fwd_joint/velocity/parameter_descriptions
-/airboat/controllers/fwd_joint/velocity/parameter_updates
-/airboat/joint_command
-/airboat/joint_setpoint
-/airboat/joint_states
-/airboat/move_usv/goal
-/airboat/move_usv/result
-/airboat/state
-/airboat/thruster_command
-/airboat/thruster_use
-/clock
-/gazebo/current
-/gazebo/link_states
-/gazebo/model_states
-/gazebo/parameter_descriptions
-/gazebo/parameter_updates
-/gazebo/set_link_state
-/gazebo/set_model_state
-/gazebo_gui/parameter_descriptions
-/gazebo_gui/parameter_updates
-/model/state
-/rosout
-/rosout_agg
-/scan
-/tf
-/tf_static
-/uwsim_marker/update
-/uwsim_marker/update_full
-```
-
-# other scenarios to try
-
-| :exclamation:  TBD |
-|--------------------|
-
-# References
+# References for using Docker
 
 Links to related tutorials and possible improvements:
 
