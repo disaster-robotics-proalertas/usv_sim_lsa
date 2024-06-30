@@ -1,6 +1,6 @@
 # docker image built on top of usv_sim image 
 # with packages specific for Intel video cards
-FROM usv_sim
+FROM usv_sim_dep
 
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]
@@ -11,7 +11,6 @@ RUN \
   apt-get update && \
   apt-get -y install libgl1-mesa-glx libgl1-mesa-dri mesa-utils && \
   rm -rf /var/lib/apt/lists/*
-
 
 
 # Set the working folder at startup
