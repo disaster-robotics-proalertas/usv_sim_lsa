@@ -11,4 +11,3 @@ As soon as both UWSIM show up, press **c** on your keyboard in each UWSim window
   <img src="./images/ground_thruth.png" width="800" alt="Ground Truth generation"/>
 </p>
 
-[//]: # ((This is also a comment. AMA. Marcelo, nao sei se eh necessario falaar sobre GROUND TRUTH GENERATION no git. mais eh instalacao, como rodar exemplo, como modificar o controle, como parametrizar a simulacao, como criar um scenario, etc. coisas de usabilidade.)

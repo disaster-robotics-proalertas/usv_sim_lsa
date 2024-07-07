@@ -1,12 +1,12 @@
 
-## How disturbances can affect the vehicles
+# How disturbances can affect the vehicles
 
 One of the key points of usv_sim is to simulate environmental disturbances that negativelly affect the vehicle pose, navigation and control algorithms. The implemented disturbances models can affect vehicles in different ways:
 - **NONE:** vehicle will not be affected by the disturbance;
 - **GLOBAL:** vehicle will be affected by a global disturbance. It will not change in time and in space (same value to all over the place);
 - **LOCAL:** vehicle will be affected by a local disturbance. It can change in time and in space. Disturbance values will acquired from wind_current (OpenFoam Simulation) and water_current (HEC-RAS Simulation).
 
-### CONFIGURATION
+## CONFIGURATION
 
 You can configure how the wind current and how the water current will affect each vehicle. Thus you can define on `windType` and `waterType` parameter one of the following options: `none`, `global`, `local`.
 
@@ -33,7 +33,7 @@ Below, it is present another example, where a differential boat (named `diffboat
 ```
 
 
-### VIDEOS
+## VIDEOS
 
 The following videos show how bad the environmental disturbances can affect the boat navegability.
 
@@ -45,27 +45,29 @@ The following videos show how bad the environmental disturbances can affect the 
 </p>
         
 
-###### Scenario 1
-http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg
+
+
+### Scenario 1
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=jvgcgIXkRtQ" target="_blank">
- <img src="http://img.youtube.com/vi/jvgcgIXkRtQ/0.jpg" alt="Airboat - Scenario 1" width="290" height="210" border="10" />
+ <iframe width="400" height="250" src="https://www.youtube.com/embed/jvgcgIXkRtQ"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=u-JnylVnD9I" target="_blank">
- <img src="http://img.youtube.com/vi/u-JnylVnD9I/0.jpg" alt="Differential boat - Scenario 1" width="290" height="210" border="10" />
+ <iframe width="400" height="250" src="https://www.youtube.com/embed/u-JnylVnD9I"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=QlenP-I_Oms" target="_blank">
- <img src="http://img.youtube.com/vi/QlenP-I_Oms/0.jpg" alt="Rudder boat - Scenario 1" width="290" height="210" border="10" />
+ <iframe width="400" height="250" src="https://www.youtube.com/embed/QlenP-I_Oms"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 
-###### Scenario 2
+### Scenario 2
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=aAN48eRpTSw" target="_blank">
- <img src="http://img.youtube.com/vi/aAN48eRpTSw/0.jpg" alt="Airboat - Scenario 2" width="290" height="210" border="10" />
+  <iframe width="400" height="250" src="https://www.youtube.com/embed/aAN48eRpTSw"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=pb13mWNcg74" target="_blank">
- <img src="http://img.youtube.com/vi/pb13mWNcg74/0.jpg" alt="Differential boat - Scenario 2" width="290" height="210" border="10" />
+  <iframe width="400" height="250" src="https://www.youtube.com/embed/pb13mWNcg74"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=sTJ3DfIYY_M" target="_blank">
- <img src="http://img.youtube.com/vi/sTJ3DfIYY_M/0.jpg" alt="Rudder boat - Scenario 2" width="290" height="210" border="10" />
+  <iframe width="400" height="250" src="https://www.youtube.com/embed/sTJ3DfIYY_M"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </a>
 

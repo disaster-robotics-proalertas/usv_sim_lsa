@@ -1,6 +1,6 @@
 ## Legacy instalation procedure
 
-You need Ubuntu Linux 16.04 since usv_sim uses ROS Kinetic. Since they are quite old software, we **HIGHLY recommend to follow the [docker-based installation](./install_docker.md)** procedure, which is also independent of the host setup you are currently used.
+You need Ubuntu Linux 16.04 since usv_sim uses ROS Kinetic. Since they are quite old software, we **HIGHLY recommend to follow the [docker-based installation](./install_docker.md)** procedure, which is also independent of the host setup you are currently using.
 
 To install ROS Kinetic and some additional packages, run the following commands:
 
