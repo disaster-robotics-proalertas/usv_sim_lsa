@@ -24,14 +24,16 @@ Run the following command in the host computer to create the docker image with a
 
 ```bash
 cd $HOME/catkin_ws/src/usv_sim_lsa/docker
-docker build --network=host --rm -f Dockerfile_dep -t usv_sim_dep .
+docker build --network=host --rm -f Dockerfile -t usv_sim .
 ```
 
 Which is used, in this next step, to build USV_SIM itself.
 
-## Hardware aceleration support
+## Hardware aceleration support (optional step)
 
-In case you want to try hardware accelaration support, you need to build an additional docker image. 
+In case you want to try hardware accelaration support, you need to build an additional docker image. Be aware that this is the part that might change according to your hardware. **Tweaking dependencies and Googling** might be needed to adjust the docker file to your specific need !!!!
+
+The advantage of creating this additional docker is that you might be able to remove some Gazebo errors like **libGL error:**, resulting in a smother experience. So, this additional effort might worth for someone with some serious intention to work on the simulator. Those that are only curious, perhaps should skip this part.
 
 For example, to create a docker to support OpenGL.
 
@@ -41,16 +43,16 @@ docker build --network=host --rm -f Dockerfile_<GRAPHIC_CARD> -t usv_sim_intel .
 In <GRAPHIC_CARD>, you should inform your graphic card brand. The options available are:
 * intel
 
-`Dockerfile_intel` installs Intel drivers on top of `usv_sim_dep` image. A similar thing can be done with [NVIDIA](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration). **Contributions required to create a Docker for NVIDIA support !!!**
+`Dockerfile_intel` installs Intel drivers on top of `usv_sim` image. A similar thing can be done with [NVIDIA](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration). **Contributions required to create a Docker for NVIDIA support !!!**
 
-In case you decide to use the hardware accelarated image, **then replace `usv_sim_dep` by `usv_sim_<GRAPHIC_CARD>` in the following sections**.
+In case you decide to use the hardware accelarated image, **then replace `usv_sim` by `usv_sim_<GRAPHIC_CARD>` in the following sections**.
 
 ## Building usv_sim
 
-Now, we use the previous image (`usv_sim_dep`) to build the binary. Note that the `-v` argument maps the host folder `$HOME/catkin_ws` into a folder visible within the created docker image (`/root/catkin_ws/`). This way, both the source code and the binary are acessible from the host. The second mounted volume holds uwsim data (e.g. meshes) that might be required in some scenarios.
+Now, we use the previous image (`usv_sim`) to build the usv_sim binary. Note that the `-v` argument maps the host folder `$HOME/catkin_ws` into a folder visible within the created docker image (`/root/catkin_ws/`). This way, both the source code and the binary are acessible from the host. The second mounted volume holds uwsim data (e.g. meshes) that might be required in some scenarios.
 
 ```bash
-docker run -it --rm -v $HOME/catkin_ws:/root/catkin_ws/ -v $HOME/.uwsim:/root/.uwsim --net=host usv_sim_dep bash
+docker run -it --rm -v $HOME/catkin_ws:/root/catkin_ws/ -v $HOME/.uwsim:/root/.uwsim --net=host usv_sim bash
 ```
 
 Within the docker terminal, run the following script to build usv_sim:
@@ -124,7 +126,7 @@ xhost +local:docker
 docker run -it --rm --net=host \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    usv_sim_dep bash -c "xcalc"
+    usv_sim bash -c "xcalc"
 ```
 You can use any GUI application for this test. 
 
@@ -132,14 +134,22 @@ Next, it's time to test Gazebo and USV_SIM. First, we run docker with the requir
 plus `--name` argument, useful in the next steps to open multiple terminals into the same docker image.
 
 ```bash
+export DISPLAY=:0.0
+xhost +local:docker
 docker run -it --rm --net=host --name=usv_sim_test \
     -v $HOME/catkin_ws:/root/catkin_ws/ \
     -v $HOME/.uwsim:/root/.uwsim \
+    -v $HOME/.gazebo:/root/.gazebo \
+    -v $HOME/.ros:/root/.ros \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
     --env="DISPLAY=$DISPLAY" \
+    --env="XDG_SESSION_TYPE=x11" \
+    --env="LIBGL_ALWAYS_SOFTWARE=1" \
     --env="QT_X11_NO_MITSHM=1" \
     usv_sim_dep bash
 ```
-Within the docker terminal, run: 
+
+For convenience, there is a script called [docker/usv_sim_term.sh](../docker/usv_sim_term.sh) that executes the same command above. Within the docker terminal, run: 
 
 ```bash
 source ~/catkin_ws/install_isolated/setup.bash
@@ -165,6 +175,7 @@ The 1st command shows some red messages. It's normal. The 2nd command launchs an
 
 Links to related tutorials and possible improvements:
 
+ - https://marinerobotics.gtorg.gatech.edu/running-ros-with-gui-in-docker-using-windows-subsystem-for-linux-2-wsl2/ **highly recommended read !!!**
  - https://github.com/Alok018/Jenkins/blob/master/Dockerfile
  - https://roboticseabass.com/2021/04/21/docker-and-ros/
  - https://github.com/rubensa/docker-ubuntu-tini-x11

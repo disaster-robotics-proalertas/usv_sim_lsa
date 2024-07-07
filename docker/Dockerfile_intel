@@ -1,6 +1,7 @@
 # docker image built on top of usv_sim image 
-# with packages specific for Intel video cards
-FROM usv_sim_dep
+# with packages specific for Intel video cards.
+# This is the part that might change according to your hardware. Tweaking dependencies and Googling might be needed !!!!
+FROM usv_sim
 
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]

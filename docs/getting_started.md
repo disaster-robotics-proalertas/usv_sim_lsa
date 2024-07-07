@@ -29,7 +29,9 @@ The UWSIM window shows a scenario like this one, with the boat static. Next, let
 Assuming the previous docker image and the simulation scenario are still opened, open a second docker terminal attached to the same image, name `usv_sim_test`. This terminal will be used to launch RViz to send simulation commands:
 
 ```bash
-docker docker exec -it usv_sim_test bash
+export DISPLAY=:0.0
+xhost +local:docker
+docker exec -it usv_sim_test bash
 ```
 Within the docker terminal, run: 
 
