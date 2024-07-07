@@ -17,10 +17,10 @@ roslaunch usv_sim airboat_scenario1.launch parse:=true
 roslaunch usv_sim airboat_scenario1.launch parse:=false
 ```
 
-The UWSIM window shows a scenario like this one, with the boat static. Next, let's investigate the boat's topics and learn how to interact and send commands to it.
+The first command, with `parse:=true` argument, needs to be run only once per scenario. This command will generate another launch file which is used in the second command. The UWSIM window shows a scenario like this one, with the boat static. Next, let's investigate the boat's topics and learn how to interact and send commands to it.
 
 <p align="center">
-  <img src="./images/first_scenario.png" width="400" alt="Firtst USV_SIM scenario"/>
+  <img src="./images/first_scenario.png" width="400" alt="First USV_SIM scenario"/>
 </p>
 
 
