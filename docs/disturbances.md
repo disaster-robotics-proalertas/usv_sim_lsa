@@ -46,8 +46,11 @@ The following videos show how bad the environmental disturbances can affect the 
         
 
 
-
 ### Scenario 1
+
+[![Airboat Scenario 1](https://img.youtube.com/vi/jvgcgIXkRtQ/0.jpg)](https://www.youtube.com/watch?v=jvgcgIXkRtQ)
+[![Diff boat Scenario 1](https://img.youtube.com/vi/u-JnylVnD9I/0.jpg)](https://www.youtube.com/watch?v=u-JnylVnD9I)
+[![Rudder boat Scenario 1](https://img.youtube.com/vi/QlenP-I_Oms/0.jpg)](https://www.youtube.com/watch?v=QlenP-I_Oms)
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=jvgcgIXkRtQ" target="_blank">
  <iframe width="400" height="250" src="https://www.youtube.com/embed/jvgcgIXkRtQ"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -60,6 +63,11 @@ The following videos show how bad the environmental disturbances can affect the 
 </a>
 
 ### Scenario 2
+
+[![Airboat Scenario 2](https://img.youtube.com/vi/aAN48eRpTSw/0.jpg)](https://www.youtube.com/watch?v=aAN48eRpTSw)
+[![Diff boat Scenario 2](https://img.youtube.com/vi/pb13mWNcg74/0.jpg)](https://www.youtube.com/watch?v=pb13mWNcg74)
+[![Rudder boat Scenario 2](https://img.youtube.com/vi/sTJ3DfIYY_M/0.jpg)](https://www.youtube.com/watch?v=sTJ3DfIYY_M)
+
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=aAN48eRpTSw" target="_blank">
   <iframe width="400" height="250" src="https://www.youtube.com/embed/aAN48eRpTSw"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
